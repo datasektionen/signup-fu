@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  description: MyText
+  date: 2009-05-06 20:15:47
+  deadline: 2009-05-06 20:15:47
+  max_guests: 1
+  ref_prefix: MyString
+
+two:
+  name: MyString
+  description: MyText
+  date: 2009-05-06 20:15:47
+  deadline: 2009-05-06 20:15:47
+  max_guests: 1
+  ref_prefix: MyString
