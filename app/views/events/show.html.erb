@@ -3,3 +3,21 @@
 <%= @event.date %>
 
 <%= @event.deadline %>
+
+<table border="0">
+  <tr>
+    <th>Name</th>
+    <th>E-mail</th>
+    <th>Food preferences</th>
+    <th>Comments</th>
+  </tr>
+  <% @event.replies.each do |reply| %>
+  <tr>
+    <td><%= reply.name %></td>
+    <td><%= reply.email %></td>
+    <td><%= reply.food %></td>
+    <td><%= reply.comments %></td>
+  </tr>
+  
+  <% end -%>
+</table>

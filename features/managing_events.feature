@@ -38,9 +38,11 @@ Scenario: Viewing an event
   
 Scenario: Viewing guests for an event
   Given an event "My event"
+  And a guest to "My event" called "Karl Persson"
+    | Name | Value           |
+    | food | Tomatallergiker |
   
-  When I go to the 
-  And a guest to "My event" called "Karl Persson" with food preferences "Tomatallergiker"
+  When I go to the event page for "My event"
   
   Then I should see "Karl Persson"
   And I should see "Tomatallergiker"
