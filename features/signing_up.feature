@@ -6,7 +6,7 @@ Feature: Signing up
   Scenario Outline: Signing up
     Given an event "My event"
     
-    When I go to the reply page for "My event"
+    When I go to the new reply page for "My event"
     And I fill in "Name" with "<name>"
     And I fill in "E-mail" with "<email>"
     And I press "Sign up"
