@@ -19,7 +19,17 @@ Feature: Signing up
       | Karl Persson | kalle | Your signup was successful! |                   |
       |              | kalle |                             | Name is required  |
       | Karl Persson |       |                             | Email is required |
+  
       
+  Scenario: Trying to sign up to an event with passed deadline
+    Given an event "My event" with fields:
+      | Name     | Value       |
+      | deadline | 10 days ago |
+    
+    When I go to the new reply page for "My event"
+    
+    Then I should see "The deadline for My event has passed"
+  
     
 #    Feature: Cucumber stock keeping
 #      In order to avoid interruption of cucumber consumption

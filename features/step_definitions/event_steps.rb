@@ -3,8 +3,6 @@ Given /^an event "([^\"]*)" with fields:$/ do |name, table|
 
   unless table.raw.empty?
     table.hashes.each do |field|
-      puts field.inspect
-      puts field["Name"].inspect
       case field["Name"]
       when /deadline/
         field['Value'] =~ /(\d)+ days ago/
