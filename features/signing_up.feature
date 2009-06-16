@@ -15,10 +15,11 @@ Feature: Signing up
     And I should see "<message>"
     
     Examples:
-      | name         | email | flash message                | message           |
+      | name         | email | flash message               | message           |
       | Karl Persson | kalle | Your signup was successful! |                   |
-      |              | kalle |                              | Name is required  |
-      | Karl Persson |       |                              | Email is required |
+      |              | kalle |                             | Name is required  |
+      | Karl Persson |       |                             | Email is required |
+      
     
 #    Feature: Cucumber stock keeping
 #      In order to avoid interruption of cucumber consumption
