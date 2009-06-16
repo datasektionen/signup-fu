@@ -1,0 +1,8 @@
+<%= error_messages_for(:reply) %>
+<% signup_fu_form_for([@event, @reply]) do |f| %>
+  <%= f.text_field :name, :caption => 'Name' %>
+  <%= f.text_field :email, :caption => "E-mail" %>
+  <%= f.text_area :food, :caption => "Food preferences" %>
+  <%= f.text_area :comments, :caption => 'Comments' %>
+  <%= f.submit "Sign up" %>
+<% end -%>

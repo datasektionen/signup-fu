@@ -1,0 +1,9 @@
+<h1>New event</h1>
+
+<% form_for(@event, :builder => signup_fu_form_builder) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.datetime_select :date %>
+  <%= f.datetime_select :deadline %>
+  <%= f.text_field :max_guests %>
+  <%= f.submit "Create event" %>
+<% end -%>

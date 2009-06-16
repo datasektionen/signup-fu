@@ -4,6 +4,9 @@ class CreateEventReplies < ActiveRecord::Migration
       t.integer :event_id
       t.string :name
       t.string :email
+      t.text :food
+      t.text :comments
+      
 
       t.timestamps
     end

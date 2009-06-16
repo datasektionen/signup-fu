@@ -4,6 +4,13 @@ module NavigationHelpers
     
     when /the homepage/
       root_path
+      
+    when /the events page/
+      events_path
+      
+    when /the reply page for "([^\"]*)"/
+      event = Event.find_by_name($1)
+      new_event_event_reply_path(event)
     
     # Add more page name => path mappings here
     
@@ -14,7 +21,5 @@ module NavigationHelpers
   end
 end
 
-World do |world|
-  world.extend NavigationHelpers
-  world
-end
+World(NavigationHelpers)
+

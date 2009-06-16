@@ -15,6 +15,8 @@ ActiveRecord::Schema.define(:version => 20090506181854) do
     t.integer  "event_id"
     t.string   "name"
     t.string   "email"
+    t.text     "food"
+    t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
