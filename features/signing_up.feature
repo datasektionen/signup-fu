@@ -20,7 +20,25 @@ Feature: Signing up
       |              | kalle |                             | Name is required  |
       | Karl Persson |       |                             | Email is required |
   
-      
+
+  # TODO: Add custom subject, body, from
+  Scenario: Mail notification when signing up
+    Given an event "My event"
+    
+    When I go to the new reply page for "My event"
+    And I fill in "Name" with "Kalle"
+    And I fill in "E-mail" with "kalle@example.org"
+    And I press "Sign up"
+    
+    Then I should receive an email
+    
+    When I open the email
+    Then I should see "Hi Kalle" in the email
+    And I should see "Thank you for signing up to My event" in the email
+    
+  
+  
+  
   Scenario: Trying to sign up to an event with passed deadline
     Given an event "My event" with fields:
       | Name     | Value       |
@@ -29,6 +47,16 @@ Feature: Signing up
     When I go to the new reply page for "My event"
     
     Then I should see "The deadline for My event has passed"
+
+  Scenario: Trying to sign up to an event with max number already signed up
+    Given an event "My very small event" with fields:
+      | Name       | Value |
+      | max_guests | 2     |
+    And 2 guests signed up to "My very small event"
+    
+    When I go to the new reply page for "My very small event"
+    
+    Then I should see "There are already the max number of guests signed up for this event"
   
     
 #    Feature: Cucumber stock keeping

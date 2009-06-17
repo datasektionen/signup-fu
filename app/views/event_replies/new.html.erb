@@ -2,6 +2,10 @@
   <p class="error">
     The deadline for <%= @event.name %> has passed
   </p>
+<% elsif @event.full?  %>
+  <p class="error">
+    There are already the max number of guests signed up for this event
+  </p>
 <% else %>
   
   <%= error_messages_for(:reply) %>

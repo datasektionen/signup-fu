@@ -23,6 +23,18 @@ Given /^an event "([^\"]*)"$/ do |name|
   Given %Q{an event "#{name}" with fields:}, Cucumber::Ast::Table.new([])
 end
 
+Given /^(\d+) guests signed up to "([^\"]*)"$/ do |count, event_name|
+  count = count.to_i
+  event = Event.find_by_name(event_name)
+  
+  count.times do |i|
+    reply = Factory(:reply, :name => "Arne #{i} Anka", :email => "arne.#{i}@example.org", :event => event)
+    event.replies << reply
+  end
+  
+end
+
+
 
 #Given /^a guest to "([^\"]*)" called "([^\"]*)"$/ do |event_name, name|
 #  event = Event.find_by_name(event_name)
@@ -33,7 +45,7 @@ end
 Given /^a guest to "([^\"]*)" called "([^\"]*)"$/ do |event_name, name, table|
   event = Event.find_by_name(event_name)
   
-  reply = Factory(:reply, :name => name)
+  reply = Factory(:reply, :name => name, :event => event)
   
   table.hashes.each do |field|
     reply.send("#{field['Name']}=", field['Value'])

@@ -1,4 +1,4 @@
 class EventReply < ActiveRecord::Base
   belongs_to :event
-  validates_presence_of :name, :email, :message => 'is required'
+  validates_presence_of :event, :name, :email, :message => 'is required'
 end

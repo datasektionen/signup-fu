@@ -6,7 +6,7 @@ class EventRepliesController < ApplicationController
   end
   
   def create
-    @reply = EventReply.new(params[:event_reply])
+    @reply = @event.replies.new(params[:event_reply])
     if @reply.save
       flash[:notice] = "Your signup was successful!"
       redirect_to(@reply)
