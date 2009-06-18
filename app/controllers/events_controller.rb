@@ -9,6 +9,7 @@ class EventsController < ApplicationController
   
   def new
     @event = Event.new
+    @event.mail_templates.build
   end
   
   def create

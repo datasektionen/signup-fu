@@ -20,10 +20,13 @@ Feature: Signing up
       |              | kalle |                             | Name is required  |
       | Karl Persson |       |                             | Email is required |
   
-
-  # TODO: Add custom subject, body, from
+  
   Scenario: Mail notification when signing up
     Given an event "My event"
+    And "My event" has mail template "confirmation" with fields:
+      | Name    | Value                                      |
+      | body    | Thank you for signing up to {{EVENT_NAME}} |
+      | subject | Thank you                                  |
     
     When I go to the new reply page for "My event"
     And I fill in "Name" with "Kalle"
@@ -33,12 +36,9 @@ Feature: Signing up
     Then I should receive an email
     
     When I open the email
-    Then I should see "Hi Kalle" in the email
+    Then I should see "Thank you" in the subject
     And I should see "Thank you for signing up to My event" in the email
     
-  
-  
-  
   Scenario: Trying to sign up to an event with passed deadline
     Given an event "My event" with fields:
       | Name     | Value       |

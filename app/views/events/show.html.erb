@@ -4,6 +4,24 @@
 
 <%= @event.deadline %>
 
+<h2>Mail templates</h2>
+<% if !@event.mail_templates.blank? %>
+  <% for template in @event.mail_templates %>
+    <h3><%= template.name.humanize %></h3>
+    
+    <dl>
+      <dt>Subject:</dt>
+      <dd><%= template.subject %></dd>
+      
+      <dt>Body:</dt>
+      <dd><%= template.body %></dd>
+    </dl>
+  <% end %>
+<% else %>
+  
+<% end %>
+
+
 <table border="0">
   <tr>
     <th>Name</th>
