@@ -33,5 +33,24 @@ describe EventReply do
     
   end
   
+  it "#paid?" do
+    @reply.should_not be_paid
+    
+    @reply.paid_at = Time.now
+    
+    @reply.should be_paid
+  end
+  
+  it "should batch save paid" do
+    now = Time.now
+    Time.stub!(:now).and_return(now)
+    
+    reply1 = mock_model(EventReply)
+    reply1.should_receive(:update_attributes!).with(hash_including(:paid_at => now))
+    
+    EventReply.stub!(:find).and_return([reply1])
+    
+    EventReply.set_as_paid([1])
+  end
 
 end

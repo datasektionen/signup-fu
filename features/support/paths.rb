@@ -16,9 +16,9 @@ module NavigationHelpers
       event = Event.find_by_name($1)
       event_path(event)
       
-    #when /the replies page for "([^\"]*)"/
-    #  event = Event.find_by_name($1)
-    #  event_replies_path(event)
+    when /the economy page for "([^\"]*)"/
+      event = Event.find_by_name($1)
+      economy_event_event_replies_path(event)
     
     # Add more page name => path mappings here
     

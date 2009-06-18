@@ -1,0 +1,26 @@
+<h1>Economy</h1>
+
+<% form_tag(economy_event_event_replies_path(@event)) do %>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Paid?</th>
+    </tr>
+    
+    <% @replies.each do |reply| %>
+      <tr>
+        <td><%= reply.name %></td>
+        <td>
+          <% if reply.paid? %>
+            <%= reply.paid_at.strftime("%Y-%m-%d") %>
+          <% else %>
+            <%= check_box_tag "reply_ids[]", reply.id, false, :id => "reply_#{reply.id}" %>
+          <% end -%>
+        </td>
+      </tr>
+    <% end -%>
+  </table>
+  
+  <%= submit_tag "Save" %>
+  
+<% end -%>
