@@ -14,7 +14,7 @@ class Event < ActiveRecord::Base
     max_guests != 0 && replies.count >= max_guests
   end
   
-  def send_mail_for(name)
+  def send_mail_for?(name)
     mail_templates.by_name(name).present?
   end
 end

@@ -19,7 +19,7 @@ describe Event do
   end
   
   it "should check if it has mailtemplate by name" do
-    @event.send_mail_for(:signup_confirmation).should eql(false)
+    @event.send_mail_for?(:signup_confirmation).should eql(false)
   end
   
   it "should fetch mail templates by name" do
