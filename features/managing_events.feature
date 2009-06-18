@@ -26,19 +26,19 @@ Scenario: Creating a new event with prices
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
   
-  And I fill in "Price 1" with "199"
-  And I fill in "Price 1 Name" with "With alcohol"
+  And I fill in "Ticket type 1 price" with "199"
+  And I fill in "Ticket type 1 name" with "With alcohol"
   
-  And I fill in "Price 2" with "179"
-  And I fill in "Price 2 Name" with "Without alcohol"
+  And I fill in "Ticket type 2 price" with "179"
+  And I fill in "Ticket type 2 name" with "Without alcohol"
   
   And I press "Create event"
   
   Then I should be on the event page for "My event"
     
-  And I should see "Price (With alcohol)"
+  And I should see "With alcohol"
   And I should see "199 kr"
-  And I should see "Price (Without alcohol)"
+  And I should see "Without alcohol"
   And I should see "179 kr"
   And I should not see "0 kr"
   
@@ -80,7 +80,7 @@ Scenario: Viewing an event
   
 Scenario: Viewing guests for an event
   Given an event "My event"
-  And a price "With alcohol" for 100 on "My event"
+  And a ticket type "With alcohol" for 100 on "My event"
   
   And a guest to "My event" called "Karl Persson"
     | Name | Value           |

@@ -10,11 +10,11 @@ describe Event do
   end
   
   it { should have_many(:mail_templates) }
-  it { should have_many(:event_prices) }
+  it { should have_many(:ticket_types) }
   
   it "should be full if it has more than max_guest guests" do
     event = Event.create!(:max_guests => 1)
-    event.replies.create!(:name => 'Kalle', :email => 'kalle@example.org', :event_price => mock_model(EventPrice))
+    event.replies.create!(:name => 'Kalle', :email => 'kalle@example.org', :ticket_type => mock_model(TicketType))
     
     event.should be_full
   end

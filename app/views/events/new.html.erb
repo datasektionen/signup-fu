@@ -6,11 +6,11 @@
   <%= f.datetime_select :deadline %>
   <%= f.text_field :max_guests %>
   
-  <% price_index = 0 %>
-  <% f.fields_for(:event_prices) do |prices_form| %>
-    <% price_index += 1 %>
-    <%= prices_form.text_field :name, :caption => "Price #{price_index} name" %>
-    <%= prices_form.text_field :price, :caption => "Price #{price_index}" %>
+  <% ticket_type_index = 0 %>
+  <% f.fields_for(:ticket_types) do |ticket_type_form| %>
+    <% ticket_type_index += 1 %>
+    <%= ticket_type_form.text_field :name, :caption => "Ticket type #{ticket_type_index} name" %>
+    <%= ticket_type_form.text_field :price, :caption => "Ticket type #{ticket_type_index} price" %>
   <% end -%>
   
   <%= f.submit "Create event" %>

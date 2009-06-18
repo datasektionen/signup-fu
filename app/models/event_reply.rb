@@ -1,5 +1,5 @@
 class EventReply < ActiveRecord::Base
   belongs_to :event
-  belongs_to :event_price
-  validates_presence_of :event, :name, :email, :event_price, :message => 'is required'
+  belongs_to :ticket_type
+  validates_presence_of :event, :name, :email, :ticket_type, :message => 'is required'
 end

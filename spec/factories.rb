@@ -14,7 +14,7 @@ Factory.define(:mail_template) do |t|
   t.body 'thank you for signing up to {{EVENT_NAME}}'
 end
 
-Factory.define(:event_price) do |p|
+Factory.define(:ticket_type) do |p|
   p.price 100
   p.name "With alcohol"
 end

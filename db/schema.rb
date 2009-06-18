@@ -11,14 +11,6 @@
 
 ActiveRecord::Schema.define(:version => 20090618204559) do
 
-  create_table "event_prices", :force => true do |t|
-    t.integer  "event_id"
-    t.string   "name"
-    t.integer  "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "event_replies", :force => true do |t|
     t.integer  "event_id"
     t.string   "name"
@@ -27,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20090618204559) do
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "event_price_id"
+    t.integer  "ticket_type_id"
   end
 
   create_table "events", :force => true do |t|
@@ -46,6 +38,14 @@ ActiveRecord::Schema.define(:version => 20090618204559) do
     t.string   "name"
     t.text     "body"
     t.string   "subject"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ticket_types", :force => true do |t|
+    t.integer  "event_id"
+    t.string   "name"
+    t.integer  "price"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

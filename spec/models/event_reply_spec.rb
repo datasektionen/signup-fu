@@ -4,12 +4,12 @@ describe EventReply do
   before(:each) do
     @event = mock_model(Event)
     @event.stub(:send_mail_for?).with(:signup_confirmation).and_return(false)
-    @price = mock_model(EventPrice)
+    @ticket_type = mock_model(TicketType)
     @valid_attributes = {
       :event => @event,
       :name => 'Kalle Anka',
       :email => 'kalle@example.org',
-      :event_price => @price
+      :ticket_type => @ticket_type
     }
     
     @reply = EventReply.new(@valid_attributes)
@@ -20,9 +20,9 @@ describe EventReply do
   end
   
   it { should belong_to(:event) }
-  it { should belong_to(:event_price) }
+  it { should belong_to(:ticket_type) }
   it { should validate_presence_of(:event).with_message('is required') }
-  it { should validate_presence_of(:event_price).with_message('is required') }
+  it { should validate_presence_of(:ticket_type).with_message('is required') }
   
   it "should send confirmation mail if there are a mail template with name confirmation"
   

@@ -1,6 +1,6 @@
-class CreateEventPrices < ActiveRecord::Migration
+class CreateTicketTypes < ActiveRecord::Migration
   def self.up
-    create_table :event_prices do |t|
+    create_table :ticket_types do |t|
       t.integer :event_id
       t.string :name
       t.integer :price
@@ -10,6 +10,6 @@ class CreateEventPrices < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :event_prices
+    drop_table :ticket_types
   end
 end

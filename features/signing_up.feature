@@ -3,12 +3,12 @@ Feature: Signing up
   I want to be able to get information about and sign up to an event
   So that the event arranger can know who will come to the event and therefore plan properly and not kill anyone or buy too much or too little food.
   
-  Scenario Outline: Signing up on priceless event
+  Scenario Outline: Signing up on free event
     Given an event "My event"
-    And a price "Normal ticket" for 1 on "My event"
+    And a ticket type "Normal ticket" for 1 on "My event"
     
     When I go to the new reply page for "My event"
-    And I select "Normal ticket" from "Price"
+    And I select "Normal ticket" from "Ticket type"
     And I fill in "Name" with "<name>"
     And I fill in "E-mail" with "<email>"
     And I press "Sign up"
@@ -22,14 +22,14 @@ Feature: Signing up
       |              | kalle |                             | Name is required  |
       | Karl Persson |       |                             | Email is required |
   
-  Scenario Outline: Choosing a price
+  Scenario Outline: Choosing a ticket type
     Given an event "My event"
-    And a price "With alcohol" for 100 on "My event"
+    And a ticket type "With alcohol" for 100 on "My event"
     
     When I go to the new reply page for "My event"
     And I fill in "Name" with "Kalle"
     And I fill in "E-mail" with "kalle@example.org"
-    And I select "<price>" from "Price"
+    And I select "<ticket type>" from "Ticket type"
     And I press "Sign up"
     
     Then the flash should contain "<flash message>" 
@@ -39,12 +39,12 @@ Feature: Signing up
     Then I should see "With alcohol" in "guest_list_table"
     
     Examples:
-      | price        | flash message               | message           |
-      | With alcohol | Your signup was successful! |                   |
+      | ticket type  | flash message               | message |
+      | With alcohol | Your signup was successful! |         |
   
   Scenario: Mail notification when signing up
     Given an event "My event"
-    And a price "With alcohol" for 100 on "My event"
+    And a ticket type "With alcohol" for 100 on "My event"
     
     And "My event" has mail template "signup_confirmation" with fields:
       | Name    | Value                                      |
@@ -54,7 +54,7 @@ Feature: Signing up
     When I go to the new reply page for "My event"
     And I fill in "Name" with "Kalle"
     And I fill in "E-mail" with "kalle@example.org"
-    And I select "With alcohol" from "Price"
+    And I select "With alcohol" from "Ticket type"
     And I press "Sign up"
     
     Then I should receive an email
@@ -76,7 +76,7 @@ Feature: Signing up
     Given an event "My very small event" with fields:
       | Name       | Value |
       | max_guests | 2     |
-    And a price "With alcohol" for 100 on "My very small event"
+    And a ticket type "With alcohol" for 100 on "My very small event"
     And 2 guests signed up to "My very small event"
     
     When I go to the new reply page for "My very small event"

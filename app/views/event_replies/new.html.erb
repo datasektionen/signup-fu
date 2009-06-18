@@ -10,7 +10,7 @@
   
   <%= error_messages_for(:reply) %>
   <% signup_fu_form_for([@event, @reply]) do |f| %>
-    <%= f.select :event_price_id, @event.event_prices.map { |p| [p.name, p.id] }, :caption => 'Price'%>
+    <%= f.select :ticket_type_id, @event.ticket_types.map { |p| [p.name, p.id] }, :caption => 'Ticket type'%>
     <%= f.text_field :name, :caption => 'Name' %>
     <%= f.text_field :email, :caption => "E-mail" %>
     <%= f.text_area :food, :caption => "Food preferences" %>

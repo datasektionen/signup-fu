@@ -23,13 +23,13 @@
 
 <%= link_to "Add mail", new_event_mail_template_path(@event) %>
 
-<h2>Prices</h2>
-<% if !@event.event_prices.blank? %>
+<h2>Ticket types</h2>
+<% if !@event.ticket_types.blank? %>
   <table>
-  <% for price in @event.event_prices %>
+  <% for type in @event.ticket_types %>
     <tr>
-      <td>Price (<%= price.name %>)</td>
-      <td><%= price.price %> kr</td>
+      <td><%= type.name %></td>
+      <td><%= type.price %> kr</td>
     </tr>
   <% end %>
   </table>
@@ -51,7 +51,7 @@
   <tr>
     <td><%= reply.name %></td>
     <td><%= reply.email %></td>
-    <td><%= reply.event_price.name %></td>
+    <td><%= reply.ticket_type.name %></td>
     <td><%= reply.food %></td>
     <td><%= reply.comments %></td>
   </tr>

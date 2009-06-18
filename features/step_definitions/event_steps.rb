@@ -19,10 +19,10 @@ Given /^an event "([^\"]*)" with fields:$/ do |name, table|
   
 end
 
-Given /^a price "([^\"]*)" for (\d+) on "([^\"]*)"$/ do |price_name, amount, event_name|
+Given /^a ticket type "([^\"]*)" for (\d+) on "([^\"]*)"$/ do |ticket_type_name, amount, event_name|
   event = Event.find_by_name(event_name)
   
-  event.event_prices.create!(:name => price_name, :price => amount)
+  event.ticket_types.create!(:name => ticket_type_name, :price => amount)
 end
 
 
@@ -34,10 +34,10 @@ Given /^(\d+) guests signed up to "([^\"]*)"$/ do |count, event_name|
   count = count.to_i
   event = Event.find_by_name(event_name)
   
-  price = event.event_prices.first
+  ticket_type = event.ticket_types.first
   
-  if price.nil?
-    raise "No price for event #{event.name}"
+  if ticket_type.nil?
+    raise "No ticket type for event #{event.name}"
   end
   
   count.times do |i|
@@ -45,7 +45,7 @@ Given /^(\d+) guests signed up to "([^\"]*)"$/ do |count, event_name|
       :name => "Arne #{i} Anka",
       :email => "arne.#{i}@example.org",
       :event => event,
-      :event_price => price
+      :ticket_type => ticket_type
     )
     event.replies << reply
   end
@@ -63,13 +63,13 @@ end
 Given /^a guest to "([^\"]*)" called "([^\"]*)"$/ do |event_name, name, table|
   event = Event.find_by_name(event_name)
   
-  price = event.event_prices.first
+  ticket_type = event.ticket_types.first
   
-  if price.nil?
-    raise "No price for event #{event.name}"
+  if ticket_type.nil?
+    raise "No ticket type for event #{event.name}"
   end
   
-  reply = Factory(:reply, :event_price => price, :name => name, :event => event)
+  reply = Factory(:reply, :ticket_type => ticket_type, :name => name, :event => event)
   
   table.hashes.each do |field|
     reply.send("#{field['Name']}=", field['Value'])
