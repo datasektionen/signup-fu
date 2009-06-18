@@ -22,7 +22,7 @@ Scenario: Adding confirmation mail
   And I am on the event page for "My event"
   And I follow "Add mail"
   
-  And I select "Confirmation" from "Template for"
+  And I select "Signup Confirmation" from "Template for"
   And I fill in "Subject" with "Welcome"
   And I fill in "Body" with "Welcome to {{EVENT_NAME}}"
   
@@ -30,7 +30,7 @@ Scenario: Adding confirmation mail
   
   Then I should be on the event page for "My event"
   
-  And I should see "Confirmation"
+  And I should see "Signup confirmation"
   And I should see "Welcome"
   And I should see "Welcome to {{EVENT_NAME}}"
  

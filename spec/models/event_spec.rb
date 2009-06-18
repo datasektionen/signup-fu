@@ -19,14 +19,14 @@ describe Event do
   end
   
   it "should check if it has mailtemplate by name" do
-    @event.send_mail_for(:confirmation).should eql(false)
+    @event.send_mail_for(:signup_confirmation).should eql(false)
   end
   
   it "should fetch mail templates by name" do
     @event.save!
-    confirmation_template = Factory(:mail_template, :event => @event, :name => 'confirmation')
+    confirmation_template = Factory(:mail_template, :event => @event, :name => 'signup_confirmation')
     
-    @event.mail_templates.by_name(:confirmation).should eql(confirmation_template)
+    @event.mail_templates.by_name(:signup_confirmation).should eql(confirmation_template)
   end
   
 end

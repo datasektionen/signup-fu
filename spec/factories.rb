@@ -9,7 +9,7 @@ Factory.define(:reply, :class => EventReply) do |r|
 end
 
 Factory.define(:mail_template) do |t|
-  t.name 'confirmation'
+  t.name 'signup_confirmation'
   t.subject 'Thank you'
   t.body 'thank you for signing up to {{EVENT_NAME}}'
 end

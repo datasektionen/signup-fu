@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe EventReply do
   before(:each) do
     @event = mock_model(Event)
-    @event.stub(:send_mail_for).with(:confirmation).and_return(false)
+    @event.stub(:send_mail_for).with(:signup_confirmation).and_return(false)
     @valid_attributes = {
       :event => @event,
       :name => 'Kalle Anka',

@@ -5,7 +5,8 @@ describe MailTemplate do
     @valid_attributes = {
       :event_id => 1,
       :body => "value for body",
-      :subject => "value for subject"
+      :subject => "value for subject",
+      :name => 'signup_confirmation'
     }
     @template = MailTemplate.new(@valid_attributes)
   end
@@ -18,6 +19,14 @@ describe MailTemplate do
   
   it { should validate_presence_of(:body) }
   it { should validate_presence_of(:subject) }
+  
+  %w(signup_confirmation payment_registered).each do |allowed_value|
+    it { should allow_value(allowed_value).for(:name) }
+  end
+  
+  %w(confirmation).each do |disallowed_value|
+    it { should_not allow_value(disallowed_value).for(:name) }
+  end
   
   it do
     Factory(:mail_template)

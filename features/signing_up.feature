@@ -23,7 +23,7 @@ Feature: Signing up
   
   Scenario: Mail notification when signing up
     Given an event "My event"
-    And "My event" has mail template "confirmation" with fields:
+    And "My event" has mail template "signup_confirmation" with fields:
       | Name    | Value                                      |
       | body    | Thank you for signing up to {{EVENT_NAME}} |
       | subject | Thank you                                  |

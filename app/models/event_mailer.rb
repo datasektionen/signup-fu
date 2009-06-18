@@ -2,7 +2,7 @@ class EventMailer < ActionMailer::Base
   
   def signup_confirmation(reply)
     event = reply.event
-    template = event.mail_templates.by_name(:confirmation)
+    template = event.mail_templates.by_name(:signup_confirmation)
     
     body = template.render_body(reply)
     subject = template.render_subject(reply)

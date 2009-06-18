@@ -5,7 +5,7 @@ describe EventMailer do
   describe "signup confirmation" do
     before do
       @template_proxy = mock("template proxy")
-      @template_proxy.stub!(:by_name).with(:confirmation).and_return(mock_model(MailTemplate, 
+      @template_proxy.stub!(:by_name).with(:signup_confirmation).and_return(mock_model(MailTemplate, 
         :render_body => "body",
         :render_subject => "subject"
       ))
@@ -29,7 +29,7 @@ describe EventMailer do
     end
     
     it "should get the confirmation template" do
-      @template_proxy.should_receive(:by_name).with(:confirmation)
+      @template_proxy.should_receive(:by_name).with(:signup_confirmation)
       EventMailer.create_signup_confirmation(@reply)
     end
     
