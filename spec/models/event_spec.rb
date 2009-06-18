@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Event do
   before do
     @valid_params = {
-      :name => "My event"
+      :name => "My event",
     }
     @event = Event.new(@valid_params)
     
@@ -14,7 +14,7 @@ describe Event do
   
   it "should be full if it has more than max_guest guests" do
     event = Event.create!(:max_guests => 1)
-    event.replies.create!(:name => 'Kalle', :email => 'kalle@example.org')
+    event.replies.create!(:name => 'Kalle', :email => 'kalle@example.org', :event_price => mock_model(EventPrice))
     
     event.should be_full
   end

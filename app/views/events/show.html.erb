@@ -39,10 +39,11 @@
 
 
 
-<table border="0">
+<table border="0" id="guest_list_table">
   <tr>
     <th>Name</th>
     <th>E-mail</th>
+    <th>Ticket type</th>
     <th>Food preferences</th>
     <th>Comments</th>
   </tr>
@@ -50,6 +51,7 @@
   <tr>
     <td><%= reply.name %></td>
     <td><%= reply.email %></td>
+    <td><%= reply.event_price.name %></td>
     <td><%= reply.food %></td>
     <td><%= reply.comments %></td>
   </tr>

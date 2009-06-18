@@ -80,6 +80,8 @@ Scenario: Viewing an event
   
 Scenario: Viewing guests for an event
   Given an event "My event"
+  And a price "With alcohol" for 100 on "My event"
+  
   And a guest to "My event" called "Karl Persson"
     | Name | Value           |
     | food | Tomatallergiker |

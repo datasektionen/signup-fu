@@ -19,6 +19,13 @@ Given /^an event "([^\"]*)" with fields:$/ do |name, table|
   
 end
 
+Given /^a price "([^\"]*)" for (\d+) on "([^\"]*)"$/ do |price_name, amount, event_name|
+  event = Event.find_by_name(event_name)
+  
+  event.event_prices.create!(:name => price_name, :price => amount)
+end
+
+
 Given /^an event "([^\"]*)"$/ do |name|
   Given %Q{an event "#{name}" with fields:}, Cucumber::Ast::Table.new([])
 end
@@ -27,8 +34,19 @@ Given /^(\d+) guests signed up to "([^\"]*)"$/ do |count, event_name|
   count = count.to_i
   event = Event.find_by_name(event_name)
   
+  price = event.event_prices.first
+  
+  if price.nil?
+    raise "No price for event #{event.name}"
+  end
+  
   count.times do |i|
-    reply = Factory(:reply, :name => "Arne #{i} Anka", :email => "arne.#{i}@example.org", :event => event)
+    reply = Factory(:reply,
+      :name => "Arne #{i} Anka",
+      :email => "arne.#{i}@example.org",
+      :event => event,
+      :event_price => price
+    )
     event.replies << reply
   end
   
@@ -45,7 +63,13 @@ end
 Given /^a guest to "([^\"]*)" called "([^\"]*)"$/ do |event_name, name, table|
   event = Event.find_by_name(event_name)
   
-  reply = Factory(:reply, :name => name, :event => event)
+  price = event.event_prices.first
+  
+  if price.nil?
+    raise "No price for event #{event.name}"
+  end
+  
+  reply = Factory(:reply, :event_price => price, :name => name, :event => event)
   
   table.hashes.each do |field|
     reply.send("#{field['Name']}=", field['Value'])
