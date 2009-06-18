@@ -10,6 +10,8 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @event.mail_templates.build
+    
+    3.times { @event.event_prices.build }
   end
   
   def create

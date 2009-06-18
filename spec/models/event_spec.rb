@@ -10,6 +10,7 @@ describe Event do
   end
   
   it { should have_many(:mail_templates) }
+  it { should have_many(:event_prices) }
   
   it "should be full if it has more than max_guest guests" do
     event = Event.create!(:max_guests => 1)

@@ -1,6 +1,8 @@
 class Event < ActiveRecord::Base
   has_many :replies, :class_name => 'EventReply', :foreign_key => 'event_id'
   
+  has_many :event_prices
+  
   has_many :mail_templates do
     def by_name(name)
       puts proxy_target.inspect
@@ -8,7 +10,7 @@ class Event < ActiveRecord::Base
     end
   end
   
-  accepts_nested_attributes_for :mail_templates
+  accepts_nested_attributes_for :event_prices, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
   
   def full?
     max_guests != 0 && replies.count >= max_guests

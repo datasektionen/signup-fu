@@ -23,6 +23,21 @@
 
 <%= link_to "Add mail", new_event_mail_template_path(@event) %>
 
+<h2>Prices</h2>
+<% if !@event.event_prices.blank? %>
+  <table>
+  <% for price in @event.event_prices %>
+    <tr>
+      <td>Price (<%= price.name %>)</td>
+      <td><%= price.price %> kr</td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  
+<% end %>
+
+
 
 <table border="0">
   <tr>

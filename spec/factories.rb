@@ -13,3 +13,8 @@ Factory.define(:mail_template) do |t|
   t.subject 'Thank you'
   t.body 'thank you for signing up to {{EVENT_NAME}}'
 end
+
+Factory.define(:event_price) do |p|
+  p.price 100
+  p.name "With alcohol"
+end
