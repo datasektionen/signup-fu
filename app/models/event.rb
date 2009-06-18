@@ -5,7 +5,6 @@ class Event < ActiveRecord::Base
   
   has_many :mail_templates do
     def by_name(name)
-      puts proxy_target.inspect
       find(:first, :conditions => {:name => name.to_s})
     end
   end
