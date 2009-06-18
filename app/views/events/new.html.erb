@@ -6,10 +6,5 @@
   <%= f.datetime_select :deadline %>
   <%= f.text_field :max_guests %>
   
-  <% f.fields_for(:mail_templates) do |template_form| %>
-    <%= template_form.select :name, ['Confirmation', 'confirmation'], :caption => 'Mail template name' %>
-    <%= template_form.text_field :subject, :caption => 'Mail template Subject' %>
-    <%= template_form.text_area :body, :caption => 'Mail template Body' %>
-  <% end -%>
   <%= f.submit "Create event" %>
 <% end -%>
