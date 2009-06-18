@@ -1,5 +1,7 @@
 class MailTemplate < ActiveRecord::Base
   belongs_to :event
+  validates_uniqueness_of :name, :scope => :event_id
+  validates_presence_of :body, :subject
   
   def render_body(reply)
     replace_variables(body, reply, reply.event)

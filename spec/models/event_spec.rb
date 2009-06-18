@@ -24,7 +24,7 @@ describe Event do
   
   it "should fetch mail templates by name" do
     @event.save!
-    confirmation_template = @event.mail_templates.create!(:name => 'confirmation')
+    confirmation_template = Factory(:mail_template, :event => @event, :name => 'confirmation')
     
     @event.mail_templates.by_name(:confirmation).should eql(confirmation_template)
   end

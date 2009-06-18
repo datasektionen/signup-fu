@@ -7,3 +7,9 @@ end
 Factory.define(:reply, :class => EventReply) do |r|
   r.email "foo@example.org"
 end
+
+Factory.define(:mail_template) do |t|
+  t.name 'confirmation'
+  t.subject 'Thank you'
+  t.body 'thank you for signing up to {{EVENT_NAME}}'
+end

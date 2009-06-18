@@ -16,6 +16,14 @@ describe MailTemplate do
   
   it { should belong_to(:event) }
   
+  it { should validate_presence_of(:body) }
+  it { should validate_presence_of(:subject) }
+  
+  it do
+    Factory(:mail_template)
+    should validate_uniqueness_of(:name).scoped_to(:event_id)
+  end
+  
   describe "parsing" do
     before do
       @event = mock_model(Event, :name => 'My event')
