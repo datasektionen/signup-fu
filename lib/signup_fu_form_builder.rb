@@ -78,6 +78,7 @@ class SignupFuFormBuilder < ActionView::Helpers::FormBuilder
     options[:caption] ||= method.to_s.humanize
     
     out = "<li>"
-    out += "<label#{" class=\"" + options[:class] if options[:class]} for='#{object_name}_#{method}'>#{options[:caption]} #{"*" if options[:mandatory]}</label>#{yield}</li>\n"
+    out += label(method, options[:caption])
+    out += "#{yield}</li>\n"
   end
 end
