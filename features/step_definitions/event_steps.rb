@@ -77,3 +77,6 @@ Given /^a guest to "([^\"]*)" called "([^\"]*)"$/ do |event_name, name, table|
   event.replies  << reply
 end
   
+Given /^that "([^\"]*)" has a payment time of (\d+) (\w+)$/ do |event_name, count, unit|
+  pending
+end

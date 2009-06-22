@@ -41,7 +41,7 @@ Scenario: Creating a new event with prices
   And I should see "Without alcohol"
   And I should see "179 kr"
   And I should not see "0 kr"
-  
+
 Scenario: Adding confirmation mail
   Given an event "My event"
   And I am on the event page for "My event"
@@ -58,10 +58,10 @@ Scenario: Adding confirmation mail
   And I should see "Signup confirmation"
   And I should see "Welcome"
   And I should see "Welcome to {{EVENT_NAME}}"
- 
+
 Scenario: Event deletion
   Given an event "My event"
-
+  
   When I go to the events page
   And I follow "Delete event"
   And I go to the events page
@@ -77,7 +77,7 @@ Scenario: Viewing an event
   Then I should see "My event"
   And I should see "2009-09-09"
   And I should see "2009-08-08"
-  
+
 Scenario: Viewing guests for an event
   Given an event "My event"
   And a ticket type "With alcohol" for 100 on "My event"
@@ -91,4 +91,29 @@ Scenario: Viewing guests for an event
   Then I should see "Karl Persson"
   And I should see "Tomatallergiker"
 
+
+Scenario: An expiring unpaid reply
+  Given an event "My event"
+  And that "My event" has a payment time of 2 weeks
+  And a ticket type "With alcohol" for 100 on "My event"
+  And "My event" has mail template "ticket_expired" with fields:
+    | Name    | Value                                                        |
+    | body    | You, {{REPLY_NAME}}, are bad person. Your ticket is now void |
+    | subject | You haven't paid for {{EVENT_NAME}}                          |
+  And that now is 3 weeks from now
+  
+  And a guest to "My event" called "Karl Persson"
+    ||
+  
+  When the ticket expire process is run
+  
+  Then "kalle@example.org" should receive 1 emails
+  
+  When "kalle@example.org" opens the email with subject "You haven't paid for My event"
+  
+  Then I should see "You, Kalle, are bad person. Your ticket is now void" in the email
+  
+  When I go to the event page for "My event"
+  
+  Then I should see "Expired (No payment)"
 
