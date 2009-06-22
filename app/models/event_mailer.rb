@@ -22,7 +22,7 @@ class EventMailer < ActionMailer::Base
     subject = template.render_subject(reply)
     
     recipients reply.email
-    from "no-reply@signupfu.com"
+    from "no-reply@h.patrikstenmark.se"
     subject subject
     body body
     
