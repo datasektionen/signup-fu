@@ -77,6 +77,14 @@ Given /^a guest to "([^\"]*)" called "([^\"]*)"$/ do |event_name, name, table|
   event.replies  << reply
 end
   
-Given /^that "([^\"]*)" has a payment time of (\d+) (\w+)$/ do |event_name, count, unit|
-  pending
+Given /^that "([^\"]*)" has a payment time of (\d+) days$/ do |event_name, count|
+  event = Event.find_by_name(event_name)
+  event.payment_time = count.to_i
+  event.save!
 end
+
+When /^the ticket expire process is run$/ do
+  pending
+  ReplyTasks.delete_old_unpaid_replies
+end
+

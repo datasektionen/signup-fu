@@ -20,7 +20,7 @@ describe MailTemplate do
   it { should validate_presence_of(:body) }
   it { should validate_presence_of(:subject) }
   
-  %w(signup_confirmation payment_registered).each do |allowed_value|
+  %w(signup_confirmation payment_registered ticket_expired).each do |allowed_value|
     it { should allow_value(allowed_value).for(:name) }
   end
   
@@ -35,14 +35,18 @@ describe MailTemplate do
   
   describe "parsing" do
     before do
-      @event = mock_model(Event, :name => 'My event')
+      time = Time.local(2009, 1, 1)
+      Time.stub!(:now).and_return(time)
+      @event = mock_model(Event, :name => 'My event', :payment_time => 14)
       @reply = mock_model(EventReply, :event => @event, :name => 'Kalle', :email => "kalle@example.org")
+      
     end
     
     %w(body subject).each do |what|
       [
         ["REPLY_NAME", "Kalle"],
-        ['EVENT_NAME', 'My event']
+        ['EVENT_NAME', 'My event'],
+        ['REPLY_LAST_PAYMENT_DATE', '2009-01-15']
       ].each do |variable, result|
         it "should parse {{#{variable}}} for #{what}" do
           @template.send("#{what}=", "{{#{variable}}}")

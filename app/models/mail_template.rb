@@ -5,7 +5,8 @@ class MailTemplate < ActiveRecord::Base
   
   TEMPLATE_TYPES = [
     ['Signup Confirmation', 'signup_confirmation'],
-    ['Payment registered', 'payment_registered']
+    ['Payment registered', 'payment_registered'],
+    ['Ticket expired', 'ticket_expired']
   ]
   
   validates_inclusion_of :name, :in => TEMPLATE_TYPES.map(&:last), :message => 'is invalid'
@@ -23,7 +24,15 @@ class MailTemplate < ActiveRecord::Base
   def replace_variables(string, reply, event)
     string.gsub!("{{REPLY_NAME}}", reply.name)
     string.gsub!("{{EVENT_NAME}}", event.name)
+    string = parse_last_payment_date(string, event)
+
     string
+  end
+  
+  def parse_last_payment_date(string, event)
+    return string if event.payment_time.nil?
+    date = Time.now + event.payment_time.days
+    string.gsub("{{REPLY_LAST_PAYMENT_DATE}}", date.strftime("%Y-%m-%d"))
   end
   
 end

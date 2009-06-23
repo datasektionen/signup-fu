@@ -91,6 +91,22 @@ Scenario: Viewing guests for an event
   Then I should see "Karl Persson"
   And I should see "Tomatallergiker"
 
+Scenario: Creating an event with a pay before date
+  Given I am on the events page
+  And I follow "New event"
+  And I fill in "Name" with "My event"
+  And I select "2009-09-09 09:09" as the "Date" date and time
+  And I select "2009-08-08 08:08" as the "Deadline" date and time
+  And I fill in "Payment time" with "14"
+  And I fill in "Max guests" with "0"
+  And I press "Create event"
+  
+  When I go to the events page
+  And I follow "My event"
+  
+  And I should see "2009-09-09 09:09"
+  And I should see "14 days"
+  
 
 Scenario: An expiring unpaid reply
   Given an event "My event"
@@ -116,4 +132,5 @@ Scenario: An expiring unpaid reply
   When I go to the event page for "My event"
   
   Then I should see "Expired (No payment)"
+
 

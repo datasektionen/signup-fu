@@ -4,6 +4,8 @@
 
 <%= @event.deadline %>
 
+<%= @event.payment_time %> days
+
 <h2>Mail templates</h2>
 <% if !@event.mail_templates.blank? %>
   <% for template in @event.mail_templates %>
