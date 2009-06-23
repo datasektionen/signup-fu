@@ -20,7 +20,8 @@ test:
   
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql
+  database: signup_fu_dev
+  username: root
+  password: kakmonster
+  socket: /tmp/mysql.sock
