@@ -110,7 +110,7 @@ Scenario: Creating an event with a pay before date
 
 Scenario: An expiring unpaid reply
   Given an event "My event"
-  And that "My event" has a payment time of 2 weeks
+  And that "My event" has a payment time of 14 days
   And a ticket type "With alcohol" for 100 on "My event"
   And "My event" has mail template "ticket_expired" with fields:
     | Name    | Value                                                        |

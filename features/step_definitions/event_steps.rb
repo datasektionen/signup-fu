@@ -84,7 +84,6 @@ Given /^that "([^\"]*)" has a payment time of (\d+) days$/ do |event_name, count
 end
 
 When /^the ticket expire process is run$/ do
-  pending
-  ReplyTasks.delete_old_unpaid_replies
+  EventReply.expire_old_unpaid_replies
 end
 

@@ -88,5 +88,56 @@ describe EventReply do
     
     EventReply.pay([@reply.id])
   end
-
+  
+  describe "expiry run with 14 days payment time" do
+    before do
+      @event.stub!(:payment_time).and_return(14)
+      @event.stub!(:payment_time).and_return(14)
+      
+      @knatte = EventReply.new(
+        @valid_attributes.with(
+          :name => 'Knatte',
+          :email => 'knatte@example.org'
+        )
+      )
+      @knatte.stub!(:created_at).and_return(20.days.ago)
+      @knatte.stub!(:paid?).and_return(true)
+      
+      @fnatte = EventReply.new(
+        @valid_attributes.with(
+          :name => 'Fnatte',
+          :email => 'fnatte@example.org'
+        )
+      )
+      @fnatte.stub!(:created_at).and_return(21.days.ago)
+      
+      @tjatte = EventReply.new(
+        @valid_attributes.with(
+          :name => 'Tjatte',
+          :email => 'tjatte@example.org'
+        )
+      )
+      @tjatte.stub!(:created_at).and_return(7.days.ago)
+      
+      @replies = [@knatte,@fnatte,@tjatte]
+      EventReply.stub!(:find).and_return(@replies)
+    end
+    
+    it "should not expire tickets one week old" do
+      @tjatte.should_not_receive(:expire!)
+      EventReply.expire_old_unpaid_replies
+    end
+    
+    it "should expire unpaid tickets three weeks old" do
+      @fnatte.should_receive(:expire!)
+      EventReply.expire_old_unpaid_replies
+    end
+    
+    it "should not expire paid tickets" do
+      @knatte.should_not_receive(:expire!)
+      EventReply.expire_old_unpaid_replies
+    end
+    
+    it "should send mail to expired"
+  end
 end

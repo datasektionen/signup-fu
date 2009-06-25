@@ -31,6 +31,15 @@ class EventReply < ActiveRecord::Base
     end
   end
   
+  def self.expire_old_unpaid_replies
+    all(:include => [:event]).each do |reply|
+      event = reply.event
+      if !reply.paid? && Time.now > (reply.created_at + event.payment_time.days)
+        reply.expire!
+      end
+    end
+  end
+  
   def paid?
     paid_at.present?
   end
