@@ -15,6 +15,15 @@ class EventMailer < ActionMailer::Base
     send_mail_from_template(reply, template)
   end
   
+  def reply_expired_notification(reply)
+    event = reply.event
+    
+    template = event.mail_templates.by_name(:ticket_expired)
+    
+    send_mail_from_template(reply, template)
+    
+  end
+  
   protected
   
   def send_mail_from_template(reply, template)

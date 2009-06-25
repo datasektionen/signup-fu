@@ -13,7 +13,7 @@ class EventReply < ActiveRecord::Base
   end
   
   aasm_event :expire do
-    transitions :to => :expired, :from => [:new]
+    transitions :to => :expired, :from => [:new], :on_transition => :on_expire
   end
 
   #aasm_event :cancel do
@@ -34,6 +34,7 @@ class EventReply < ActiveRecord::Base
   def self.expire_old_unpaid_replies
     all(:include => [:event]).each do |reply|
       event = reply.event
+      next unless event.expire_unpaid?
       if !reply.paid? && Time.now > (reply.created_at + event.payment_time.days)
         reply.expire!
       end
@@ -49,6 +50,12 @@ class EventReply < ActiveRecord::Base
     
     if event.send_mail_for?(:payment_registered)
       EventMailer.deliver_payment_registered(self)
+    end
+  end
+  
+  def on_expire
+    if event.send_mail_for?(:ticket_expired)
+      EventMailer.deliver_reply_expired_notification(self)
     end
   end
 end

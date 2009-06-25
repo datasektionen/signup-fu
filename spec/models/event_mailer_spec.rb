@@ -76,4 +76,19 @@ describe EventMailer do
     
     it_should_behave_like "templated email"
   end
+  
+  describe "expiry notice" do
+    before do
+      @template_proxy.stub!(:by_name).with(:ticket_expired).and_return(mock_model(MailTemplate, 
+        :render_body => "body",
+        :render_subject => "subject"
+      ))
+      
+      # For shared steps
+      @email = EventMailer.create_reply_expired_notification(@reply)
+    end
+    
+    it_should_behave_like "templated email"
+    
+  end
 end

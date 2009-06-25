@@ -15,6 +15,10 @@ class Event < ActiveRecord::Base
     max_guests != 0 && replies.count >= max_guests
   end
   
+  def expire_unpaid?
+    payment_time.present? && send_mail_for?(:ticket_expired)
+  end
+  
   def send_mail_for?(name)
     mail_templates.by_name(name).present?
   end

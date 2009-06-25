@@ -22,6 +22,28 @@ describe Event do
     event.should be_full
   end
   
+  it "should expire unpaid if it has a template and a payment time" do
+    @event = Event.new(@valid_params.with(:payment_time => 10))
+    template = Factory(:mail_template, :event => @event, :name => 'ticket_expired')
+    
+    @event.expire_unpaid?.should be_true
+  end
+  
+  it "should not expire unpaid if it has no template" do
+    @event = Event.new(@valid_params.with(:payment_time => 10))
+    
+    @event.expire_unpaid?.should be_false
+  end
+  
+  
+  it "should expire unpaid if it has no payment time" do
+    @event = Event.new(@valid_params.with(:payment_time => nil))
+    template = Factory(:mail_template, :event => @event, :name => 'ticket_expired')
+    
+    @event.expire_unpaid?.should be_false
+  end
+  
+  
   it "should check if it has mailtemplate by name" do
     @event.send_mail_for?(:signup_confirmation).should eql(false)
   end

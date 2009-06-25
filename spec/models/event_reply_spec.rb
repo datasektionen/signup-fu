@@ -91,7 +91,9 @@ describe EventReply do
   
   describe "expiry run with 14 days payment time" do
     before do
-      @event.stub!(:payment_time).and_return(14)
+      @event.stub!(:send_mail_for?).with(:ticket_expired).and_return(true)
+      @event.stub!(:expire_unpaid?).and_return(true)
+
       @event.stub!(:payment_time).and_return(14)
       
       @knatte = EventReply.new(
@@ -121,6 +123,8 @@ describe EventReply do
       
       @replies = [@knatte,@fnatte,@tjatte]
       EventReply.stub!(:find).and_return(@replies)
+      
+      EventMailer.stub!(:deliver_reply_expired_notification)
     end
     
     it "should not expire tickets one week old" do
@@ -138,6 +142,15 @@ describe EventReply do
       EventReply.expire_old_unpaid_replies
     end
     
-    it "should send mail to expired"
+    it "should send mail to expired" do
+      EventMailer.should_receive(:deliver_reply_expired_notification).with(@fnatte)
+      @fnatte.expire!
+    end
+    
+    it "should not do expiry process on events without expiry template" do
+      @event.stub!(:expire_unpaid?).and_return(false)
+      @replies.each {|r| r.should_not_receive(:expire!) }
+      EventReply.expire_old_unpaid_replies
+    end
   end
 end
