@@ -32,7 +32,7 @@ class EventRepliesController < ApplicationController
   protected
   
   def update_economy
-    if EventReply.set_as_paid(params[:reply_ids])
+    if EventReply.pay(params[:reply_ids])
       redirect_to economy_event_event_replies_path(@event)
     else
       render :action => 'economy'

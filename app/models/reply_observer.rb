@@ -7,11 +7,4 @@ class ReplyObserver < ActiveRecord::Observer
     end
     
   end
-  
-  def after_save(reply)
-    if reply.event.send_mail_for?(:payment_registered) &&
-        reply.changes["paid_at"].present? && reply.changes["paid_at"].last != nil
-      EventMailer.deliver_payment_registered(reply)
-    end
-  end
 end

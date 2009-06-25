@@ -25,6 +25,9 @@ describe EventReply do
   it { should belong_to(:ticket_type) }
   it { should validate_presence_of(:event).with_message('is required') }
   it { should validate_presence_of(:ticket_type).with_message('is required') }
+  # This is for making the error messages make more sense...
+  it { should have_db_column(:aasm_state).of_type(:string).with_options(:null => false)}
+  
   
   xit "should send confirmation mail if there are a mail template with name confirmation"
   
@@ -48,11 +51,25 @@ describe EventReply do
     Time.stub!(:now).and_return(now)
     
     reply1 = mock_model(EventReply)
-    reply1.should_receive(:update_attributes!).with(hash_including(:paid_at => now))
+    reply1.should_receive(:pay!)
     
     EventReply.stub!(:find).and_return([reply1])
     
-    EventReply.set_as_paid([1])
+    EventReply.pay([1])
+  end
+  
+  it "should not have a paid_at on create" do
+    @reply.paid_at.should == nil
+  end
+  
+  it "should set payment date on pay!" do
+    now = Time.now
+    Time.stub!(:now).and_return(now)
+    
+    reply = EventReply.create!(@valid_attributes)
+    reply.pay!
+    
+    reply.paid_at.should == now
   end
   
   it "should send payment registration mail when there is a payment_registered mail template" do
@@ -69,7 +86,7 @@ describe EventReply do
     
     EventMailer.should_receive(:deliver_payment_registered).with(@reply)
     
-    EventReply.set_as_paid([@reply.id])
+    EventReply.pay([@reply.id])
   end
 
 end
