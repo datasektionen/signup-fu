@@ -116,10 +116,12 @@ Scenario: An expiring unpaid reply
     | Name    | Value                                                        |
     | body    | You, {{REPLY_NAME}}, are bad person. Your ticket is now void |
     | subject | You haven't paid for {{EVENT_NAME}}                          |
+  And a guest to "My event" called "Kalle"
+    | Name  | Value            |
+    | email | kalle@example.org |
+    
   And that now is 3 weeks from now
   
-  And a guest to "My event" called "Karl Persson"
-    ||
   
   When the ticket expire process is run
   
