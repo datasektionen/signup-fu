@@ -92,8 +92,8 @@ Scenario: Viewing guests for an event
   And I should see "Tomatallergiker"
   And I should see "Unpaid"
   
+  When now is "2009-10-10"
   When I mark "Karl Persson" as paid
-  And that now is "2009-10-10" <- RENAME THIS :)
   And I go to the event page for "My event"
   
   Then I should see "Paid (2009-10-10)"
@@ -127,7 +127,7 @@ Scenario: An expiring unpaid reply
     | Name  | Value            |
     | email | kalle@example.org |
     
-  And that now is 3 weeks from now
+  And now is 3 weeks from now
   
   
   When the ticket expire process is run

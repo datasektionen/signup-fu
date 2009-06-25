@@ -87,3 +87,18 @@ When /^the ticket expire process is run$/ do
   EventReply.expire_old_unpaid_replies
 end
 
+When /^I mark "([^\"]*)" as paid$/ do |reply_name|
+  event = Event.first
+  
+  raise "No event" if event.nil?
+  
+  When %Q{I go to the economy page for "#{event.name}"}
+  
+  When "I check the paid checkbox for \"#{reply_name}\""
+  
+  click_button("Save")
+  
+  
+end
+
+

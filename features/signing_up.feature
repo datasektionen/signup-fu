@@ -86,7 +86,7 @@ Feature: Signing up
   
   
   Scenario: Signing up to an event with last payment date
-    Given that now is "2009-01-01"
+    Given now is "2009-01-01"
     And an event "My event"
     And a ticket type "Normal ticket" for 1 on "My event"
     And "My event" has mail template "signup_confirmation" with fields:

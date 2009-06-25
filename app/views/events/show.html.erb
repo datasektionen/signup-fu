@@ -59,7 +59,7 @@
       <% if reply.aasm_current_state == :expired %>
         Expired (No payment)
       <% elsif reply.aasm_current_state == :paid %>
-        Paid (reply.paid_at.strftime("%Y-%m-%d"))
+        Paid (<%= reply.paid_at.strftime("%Y-%m-%d") %>)
       <% elsif reply.aasm_current_state == :new %>
         Unpaid
       <% end -%>
