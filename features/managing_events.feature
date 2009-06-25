@@ -90,6 +90,13 @@ Scenario: Viewing guests for an event
   
   Then I should see "Karl Persson"
   And I should see "Tomatallergiker"
+  And I should see "Unpaid"
+  
+  When I mark "Karl Persson" as paid
+  And that now is "2009-10-10" <- RENAME THIS :)
+  And I go to the event page for "My event"
+  
+  Then I should see "Paid (2009-10-10)"
 
 Scenario: Creating an event with a pay before date
   Given I am on the events page

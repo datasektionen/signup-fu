@@ -46,6 +46,7 @@
     <th>Name</th>
     <th>E-mail</th>
     <th>Ticket type</th>
+    <th>State</th>
     <th>Food preferences</th>
     <th>Comments</th>
   </tr>
@@ -54,6 +55,14 @@
     <td><%= reply.name %></td>
     <td><%= reply.email %></td>
     <td><%= reply.ticket_type.name %></td>
+    <td>
+      <% if reply.aasm_current_state == :expired %>
+        Expired (No payment)
+      <% elsif reply.aasm_current_state == :paid %>
+        Paid (reply.paid_at.strftime("%Y-%m-%d"))
+      <% elsif reply.aasm_current_state == :new %>
+        Unpaid
+      <% end -%>
     <td><%= reply.food %></td>
     <td><%= reply.comments %></td>
   </tr>
