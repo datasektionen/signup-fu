@@ -52,3 +52,9 @@ Spec::Runner.configure do |config|
   config.include(EmailSpec::Matchers)
   
 end
+
+class Hash
+  def with(overrides)
+    self.merge(overrides)
+  end
+end
