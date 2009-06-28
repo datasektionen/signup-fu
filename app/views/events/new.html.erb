@@ -22,7 +22,6 @@
     Signup Confirmation
   </label>
   
-
   <div id="signup_confirmation_settings" style="display: none">
     
     <% f.fields_for(:mail_templates) do |ff| %>
@@ -32,6 +31,25 @@
     <% end -%>
     
   </div>
+  
+  <div style="clear: both"></div>
+  
+  <%= check_box_tag "payment_registered", "1", false, 
+    :onclick => "$('payment_registered').checked ? $('payment_registered_settings').show():$('payment_registered_settings').hide()" %>
+  <label for="payment_registered">
+    Payment confirmation
+  </label>
+  
+  <div id="payment_registered_settings" style="display: none">
+    
+    <% f.fields_for(:mail_templates) do |ff| %>
+      <%= ff.hidden_field :name, :value => "payment_registered" %>
+      <%= ff.text_field :subject %>
+      <%= ff.text_area :body %>
+    <% end -%>
+    
+  </div>
+  
   
   <%= f.submit "Create event" %>
 <% end -%>
