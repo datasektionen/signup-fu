@@ -15,6 +15,8 @@ describe Event do
   it "should not allow deadline after date"
   it "should require a ticket type"
   
+  it "should not be valid with a expiry and no payment time"
+  
   it "should be full if it has more than max_guest guests" do
     event = Event.create!(:max_guests => 1)
     event.replies.create!(:name => 'Kalle', :email => 'kalle@example.org', :ticket_type => mock_model(TicketType))

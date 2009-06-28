@@ -52,9 +52,9 @@ Scenario: Creating a new event with confirmation mail
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
   
-  And I check "Payment confirmation"
-  And I fill in "Subject" with "Welcome" in "payment_confirmation_settings"
-  And I fill in "Body" with "Welcome to {{EVENT_NAME}}" in "payment_confirmation_settings"
+  And I check "Signup confirmation"
+  And I fill in "Subject" with "Welcome" in "signup_confirmation_settings"
+  And I fill in "Body" with "Welcome to {{EVENT_NAME}}" in "signup_confirmation_settings"
   
   And I fill in "Ticket type 1 price" with "199"
   And I fill in "Ticket type 1 name" with "With alcohol"
@@ -69,6 +69,35 @@ Scenario: Creating a new event with confirmation mail
   And I should see "Signup confirmation"
   And I should see "Welcome"
   And I should see "Welcome to {{EVENT_NAME}}"
+  
+#Scenario: Creating a new event with confirmation mail
+#
+#  Given I am on the events page
+#
+#  When I follow "New event"
+#  And I fill in "Name" with "My event"
+#  And I select "2009-09-09 09:09" as the "Date" date and time
+#  And I select "2009-08-08 08:08" as the "Deadline" date and time
+#  And I fill in "Max guests" with "0"
+#
+#  And I check "Payment confirmation"
+#  And I fill in "Subject" with "Welcome" in "payment_confirmation_settings"
+#  And I fill in "Body" with "Welcome to {{EVENT_NAME}}" in "payment_confirmation_settings"
+#
+#  And I fill in "Ticket type 1 price" with "199"
+#  And I fill in "Ticket type 1 name" with "With alcohol"
+#
+#  And I fill in "Ticket type 2 price" with "179"
+#  And I fill in "Ticket type 2 name" with "Without alcohol"
+#
+#  And I press "Create event"
+#
+#  Then I should be on the event page for "My event"
+#
+#  And I should see "Signup confirmation"
+#  And I should see "Welcome"
+#  And I should see "Welcome to {{EVENT_NAME}}"
+
 
 Scenario: Event deletion
   Given an event "My event"
