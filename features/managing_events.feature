@@ -56,11 +56,9 @@ Scenario: Creating a new event with confirmation mail
   And I fill in "Subject" with "Welcome" in "signup_confirmation_settings"
   And I fill in "Body" with "Welcome to {{EVENT_NAME}}" in "signup_confirmation_settings"
   
-  And I fill in "Ticket type 1 price" with "199"
-  And I fill in "Ticket type 1 name" with "With alcohol"
-  
-  And I fill in "Ticket type 2 price" with "179"
-  And I fill in "Ticket type 2 name" with "Without alcohol"
+  And I fill in the following ticket types:
+    | With alcohol    | 199 |
+    | Without alcohol | 179 |
   
   And I press "Create event"
   
@@ -84,12 +82,10 @@ Scenario: Creating a new event with payment mail
   And I fill in "Subject" with "Payment" in "payment_registered_settings"
   And I fill in "Body" with "Your ticket to {{EVENT_NAME}} is now paid" in "payment_registered_settings"
 
-  And I fill in "Ticket type 1 price" with "199"
-  And I fill in "Ticket type 1 name" with "With alcohol"
-
-  And I fill in "Ticket type 2 price" with "179"
-  And I fill in "Ticket type 2 name" with "Without alcohol"
-
+  And I fill in the following ticket types:
+    | With alcohol    | 199 |
+    | Without alcohol | 179 |
+  
   And I press "Create event"
 
   Then I should be on the event page for "My event"
@@ -112,12 +108,10 @@ Scenario: Creating a new event with ticket expiry
   And I fill in "Subject" with "No payment received" in "ticket_expired_settings"
   And I fill in "Body" with "Your ticket to {{EVENT_NAME}} is now expired" in "ticket_expired_settings"
 
-  And I fill in "Ticket type 1 price" with "199"
-  And I fill in "Ticket type 1 name" with "With alcohol"
-
-  And I fill in "Ticket type 2 price" with "179"
-  And I fill in "Ticket type 2 name" with "Without alcohol"
-
+  And I fill in the following ticket types:
+    | With alcohol    | 199 |
+    | Without alcohol | 179 |
+  
   And I press "Create event"
 
   Then I should be on the event page for "My event"

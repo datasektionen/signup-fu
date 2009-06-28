@@ -101,4 +101,13 @@ When /^I mark "([^\"]*)" as paid$/ do |reply_name|
   
 end
 
+When /^I fill in the following ticket types:$/ do |table|
+  table.raw.each_with_index do |ticket, i|
+    ticket_name, ticket_price = ticket
+    fill_in "Ticket type #{i + 1} name", :with => ticket_name
+    fill_in "Ticket type #{i + 1} price", :with => ticket_price
+  end
+end
+
+
 
