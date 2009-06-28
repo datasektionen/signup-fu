@@ -42,16 +42,27 @@ Scenario: Creating a new event with prices
   And I should see "179 kr"
   And I should not see "0 kr"
 
-Scenario: Adding confirmation mail
-  Given an event "My event"
-  And I am on the event page for "My event"
-  And I follow "Add mail"
+Scenario: Creating a new event with confirmation mail
   
-  And I select "Signup Confirmation" from "Template for"
-  And I fill in "Subject" with "Welcome"
-  And I fill in "Body" with "Welcome to {{EVENT_NAME}}"
+  Given I am on the events page
   
-  And I press "Create mail"
+  When I follow "New event"
+  And I fill in "Name" with "My event"
+  And I select "2009-09-09 09:09" as the "Date" date and time
+  And I select "2009-08-08 08:08" as the "Deadline" date and time
+  And I fill in "Max guests" with "0"
+  
+  And I check "Payment confirmation"
+  And I fill in "Subject" with "Welcome" in "payment_confirmation_settings"
+  And I fill in "Body" with "Welcome to {{EVENT_NAME}}" in "payment_confirmation_settings"
+  
+  And I fill in "Ticket type 1 price" with "199"
+  And I fill in "Ticket type 1 name" with "With alcohol"
+  
+  And I fill in "Ticket type 2 price" with "179"
+  And I fill in "Ticket type 2 name" with "Without alcohol"
+  
+  And I press "Create event"
   
   Then I should be on the event page for "My event"
   

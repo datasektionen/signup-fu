@@ -10,6 +10,7 @@ class Event < ActiveRecord::Base
   end
   
   accepts_nested_attributes_for :ticket_types, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
+  accepts_nested_attributes_for :mail_templates, :reject_if => lambda { |attrs| attrs.reject { |key, value| key == "name" }.values.all?(&:blank?) }
   
   def full?
     max_guests != 0 && replies.count >= max_guests

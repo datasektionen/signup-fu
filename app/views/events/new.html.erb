@@ -1,5 +1,7 @@
 <h1>New event</h1>
 
+<%= error_messages_for(:event) %>
+
 <% form_for(@event, :builder => signup_fu_form_builder) do |f| %>
   <%= f.text_field :name %>
   <%= f.datetime_select :date %>
@@ -13,6 +15,23 @@
     <%= ticket_type_form.text_field :name, :caption => "Ticket type #{ticket_type_index} name" %>
     <%= ticket_type_form.text_field :price, :caption => "Ticket type #{ticket_type_index} price" %>
   <% end -%>
+  
+  <%= check_box_tag "payment_confirmation", "1", false, 
+    :onclick => "$('payment_confirmation').checked ? $('payment_confirmation_settings').show():$('payment_confirmation_settings').hide()" %>
+  <label for="payment_confirmation">
+    Payment Confirmation
+  </label>
+  
+
+  <div id="payment_confirmation_settings" style="display: none">
+    
+    <% f.fields_for(:mail_templates) do |ff| %>
+      <%= ff.hidden_field :name, :value => "signup_confirmation" %>
+      <%= ff.text_field :subject %>
+      <%= ff.text_area :body %>
+    <% end -%>
+    
+  </div>
   
   <%= f.submit "Create event" %>
 <% end -%>
