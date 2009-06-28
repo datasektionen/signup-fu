@@ -6,7 +6,6 @@
   <%= f.text_field :name %>
   <%= f.datetime_select :date %>
   <%= f.datetime_select :deadline %>
-  <%= f.text_field :payment_time %>
   <%= f.text_field :max_guests %>
   
   <% ticket_type_index = 0 %>
@@ -49,6 +48,26 @@
     <% end -%>
     
   </div>
+  
+  <div style="clear: both"></div>
+  
+  <%= check_box_tag "ticket_expired", "1", false, 
+    :onclick => "$('ticket_expired').checked ? $('ticket_expired_settings').show():$('ticket_expired_settings').hide()" %>
+  <label for="ticket_expired">
+    Last payment (with expire)
+  </label>
+  
+  <div id="ticket_expired_settings" style="display: none">
+    <%= f.text_field :payment_time %>
+    
+    <% f.fields_for(:mail_templates) do |ff| %>
+      <%= ff.hidden_field :name, :value => "ticket_expired" %>
+      <%= ff.text_field :subject %>
+      <%= ff.text_area :body %>
+    <% end -%>
+    
+  </div>
+  
   
   
   <%= f.submit "Create event" %>
