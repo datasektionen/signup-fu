@@ -67,60 +67,61 @@ Scenario: Creating a new event with confirmation mail
   And I should see "Signup confirmation"
   And I should see "Welcome"
   And I should see "Welcome to {{EVENT_NAME}}"
-  
+
+
 Scenario: Creating a new event with payment mail
-
+  
   Given I am on the events page
-
+  
   When I follow "New event"
   And I fill in "Name" with "My event"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
-
+  
   And I check "Payment confirmation"
   And I fill in "Subject" with "Payment" in "payment_registered_settings"
   And I fill in "Body" with "Your ticket to {{EVENT_NAME}} is now paid" in "payment_registered_settings"
-
+  
   And I fill in the following ticket types:
     | With alcohol    | 199 |
     | Without alcohol | 179 |
   
   And I press "Create event"
-
+  
   Then I should be on the event page for "My event"
-
+  
   And I should see "Payment registered"
   And I should see "Payment"
   And I should see "Your ticket to {{EVENT_NAME}} is now paid"
 
+
 Scenario: Creating a new event with ticket expiry
   Given I am on the events page
-
+  
   When I follow "New event"
   And I fill in "Name" with "My event"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
-
+  
   And I check "ticket_expired"
   And I fill in "Payment time" with "10"
   And I fill in "Subject" with "No payment received" in "ticket_expired_settings"
   And I fill in "Body" with "Your ticket to {{EVENT_NAME}} is now expired" in "ticket_expired_settings"
-
+  
   And I fill in the following ticket types:
     | With alcohol    | 199 |
     | Without alcohol | 179 |
   
   And I press "Create event"
-
+  
   Then I should be on the event page for "My event"
-
+  
   And I should see "Ticket expired"
   And I should see "10 days"
   And I should see "No payment received"
   And I should see "Your ticket to {{EVENT_NAME}} is now expired"
-
 
 
 Scenario: Event deletion
