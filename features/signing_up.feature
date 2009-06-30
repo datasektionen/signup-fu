@@ -4,7 +4,9 @@ Feature: Signing up
   So that the event arranger can know who will come to the event and therefore plan properly and not kill anyone or buy too much or too little food.
   
   Scenario Outline: Signing up on free event
-    Given an event "My event"
+    Given an event "My event" with fields:
+      | Name           | Value                    |
+      | signup_message | Thank you for signing up |
     And a ticket type "Normal ticket" for 1 on "My event"
     
     When I go to the new reply page for "My event"
@@ -17,10 +19,10 @@ Feature: Signing up
     And I should see "<message>"
     
     Examples:
-      | name         | email | flash message               | message           |
-      | Karl Persson | kalle | Your signup was successful! |                   |
-      |              | kalle |                             | Name is required  |
-      | Karl Persson |       |                             | Email is required |
+      | name         | email | flash message               | message                  |
+      | Karl Persson | kalle | Your signup was successful! | Thank you for signing up |
+      |              | kalle |                             | Name is required         |
+      | Karl Persson |       |                             | Email is required        |
   
   Scenario Outline: Choosing a ticket type
     Given an event "My event"

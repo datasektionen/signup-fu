@@ -7,6 +7,7 @@
   <%= f.datetime_select :date %>
   <%= f.datetime_select :deadline %>
   <%= f.text_field :max_guests %>
+  <%= f.text_area :signup_message %>
   
   <% ticket_type_index = 0 %>
   <% f.fields_for(:ticket_types) do |ticket_type_form| %>

@@ -1,0 +1,21 @@
+* Last payment
+        * Kolla så att datumet inte blir en lördag eller söndag
+* Referensnummer
+* Defaultmeddelanden
+* Dynamiska fält till events
+* Välja om ett arr ska ha mat-fält
+* Tagga events
+* REST-API för att hämta info om fester
+* REST-API för att lägga till folk till fester
+
+Buggar
+* 0-pris fungerar inte
+
+Framtiden
+* Redigering av events
+
+
+Klart
+* Expire 
+* Bygg om UI så att man inte lägger till templates, istället aktiverar t ex ticket expiry
+* Tack-meddelanden (Efter att person anmält sig till event.)

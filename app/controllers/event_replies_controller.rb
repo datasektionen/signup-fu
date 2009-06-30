@@ -16,7 +16,7 @@ class EventRepliesController < ApplicationController
   end
   
   def show
-    
+    @reply = EventReply.find(params[:id])
   end
   
   def economy

@@ -10,6 +10,7 @@ Scenario: Creating a new event without max number of guests
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
+  And I fill in "Signup message" with "Foobar!"
   And I press "Create event"
   
   When I go to the events page
