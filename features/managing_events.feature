@@ -69,6 +69,28 @@ Scenario: Creating a new event with confirmation mail
   And I should see "Welcome"
   And I should see "Welcome to {{EVENT_NAME}}"
 
+Scenario: Creating a new event with confirmation mail - default message
+  Given I am on the events page
+  
+  When I follow "New event"
+  And I fill in "Name" with "My event"
+  And I select "2009-09-09 09:09" as the "Date" date and time
+  And I select "2009-08-08 08:08" as the "Deadline" date and time
+  And I fill in "Max guests" with "0"
+  
+  And I check "Signup confirmation"
+  
+  # The texts are in config/settings.yml
+  Then "Subject" in "signup_confirmation_settings" should have text "Thank you for signing up to {{EVENT_NAME}}"
+  And "Body" in "signup_confirmation_settings" should have text "Welcome to {{EVENT_NAME}}!"
+  
+  And "Subject" in "payment_registered_settings" should have text "Payment registered for {{EVENT_NAME}}"
+  And "Body" in "payment_registered_settings" should have text "Your payment for {{EVENT_NAME}} is now registered!"
+  
+  
+  And "Subject" in "ticket_expired_settings" should have text "Your ticket to {{EVENT_NAME}} has expired"
+  And "Body" in "ticket_expired_settings" should have text "No more ticket to {{EVENT_NAME}} for you!"
+  
 
 Scenario: Creating a new event with payment mail
   
@@ -96,7 +118,6 @@ Scenario: Creating a new event with payment mail
   And I should see "Payment"
   And I should see "Your ticket to {{EVENT_NAME}} is now paid"
 
-
 Scenario: Creating a new event with ticket expiry
   Given I am on the events page
   
@@ -123,7 +144,6 @@ Scenario: Creating a new event with ticket expiry
   And I should see "10 days"
   And I should see "No payment received"
   And I should see "Your ticket to {{EVENT_NAME}} is now expired"
-
 
 Scenario: Event deletion
   Given an event "My event"
@@ -207,5 +227,4 @@ Scenario: An expiring unpaid reply
   When I go to the event page for "My event"
   
   Then I should see "Expired (No payment)"
-
 

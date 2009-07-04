@@ -10,3 +10,9 @@ When /^I fill in "([^\"]*)" with "([^\"]*)" in "([^\"]*)"$/ do |field, value, co
   end
 end
 
+Then /^"([^\"]*)" in "([^\"]*)" should have text "([^\"]*)"$/ do |field, context, value|
+  within("##{context}") do
+    field_labeled(field).value.should == value
+  end
+end
+

@@ -24,11 +24,7 @@
   
   <div id="signup_confirmation_settings" style="display: none">
     
-    <% f.fields_for(:mail_templates) do |ff| %>
-      <%= ff.hidden_field :name, :value => "signup_confirmation" %>
-      <%= ff.text_field :subject %>
-      <%= ff.text_area :body %>
-    <% end -%>
+    <%= render :partial => 'mail_template_form', :locals => { :name => 'signup_confirmation', :f => f } %>
     
   </div>
   
@@ -42,11 +38,7 @@
   
   <div id="payment_registered_settings" style="display: none">
     
-    <% f.fields_for(:mail_templates) do |ff| %>
-      <%= ff.hidden_field :name, :value => "payment_registered" %>
-      <%= ff.text_field :subject %>
-      <%= ff.text_area :body %>
-    <% end -%>
+    <%= render :partial => 'mail_template_form', :locals => { :name => 'payment_registered', :f => f } %>
     
   </div>
   
@@ -61,11 +53,7 @@
   <div id="ticket_expired_settings" style="display: none">
     <%= f.text_field :payment_time %>
     
-    <% f.fields_for(:mail_templates) do |ff| %>
-      <%= ff.hidden_field :name, :value => "ticket_expired" %>
-      <%= ff.text_field :subject %>
-      <%= ff.text_area :body %>
-    <% end -%>
+    <%= render :partial => 'mail_template_form', :locals => { :name => 'ticket_expired', :f => f } %>
     
   </div>
   
