@@ -11,7 +11,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   padding: 0;
   border: 0;
   outline: 0;
-  font-size: 97%;
+  font-size: 0.97em;
   vertical-align: baseline;
   background: transparent;
 }
@@ -49,6 +49,7 @@ del {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+  margin-left: 10px;
 }
 
 .break {
@@ -56,13 +57,29 @@ table {
 }
 
 #header {
-  height: 80px;
+  height: 70px;
 }
 
 h1 {
   font-size: 2em;
   color: white;
   padding-top: 20px;
+}
+
+h2 {
+  font-size: 1.2em;
+  margin-bottom: 12px;
+}
+
+
+h3 {
+  font-size: 1.1em;
+  margin-bottom: 12px;
+  border-bottom: 1px solid gray;
+}
+
+h4 {
+  font-size: 0.97em;
 }
 
 #wrap {
@@ -73,15 +90,13 @@ h1 {
 #content {
   background-color: white;
   padding: 10px;
+  border: 2px solid black;
+  
 }
 
-h2 {
-  font-size: 1.2em;
-  margin-bottom: 12px;
-}
 
 table {
-  
+  margin-bottom: 1em;
 }
 
 tr {
@@ -101,4 +116,8 @@ a.button {
   border: 1px #AAAAAA solid;
   padding: 4px;
   background-color: #CCCCCC;
+}
+
+table.vertical_header th {
+  text-align: left;
 }

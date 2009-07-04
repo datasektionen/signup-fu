@@ -1,34 +1,53 @@
 <h2><%= @event.name %></h2>
 
-<%= @event.date %>
+<table class="vertical_header">
+  <tr>
+    <th>Date</th>
+    <td>
+      <%= @event.date %>
+    </td>
+  </tr>
+  
+  <tr>
+    <th>Deadline</th>
+    <td><%= @event.deadline %></td>
+  </tr>
+  
+  
+  <tr>
+    <th>Payment time</th>
+    <td><%= @event.payment_time %> days</td>
+  </tr>
+  
+</table>
 
-<%= @event.deadline %>
-
-<%= @event.payment_time %> days
-
-<h2>Mail templates</h2>
+<h3>Mail templates</h3>
 <% if !@event.mail_templates.blank? %>
   <% for template in @event.mail_templates %>
-    <h3><%= template.name.humanize %></h3>
+    <h4><%= template.name.humanize %></h4>
     
-    <dl>
-      <dt>Subject:</dt>
-      <dd><%= template.subject %></dd>
+    <table class="vertical_header">
+      <tr>
+        <th>Subject:</th>
+        <td><%= template.subject %></td>
+      </tr>
       
-      <dt>Body:</dt>
-      <dd><%= template.body %></dd>
-    </dl>
+      <tr>
+        <th>Body:</th>
+        <td><%= template.body %></td>
+      </tr>
+    </table>
   <% end %>
 <% else %>
   
 <% end %>
 
-<h2>Ticket types</h2>
+<h3>Ticket types</h3>
 <% if !@event.ticket_types.blank? %>
-  <table>
+  <table class="vertical_header">
   <% for type in @event.ticket_types %>
     <tr>
-      <td><%= type.name %></td>
+      <th><%= type.name %></th>
       <td><%= type.price %> kr</td>
     </tr>
   <% end %>
@@ -37,7 +56,7 @@
   
 <% end %>
 
-
+<h3>Guests</h3>
 
 <table border="0" id="guest_list_table">
   <tr>

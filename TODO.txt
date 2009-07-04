@@ -5,6 +5,8 @@
 * Tagga events
 * REST-API för att hämta info om fester
 * REST-API för att lägga till folk till fester
+* Manuellt skapande av replies (går förbi begränsningar)
+* Visning av anmälda (med REST-API)
 
 Buggar
 * 0-pris fungerar inte
