@@ -1,4 +1,4 @@
-<h1>Events</h1>
+<h2>Events</h2>
 
 <table>
   <tr>
@@ -11,9 +11,13 @@
     <tr>
       <td><%= link_to event.name, event %></td>
       <td><%= event.date %></td>
-      <td><%= link_to "Delete event", event, :method => :delete %></td>
+      <td><%= button_link_to "Delete", event, :method => :delete %></td>
     </tr>
   <% end -%>
 </table>
 
-<%= link_to "New event", new_event_path %>
+<p id="actions">
+  <%= button_link_to "New event", new_event_path %>
+</p>
+
+<div class="break"></div>
