@@ -13,8 +13,8 @@
     <%= f.select :ticket_type_id, @event.ticket_types.map { |p| [p.name, p.id] }, :caption => 'Ticket type'%>
     <%= f.text_field :name, :caption => 'Name' %>
     <%= f.text_field :email, :caption => "E-mail" %>
-    <%= f.text_area :food, :caption => "Food preferences" %>
-    <%= f.text_area :comments, :caption => 'Comments' %>
+    <%= f.text_area :food, :caption => "Food preferences", :rows => 5 %>
+    <%= f.text_area :comments, :caption => 'Comments', :rows => 5 %>
     <%= f.submit "Sign up" %>
   <% end -%>
   

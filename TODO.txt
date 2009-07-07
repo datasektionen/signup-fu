@@ -1,8 +1,8 @@
 
-* Snygga till formulären
 * Redigering av delar av events (Datum, namn)
 * style på flash
 * Mer utskriftsanpassad lista på gäster
+* Inloggning
 
 ------------ Release? 
 * Last payment
@@ -33,3 +33,4 @@ Klart
 * Bygg om UI så att man inte lägger till templates, istället aktiverar t ex ticket expiry
 * Tack-meddelanden (Efter att person anmält sig till event.)
 * Defaultmeddelanden
+* Snygga till formulären
