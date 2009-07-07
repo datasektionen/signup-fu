@@ -45,22 +45,24 @@ Scenario: Creating a new event with prices
 
 
 Scenario: Creating a new event without mails
-#  Given I am on the events page
-#  
-#  When I follow "New event"
-#  And I fill in "Name" with "My event"
-#  And I select "2009-09-09 09:09" as the "Date" date and time
-#  And I select "2009-08-08 08:08" as the "Deadline" date and time
-#  And I fill in "Max guests" with "0"
-#  And I fill in the following ticket types:
-#    | With alcohol    | 199 |
-#    | Without alcohol | 179 |
-#  
-#  And I press "Create event"
-#  
-#  Then I should be on the event page for "My event"
-#  
-#  And I should not see "Signup confirmation"
+  Given I am on the events page
+  
+  When I follow "New event"
+  And I fill in "Name" with "My event"
+  And I select "2009-09-09 09:09" as the "Date" date and time
+  And I select "2009-08-08 08:08" as the "Deadline" date and time
+  And I fill in "Max guests" with "0"
+  And I fill in the following ticket types:
+    | With alcohol    | 199 |
+    | Without alcohol | 179 |
+  
+  And I press "Create event"
+  
+  Then I should be on the event page for "My event"
+  
+  And I should not see "Signup confirmation"
+  And I should not see "Ticket expiry"
+  And I should not see "Payment registered mail"
 
 
 Scenario: Creating a new event with confirmation mail
