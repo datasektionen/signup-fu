@@ -105,6 +105,12 @@ p.explanation {
   margin-left: 15px;
 }
 
+p.empty_list {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 
 table {
   margin-bottom: 1em;
