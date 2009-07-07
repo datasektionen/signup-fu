@@ -52,6 +52,26 @@ table {
   margin-left: 10px;
 }
 
+table td, table th {
+  padding: 5px;
+}
+
+table th {
+  border-bottom: 1px solid black;
+}
+
+table tr.even {
+  background-color: #ccc;
+}
+
+table tr.odd {
+  background-color: #aaa;
+}
+
+table.vertical_header th {
+  border: none;
+}
+
 .break {
   clear: both;
 }

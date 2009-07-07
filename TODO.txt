@@ -1,12 +1,21 @@
+
+* Snygga till formulären
+* Redigering av delar av events (Datum, namn)
+* style på flash
+* Mer utskriftsanpassad lista på gäster
+
+------------ Release? 
 * Last payment
         * Kolla så att datumet inte blir en lördag eller söndag
 * Referensnummer
-* Dynamiska fält till events
+
+* Manuellt skapande av replies (går förbi begränsningar)
+
 * Tagga events
 * REST-API för att hämta info om fester
 * REST-API för att lägga till folk till fester
-* Manuellt skapande av replies (går förbi begränsningar)
 * Visning av anmälda (med REST-API)
+* Dynamiska fält till events
 
 Buggar
 * 0-pris fungerar inte

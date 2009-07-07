@@ -74,7 +74,7 @@
       <th>Comments</th>
     </tr>
     <% @event.replies.each do |reply| %>
-    <tr>
+    <tr class="<%= cycle('even', 'odd') %>">
       <td><%= reply.name %></td>
       <td><%= reply.email %></td>
       <td><%= reply.ticket_type.name %></td>
