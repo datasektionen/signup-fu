@@ -99,6 +99,12 @@ h4 {
   
 }
 
+p.explanation {
+  font-size: 0.7em;
+  margin-bottom: 5px;
+  margin-left: 15px;
+}
+
 
 table {
   margin-bottom: 1em;
@@ -125,4 +131,17 @@ a.button {
 
 table.vertical_header th {
   text-align: left;
+}
+
+div.email table.email {
+  margin-left: 0;
+}
+
+div.email div.body {
+  background-color: #EEEEEE;
+  border: 1px solid #AAAAAA;
+  padding: 5px;
+  margin-left: 10px;
+  font-family: monospace;
+  margin-bottom: 20px;
 }

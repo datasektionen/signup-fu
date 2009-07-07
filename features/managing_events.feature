@@ -43,8 +43,27 @@ Scenario: Creating a new event with prices
   And I should see "179 kr"
   And I should not see "0 kr"
 
+
+Scenario: Creating a new event without mails
+#  Given I am on the events page
+#  
+#  When I follow "New event"
+#  And I fill in "Name" with "My event"
+#  And I select "2009-09-09 09:09" as the "Date" date and time
+#  And I select "2009-08-08 08:08" as the "Deadline" date and time
+#  And I fill in "Max guests" with "0"
+#  And I fill in the following ticket types:
+#    | With alcohol    | 199 |
+#    | Without alcohol | 179 |
+#  
+#  And I press "Create event"
+#  
+#  Then I should be on the event page for "My event"
+#  
+#  And I should not see "Signup confirmation"
+
+
 Scenario: Creating a new event with confirmation mail
-  
   Given I am on the events page
   
   When I follow "New event"
@@ -140,7 +159,7 @@ Scenario: Creating a new event with ticket expiry
   
   Then I should be on the event page for "My event"
   
-  And I should see "Ticket expired"
+  And I should see "Ticket expiry"
   And I should see "10 days"
   And I should see "No payment received"
   And I should see "Your ticket to {{EVENT_NAME}} is now expired"
@@ -149,7 +168,7 @@ Scenario: Event deletion
   Given an event "My event"
   
   When I go to the events page
-  And I follow "Delete event"
+  And I follow "Delete"
   And I go to the events page
   
   Then I should not see "My event"

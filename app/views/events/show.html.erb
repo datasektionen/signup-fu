@@ -21,26 +21,27 @@
   
 </table>
 
-<h3>Mail templates</h3>
-<% if !@event.mail_templates.blank? %>
-  <% for template in @event.mail_templates %>
-    <h4><%= template.name.humanize %></h4>
-    
-    <table class="vertical_header">
-      <tr>
-        <th>Subject:</th>
-        <td><%= template.subject %></td>
-      </tr>
-      
-      <tr>
-        <th>Body:</th>
-        <td><%= template.body %></td>
-      </tr>
-    </table>
-  <% end %>
-<% else %>
-  
-<% end %>
+<% if @event.send_mail_for?(:signup_confirmation)%>
+  <%= render :partial => 'email', :locals => {
+    :title => 'Signup confirmation',
+    :explanation => "An e-mail will be sent out to everyone who signs up to this event. This email will look like this.",
+    :template => @event.mail_templates.by_name(:signup_confirmation) } %>
+<% end -%>
+
+<% if @event.send_mail_for?(:ticket_expired) %>
+  <%= render :partial => 'email', :locals => {
+    :title => 'Ticket expiry',
+    :explanation => "If a ticket isn't paid within #{@event.payment_time} days, it will be deleted and the following mail will be sent to the guest",
+    :template => @event.mail_templates.by_name(:ticket_expired) } %>
+<% end -%>
+
+<% if @event.send_mail_for?(:payment_registered) %>
+  <%= render :partial => 'email', :locals => {
+    :title => 'Payment registered mail',
+    :explanation => "An e-mail will be sent out to guests when their payment is registered in the economy system. This email will look like this.",
+    :template => @event.mail_templates.by_name(:payment_registered) } %>
+<% end -%>
+
 
 <h3>Ticket types</h3>
 <% if !@event.ticket_types.blank? %>
