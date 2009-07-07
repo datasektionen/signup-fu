@@ -20,8 +20,6 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
   
-  config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
-  config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
   config.gem "rubyist-aasm", :lib => "aasm", :source => "http://gems.github.com"
   #config.gem "ianwhite-pickle", :lib => "pickle", :source => "http://gems.github.com"
 
