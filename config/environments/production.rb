@@ -29,6 +29,10 @@ config.action_mailer.raise_delivery_errors = true
 
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
-  :address => 'mail1.comhem.se',
-  :domain => 'h.patrikstenmark.se'
+  :tls => true,
+  :address => "smtp.gmail.com",
+  :port => 587,
+  :authentication => :plain,
+  :user_name => "signupfu@gmail.com",
+  :password => "k4km0nst3r"
 }
