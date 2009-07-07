@@ -4,20 +4,22 @@
   <tr>
     <th>Date</th>
     <td>
-      <%= @event.date %>
+      <%= @event.date.strftime("%Y-%m-%d %H:%M") %>
     </td>
   </tr>
   
   <tr>
     <th>Deadline</th>
-    <td><%= @event.deadline %></td>
+    <td><%= @event.deadline.strftime("%Y-%m-%d %H:%M") %></td>
   </tr>
   
+  <% if @event.payment_time %>
   
-  <tr>
-    <th>Payment time</th>
-    <td><%= @event.payment_time %> days</td>
-  </tr>
+    <tr>
+      <th>Payment time</th>
+      <td><%= @event.payment_time %> days</td>
+    </tr>
+  <% end -%>
   
 </table>
 
