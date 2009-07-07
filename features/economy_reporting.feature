@@ -10,7 +10,8 @@ Scenario: Marking a reply as paid
   And a guest to "My event" called "Kalle"
     ||
   
-  When I am on the economy page for "My event"
+  When I am on the event page for "My event"
+  And I follow "Economy"
   And I check the paid checkbox for "Kalle"
   And I press "Save"
   

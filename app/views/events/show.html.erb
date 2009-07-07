@@ -1,3 +1,7 @@
+<% content_for :nav do %>
+  <%= button_link_to("Economy", economy_event_event_replies_path(@event)) %>
+<% end -%>
+
 <h2><%= @event.name %></h2>
 
 <table class="vertical_header">

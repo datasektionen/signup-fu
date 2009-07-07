@@ -1,4 +1,8 @@
-<h1>Economy</h1>
+<% content_for :nav do %>
+  <%= button_link_to("Back to #{@event.name}", @event)%>
+<% end -%>
+
+<h2>Economy</h2>
 
 <% form_tag(economy_event_event_replies_path(@event)) do %>
   <table>

@@ -18,6 +18,10 @@
         <%= flash[:error] %>
       </div>
       <div id="content">
+        
+        <div style="float:right; border: 1px solid #eeeeee">
+          <%= yield :nav %>
+        </div>
         <%= yield %>
       </div>
       

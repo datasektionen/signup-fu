@@ -9,6 +9,8 @@
         * Kolla så att datumet inte blir en lördag eller söndag
 * Referensnummer
 
+* Avregistrering av betalning (Troligtvis på eventreply-sidan)
+
 * Manuellt skapande av replies (går förbi begränsningar)
 
 * Tagga events
