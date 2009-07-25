@@ -45,5 +45,16 @@ describe EventRepliesController do
       do_post
       response.body.should eql("<xml><for>reply</for></xml>")
     end
+    
+    it "should default to NOT sending a confirmation mail" do
+      @event.replies.should_receive(:new).with(hash_including(:send_signup_confirmation => false))
+      do_post
+    end
+    
+    it "should be possible to sending a confirmation mail" do
+      @event.replies.should_receive(:new).with(hash_including(:send_signup_confirmation => 'true'))
+      do_post(:send_signup_confirmation => 'true')
+    end
+    
   end
 end

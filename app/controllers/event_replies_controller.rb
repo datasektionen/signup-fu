@@ -7,8 +7,9 @@ class EventRepliesController < ApplicationController
   end
   
   def create
-    
-    puts params.inspect
+    if request.format == :xml
+      params[:event_reply][:send_signup_confirmation] = false if params[:event_reply][:send_signup_confirmation].nil?
+    end
     @reply = @event.replies.new(params[:event_reply])
     
     respond_to do |format|
@@ -17,7 +18,9 @@ class EventRepliesController < ApplicationController
           flash[:notice] = "Your signup was successful!"
           redirect_to(@reply)
         end
-        format.xml { render :xml => @reply, :status => :created, :location => @reply }
+        format.xml do
+          render :xml => @reply, :status => :created, :location => @reply
+        end
       else
         format.html do
           render :action => 'new'  
