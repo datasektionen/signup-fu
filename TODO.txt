@@ -1,4 +1,4 @@
-
+* visa vilket event man anmäler sig till
 * Redigering av delar av events (Datum, namn)
 * style på flash
 * Mer utskriftsanpassad lista på gäster
