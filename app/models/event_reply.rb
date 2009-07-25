@@ -1,4 +1,7 @@
 class EventReply < ActiveRecord::Base
+  
+  attr_accessor :send_signup_confirmation
+  
   include AASM
   
   aasm_initial_state :new
@@ -43,6 +46,14 @@ class EventReply < ActiveRecord::Base
   
   def paid?
     paid_at.present?
+  end
+  
+  def send_signup_confirmation=(boolish)
+    if [true, "true", "1"].include?(boolish)
+      @send_signup_confirmation = true
+    else
+      @send_signup_confirmation = false
+    end
   end
   
   def on_paid

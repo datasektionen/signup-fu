@@ -1,5 +1,6 @@
 class EventRepliesController < ApplicationController
   before_filter :load_parents, :only => [:new, :index, :create, :economy]
+  skip_before_filter :verify_authenticity_token
   
   def new
     @reply = EventReply.new
@@ -7,11 +8,20 @@ class EventRepliesController < ApplicationController
   
   def create
     @reply = @event.replies.new(params[:event_reply])
-    if @reply.save
-      flash[:notice] = "Your signup was successful!"
-      redirect_to(@reply)
-    else
-      render :action => 'new'
+    
+    respond_to do |format|
+      if @reply.save
+        format.html do
+          flash[:notice] = "Your signup was successful!"
+          redirect_to(@reply)
+        end
+        format.xml { render :xml => @reply, :status => :created, :location => @reply }
+      else
+        format.html do
+          render :action => 'new'  
+        end
+        format.xml { render :xml => @reply.errors, :status => :unprocessable_entity }
+      end
     end
   end
   

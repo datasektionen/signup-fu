@@ -72,21 +72,67 @@ describe EventReply do
     reply.paid_at.should == now
   end
   
-  it "should send payment registration mail when there is a payment_registered mail template" do
+  describe "mailings" do
     
-    ticket_type = TicketType.create!(:name => 'Normal ticket', :price => 10)
-    event = Event.create!(:name => "My event")
-    event.mail_templates.create!(:body => 'foo', :subject => 'bar', :name => 'payment_registered')
+    before do
+      @ticket_type = TicketType.create!(:name => 'Normal ticket', :price => 10)
+      @event = Event.create!(:name => "My event")
+      @event.mail_templates.create!(:body => 'foo', :subject => 'bar', :name => 'payment_registered')
+      
+    end
+    it "should send payment registration mail when there is a payment_registered mail template" do
     
-    @reply = event.replies.create!(:ticket_type => ticket_type, :name => 'Kalle', :email => 'kalle@example.org')
     
-    @event.stub!(:send_mail_for?).with(:payment_registered).and_return(true)
+      @reply = @event.replies.create!(:ticket_type => @ticket_type, :name => 'Kalle', :email => 'kalle@example.org')
     
-    @reply.save!
+      @event.stub!(:send_mail_for?).with(:payment_registered).and_return(true)
     
-    EventMailer.should_receive(:deliver_payment_registered).with(@reply)
+      @reply.save!
     
-    EventReply.pay([@reply.id])
+      EventMailer.should_receive(:deliver_payment_registered).with(@reply)
+    
+      EventReply.pay([@reply.id])
+    end
+  
+    # For use in REST-API
+    it "should not send signup confirmation mail if no_signup_confirmation is true" do
+      EventMailer.should_not_receive(:deliver_signup_confirmation)
+      
+      @reply = @event.replies.new(
+        :ticket_type => @ticket_type,
+        :name => 'Kalle',
+        :email => 'kalle@example.org',
+        :send_signup_confirmation => "false"
+      )
+      @reply.event.stub!(:send_mail_for?).with(:signup_confirmation).and_return(true)
+      
+      @reply.save!
+    end
+    
+    [true, "true", "1"].each do |trueish|
+      it "should interpret \"#{trueish}\" as true" do
+        @reply = @event.replies.new(
+          :ticket_type => @ticket_type,
+          :name => 'Kalle',
+          :email => 'kalle@example.org',
+          :send_signup_confirmation => trueish
+        )
+        @reply.send_signup_confirmation.should eql(true)
+      end
+    end
+    
+    [false, "false", "0"].each do |falseish|
+      it "should interpret \"#{falseish}\" as false" do
+        @reply = @event.replies.new(
+          :ticket_type => @ticket_type,
+          :name => 'Kalle',
+          :email => 'kalle@example.org',
+          :send_signup_confirmation => falseish
+        )
+        @reply.send_signup_confirmation.should eql(false)
+      end
+    end
+    
   end
   
   describe "expiry run with 14 days payment time" do
