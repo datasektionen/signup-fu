@@ -1,3 +1,5 @@
+<h1>Sign up to <%= @event.name %></h1>
+
 <% if @event.deadline.past? %>
   <p class="error">
     The deadline for <%= @event.name %> has passed

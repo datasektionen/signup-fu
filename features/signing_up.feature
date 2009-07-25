@@ -10,7 +10,10 @@ Feature: Signing up
     And a ticket type "Normal ticket" for 1 on "My event"
     
     When I go to the new reply page for "My event"
-    And I select "Normal ticket" from "Ticket type"
+    
+    Then I should see "Sign up to My event"
+    
+    When I select "Normal ticket" from "Ticket type"
     And I fill in "Name" with "<name>"
     And I fill in "E-mail" with "<email>"
     And I press "Sign up"
