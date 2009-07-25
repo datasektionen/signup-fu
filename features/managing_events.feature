@@ -175,6 +175,25 @@ Scenario: Event deletion
   
   Then I should not see "My event"
 
+
+Scenario: Editing an event
+  Given an event "My event"
+  
+  When I go to the events page
+  And I follow "Edit"
+  
+  Then I should not see "Ticket 1 name"
+  And I should not see "Signup Confirmation"
+  
+  And I select "2010-10-10 10:10" as the "Date" date and time
+  And I press "Save"
+  
+  Then I should be on the event page for "My event"
+  And I should not see "2009-09-09"
+  And I should see "2010-10-10"
+  
+  
+
 Scenario: Viewing an event
   Given an event "My event"
   

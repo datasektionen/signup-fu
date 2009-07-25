@@ -11,7 +11,10 @@
     <tr>
       <td><%= link_to event.name, event %></td>
       <td><%= event.date.strftime("%Y-%m-%d %H:%M") %></td>
-      <td><%= button_link_to "Delete", event, :method => :delete, :confirm => "Are you sure you want to delete \"#{event.name}\"" %></td>
+      <td>
+        <%= button_link_to "Edit", edit_event_path(event) %>
+        <%= button_link_to "Delete", event, :method => :delete, :confirm => "Are you sure you want to delete \"#{event.name}\"" %>
+      </td>
     </tr>
   <% end -%>
 </table>

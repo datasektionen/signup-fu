@@ -4,10 +4,7 @@
 
 <% form_for(@event, :builder => signup_fu_form_builder) do |f| %>
   <%= f.text_field :name %>
-  <%= f.datetime_select :date %>
-  <%= f.datetime_select :deadline %>
-  <%= f.text_field :max_guests %>
-  <%= f.text_area :signup_message %>
+  <%= render :partial => 'common_fields', :locals => {:f => f} %>
   
   <% ticket_type_index = 0 %>
   <% f.fields_for(:ticket_types) do |ticket_type_form| %>

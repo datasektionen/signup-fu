@@ -1,0 +1,8 @@
+<h2>Edit <%= @event.name %></h2>
+
+<% form_for(@event, :builder => signup_fu_form_builder) do |f| %>
+
+  <%= render :partial => 'common_fields', :locals => {:f => f} %>
+  
+  <%= f.submit "Save" %>
+<% end -%>

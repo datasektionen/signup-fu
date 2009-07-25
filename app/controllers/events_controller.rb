@@ -14,6 +14,21 @@ class EventsController < ApplicationController
     3.times { @event.ticket_types.build }
   end
   
+  def edit
+    @event = Event.find(params[:id])
+  end
+  
+  def update
+    @event = Event.find(params[:id])
+    
+    if @event.update_attributes(params[:event])
+      flash[:notice] = "Event successfully updated"
+      redirect_to @event
+    else
+      render :action => "edit"
+    end
+  end
+  
   def create
     remove_unselected_mail_template_attributes
     
