@@ -56,6 +56,11 @@ class EventReply < ActiveRecord::Base
     end
   end
   
+  def send_signup_confirmation
+    # Default om den inte är satt är att skicka!
+    @send_signup_confirmation.nil? || @send_signup_confirmation
+  end
+  
   def on_paid
     update_attribute(:paid_at, Time.now)
     

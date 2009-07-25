@@ -29,8 +29,10 @@ describe EventRepliesController do
       model.stub!(association).and_return(association_proxy)
     end
     
-    def do_post(params = {})
-      post :create, @valid_params.merge(:format => 'xml', :event_id => @event).merge(params)
+    def do_post(event_reply_params = {}, params = {})
+      request.accept = "text/xml"
+      general_params = {:format => 'xml', :event_id => @event}.merge(params)
+      post :create, {:event_reply => @valid_params.merge(event_reply_params)}.merge(general_params)
     end
     
     it "should create a reply" do
@@ -43,9 +45,5 @@ describe EventRepliesController do
       do_post
       response.body.should eql("<xml><for>reply</for></xml>")
     end
-    
-    it "should default to not sending confirmation mail"
-    
   end
-  
 end

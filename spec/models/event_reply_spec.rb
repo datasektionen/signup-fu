@@ -37,7 +37,7 @@ describe EventReply do
     @reply.save!
     
   end
-  
+    
   it "#paid?" do
     @reply.should_not be_paid
     
@@ -80,9 +80,8 @@ describe EventReply do
       @event.mail_templates.create!(:body => 'foo', :subject => 'bar', :name => 'payment_registered')
       
     end
+    
     it "should send payment registration mail when there is a payment_registered mail template" do
-    
-    
       @reply = @event.replies.create!(:ticket_type => @ticket_type, :name => 'Kalle', :email => 'kalle@example.org')
     
       @event.stub!(:send_mail_for?).with(:payment_registered).and_return(true)
@@ -93,9 +92,23 @@ describe EventReply do
     
       EventReply.pay([@reply.id])
     end
-  
+    
+    it "should send signup confirmation mail if no_signup_confirmation is not set" do
+      EventMailer.should_receive(:deliver_signup_confirmation)
+      
+      @reply = @event.replies.new(
+        :ticket_type => @ticket_type,
+        :name => 'Kalle',
+        :email => 'kalle@example.org'
+      )
+      @reply.event.stub!(:send_mail_for?).with(:signup_confirmation).and_return(true)
+      
+      @reply.save!
+      
+    end
+    
     # For use in REST-API
-    it "should not send signup confirmation mail if no_signup_confirmation is true" do
+    it "should not send signup confirmation mail if send_signup_confirmation is false" do
       EventMailer.should_not_receive(:deliver_signup_confirmation)
       
       @reply = @event.replies.new(

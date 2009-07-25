@@ -1,12 +1,14 @@
 class EventRepliesController < ApplicationController
   before_filter :load_parents, :only => [:new, :index, :create, :economy]
-  skip_before_filter :verify_authenticity_token
+  #skip_before_filter :verify_authenticity_token
   
   def new
     @reply = EventReply.new
   end
   
   def create
+    
+    puts params.inspect
     @reply = @event.replies.new(params[:event_reply])
     
     respond_to do |format|
