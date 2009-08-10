@@ -1,4 +1,3 @@
-* Checkboxar för vanliga allergier
 * style på flash
 * Mer utskriftsanpassad lista på gäster
 * Inloggning
@@ -35,3 +34,4 @@ Klart
 * Snygga till formulären
 * visa vilket event man anmäler sig till
 * Redigering av delar av events (Datum, namn)
+* Checkboxar för vanliga allergier
