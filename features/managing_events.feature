@@ -201,8 +201,8 @@ Scenario: Viewing an event
   And I follow "My event"
   
   Then I should see "My event"
-  And I should see "2009-09-09"
-  And I should see "2009-08-08"
+  And I should see "2010-09-09"
+  And I should see "2010-08-08"
 
 Scenario: Viewing guests for an event
   Given an event "My event"
