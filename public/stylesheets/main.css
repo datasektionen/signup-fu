@@ -11,14 +11,13 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   padding: 0;
   border: 0;
   outline: 0;
-  font-size: 0.97em;
   vertical-align: baseline;
   background: transparent;
 }
 body {
   line-height: 1;
   font-family: sans-serif;
-  background-color: #E2007F;
+  background-color: #d9d7c5;
 }
 ol, ul {
   list-style: none;
@@ -45,14 +44,19 @@ del {
   text-decoration: line-through;
 }
 
+body, a, p, ul, li, form {
+  line-height: 18px; 
+  font-size: 14px;
+}
+
 /* tables still need 'cellspacing="0"' in the markup */
 table {
   border-collapse: collapse;
   border-spacing: 0;
-  margin-left: 10px;
 }
 
 table td, table th {
+  line-height: 18px;
   padding: 5px;
 }
 
@@ -61,11 +65,11 @@ table th {
 }
 
 table tr.even {
-  background-color: #ccc;
+  background-color: #C2C0B0;
 }
 
 table tr.odd {
-  background-color: #aaa;
+  background-color: #CFCCBC;
 }
 
 table.vertical_header th {
@@ -77,23 +81,44 @@ table.vertical_header th {
 }
 
 #header {
-  height: 70px;
+  background-color: #aeb7bf;
+  width: 900px;
+  height: 108px;
+}
+
+#footer {
+  background-color: #aeb7bf;
+  height: 54px;
+  color: #DAE6F0;
+  text-align: center;
+}
+
+#footer p {
+  padding-top: 18px;
 }
 
 h1 {
-  font-size: 2em;
-  color: white;
-  padding-top: 20px;
+  color: #ba7777;
+  font-family: "Gill Sans";
+  padding-top: 18px;
+  padding-left: 90px;
 }
 
 h1 a {
   text-decoration: none;
   color: inherit;
+  font-size: 72px;
+  line-height: 72px;
 }
 
 h2 {
-  font-size: 1.2em;
-  margin-bottom: 12px;
+  font-size: 36px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  margin-left: 18px;
+  font-family: 'Gill Sans', sans-serif;
+  font-weight: normal;
+  color: #ba7777;
 }
 
 
@@ -108,19 +133,16 @@ h4 {
 }
 
 #wrap {
-  width: 800px;
+  width: 900px;
   margin: 0 auto;
 }
 
 #content {
-  background-color: white;
-  padding: 10px;
-  border: 2px solid black;
-  
+  background-color: #d9d7c5;
+  padding: 18px;
 }
 
 p.explanation {
-  font-size: 0.7em;
   margin-bottom: 5px;
   margin-left: 15px;
 }
@@ -134,6 +156,7 @@ p.empty_list {
 
 table {
   margin-bottom: 1em;
+  font-size: 14px;
 }
 
 tr {
@@ -144,15 +167,27 @@ td {
   padding: 0.5em 0.2em;
 }
 
+a {
+  color: #253324;
+}
+
 #content > p#actions {
   margin-top: 12px;
   float: right;
 }
 
 a.button {
-  border: 1px #AAAAAA solid;
+  font-weight: bold;
+}
+
+#navigation {
+   float:right;
+   margin-top: 27px;
+   font-size: 18px;
+}
+
+#navigation a.button {
   padding: 4px;
-  background-color: #CCCCCC;
 }
 
 table.vertical_header th {
@@ -164,7 +199,7 @@ div.email table.email {
 }
 
 div.email div.body {
-  background-color: #EEEEEE;
+  background-color: #DAE6F0;
   border: 1px solid #AAAAAA;
   padding: 5px;
   margin-left: 10px;
@@ -188,4 +223,9 @@ form li label {
 form input[type=submit] {
   margin: 10px;
   margin-left: 20px;
+}
+
+#economy_report_table input[type=checkbox] {
+  height: 18px;
+  width: 18px;
 }
