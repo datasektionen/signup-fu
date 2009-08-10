@@ -83,14 +83,7 @@
       <td><%= reply.name %></td>
       <td><%= reply.email %></td>
       <td><%= reply.ticket_type.name %></td>
-      <td>
-        <% if reply.aasm_current_state == :expired %>
-          Expired (No payment)
-        <% elsif reply.aasm_current_state == :paid %>
-          Paid (<%= reply.paid_at.strftime("%Y-%m-%d") %>)
-        <% elsif reply.aasm_current_state == :new %>
-          Unpaid
-        <% end -%>
+      <td><%= state(reply) %></td>
       <td><%= food_preferences(reply)%></td>
       <td><%= reply.food %></td>
       <td><%= reply.comments %></td>
