@@ -25,6 +25,8 @@ class EventReply < ActiveRecord::Base
   
   belongs_to :event
   belongs_to :ticket_type
+  
+  has_and_belongs_to_many :food_preferences
   validates_presence_of :event, :name, :email, :ticket_type, :message => 'is required'
   
   def self.pay(ids)

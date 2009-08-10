@@ -75,6 +75,7 @@
       <th>Ticket type</th>
       <th>State</th>
       <th>Food preferences</th>
+      <th>Other food related</th>
       <th>Comments</th>
     </tr>
     <% @event.replies.each do |reply| %>
@@ -90,6 +91,7 @@
         <% elsif reply.aasm_current_state == :new %>
           Unpaid
         <% end -%>
+      <td><%= reply.food_preferences.map(&:name).join(", ") %></td>
       <td><%= reply.food %></td>
       <td><%= reply.comments %></td>
     </tr>

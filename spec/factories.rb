@@ -18,3 +18,7 @@ Factory.define(:ticket_type) do |p|
   p.price 100
   p.name "With alcohol"
 end
+
+Factory.define(:food_preference) do |f|
+  f.name "Vegan"
+end

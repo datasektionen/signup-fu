@@ -17,6 +17,12 @@
     <%= f.text_field :email, :caption => "E-mail" %>
     <%= f.text_area :food, :caption => "Food preferences", :rows => 5 %>
     <%= f.text_area :comments, :caption => 'Comments', :rows => 5 %>
+    
+    <% FoodPreference.all.each do |food_pref| %>
+      <%= f.label_tag dom_id(food_pref, "checkbox"), food_pref.name %>
+      <%= f.check_box_tag 'event_reply[food_preference_ids][]', food_pref.id, false, :id => dom_id(food_pref, "checkbox") %>
+    <% end -%>
+    
     <%= f.submit "Sign up" %>
   <% end -%>
   

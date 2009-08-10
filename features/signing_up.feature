@@ -112,6 +112,33 @@ Feature: Signing up
     When I open the email
     
     Then I should see "Last payment date is 2009-01-15" in the email
+  
+  
+  Scenario: Food preferences
+    Given an event "My event"
+    And a ticket type "Normal ticket" for 1 on "My event"
+    
+    Given food preference "Vegan" 
+    And food preference "Vegetarian"
+    
+    When I go to the new reply page for "My event"
+    
+    Then I should see "Vegan"
+    And I should see "Vegetarian"
+    
+    And I select "Normal ticket" from "Ticket type"
+    And I fill in "Name" with "Kalle"
+    And I fill in "E-mail" with "kalle@example.org"
+    And I check "Vegan"
+    And I press "Sign up"
+    And I go to the event page for "My event"
+    
+    Then I should see "Vegan"
+    #And I should see "1 Vegan"
+  
+
+
+  
     
 #    Feature: Cucumber stock keeping
 #      In order to avoid interruption of cucumber consumption

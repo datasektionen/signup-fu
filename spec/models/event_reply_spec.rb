@@ -25,6 +25,7 @@ describe EventReply do
   it { should belong_to(:ticket_type) }
   it { should validate_presence_of(:event).with_message('is required') }
   it { should validate_presence_of(:ticket_type).with_message('is required') }
+  it { should have_and_belong_to_many(:food_preferences) }
   # This is for making the error messages make more sense...
   it { should have_db_column(:aasm_state).of_type(:string).with_options(:null => false)}
   
