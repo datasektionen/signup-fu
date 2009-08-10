@@ -91,7 +91,7 @@
         <% elsif reply.aasm_current_state == :new %>
           Unpaid
         <% end -%>
-      <td><%= reply.food_preferences.map(&:name).join(", ") %></td>
+      <td><%= food_preferences(reply)%></td>
       <td><%= reply.food %></td>
       <td><%= reply.comments %></td>
     </tr>
