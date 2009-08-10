@@ -268,3 +268,26 @@ Scenario: An expiring unpaid reply
   
   Then I should see "Expired (No payment)"
 
+Scenario: Food weirdness summary
+  Given an event "My event"
+  And food preference "Vegan"
+  And food preference "Vegetarian"
+  And a ticket type "With alcohol" for 100 on "My event"
+  And a guest to "My event" called "Kalle"
+    | Name  | Value             |
+    | Food Preferences | Vegan  |
+  
+  And a guest to "My event" called "Pelle"
+    | Name             | Value      |
+    | Food Preferences | Vegetarian |
+  
+  And a guest to "My event" called "Stina"
+    | Name             | Value      |
+    | Food Preferences | Vegetarian |
+  
+  When I go to the event page for "My event"
+  
+  Then I should see "Number of..."
+  And the food preferences summary should show 2 Vegetarian
+  And the food preferences summary should show 1 Vegan
+

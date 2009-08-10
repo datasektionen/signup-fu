@@ -91,5 +91,21 @@
     
     <% end -%>
   </table>
+  
+  <table class="vertical_header" id="food_preferences_summary">
+    <tr>
+      <th>Number of...</th>
+      <td>&nbsp;</td>
+    </tr>
+    
+    <% FoodPreference.all.each do |food_preference| %>
+    
+      <tr>
+        <th><%= food_preference.name %></th>
+        <td><%= @event.replies.to_a.select { |r| r.food_preferences.include?(food_preference) }.size %></td>
+      </tr>
+    
+    <% end -%>
+  </table>
 <% end %>
 

@@ -72,7 +72,14 @@ Given /^a guest to "([^\"]*)" called "([^\"]*)"$/ do |event_name, name, table|
   reply = Factory(:reply, :ticket_type => ticket_type, :name => name, :event => event)
   
   table.hashes.each do |field|
-    reply.send("#{field['Name']}=", field['Value'])
+    case field['Name']
+    when /Food Preferences/i
+      pref = FoodPreference.find_by_name(field['Value'])
+      raise "No such food preference" if pref.nil?
+      reply.food_preferences << pref
+    else
+      reply.send("#{field['Name']}=", field['Value'])
+    end
   end
   event.replies  << reply
 end
@@ -108,6 +115,13 @@ When /^I fill in the following ticket types:$/ do |table|
     fill_in "Ticket type #{i + 1} price", :with => ticket_price
   end
 end
+
+Then /^the food preferences summary should show (\d+) (.*)$/ do |count, kind|
+  response.body.should match_selector("#food_preferences_summary") do |table|
+    table.css("tr").any? { |tr| tr.css("th").first.content == kind && tr.css("td").first.content == count }
+  end
+end
+
 
 
 
