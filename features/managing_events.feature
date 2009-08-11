@@ -255,7 +255,6 @@ Scenario: An expiring unpaid reply
     
   And now is 3 weeks from now
   
-  
   When the ticket expire process is run
   
   Then "kalle@example.org" should receive 1 emails

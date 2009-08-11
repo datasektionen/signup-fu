@@ -1,3 +1,4 @@
+* Påminnelser
 * style på flash
 * Mer utskriftsanpassad lista på gäster
 * Inloggning
