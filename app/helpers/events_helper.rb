@@ -11,6 +11,8 @@ module EventsHelper
       "Paid (#{reply.paid_at.strftime("%Y-%m-%d")})"
     when :new
       "Unpaid"
+    when :reminded
+      "Reminded"
     end
     
   end

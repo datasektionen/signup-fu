@@ -265,7 +265,7 @@ Scenario: Reminder runs. Wtf NBS flashbacks
   Then "kalle@example.org" should receive 1 emails
   
   When "kalle@example.org" opens the email with subject "Reminder"
-  Then I should see "You are hereby reminded"
+  Then I should see "You are hereby reminded" in the email
   
   When I go to the event page for "My event"
   
