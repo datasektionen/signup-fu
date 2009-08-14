@@ -331,5 +331,25 @@ describe EventReply do
       
       @reply.remind!
     end
+    
+    it "should remind replies that should be remindeded...." do
+      @event.stub!(:expire_unpaid?).and_return(true)
+      
+      @reply.stub!(:should_be_reminded?).and_return(true)
+      reply2 = EventReply.new(
+        @valid_attributes.with(
+          :name => 'Knatte',
+          :email => 'knatte@example.org'
+        )
+      )
+      
+      reply2.stub!(:should_be_reminded?).and_return(false)
+      
+      EventReply.stub!(:all).and_return([reply2, @reply])
+      
+      @reply.should_receive(:remind!)
+      
+      EventReply.remind_old_unpaid_replies
+    end
   end
 end
