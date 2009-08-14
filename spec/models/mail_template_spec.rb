@@ -20,7 +20,7 @@ describe MailTemplate do
   it { should validate_presence_of(:body) }
   it { should validate_presence_of(:subject) }
   
-  %w(signup_confirmation payment_registered ticket_expired).each do |allowed_value|
+  %w(signup_confirmation payment_registered ticket_expired ticket_expire_reminder).each do |allowed_value|
     it { should allow_value(allowed_value).for(:name) }
   end
   

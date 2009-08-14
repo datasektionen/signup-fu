@@ -21,6 +21,14 @@ class EventMailer < ActionMailer::Base
     template = event.mail_templates.by_name(:ticket_expired)
     
     send_mail_from_template(reply, template)
+  end
+  
+  def ticket_expire_reminder(reply)
+    event = reply.event
+    
+    template = event.mail_templates.by_name(:ticket_expire_reminder)
+    
+    send_mail_from_template(reply, template)
     
   end
   

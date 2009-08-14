@@ -94,6 +94,11 @@ When /^the ticket expire process is run$/ do
   EventReply.expire_old_unpaid_replies
 end
 
+When /^the reminder process is run$/ do
+  EventReply.remind_old_unpaid_replies
+end
+
+
 When /^I mark "([^\"]*)" as paid$/ do |reply_name|
   event = Event.first
   

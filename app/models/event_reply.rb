@@ -10,6 +10,7 @@ class EventReply < ActiveRecord::Base
   aasm_state :paid
   aasm_state :expired
   aasm_state :cancelled
+  aasm_state :reminded
 
   aasm_event :pay do
     transitions :to => :paid, :from => [:new], :on_transition => :on_paid
@@ -17,6 +18,10 @@ class EventReply < ActiveRecord::Base
   
   aasm_event :expire do
     transitions :to => :expired, :from => [:new], :on_transition => :on_expire
+  end
+  
+  aasm_event :remind do
+    transitions :to => :reminded, :from => [:new], :on_transition => :on_remind
   end
 
   #aasm_event :cancel do
@@ -40,10 +45,19 @@ class EventReply < ActiveRecord::Base
     all(:include => [:event]).each do |reply|
       event = reply.event
       next unless event.expire_unpaid?
-      if !reply.paid? && Time.now > (reply.created_at + event.payment_time.days)
+      if reply.should_be_expired?
         reply.expire!
       end
     end
+  end
+  
+  def should_be_expired?
+    #if !reply.paid? && Time.now > (reply.created_at + event.payment_time.days)
+    reminded? && !paid? && Time.now > (created_at + event.payment_time.days)
+  end
+  
+  def should_be_reminded?
+    aasm_current_state == :new && Time.now > (created_at + event.payment_time.days)
   end
   
   def paid?
@@ -75,5 +89,9 @@ class EventReply < ActiveRecord::Base
       if event.send_mail_for?(:ticket_expired)
       EventMailer.deliver_reply_expired_notification(self)
     end
+  end
+  
+  def on_remind
+    EventMailer.deliver_ticket_expire_reminder(self)
   end
 end

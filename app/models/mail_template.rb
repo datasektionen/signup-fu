@@ -6,7 +6,8 @@ class MailTemplate < ActiveRecord::Base
   TEMPLATE_TYPES = [
     ['Signup Confirmation', 'signup_confirmation'],
     ['Payment registered', 'payment_registered'],
-    ['Ticket expired', 'ticket_expired']
+    ['Ticket expired', 'ticket_expired'],
+    ['Ticket expire reminder', 'ticket_expire_reminder']
   ]
   
   validates_inclusion_of :name, :in => TEMPLATE_TYPES.map(&:last), :message => 'is invalid'

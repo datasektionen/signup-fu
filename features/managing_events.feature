@@ -241,7 +241,8 @@ Scenario: Creating an event with a pay before date
   And I should see "14 days"
   
 
-Scenario: An expiring unpaid reply
+
+Scenario: Reminder runs. Wtf NBS flashbacks
   Given an event "My event"
   And that "My event" has a payment time of 14 days
   And a ticket type "With alcohol" for 100 on "My event"
@@ -249,13 +250,49 @@ Scenario: An expiring unpaid reply
     | Name    | Value                                                        |
     | body    | You, {{REPLY_NAME}}, are bad person. Your ticket is now void |
     | subject | You haven't paid for {{EVENT_NAME}}                          |
+  And "My event" has mail template "ticket_expire_reminder" with fields:
+    | Name    | Value                   |
+    | body    | You are hereby reminded |
+    | subject | Reminder                |
+  
   And a guest to "My event" called "Kalle"
     | Name  | Value            |
     | email | kalle@example.org |
-    
-  And now is 3 weeks from now
   
-  When the ticket expire process is run
+  And now is 3 weeks from now
+  And the reminder process is run
+  
+  Then "kalle@example.org" should receive 1 emails
+  
+  When "kalle@example.org" opens the email with subject "Reminder"
+  Then I should see "You are hereby reminded"
+  
+  When I go to the event page for "My event"
+  
+  Then I should see "Reminded"
+
+
+Scenario: An expiring unpaid reply
+  Given an event "My event"
+  And that "My event" has a payment time of 14 days
+  And a ticket type "With alcohol" for 100 on "My event"
+  And "My event" has mail template "ticket_expire_reminder" with fields:
+    | Name    | Value |
+    | body    | foo   |
+    | subject | bar   |
+  And "My event" has mail template "ticket_expired" with fields:
+    | Name    | Value                                                        |
+    | body    | You, {{REPLY_NAME}}, are bad person. Your ticket is now void |
+    | subject | You haven't paid for {{EVENT_NAME}}                          |
+  And a guest to "My event" called "Kalle"
+    | Name  | Value             |
+    | email | kalle@example.org |
+  
+  When now is 3 weeks from now
+  And the reminder process is run
+  And no emails have been sent
+  And now is 4 weeks from now
+  And the ticket expire process is run
   
   Then "kalle@example.org" should receive 1 emails
   

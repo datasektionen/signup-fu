@@ -152,9 +152,11 @@ describe EventReply do
   describe "expiry run with 14 days payment time" do
     before do
       @event.stub!(:send_mail_for?).with(:ticket_expired).and_return(true)
+      @event.stub!(:send_mail_for?).with(:ticket_expire_reminder).and_return(true)
       @event.stub!(:expire_unpaid?).and_return(true)
 
       @event.stub!(:payment_time).and_return(14)
+      @event.stub!(:reminder_time).and_return(7)
       
       @knatte = EventReply.new(
         @valid_attributes.with(
@@ -162,8 +164,9 @@ describe EventReply do
           :email => 'knatte@example.org'
         )
       )
-      @knatte.stub!(:created_at).and_return(20.days.ago)
-      @knatte.stub!(:paid?).and_return(true)
+      @knatte.stub!(:should_be_expired?).and_return(false)
+      #@knatte.stub!(:created_at).and_return(20.days.ago)
+      #@knatte.stub!(:paid?).and_return(true)
       
       @fnatte = EventReply.new(
         @valid_attributes.with(
@@ -171,34 +174,30 @@ describe EventReply do
           :email => 'fnatte@example.org'
         )
       )
+      @fnatte.stub!(:should_be_expired?).and_return(true)
       @fnatte.stub!(:created_at).and_return(21.days.ago)
       
-      @tjatte = EventReply.new(
-        @valid_attributes.with(
-          :name => 'Tjatte',
-          :email => 'tjatte@example.org'
-        )
-      )
-      @tjatte.stub!(:created_at).and_return(7.days.ago)
+      #@tjatte = EventReply.new(
+      #  @valid_attributes.with(
+      #    :name => 'Tjatte',
+      #    :email => 'tjatte@example.org'
+      #  )
+      #)
+      #@tjatte.stub!(:created_at).and_return(7.days.ago)
       
-      @replies = [@knatte,@fnatte,@tjatte]
+      @replies = [@knatte,@fnatte]
       EventReply.stub!(:find).and_return(@replies)
       
       EventMailer.stub!(:deliver_reply_expired_notification)
     end
     
-    it "should not expire tickets one week old" do
-      @tjatte.should_not_receive(:expire!)
-      EventReply.expire_old_unpaid_replies
-    end
-    
-    it "should expire unpaid tickets three weeks old" do
-      @fnatte.should_receive(:expire!)
-      EventReply.expire_old_unpaid_replies
-    end
-    
-    it "should not expire paid tickets" do
+    it "should not expire tickets that should not be expired" do
       @knatte.should_not_receive(:expire!)
+      EventReply.expire_old_unpaid_replies
+    end
+    
+    it "should expire unpaid tickets that should be expired" do
+      @fnatte.should_receive(:expire!)
       EventReply.expire_old_unpaid_replies
     end
     
@@ -211,6 +210,126 @@ describe EventReply do
       @event.stub!(:expire_unpaid?).and_return(false)
       @replies.each {|r| r.should_not_receive(:expire!) }
       EventReply.expire_old_unpaid_replies
+    end
+  end
+  
+  describe "#should_be_expired?" do
+    before do
+      @reply = EventReply.new(
+        @valid_attributes.with(
+          :name => 'Knatte',
+          :email => 'knatte@example.org'
+        )
+      )
+      
+      @reply.save!
+      
+      @event.stub!(:payment_time).and_return(14)
+      @event.stub!(:aasm_current_state).and_return(:reminded)
+      EventMailer.stub!(:deliver_ticket_expire_reminder)
+    end
+    
+    Spec::Matchers.define :be_marked_for_expire do
+      match do |reply|
+        reply.should_be_expired?
+      end
+    end
+    
+    
+    it "should not be expired if paid and after pay date" do
+      @reply.stub!(:created_at).and_return(21.days.ago)
+      @reply.pay!
+      
+      @reply.should_not be_marked_for_expire
+    end
+    
+    it "should not be expired if before pay date" do
+      @reply.stub!(:created_at).and_return(5.days.ago)
+
+      @reply.should_not be_marked_for_expire
+    end
+    
+    it "should not be expired if not reminded, after pay date and unpaid" do
+      @reply.stub!(:created_at).and_return(21.days.ago)
+      
+      @reply.should_not be_marked_for_expire
+    end
+    
+    it "should be expired if reminded, unpaid and passed pay date" do
+      @reply.stub!(:created_at).and_return(21.days.ago)
+      
+      @reply.remind!
+      
+      @reply.should be_marked_for_expire
+    end
+    #
+    #it "should not be expired unless reminded once"
+  end
+  
+  describe "#should_be_reminded?" do
+    
+    Spec::Matchers.define :be_marked_for_reminding do
+      match do |reply|
+        reply.should_be_reminded?
+      end
+    end
+    
+    
+    before do
+      @reply = EventReply.new(
+        @valid_attributes.with(
+          :name => 'Knatte',
+          :email => 'knatte@example.org'
+        )
+      )
+      
+      @reply.save!
+      
+      @event.stub!(:payment_time).and_return(14)
+      @reply.stub!(:created_at).and_return(21.days.ago)
+      EventMailer.stub!(:deliver_ticket_expire_reminder)
+    end
+    
+    it "should be reminded if after payment date" do
+      @reply.should be_marked_for_reminding
+    end
+    
+    it "should not be reminded if paid" do
+      @reply.pay!
+      @reply.should_not be_marked_for_reminding
+    end
+    
+    it "should not be reminded if already reminded" do
+      @reply.remind!
+      
+      @reply.should_not be_marked_for_reminding
+    end
+  end
+
+  describe "reminder runs!" do
+    before do
+      @reply = EventReply.new(
+        @valid_attributes.with(
+          :name => 'Knatte',
+          :email => 'knatte@example.org'
+        )
+      )
+      
+      @reply.save!
+      
+      @event.stub!(:payment_time).and_return(14)
+      EventMailer.stub!(:deliver_ticket_expire_reminder)
+    end
+    
+    it "should change state to reminded" do
+      @reply.remind!
+      @reply.aasm_current_state.should == :reminded
+    end
+    
+    it "should send reminder letter" do
+      EventMailer.should_receive(:deliver_ticket_expire_reminder)
+      
+      @reply.remind!
     end
   end
 end
