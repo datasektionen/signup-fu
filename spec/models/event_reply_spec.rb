@@ -165,8 +165,6 @@ describe EventReply do
         )
       )
       @knatte.stub!(:should_be_expired?).and_return(false)
-      #@knatte.stub!(:created_at).and_return(20.days.ago)
-      #@knatte.stub!(:paid?).and_return(true)
       
       @fnatte = EventReply.new(
         @valid_attributes.with(
@@ -189,10 +187,12 @@ describe EventReply do
       EventReply.stub!(:find).and_return(@replies)
       
       EventMailer.stub!(:deliver_reply_expired_notification)
+      EventMailer.stub!(:deliver_ticket_expire_reminder)
     end
     
     it "should not expire tickets that should not be expired" do
       @knatte.should_not_receive(:expire!)
+      @fnatte.stub!(:expire!)
       EventReply.expire_old_unpaid_replies
     end
     
@@ -202,6 +202,7 @@ describe EventReply do
     end
     
     it "should send mail to expired" do
+      @fnatte.remind!
       EventMailer.should_receive(:deliver_reply_expired_notification).with(@fnatte)
       @fnatte.expire!
     end
@@ -210,6 +211,19 @@ describe EventReply do
       @event.stub!(:expire_unpaid?).and_return(false)
       @replies.each {|r| r.should_not_receive(:expire!) }
       EventReply.expire_old_unpaid_replies
+    end
+    
+    it "should change state to expired" do
+      @reply.remind!
+      @reply.expire!
+      @reply.aasm_current_state.should == :expired
+    end
+    
+    it "should not expire unreminded replies" do
+      @reply.stub!(:aasm_current_state).and_return(:new)
+      lambda {
+        @reply.expire!
+      }.should raise_error(AASM::InvalidTransition)
     end
   end
   

@@ -17,7 +17,7 @@ class EventReply < ActiveRecord::Base
   end
   
   aasm_event :expire do
-    transitions :to => :expired, :from => [:new], :on_transition => :on_expire
+    transitions :to => :expired, :from => [:reminded], :on_transition => :on_expire
   end
   
   aasm_event :remind do
