@@ -15,6 +15,25 @@ describe Event do
   it "should not allow deadline after date"
   it "should require a ticket type"
   
+  it "should not accept ticket_expiry without ticket_expire_reminder" do
+    event = Event.new(@valid_params)
+    event.mail_templates << MailTemplate.new(:name => 'ticket_expiry')
+    
+    event.should_not be_valid
+    event.errors.on_base.should include("You can't have ticket_expiry without ticket_expire_reminder")
+    
+  end
+  
+  it "should not accept ticket_expire_reminder without ticket_expiry" do
+    event = Event.new(@valid_params)
+    event.mail_templates << MailTemplate.new(:name => 'ticket_expire_reminder')
+    
+    event.should_not be_valid
+    event.errors.on_base.should include("You can't have ticket_expire_reminder without ticket_expiry")
+  end
+  
+  it "should accept ticket_expiry and ticket_expire_reminder"
+  
   it "should not be valid with a expiry and no payment time"
   
   it "should be full if it has more than max_guest guests" do

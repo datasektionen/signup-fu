@@ -1,4 +1,7 @@
 class Event < ActiveRecord::Base
+  
+  validate :check_correct_mail_templates
+  
   has_many :replies, :class_name => 'EventReply', :foreign_key => 'event_id'
   
   has_many :ticket_types
@@ -22,5 +25,17 @@ class Event < ActiveRecord::Base
   
   def send_mail_for?(name)
     mail_templates.by_name(name).present?
+  end
+  
+  private
+  def check_correct_mail_templates
+    if mail_templates.map(&:name).include?("ticket_expiry") && !mail_templates.map(&:name).include?("ticket_expire_reminder")
+      errors.add_to_base("You can't have ticket_expiry without ticket_expire_reminder")
+    end
+    
+    if !mail_templates.map(&:name).include?("ticket_expiry") && mail_templates.map(&:name).include?("ticket_expire_reminder")
+      errors.add_to_base("You can't have ticket_expire_reminder without ticket_expiry")
+    end
+    
   end
 end
