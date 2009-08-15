@@ -20,6 +20,8 @@
 
 Buggar
 * 0-pris fungerar inte
+* Expire körs alltid, ingen koll på hur många dagar sen reminder
+* Validering på att om man vill ha expiry måste man ha reminder
 
 Framtiden
 * Redigering av events

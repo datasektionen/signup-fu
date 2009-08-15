@@ -153,6 +153,9 @@ Scenario: Creating a new event with ticket expiry
   And I fill in "Subject" with "No payment received" in "ticket_expired_settings"
   And I fill in "Body" with "Your ticket to {{EVENT_NAME}} is now expired" in "ticket_expired_settings"
   
+  And I fill in "Subject" with "Reminder" in "ticket_expire_reminder_settings"
+  And I fill in "Body" with "Your are hereby reminded" in "ticket_expire_reminder_settings"
+  
   And I fill in the following ticket types:
     | With alcohol    | 199 |
     | Without alcohol | 179 |
@@ -165,6 +168,9 @@ Scenario: Creating a new event with ticket expiry
   And I should see "10 days"
   And I should see "No payment received"
   And I should see "Your ticket to {{EVENT_NAME}} is now expired"
+  And I should see "Reminder"
+  And I should see "Your are hereby reminded"
+  
 
 Scenario: Event deletion
   Given an event "My event"

@@ -36,9 +36,16 @@
 
 <% if @event.send_mail_for?(:ticket_expired) %>
   <%= render :partial => 'email', :locals => {
+    :title => 'Ticket expiry reminder',
+    :explanation => "If a ticket isn't paid within #{@event.payment_time} days, it will be reminded using this mail template.",
+    :template => @event.mail_templates.by_name(:payment_registered) } %>
+  <%= render :partial => 'email', :locals => {
     :title => 'Ticket expiry',
-    :explanation => "If a ticket isn't paid within #{@event.payment_time} days, it will be deleted and the following mail will be sent to the guest",
+    :explanation => "If a ticket isn't paid within XXXX days after reminder, it will be deleted and the following mail will be sent to the guest",
     :template => @event.mail_templates.by_name(:ticket_expired) } %>
+  
+
+
 <% end -%>
 
 <% if @event.send_mail_for?(:payment_registered) %>
