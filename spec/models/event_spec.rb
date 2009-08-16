@@ -17,7 +17,7 @@ describe Event do
   
   it "should not accept ticket_expiry without ticket_expire_reminder" do
     event = Event.new(@valid_params)
-    event.mail_templates << MailTemplate.new(:name => 'ticket_expiry')
+    event.mail_templates << MailTemplate.new(:name => 'ticket_expired')
     
     event.should_not be_valid
     event.errors.on_base.should include("You can't have ticket_expiry without ticket_expire_reminder")

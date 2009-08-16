@@ -89,6 +89,9 @@ Scenario: Creating a new event with confirmation mail
   And I should see "Signup confirmation"
   And I should see "Welcome"
   And I should see "Welcome to {{EVENT_NAME}}"
+  
+  And I should not see "Ticket expiry"
+  And I should not see "Payment registered mail"
 
 Scenario: Creating a new event with confirmation mail - default message
   Given I am on the events page
@@ -153,6 +156,8 @@ Scenario: Creating a new event with ticket expiry
   And I fill in "Subject" with "No payment received" in "ticket_expired_settings"
   And I fill in "Body" with "Your ticket to {{EVENT_NAME}} is now expired" in "ticket_expired_settings"
   
+  # För javascriptad checkbox
+  And I fill in "event_mail_templates_ticket_expire_reminder_enabled" with "1"
   And I fill in "Subject" with "Reminder" in "ticket_expire_reminder_settings"
   And I fill in "Body" with "Your are hereby reminded" in "ticket_expire_reminder_settings"
   

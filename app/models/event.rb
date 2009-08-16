@@ -13,7 +13,6 @@ class Event < ActiveRecord::Base
   end
   
   accepts_nested_attributes_for :ticket_types, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
-  accepts_nested_attributes_for :mail_templates, :reject_if => lambda { |attrs| attrs.reject { |key, value| key == "name" }.values.all?(&:blank?) }
   
   def full?
     max_guests != 0 && replies.count >= max_guests
@@ -27,13 +26,21 @@ class Event < ActiveRecord::Base
     mail_templates.by_name(name).present?
   end
   
+  def mail_templates_attributes=(mail_templates_params)
+    mail_templates_params.each_pair do |template_name, template_attributes|
+      if template_attributes.delete(:enable) == "1"
+        mail_templates << MailTemplate.new(template_attributes)
+      end
+    end
+  end
+  
   private
   def check_correct_mail_templates
-    if mail_templates.map(&:name).include?("ticket_expiry") && !mail_templates.map(&:name).include?("ticket_expire_reminder")
+    if mail_templates.map(&:name).include?("ticket_expired") && !mail_templates.map(&:name).include?("ticket_expire_reminder")
       errors.add_to_base("You can't have ticket_expiry without ticket_expire_reminder")
     end
     
-    if !mail_templates.map(&:name).include?("ticket_expiry") && mail_templates.map(&:name).include?("ticket_expire_reminder")
+    if !mail_templates.map(&:name).include?("ticket_expired") && mail_templates.map(&:name).include?("ticket_expire_reminder")
       errors.add_to_base("You can't have ticket_expire_reminder without ticket_expiry")
     end
     

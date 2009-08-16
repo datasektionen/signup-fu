@@ -16,3 +16,6 @@ Then /^"([^\"]*)" in "([^\"]*)" should have text "([^\"]*)"$/ do |field, context
   end
 end
 
+When /^I take a snapshot$/ do
+  save_and_open_page
+end

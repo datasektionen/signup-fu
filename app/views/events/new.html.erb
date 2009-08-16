@@ -13,8 +13,9 @@
     <%= ticket_type_form.text_field :price, :caption => "Ticket type #{ticket_type_index} price" %>
   <% end -%>
   
-  <%= check_box_tag "signup_confirmation", "1", false, 
-    :onclick => "$('signup_confirmation').checked ? $('signup_confirmation_settings').show():$('signup_confirmation_settings').hide()" %>
+  <%= check_box_tag "event[mail_templates_attributes][signup_confirmation][enable]", "1", false, 
+    :onclick => "$('signup_confirmation').checked ? $('signup_confirmation_settings').show():$('signup_confirmation_settings').hide()",
+    :id => 'signup_confirmation' %>
   <label for="signup_confirmation">
     Signup Confirmation
   </label>
@@ -27,8 +28,9 @@
   
   <div style="clear: both"></div>
   
-  <%= check_box_tag "payment_registered", "1", false, 
-    :onclick => "$('payment_registered').checked ? $('payment_registered_settings').show():$('payment_registered_settings').hide()" %>
+  <%= check_box_tag "event[mail_templates_attributes][payment_registered][enable]", "1", false, 
+    :onclick => "$('payment_registered').checked ? $('payment_registered_settings').show():$('payment_registered_settings').hide()",
+    :id => 'payment_registered' %>
   <label for="payment_registered">
     Payment confirmation
   </label>
@@ -41,8 +43,22 @@
   
   <div style="clear: both"></div>
   
-  <%= check_box_tag "ticket_expired", "1", false, 
-    :onclick => "$('ticket_expired').checked ? $('ticket_expired_settings').show():$('ticket_expired_settings').hide()" %>
+  
+  <script type="text/javascript" charset="utf-8">
+    function toggleTicketExpiry() {
+      if ($('ticket_expired').checked) {
+        $('ticket_expired_settings').show();
+        $('event_mail_templates_ticket_expire_reminder_enabled').value = "1"
+      } else {
+        $('ticket_expired_settings').hide();
+      }
+    }
+  </script>
+  
+  
+  <%= check_box_tag "event[mail_templates_attributes][ticket_expired][enable]", "1", false, 
+    :onclick => "toggleTicketExpiry()",
+    :id => 'ticket_expired' %>
   <label for="ticket_expired">
     Last payment (with expire)
   </label>
@@ -53,11 +69,11 @@
     <%= render :partial => 'mail_template_form', :locals => { :name => 'ticket_expired', :f => f } %>
     <div id="ticket_expire_reminder_settings">
       <h4>Reminder</h4>
+      <%= hidden_field_tag "event[mail_templates_attributes][ticket_expire_reminder][enable]", "0", :id => 'event_mail_templates_ticket_expire_reminder_enabled' %>
       <%= render :partial => 'mail_template_form', :locals => { :name => 'ticket_expire_reminder', :f => f } %>
     </div>
     
   </div>
-  
   
   
   <%= f.submit "Create event" %>

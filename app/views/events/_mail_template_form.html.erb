@@ -1,4 +1,4 @@
-<% f.fields_for(:mail_templates) do |ff| %>
+<% f.fields_for(:mail_templates_attributes, :index => name) do |ff| %>
   <%= ff.hidden_field :name, :value => name %>
   <%= ff.text_field :subject, :value => APP_CONFIG[:default_messages][name][:subject] %>
   <%= ff.text_area :body, :value => APP_CONFIG[:default_messages][name][:body] %>
