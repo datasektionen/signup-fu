@@ -13,10 +13,18 @@
       <div id="header">
         <h1><%= link_to "SignupFu", root_path %></h1>
       </div>
-      <div id="flash">
-        <%= flash[:notice] %>
-        <%= flash[:error] %>
-      </div>
+      <% if flash[:notice] %>
+        <div id="flash_notice">
+          <%= flash[:notice] %>
+        </div>
+      <% end -%>
+      
+      <% if flash[:error] %>
+        <div id="flash_error">
+          <%= flash[:error] %>
+        </div>
+      <% end -%>
+      
       <div id="content">
         
         <div id="navigation">

@@ -190,6 +190,50 @@ a.button {
   padding: 4px;
 }
 
+#errorExplanation {
+  margin-bottom: 18px;
+/*  background-color: #CB3632;*/
+  background-color: #C38A38;
+  border: #CB3632 2px solid;
+  padding: 9px;
+}
+
+#errorExplanation h3 {
+  border-bottom: none;
+}
+
+#errorExplanation ul {
+  margin-top: 9px;
+}
+
+#errorExplanation ul li {
+ list-style-type: disc; 
+ margin-left: 36px;
+}
+
+.fieldWithErrors input {
+  background-color: #E2231B;
+}
+
+#flash_error {
+  background-image: url(/images/icons/error.png);
+  background-repeat: no-repeat;
+  background-position: center left;
+  padding-left: 20px !important;
+  border: 2px solid #CB3632;
+  padding: 9px;
+}
+
+#flash_notice {
+  background-image: url(/images/icons/information.png);
+  background-repeat: no-repeat;
+  background-position: center left;
+  padding-left: 20px !important;
+/*  border: 2px solid #CB3632;*/
+  padding: 9px;
+}
+
+
 table.vertical_header th {
   text-align: left;
 }

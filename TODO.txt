@@ -2,6 +2,8 @@
 * Style på felmeddelanden (error_messages_for osv)
 * Mer utskriftsanpassad lista på gäster
 * Inloggning
+* I18n
+* Allmänt pill och tillsnyggande
 
 ------------ Release? 
 * Last payment
@@ -20,6 +22,7 @@
 
 Buggar
 * 0-pris fungerar inte
+* Event utan ticket type går att skapa, men då går det inte att anmäla sig till det efterom ER validerar en ticket type...
 
 Framtiden
 * Redigering av events
