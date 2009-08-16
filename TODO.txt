@@ -1,5 +1,5 @@
-* Påminnelser
 * style på flash
+* Style på felmeddelanden (error_messages_for osv)
 * Mer utskriftsanpassad lista på gäster
 * Inloggning
 
@@ -20,7 +20,6 @@
 
 Buggar
 * 0-pris fungerar inte
-* Expire körs alltid, ingen koll på hur många dagar sen reminder
 
 Framtiden
 * Redigering av events
@@ -38,3 +37,5 @@ Klart
 * Redigering av delar av events (Datum, namn)
 * Checkboxar för vanliga allergier
 * Validering på att om man vill ha expiry måste man ha reminder
+* Påminnelser
+* Expire körs alltid, ingen koll på hur många dagar sen reminder

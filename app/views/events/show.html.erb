@@ -25,6 +25,14 @@
     </tr>
   <% end -%>
   
+  <% if @event.expire_time_from_reminder %>
+    <tr>
+      <th>Reminder time</th>
+      <td><%= @event.expire_time_from_reminder %> days</td>
+    </tr>
+  <% end -%>
+  
+  
 </table>
 
 <% if @event.send_mail_for?(:signup_confirmation)%>
