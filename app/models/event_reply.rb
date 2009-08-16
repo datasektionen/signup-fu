@@ -63,11 +63,15 @@ class EventReply < ActiveRecord::Base
   
   def should_be_expired?
     #if !reply.paid? && Time.now > (reply.created_at + event.payment_time.days)
-    reminded? && !paid? && Time.now > (created_at + event.payment_time.days)
+    reminded? &&
+      !paid? &&
+      Time.now > (created_at + event.payment_time.days) &&
+      Time.now > (reminded_at + event.expire_time_from_reminder.days)
   end
   
   def should_be_reminded?
-    aasm_current_state == :new && Time.now > (created_at + event.payment_time.days)
+    aasm_current_state == :new &&
+      Time.now > (created_at + event.payment_time.days)
   end
   
   def paid?
@@ -102,6 +106,7 @@ class EventReply < ActiveRecord::Base
   end
   
   def on_remind
+    update_attribute(:reminded_at, Time.now)
     EventMailer.deliver_ticket_expire_reminder(self)
   end
 end

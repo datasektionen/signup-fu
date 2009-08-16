@@ -239,7 +239,7 @@ describe EventReply do
       @reply.save!
       
       @event.stub!(:payment_time).and_return(14)
-      @event.stub!(:aasm_current_state).and_return(:reminded)
+      @event.stub!(:expire_time_from_reminder).and_return(7)
       EventMailer.stub!(:deliver_ticket_expire_reminder)
     end
     
@@ -250,7 +250,7 @@ describe EventReply do
     end
     
     
-    it "should not be expired if paid and after pay date" do
+    it "should not be expired if reminded, paid and after pay date" do
       @reply.stub!(:created_at).and_return(21.days.ago)
       @reply.pay!
       
@@ -269,10 +269,20 @@ describe EventReply do
       @reply.should_not be_marked_for_expire
     end
     
-    it "should be expired if reminded, unpaid and passed pay date" do
+    it "should not be expired if reminded, unpaid and passed pay date, if there havent't gone enough time since reminder" do
       @reply.stub!(:created_at).and_return(21.days.ago)
       
       @reply.remind!
+      @reply.stub!(:reminded_at).and_return(5.days.ago)
+      
+      @reply.should_not be_marked_for_expire
+    end
+    
+    it "should be expired if reminded, unpaid, passed pay date and enough days passed since reminder" do
+      @reply.stub!(:created_at).and_return(21.days.ago)
+      
+      @reply.remind!
+      @reply.stub!(:reminded_at).and_return(10.days.ago)
       
       @reply.should be_marked_for_expire
     end
@@ -301,6 +311,8 @@ describe EventReply do
       
       @event.stub!(:payment_time).and_return(14)
       @reply.stub!(:created_at).and_return(21.days.ago)
+      @event.stub!(:expire_time_from_reminder).and_return(5)
+      
       EventMailer.stub!(:deliver_ticket_expire_reminder)
     end
     
@@ -338,6 +350,14 @@ describe EventReply do
     it "should change state to reminded" do
       @reply.remind!
       @reply.aasm_current_state.should == :reminded
+    end
+    
+    it "should set reminded at date" do
+      now = Time.now
+      Time.stub!(:now).and_return(now)
+      
+      @reply.remind!
+      @reply.reminded_at.to_s(:db).should eql(now.to_s(:db))
     end
     
     it "should send reminder letter" do
