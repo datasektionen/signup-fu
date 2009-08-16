@@ -32,6 +32,23 @@ describe Event do
     event.errors.on_base.should include("You can't have ticket_expire_reminder without ticket_expiry")
   end
   
+  it "should require payment time if ticket_expiry" do
+    event = Event.new(@valid_params.with(:expire_time_from_reminder => 10))
+    event.mail_templates << MailTemplate.new(:name => 'ticket_expired')
+    event.mail_templates << MailTemplate.new(:name => 'ticket_expire_reminder')
+    
+    event.should_not be_valid
+    event.should have(1).error_on(:payment_time)
+  end
+  
+  it "should require reminder time if ticket_expiry" do
+    event = Event.new(@valid_params.with(:payment_time => 10))
+    event.mail_templates << MailTemplate.new(:name => 'ticket_expired')
+    event.mail_templates << MailTemplate.new(:name => 'ticket_expire_reminder')
+    
+    event.should_not be_valid
+    event.should have(1).error_on(:expire_time_from_reminder)
+  end
   it "should accept ticket_expiry and ticket_expire_reminder"
   
   it "should not be valid with a expiry and no payment time"
