@@ -90,6 +90,13 @@ Given /^that "([^\"]*)" has a payment time of (\d+) days$/ do |event_name, count
   event.save!
 end
 
+Given /^that "([^\"]*)" has a expire time from reminder of (\d+) days$/ do |event_name, count|
+  event = Event.find_by_name(event_name)
+  event.expire_time_from_reminder = count.to_i
+  event.save!
+end
+
+
 When /^the ticket expire process is run$/ do
   EventReply.expire_old_unpaid_replies
 end

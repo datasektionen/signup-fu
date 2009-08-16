@@ -158,6 +158,7 @@ Scenario: Creating a new event with ticket expiry
   
   # För javascriptad checkbox
   And I fill in "event_mail_templates_ticket_expire_reminder_enabled" with "1"
+  And I fill in "Reminder time" with "3"
   And I fill in "Subject" with "Reminder" in "ticket_expire_reminder_settings"
   And I fill in "Body" with "Your are hereby reminded" in "ticket_expire_reminder_settings"
   
@@ -171,6 +172,7 @@ Scenario: Creating a new event with ticket expiry
   
   And I should see "Ticket expiry"
   And I should see "10 days"
+  And I should see "3 days"
   And I should see "No payment received"
   And I should see "Your ticket to {{EVENT_NAME}} is now expired"
   And I should see "Reminder"
@@ -286,6 +288,7 @@ Scenario: Reminder runs. Wtf NBS flashbacks
 Scenario: An expiring unpaid reply
   Given an event "My event"
   And that "My event" has a payment time of 14 days
+  And that "My event" has a expire time from reminder of 5 days
   And a ticket type "With alcohol" for 100 on "My event"
   And "My event" has mail template "ticket_expire_reminder" with fields:
     | Name    | Value |
