@@ -77,7 +77,7 @@ describe EventReply do
     
     before do
       @ticket_type = TicketType.create!(:name => 'Normal ticket', :price => 10)
-      @event = Event.create!(:name => "My event")
+      @event = Event.create!(:name => "My event", :ticket_types => [@ticket_type])
       @event.mail_templates.create!(:body => 'foo', :subject => 'bar', :name => 'payment_registered')
       
     end

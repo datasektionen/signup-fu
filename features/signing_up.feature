@@ -7,29 +7,27 @@ Feature: Signing up
     Given an event "My event" with fields:
       | Name           | Value                    |
       | signup_message | Thank you for signing up |
-    And a ticket type "Normal ticket" for 1 on "My event"
     
     When I go to the new reply page for "My event"
     
     Then I should see "Sign up to My event"
     
-    When I select "Normal ticket" from "Ticket type"
+    When I select "With alcohol" from "Ticket type"
     And I fill in "Name" with "<name>"
     And I fill in "E-mail" with "<email>"
     And I press "Sign up"
     
-    Then the flash should contain "<flash message>" 
+    Then the <kind> flash should contain "<flash message>" 
     And I should see "<message>"
     
     Examples:
-      | name         | email | flash message               | message                  |
-      | Karl Persson | kalle | Your signup was successful! | Thank you for signing up |
-      |              | kalle |                             | Name is required         |
-      | Karl Persson |       |                             | Email is required        |
+      | name         | email | kind   | flash message               | message                  |
+      | Karl Persson | kalle | notice | Your signup was successful! | Thank you for signing up |
+      |              | kalle | error  |                             | Name is required         |
+      | Karl Persson |       | error  |                             | Email is required        |
   
   Scenario Outline: Choosing a ticket type
     Given an event "My event"
-    And a ticket type "With alcohol" for 100 on "My event"
     
     When I go to the new reply page for "My event"
     And I fill in "Name" with "Kalle"
@@ -37,7 +35,7 @@ Feature: Signing up
     And I select "<ticket type>" from "Ticket type"
     And I press "Sign up"
     
-    Then the flash should contain "<flash message>" 
+    Then the notice flash should contain "<flash message>" 
     And I should see "<message>"
     
     When I go to the event page for "My event"
@@ -49,7 +47,6 @@ Feature: Signing up
   
   Scenario: Mail notification when signing up
     Given an event "My event"
-    And a ticket type "With alcohol" for 100 on "My event"
     
     And "My event" has mail template "signup_confirmation" with fields:
       | Name    | Value                                      |
@@ -82,7 +79,6 @@ Feature: Signing up
     Given an event "My very small event" with fields:
       | Name       | Value |
       | max_guests | 2     |
-    And a ticket type "With alcohol" for 100 on "My very small event"
     And 2 guests signed up to "My very small event"
     
     When I go to the new reply page for "My very small event"
@@ -93,7 +89,6 @@ Feature: Signing up
   Scenario: Signing up to an event with last payment date
     Given now is "2009-01-01"
     And an event "My event"
-    And a ticket type "Normal ticket" for 1 on "My event"
     And "My event" has mail template "signup_confirmation" with fields:
       | Name    | Value                                                                                        |
       | body    | Last payment date is {{REPLY_LAST_PAYMENT_DATE}} |
@@ -102,7 +97,7 @@ Feature: Signing up
     
     
     When I go to the new reply page for "My event"
-    And I select "Normal ticket" from "Ticket type"
+    And I select "With alcohol" from "Ticket type"
     And I fill in "Name" with "Kalle"
     And I fill in "E-mail" with "kalle@example.org"
     And I press "Sign up"
@@ -116,7 +111,6 @@ Feature: Signing up
   
   Scenario: Food preferences
     Given an event "My event"
-    And a ticket type "Normal ticket" for 1 on "My event"
     
     Given food preference "Vegan" 
     And food preference "Vegetarian"
@@ -126,7 +120,7 @@ Feature: Signing up
     Then I should see "Vegan"
     And I should see "Vegetarian"
     
-    And I select "Normal ticket" from "Ticket type"
+    And I select "With alcohol" from "Ticket type"
     And I fill in "Name" with "Kalle"
     And I fill in "E-mail" with "kalle@example.org"
     And I check "Vegan"

@@ -2,8 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Event do
   before do
+    ticket_type = Factory(:ticket_type)
     @valid_params = {
       :name => "My event",
+      :ticket_types => [ticket_type]
     }
     @event = Event.new(@valid_params)
     
@@ -13,7 +15,9 @@ describe Event do
   it { should have_many(:ticket_types) }
   
   it "should not allow deadline after date"
-  it "should require a ticket type"
+  it "should require a ticket type" do
+    should validate_presence_of(:ticket_types)
+  end
   
   it "should not accept ticket_expiry without ticket_expire_reminder" do
     event = Event.new(@valid_params)
@@ -54,7 +58,7 @@ describe Event do
   it "should not be valid with a expiry and no payment time"
   
   it "should be full if it has more than max_guest guests" do
-    event = Event.create!(:max_guests => 1)
+    event = Event.create!(@valid_params.with(:max_guests => 1))
     event.replies.create!(:name => 'Kalle', :email => 'kalle@example.org', :ticket_type => mock_model(TicketType))
     
     event.should be_full
