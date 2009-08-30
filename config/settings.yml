@@ -49,8 +49,10 @@ production:
     ticket_expired:
       subject: Your ticket to {{EVENT_NAME}} has expired
       body: No more ticket to {{EVENT_NAME}} for you!
-
-
+    ticket_expire_reminder:
+      subject: Reminder
+      body: You are hereby reminded
+    
 
 
 
