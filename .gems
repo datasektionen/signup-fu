@@ -1,2 +1,3 @@
 rubyist-aasm --source http://gems.github.com
 openrain-action_mailer_tls --source http://gems.github.com
+authlogic
