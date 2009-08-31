@@ -36,6 +36,9 @@
       <div id="footer">
         <p>
           SignupFu is created by Patrik Stenmark. 
+          <% if current_user %>
+            (<%= link_to "Log out", user_session_path, :method => :delete %>)
+          <% end %>
         </p>
       </div>
       
