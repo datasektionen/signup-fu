@@ -7,6 +7,10 @@ class EventRepliesController < ApplicationController
     @reply = EventReply.new
   end
   
+  def index
+    @replies = @event.replies
+  end
+  
   def create
     if request.format == :xml
       params[:event_reply][:send_signup_confirmation] = false if params[:event_reply][:send_signup_confirmation].nil?

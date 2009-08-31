@@ -1,0 +1,39 @@
+<table border="0" id="guest_list_table">
+  <tr>
+    <th>Name</th>
+    <th>E-mail</th>
+    <th>Ticket type</th>
+    <th>State</th>
+    <th>Food preferences</th>
+    <th>Other food related</th>
+    <th>Comments</th>
+  </tr>
+  <% replies.each do |reply| %>
+    <tr class="<%= cycle('even', 'odd') %>">
+      <td><%= reply.name %></td>
+      <td><%= reply.email %></td>
+      <td><%= reply.ticket_type.name %></td>
+      <td><%= state(reply) %></td>
+      <td><%= food_preferences(reply)%></td>
+      <td><%= reply.food %></td>
+      <td><%= reply.comments %></td>
+    </tr>
+    
+  <% end -%>
+</table>
+
+<table class="vertical_header" id="food_preferences_summary">
+  <tr>
+    <th>Number of...</th>
+    <td>&nbsp;</td>
+  </tr>
+  
+  <% FoodPreference.all.each do |food_preference| %>
+  
+    <tr>
+      <th><%= food_preference.name %></th>
+      <td><%= replies.to_a.select { |r| r.food_preferences.include?(food_preference) }.size %></td>
+    </tr>
+  
+  <% end -%>
+</table>

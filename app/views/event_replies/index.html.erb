@@ -1,0 +1,7 @@
+<% content_for :nav do %>
+  <%= button_link_to("Back to #{@event.name}", event_path(@event)) %>
+<% end -%>
+
+<h2>Event replies</h2>
+
+<%= render :partial => 'list', :locals => {:replies => @replies }%>
