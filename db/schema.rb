@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20090816110356) do
     t.datetime "updated_at"
     t.integer  "ticket_type_id"
     t.datetime "paid_at"
-    t.string   "aasm_state",     :default => "", :null => false
+    t.string   "aasm_state",     :null => false
     t.datetime "reminded_at"
   end
 
