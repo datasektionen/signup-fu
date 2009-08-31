@@ -3,6 +3,10 @@ As a event arranger
 I want to be able to create, edit and view my events
 So that I can have something that my guests can sign up to, so I get guests to my events
 
+Background:
+  Given I am logged in as an admin
+
+
 Scenario: Creating a new event without max number of guests
   Given I am on the events page
   And I follow "New event"

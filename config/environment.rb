@@ -21,6 +21,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   
   config.gem "rubyist-aasm", :lib => "aasm", :source => "http://gems.github.com"
+  config.gem "authlogic"
   #config.gem "ianwhite-pickle", :lib => "pickle", :source => "http://gems.github.com"
 
   # Only load the plugins named here, in the order given (default is alphabetical).

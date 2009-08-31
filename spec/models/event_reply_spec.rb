@@ -202,6 +202,7 @@ describe EventReply do
     end
     
     it "should send mail to expired" do
+      @fnatte.save!
       @fnatte.remind!
       EventMailer.should_receive(:deliver_reply_expired_notification).with(@fnatte)
       @fnatte.expire!
@@ -214,6 +215,7 @@ describe EventReply do
     end
     
     it "should change state to expired" do
+      @reply.save!
       @reply.remind!
       @reply.expire!
       @reply.aasm_current_state.should == :expired
@@ -357,6 +359,7 @@ describe EventReply do
       Time.stub!(:now).and_return(now)
       
       @reply.remind!
+      @reply.reminded_at.should_not be_nil
       @reply.reminded_at.to_s(:db).should eql(now.to_s(:db))
     end
     

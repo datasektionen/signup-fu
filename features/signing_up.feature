@@ -38,7 +38,8 @@ Feature: Signing up
     Then the notice flash should contain "<flash message>" 
     And I should see "<message>"
     
-    When I go to the event page for "My event"
+    When I log in as an admin 
+    And I go to the event page for "My event"
     Then I should see "With alcohol" in "guest_list_table"
     
     Examples:
@@ -125,6 +126,8 @@ Feature: Signing up
     And I fill in "E-mail" with "kalle@example.org"
     And I check "Vegan"
     And I press "Sign up"
+    
+    When I log in as an admin
     And I go to the event page for "My event"
     
     Then I should see "Vegan"

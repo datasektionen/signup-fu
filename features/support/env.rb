@@ -16,6 +16,8 @@ end
 require 'cucumber/rails/rspec'
 require 'webrat/core/matchers'
 
+require "authlogic/test_case"
+
 require 'email_spec/cucumber'
 #require 'pickle/world'
 ## Example of configuring pickle:

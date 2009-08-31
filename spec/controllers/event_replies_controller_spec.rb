@@ -1,9 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe EventRepliesController do
+  before do
+    activate_authlogic
+      UserSession.create(Factory(:admin))
+  end
   
   describe "Creating replies via REST" do
     before do
+
       @valid_params = {
         :name => 'Kalle Persson',
         :email => 'kalle@example.org',

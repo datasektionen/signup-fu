@@ -1,6 +1,7 @@
 class EventRepliesController < ApplicationController
   before_filter :load_parents, :only => [:new, :index, :create, :economy]
   #skip_before_filter :verify_authenticity_token
+  skip_before_filter :require_user, :only => [:new, :create, :show]
   
   def new
     @reply = EventReply.new
