@@ -1,5 +1,5 @@
 Given /^an event "([^\"]*)" with fields:$/ do |name, table|
-  event = Factory(:event, :name => name)
+  event = Factory.build(:event, :name => name)
 
   unless table.raw.empty?
     table.hashes.each do |field|
@@ -14,6 +14,8 @@ Given /^an event "([^\"]*)" with fields:$/ do |name, table|
       end
     end
   end
+
+  event.ticket_types << Factory(:ticket_type)
   
   event.save!
   

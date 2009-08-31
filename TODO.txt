@@ -1,5 +1,3 @@
-* style på flash
-* Style på felmeddelanden (error_messages_for osv)
 * Mer utskriftsanpassad lista på gäster
 * Inloggning
 * I18n
@@ -22,7 +20,6 @@
 
 Buggar
 * 0-pris fungerar inte
-* Event utan ticket type går att skapa, men då går det inte att anmäla sig till det efterom ER validerar en ticket type...
 
 Framtiden
 * Redigering av events
@@ -42,3 +39,7 @@ Klart
 * Validering på att om man vill ha expiry måste man ha reminder
 * Påminnelser
 * Expire körs alltid, ingen koll på hur många dagar sen reminder
+* style på flash
+* Style på felmeddelanden (error_messages_for osv)
+* Event utan ticket type går att skapa, men då går det inte att anmäla sig till det efterom ER validerar en ticket type...
+

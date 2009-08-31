@@ -11,6 +11,9 @@ Scenario: Creating a new event without max number of guests
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
   And I fill in "Signup message" with "Foobar!"
+  
+  And I fill in "Ticket type 1 name" with "With alcohol"
+  And I fill in "Ticket type 1 price" with "100"
   And I press "Create event"
   
   When I go to the events page
@@ -73,6 +76,8 @@ Scenario: Creating a new event with confirmation mail
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
+  And I fill in "Ticket type 1 name" with "With alcohol"
+  And I fill in "Ticket type 1 price" with "100"
   
   And I check "Signup confirmation"
   And I fill in "Subject" with "Welcome" in "signup_confirmation_settings"
@@ -102,6 +107,9 @@ Scenario: Creating a new event with confirmation mail - default message
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
   
+  And I fill in "Ticket type 1 name" with "With alcohol"
+  And I fill in "Ticket type 1 price" with "100"
+  
   And I check "Signup confirmation"
   
   # The texts are in config/settings.yml
@@ -125,6 +133,9 @@ Scenario: Creating a new event with payment mail
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
+  
+  And I fill in "Ticket type 1 name" with "With alcohol"
+  And I fill in "Ticket type 1 price" with "100"
   
   And I check "Payment confirmation"
   And I fill in "Subject" with "Payment" in "payment_registered_settings"
@@ -219,7 +230,6 @@ Scenario: Viewing an event
 
 Scenario: Viewing guests for an event
   Given an event "My event"
-  And a ticket type "With alcohol" for 100 on "My event"
   
   And a guest to "My event" called "Karl Persson"
     | Name | Value           |
@@ -245,6 +255,9 @@ Scenario: Creating an event with a pay before date
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Payment time" with "14"
   And I fill in "Max guests" with "0"
+  And I fill in the following ticket types:
+    | With alcohol    | 199 |
+  
   And I press "Create event"
   
   When I go to the events page
@@ -258,7 +271,6 @@ Scenario: Creating an event with a pay before date
 Scenario: Reminder runs. Wtf NBS flashbacks
   Given an event "My event"
   And that "My event" has a payment time of 14 days
-  And a ticket type "With alcohol" for 100 on "My event"
   And "My event" has mail template "ticket_expired" with fields:
     | Name    | Value                                                        |
     | body    | You, {{REPLY_NAME}}, are bad person. Your ticket is now void |
@@ -289,7 +301,6 @@ Scenario: An expiring unpaid reply
   Given an event "My event"
   And that "My event" has a payment time of 14 days
   And that "My event" has a expire time from reminder of 5 days
-  And a ticket type "With alcohol" for 100 on "My event"
   And "My event" has mail template "ticket_expire_reminder" with fields:
     | Name    | Value |
     | body    | foo   |
@@ -322,7 +333,6 @@ Scenario: Food weirdness summary
   Given an event "My event"
   And food preference "Vegan"
   And food preference "Vegetarian"
-  And a ticket type "With alcohol" for 100 on "My event"
   And a guest to "My event" called "Kalle"
     | Name  | Value             |
     | Food Preferences | Vegan  |

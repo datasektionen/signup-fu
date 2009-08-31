@@ -6,7 +6,6 @@ So that I can keep track of which guests has paid, so that I can send baltic ink
 Scenario: Marking a reply as paid
   Given now is "2009-01-01"
   And an event "My event"
-  And a ticket type "Normal ticket" for 100 on "My event"
   And a guest to "My event" called "Kalle"
     ||
   
@@ -19,7 +18,6 @@ Scenario: Marking a reply as paid
 
 Scenario: Sending a payment reported mail
   Given an event "My event"
-  And a ticket type "Normal ticket" for 100 on "My event"
   And a guest to "My event" called "Kalle"
     | Name  | Value             |
     | email | kalle@example.org |
