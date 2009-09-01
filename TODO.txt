@@ -1,5 +1,3 @@
-* Mer utskriftsanpassad lista på gäster
-* Inloggning
 * I18n
 * Allmänt pill och tillsnyggande
 
@@ -42,4 +40,6 @@ Klart
 * style på flash
 * Style på felmeddelanden (error_messages_for osv)
 * Event utan ticket type går att skapa, men då går det inte att anmäla sig till det efterom ER validerar en ticket type...
+* Mer utskriftsanpassad lista på gäster
+* Inloggning
 
