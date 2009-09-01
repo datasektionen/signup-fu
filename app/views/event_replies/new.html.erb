@@ -1,8 +1,8 @@
-<h1>Sign up to <%= @event.name %></h1>
+<h1><%= t('.header', :name => @event.name) %></h1>
 
 <% if @event.deadline.past? %>
   <p class="error">
-    The deadline for <%= @event.name %> has passed
+    <%= t('.deadline_passed', :name => @event.name) %> The deadline for <%= @event.name %> has passed
   </p>
 <% elsif @event.full?  %>
   <p class="error">
@@ -10,20 +10,20 @@
   </p>
 <% else %>
   
-  <%= error_messages_for(:reply) %>
+  <%= error_messages_for(:reply, :object_name => 'event_reply') %>
   <% signup_fu_form_for([@event, @reply]) do |f| %>
-    <%= f.select :ticket_type_id, @event.ticket_types.map { |p| [p.name, p.id] }, :caption => 'Ticket type'%>
-    <%= f.text_field :name, :caption => 'Name' %>
-    <%= f.text_field :email, :caption => "E-mail" %>
-    <%= f.text_area :food, :caption => "Food preferences", :rows => 5 %>
-    <%= f.text_area :comments, :caption => 'Comments', :rows => 5 %>
+    <%= f.select :ticket_type_id, @event.ticket_types.map { |p| [p.name, p.id] }, :caption => t('event_replies.form.ticket_type') %>
+    <%= f.text_field :name, :caption => t('event_replies.form.name') %>
+    <%= f.text_field :email, :caption => t('event_replies.form.email') %>
+    <%= f.text_area :food, :caption => t('event_replies.form.food'), :rows => 5 %>
+    <%= f.text_area :comments, :caption => t('event_replies.form.comments'), :rows => 5 %>
     
     <% FoodPreference.all.each do |food_pref| %>
       <%= f.label_tag dom_id(food_pref, "checkbox"), food_pref.name %>
       <%= f.check_box_tag 'event_reply[food_preference_ids][]', food_pref.id, false, :id => dom_id(food_pref, "checkbox") %>
     <% end -%>
     
-    <%= f.submit "Sign up" %>
+    <%= f.submit t('event_replies.form.submit') %>
   <% end -%>
   
 <% end -%>

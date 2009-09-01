@@ -1,0 +1,24 @@
+"sv-SE":
+  event_replies:
+    form:
+      name: Namn
+      email: E-postadress
+      food: Matpreferenser
+      comments: Kommentar
+      ticket_type: Biljettyp
+      submit: Boka
+    new:
+      header: Boka biljett till {{name}}
+  layout:
+    created_by: SignupFu är skapat av Patrik Stenmark. 
+    log_out: Logga ut
+  flash:
+    signup_successful: Din bokning lyckades
+
+#en:
+#  activerecord:
+#    models:
+#      user: Dude
+#    attributes:
+#      user:
+#        login: "Handle"  # will translate User attribute "login" as "Handle"

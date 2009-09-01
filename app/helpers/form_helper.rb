@@ -35,8 +35,8 @@ module FormHelper
         header_message = if options.include?(:header_message)
           options[:header_message]
         else
-          object_name = options[:object_name].to_s.gsub('_', ' ')
-          object_name = I18n.t(object_name, :default => object_name, :scope => [:activerecord, :models], :count => 1)
+          object_name = options[:object_name].to_s
+          object_name = I18n.t(object_name, :default => object_name.to_s.gsub('_', ' '), :scope => [:activerecord, :models], :count => 1)
           locale.t :header, :count => count, :model => object_name
         end
         message = options.include?(:message) ? options[:message] : locale.t(:body)
