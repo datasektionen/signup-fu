@@ -12,7 +12,7 @@
   
   <%= error_messages_for(:reply, :object_name => 'event_reply') %>
   <% signup_fu_form_for([@event, @reply]) do |f| %>
-    <%= f.select :ticket_type_id, @event.ticket_types.map { |p| [p.name, p.id] }, :caption => t('event_replies.form.ticket_type') %>
+    <%= f.select :ticket_type_id, @event.ticket_types.map { |p| ["#{p.name} (#{p.price} kr)", p.id] }, :caption => t('event_replies.form.ticket_type') %>
     <%= f.text_field :name, :caption => t('event_replies.form.name') %>
     <%= f.text_field :email, :caption => t('event_replies.form.email') %>
     <%= f.text_area :food, :caption => t('event_replies.form.food'), :rows => 5 %>
