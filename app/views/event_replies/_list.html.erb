@@ -8,7 +8,7 @@
     <th>Other food related</th>
     <th>Comments</th>
   </tr>
-  <% replies.each do |reply| %>
+  <% replies.ascend_by_name.each do |reply| %>
     <tr class="<%= cycle('even', 'odd') %>">
       <td><%= reply.name %></td>
       <td><%= reply.email %></td>

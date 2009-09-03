@@ -34,6 +34,8 @@ class EventReply < ActiveRecord::Base
   has_and_belongs_to_many :food_preferences
   validates_presence_of :event, :name, :email, :ticket_type, :message => 'is required'
   
+  named_scope :ascend_by_name, :order => 'name ASC'
+  
   def self.pay(ids)
     now = Time.now
     EventReply.find(ids).each do |reply|
