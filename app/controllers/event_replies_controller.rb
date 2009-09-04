@@ -48,6 +48,13 @@ class EventRepliesController < ApplicationController
     end
   end
   
+  def destroy
+    @reply = EventReply.find(params[:id])
+    @reply.cancel!
+    flash[:notice] = "Sucessfully removed #{@reply.name}"
+    redirect_to(@reply.event)
+  end
+  
   
   protected
   

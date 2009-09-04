@@ -13,6 +13,8 @@ module EventsHelper
       "Unpaid"
     when :reminded
       "Reminded"
+    when :cancelled
+      "Cancelled"
     end
     
   end

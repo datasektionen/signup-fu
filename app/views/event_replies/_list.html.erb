@@ -1,7 +1,22 @@
+<% 
+replies = replies.ascend_by_name
+if !params[:show_cancelled]
+  replies = replies.not_cancelled
+end
+%>
+<p>
+  <% if params[:show_cancelled] %>
+    <%= link_to "Show only active", url_for %>
+  <% else %>
+    <%= link_to "Show cancelled", url_for(:show_cancelled => true) %>
+  <% end -%>
+</p>
+
+
 <table class="vertical_header">
   <tr>
     <th>Total number of guests</th>
-    <td><%= @event.replies.count %></td>
+    <td><%= replies.count %></td>
   </tr>
 </table>
 
@@ -14,8 +29,9 @@
     <th>Food preferences</th>
     <th>Other food related</th>
     <th>Comments</th>
+    <th>&nbsp;</th>
   </tr>
-  <% replies.ascend_by_name.each do |reply| %>
+  <% replies.each do |reply| %>
     <tr class="<%= cycle('even', 'odd') %>">
       <td><%= reply.name %></td>
       <td><%= reply.email %></td>
@@ -24,6 +40,11 @@
       <td><%= food_preferences(reply)%></td>
       <td><%= reply.food %></td>
       <td><%= reply.comments %></td>
+      <td>
+        <% unless reply.aasm_current_state == :cancelled %>
+          <%= link_to "Remove", event_reply_path(reply), :method => :delete, :confirm => "Do you really want to remove #{reply.name} from the guest list?" %>
+        <% end %>
+      </td>
     </tr>
     
   <% end -%>

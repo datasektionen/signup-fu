@@ -24,9 +24,9 @@ class EventReply < ActiveRecord::Base
     transitions :to => :reminded, :from => [:new], :on_transition => :on_remind
   end
 
-  #aasm_event :cancel do
-  #  transitions :to => :cancelled, :from => [:new]
-  #end
+  aasm_event :cancel do
+    transitions :to => :cancelled, :from => [:new]
+  end
   
   belongs_to :event
   belongs_to :ticket_type
@@ -35,6 +35,7 @@ class EventReply < ActiveRecord::Base
   validates_presence_of :event, :name, :email, :ticket_type, :message => 'is required'
   
   named_scope :ascend_by_name, :order => 'name ASC'
+  named_scope :not_cancelled, :conditions => ["aasm_state != 'cancelled'"]
   
   def self.pay(ids)
     now = Time.now
