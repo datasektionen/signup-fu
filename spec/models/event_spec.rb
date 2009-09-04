@@ -64,6 +64,15 @@ describe Event do
     event.should be_full
   end
   
+  it "should not be full with max_guests = 1 and one cancelled reply" do
+    event = Event.create!(@valid_params.with(:max_guests => 1))
+    reply = event.replies.create!(:name => 'Kalle', :email => 'kalle@example.org', :ticket_type => mock_model(TicketType))
+    reply.cancel!
+    
+    event.should_not be_full
+    
+  end
+  
   it "should expire unpaid if it has a template and a payment time" do
     @event = Event.new(@valid_params.with(:payment_time => 10))
     template = Factory(:mail_template, :event => @event, :name => 'ticket_expired')

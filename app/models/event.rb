@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :ticket_types, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
   
   def full?
-    max_guests != 0 && replies.count >= max_guests
+    max_guests != 0 && replies.not_cancelled.count >= max_guests
   end
   
   def expire_unpaid?
