@@ -103,7 +103,7 @@ class EventReply < ActiveRecord::Base
   end
   
   def on_expire
-      if event.send_mail_for?(:ticket_expired)
+    if event.send_mail_for?(:ticket_expired)
       EventMailer.deliver_reply_expired_notification(self)
     end
   end
