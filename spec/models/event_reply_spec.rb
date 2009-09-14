@@ -389,4 +389,25 @@ describe EventReply do
       EventReply.remind_old_unpaid_replies
     end
   end
+  
+  it "should save the record even if a mail error occurs (Net::SMTPFatalError)" do
+    @event.stub(:send_mail_for?).with(:signup_confirmation).and_return(true)
+    EventMailer.stub!(:deliver_signup_confirmation).and_raise(Net::SMTPFatalError)
+    
+    reply = EventReply.new(@valid_attributes)
+    
+    reply.save.should be_true
+    
+  end
+  
+  it "should save the record even if a mail error occurs (Net::SMTPAuthenticationError" do
+    @event.stub(:send_mail_for?).with(:signup_confirmation).and_return(true)
+    EventMailer.stub!(:deliver_signup_confirmation).and_raise(Net::SMTPAuthenticationError)
+    
+    reply = EventReply.new(@valid_attributes)
+    
+    reply.save.should be_true
+    
+  end
+  
 end

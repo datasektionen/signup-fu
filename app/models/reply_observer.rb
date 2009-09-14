@@ -3,7 +3,11 @@ class ReplyObserver < ActiveRecord::Observer
   
   def after_create(reply)
     if reply.send_signup_confirmation && reply.event.send_mail_for?(:signup_confirmation)
-      EventMailer.deliver_signup_confirmation(reply)
+      begin
+        EventMailer.deliver_signup_confirmation(reply)
+      rescue Net::SMTPFatalError => e
+      rescue Net::SMTPAuthenticationError => e
+      end
     end
     
   end
