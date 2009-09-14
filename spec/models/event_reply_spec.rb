@@ -410,4 +410,6 @@ describe EventReply do
     
   end
   
+  it "should flag records that didn't get mail"
+  
 end
