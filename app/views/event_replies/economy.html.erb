@@ -11,7 +11,7 @@
       <th>Paid?</th>
     </tr>
     
-    <% @replies.each do |reply| %>
+    <% @replies.ascend_by_name.each do |reply| %>
       <tr>
         <td><%= reply.name %></td>
         <td>
