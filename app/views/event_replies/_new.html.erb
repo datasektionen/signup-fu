@@ -7,8 +7,6 @@
 <% elsif @event.full?  %>
   <p class="error">
     <%= t('.event_full', :name => @event.name) %> 
-    
-    There are already the max number of guests signed up for this event
   </p>
 <% else %>
   
