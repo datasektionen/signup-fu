@@ -5,6 +5,10 @@ class EventRepliesController < ApplicationController
   
   def new
     @reply = EventReply.new
+    template_path = Rails.root + "app/templates/#{sanitize_filename(@event.template)}.liquid"
+    template = Liquid::Template.parse(File.read(template_path))
+    form = render_to_string(:partial => 'new')
+    render :text => template.render('signup_form' => form)
   end
   
   def index
@@ -71,4 +75,13 @@ class EventRepliesController < ApplicationController
   def load_parents
     @event = Event.find(params[:event_id])
   end
+  
+  def sanitize_filename(filename)
+    filename = filename.strip
+    filename.gsub!(/^.*(\\|\/)/, '')
+    filename.gsub!(/[^\w\.\-]/, '_')
+    filename
+  end
+  
+  
 end

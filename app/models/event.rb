@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
   validate :check_correct_mail_templates
   validate :validate_ticket_expiry_attributes
   validates_presence_of :ticket_types
+  validates_presence_of :template
   
   has_many :replies, :class_name => 'EventReply', :foreign_key => 'event_id'
   
