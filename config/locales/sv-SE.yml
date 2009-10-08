@@ -9,6 +9,8 @@
       submit: Boka
     new:
       header: Boka biljett till {{name}}
+      deadline_passed: Deadline för anmälan till {{name}} har passerat
+      event_full: Tyvärr är max antal anmälda redan anmälda
   layout:
     created_by: SignupFu är skapat av Patrik Stenmark. 
     log_out: Logga ut

@@ -2,10 +2,12 @@
 
 <% if @event.deadline.past? %>
   <p class="error">
-    <%= t('.deadline_passed', :name => @event.name) %> The deadline for <%= @event.name %> has passed
+    <%= t('.deadline_passed', :name => @event.name) %> 
   </p>
 <% elsif @event.full?  %>
   <p class="error">
+    <%= t('.event_full', :name => @event.name) %> 
+    
     There are already the max number of guests signed up for this event
   </p>
 <% else %>
