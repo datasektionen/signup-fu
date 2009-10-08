@@ -1,0 +1,17 @@
+form ul {
+  
+}
+
+form li {
+  list-style-type: none; 
+  margin-bottom: 5px;
+}
+
+form li label {
+  display: block;
+}
+
+form input[type=submit] {
+  margin: 10px;
+  margin-left: 20px;
+}
