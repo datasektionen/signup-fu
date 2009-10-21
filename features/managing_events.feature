@@ -362,3 +362,103 @@ Scenario: Food weirdness summary
   And the food preferences summary should show 2 Vegetarian
   And the food preferences summary should show 1 Vegan
 
+
+Scenario: Adding a guest when logged in as an admin
+  Given an event "My event"
+  And I am on the event page for "My event"
+  When I follow "Add guest"
+    
+  Then I should see "Administrative functions"
+  And I should not see "Send signup confirmation mail"
+  
+  And "My event" has mail template "signup_confirmation" with fields:
+    | Name    | Value         |
+    | body    | Yay! Party!   |
+    | subject | Confirmation! |
+  When I go to the event page for "My event"
+  And I follow "Add guest"
+  
+  Then I should see a checkbox "Send signup confirmation mail"
+
+
+Scenario: Adding a guest manually with mail sending
+  Given an event "My event"
+  And "My event" has mail template "signup_confirmation" with fields:
+    | Name    | Value         |
+    | body    | Yay! Party!   |
+    | subject | Confirmation! |
+  
+  When I go to the event page for "My event"
+  
+  And I follow "Add guest"
+  And I check "Send signup confirmation mail"
+  And I fill in "Namn" with "Kalle Persson"
+  And I fill in "E-postadress" with "kalle@example.org"
+  And I press "Boka"
+  
+  When I go to the event page for "My event"
+  
+  Then I should see "Kalle Persson"
+  And "kalle@example.org" should receive 1 email
+  And "kalle@example.org" should have 1 mail with subject "Confirmation!"
+
+Scenario: Adding a guest manually without mail sending
+  Given an event "My event"
+  And "My event" has mail template "signup_confirmation" with fields:
+    | Name    | Value         |
+    | body    | Yay! Party!   |
+    | subject | Confirmation! |
+
+  When I go to the event page for "My event"
+
+  And I follow "Add guest"
+  And I uncheck "Send signup confirmation mail"
+  And I fill in "Namn" with "Kalle Persson"
+  And I fill in "E-postadress" with "kalle@example.org"
+  And I press "Boka"
+
+  When I go to the event page for "My event"
+
+  Then I should see "Kalle Persson"
+  And "kalle@example.org" should receive 0 email
+
+
+Scenario: Adding a guest to a full event
+  Given an event "My event" with fields:
+    | Name       | Value |
+    | max_guests | 1     |
+  And a guest to "My event" called "Karl Persson"
+    ||
+  And I am on the event page for "My event"
+  
+  When I follow "Add guest"
+  
+  Then I should see "Warning: This event is full! Adding a guest will bypass the max number of guests!"
+  
+  And I fill in "Namn" with "Nisse Karlsson"
+  And I fill in "E-postadress" with "kalle@example.org"
+  And I press "Boka"
+  
+  When I go to the event page for "My event"
+  Then I should see "Nisse Karlsson"
+
+Scenario: Adding a guest to an event passed deadline
+  Given an event "My event" with fields:
+    | Name       | Value |
+    | max_guests | 1     |
+    |deadline| 10 days ago|
+  And a guest to "My event" called "Karl Persson"
+    ||
+  And I am on the event page for "My event"
+
+  When I follow "Add guest"
+
+  Then I should see "Warning: Deadline for event My event is passed. However, since you are logged in, you can still add a new guest"
+
+  And I fill in "Namn" with "Nisse Karlsson"
+  And I fill in "E-postadress" with "kalle@example.org"
+  And I press "Boka"
+
+  When I go to the event page for "My event"
+  Then I should see "Nisse Karlsson"
+

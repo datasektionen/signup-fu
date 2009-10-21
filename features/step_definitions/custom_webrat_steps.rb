@@ -19,3 +19,7 @@ end
 When /^I take a snapshot$/ do
   save_and_open_page
 end
+
+Then /^I should see a checkbox "([^\"]*)"$/ do |label|
+  field_labeled(label).is_a?(Webrat::CheckboxField)
+end

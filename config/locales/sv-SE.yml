@@ -11,6 +11,9 @@
       header: Boka biljett till {{name}}
       deadline_passed: Deadline för anmälan till {{name}} har passerat
       event_full: Tyvärr är max antal anmälda redan anmälda
+      deadline_passed_warning: "Warning: Deadline for event {{name}} is passed. However, since you are logged in, you can still add a new guest"
+      event_full_warning: "Warning: This event is full! Adding a guest will bypass the max number of guests!"
+      
   layout:
     created_by: SignupFu är skapat av Patrik Stenmark. 
     log_out: Logga ut

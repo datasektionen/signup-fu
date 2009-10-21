@@ -1,17 +1,38 @@
 <h1><%= t('.header', :name => @event.name) %></h1>
-
 <% if @event.deadline.past? %>
-  <p class="error">
-    <%= t('.deadline_passed', :name => @event.name) %> 
-  </p>
+  <% if current_user %>
+    <p class="error">
+      <%= t('.deadline_passed_warning', :name => @event.name) %> 
+    </p>
+  <% else %>
+    <p class="error">
+      <%= t('.deadline_passed', :name => @event.name) %> 
+    </p>
+  <% end %>
 <% elsif @event.full?  %>
-  <p class="error">
-    <%= t('.event_full', :name => @event.name) %> 
-  </p>
-<% else %>
-  
+  <% if current_user %>
+    <p class="error">
+      <%= t('.event_full_warning', :name => @event.name) %> 
+    </p>
+  <% else %>
+    <p class="error">
+      <%= t('.event_full', :name => @event.name) %> 
+    </p>
+  <% end %>
+<% end %>
+
+
+<% if current_user || (!@event.deadline.past? && !@event.full?) %>
   <%= error_messages_for(:reply, :object_name => 'event_reply') %>
   <% signup_fu_form_for([@event, @reply]) do |f| %>
+    <% if current_user %>
+      <h3>Administrative functions</h3>
+    
+      <% if @event.send_mail_for?(:signup_confirmation) %>
+        <%= f.check_box :send_signup_confirmation, :caption => 'Send signup confirmation mail' %>
+      <% end %>
+    <% end %>
+  
     <%= f.select :ticket_type_id, @event.ticket_types.map { |p| ["#{p.name} (#{p.price} kr)", p.id] }, :caption => t('event_replies.form.ticket_type') %>
     <%= f.text_field :name, :caption => t('event_replies.form.name') %>
     <%= f.text_field :email, :caption => t('event_replies.form.email') %>
