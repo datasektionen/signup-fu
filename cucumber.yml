@@ -1,1 +1,2 @@
-autotest: features -r features --format pretty --color
+autotest: --format pretty --drb
+autotest-all: --format pretty --drb
