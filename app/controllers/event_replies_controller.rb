@@ -3,7 +3,7 @@ class EventRepliesController < ApplicationController
   #skip_before_filter :verify_authenticity_token
   skip_before_filter :require_user, :only => [:new, :create, :show]
   
-  before_filter :set_locale, :only => [:new, :create, :show]
+  around_filter :set_locale, :only => [:new, :create, :show]
   
   def new
     @reply = EventReply.new
@@ -87,6 +87,7 @@ class EventRepliesController < ApplicationController
   
   def set_locale
     I18n.locale = :'sv-SE'
+    yield
+    I18n.locale = :en
   end
-  
 end

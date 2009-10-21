@@ -5,7 +5,8 @@ describe Event do
     ticket_type = Factory(:ticket_type)
     @valid_params = {
       :name => "My event",
-      :ticket_types => [ticket_type]
+      :ticket_types => [ticket_type],
+      :template => 'default'
     }
     @event = Event.new(@valid_params)
     

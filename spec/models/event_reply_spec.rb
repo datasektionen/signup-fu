@@ -23,8 +23,8 @@ describe EventReply do
   
   it { should belong_to(:event) }
   it { should belong_to(:ticket_type) }
-  it { should validate_presence_of(:event).with_message('måste anges') }
-  it { should validate_presence_of(:ticket_type).with_message('måste anges') }
+  it { should validate_presence_of(:event).with_message("can't be blank") }
+  it { should validate_presence_of(:ticket_type).with_message("can't be blank") }
   it { should have_and_belong_to_many(:food_preferences) }
   # This is for making the error messages make more sense...
   it { should have_db_column(:aasm_state).of_type(:string).with_options(:null => false)}
@@ -77,9 +77,8 @@ describe EventReply do
     
     before do
       @ticket_type = TicketType.create!(:name => 'Normal ticket', :price => 10)
-      @event = Event.create!(:name => "My event", :ticket_types => [@ticket_type])
-      @event.mail_templates.create!(:body => 'foo', :subject => 'bar', :name => 'payment_registered')
-      
+      @event = Factory(:event, :name => "My event", :ticket_types => [@ticket_type])
+      @event.mail_templates.create!(:body => 'foo', :subject => 'bar', :name => 'payment_registered')      
     end
     
     it "should send payment registration mail when there is a payment_registered mail template" do
