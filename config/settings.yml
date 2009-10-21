@@ -15,7 +15,23 @@ test:
       subject: Reminder
       body: You are hereby reminded
 
-    
+cucumber: 
+  default_messages: 
+    signup_confirmation: 
+      subject: Thank you for signing up to {{EVENT_NAME}}
+      body: Welcome to {{EVENT_NAME}}!
+
+    payment_registered:
+      subject: Payment registered for {{EVENT_NAME}}
+      body: Your payment for {{EVENT_NAME}} is now registered!
+
+    ticket_expired:
+      subject: Your ticket to {{EVENT_NAME}} has expired
+      body: No more ticket to {{EVENT_NAME}} for you!
+    ticket_expire_reminder:
+      subject: Reminder
+      body: You are hereby reminded
+
     
 development:
   default_messages: 
