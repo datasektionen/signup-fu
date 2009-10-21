@@ -7,10 +7,7 @@ class EventRepliesController < ApplicationController
   
   def new
     @reply = EventReply.new
-    template_path = Rails.root + "app/templates/#{sanitize_filename(@event.template)}.liquid"
-    template = Liquid::Template.parse(File.read(template_path))
-    form = render_to_string(:partial => 'new')
-    render :text => template.render('signup_form' => form)
+    render_form
   end
   
   def index
@@ -34,7 +31,7 @@ class EventRepliesController < ApplicationController
         end
       else
         format.html do
-          render :action => 'new'  
+          render_form
         end
         format.xml { render :xml => @reply.errors, :status => :unprocessable_entity }
       end
@@ -89,5 +86,12 @@ class EventRepliesController < ApplicationController
     I18n.locale = :'sv-SE'
     yield
     I18n.locale = :en
+  end
+  
+  def render_form
+    template_path = Rails.root + "app/templates/#{sanitize_filename(@event.template)}.liquid"
+    template = Liquid::Template.parse(File.read(template_path))
+    form = render_to_string(:partial => 'new')
+    render :text => template.render('signup_form' => form)
   end
 end

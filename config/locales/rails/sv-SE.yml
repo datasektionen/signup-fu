@@ -162,6 +162,10 @@
       # will translate User attribute "login" as "Handle"
     models:
       event_reply: bokning
+    
+    attributes:
+      event_reply:
+        name: Namn
         
  
   date:

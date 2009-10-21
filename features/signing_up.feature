@@ -23,8 +23,8 @@ Feature: Signing up
     Examples:
       | name         | email | kind   | flash message        | message                  |
       | Karl Persson | kalle | notice | Din bokning lyckades | Thank you for signing up |
-      |              | kalle | error  |                      | Name is required         |
-      | Karl Persson |       | error  |                      | Email is required        |
+      |              | kalle | error  |                      | Namn måste anges         |
+      | Karl Persson |       | error  |                      | Email måste anges        |
   
   Scenario Outline: Choosing a Biljettyp
     Given an event "My event"
