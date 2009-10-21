@@ -3,6 +3,8 @@ class EventRepliesController < ApplicationController
   #skip_before_filter :verify_authenticity_token
   skip_before_filter :require_user, :only => [:new, :create, :show]
   
+  before_filter :set_locale, :only => [:new, :create, :show]
+  
   def new
     @reply = EventReply.new
     template_path = Rails.root + "app/templates/#{sanitize_filename(@event.template)}.liquid"
@@ -83,5 +85,8 @@ class EventRepliesController < ApplicationController
     filename
   end
   
+  def set_locale
+    I18n.locale = :'sv-SE'
+  end
   
 end

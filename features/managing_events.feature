@@ -6,11 +6,11 @@ So that I can have something that my guests can sign up to, so I get guests to m
 Background:
   Given I am logged in as an admin
 
-
 Scenario: Creating a new event without max number of guests
   Given I am on the events page
   And I follow "New event"
   And I fill in "Name" with "My event"
+  And I select "Default" from "Template"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -30,6 +30,7 @@ Scenario: Creating a new event with prices
   
   When I follow "New event"
   And I fill in "Name" with "My event"
+  And I select "Default" from "Template"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -56,7 +57,8 @@ Scenario: Creating a new event without mails
   
   When I follow "New event"
   And I fill in "Name" with "My event"
-  And I select "2009-09-09 09:09" as the "Date" date and time
+  And I select "Default" from "Template"
+    And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
   And I fill in the following ticket types:
@@ -77,6 +79,7 @@ Scenario: Creating a new event with confirmation mail
   
   When I follow "New event"
   And I fill in "Name" with "My event"
+  And I select "Default" from "Template"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -107,6 +110,7 @@ Scenario: Creating a new event with confirmation mail - default message
   
   When I follow "New event"
   And I fill in "Name" with "My event"
+  And I select "Default" from "Template"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -134,6 +138,7 @@ Scenario: Creating a new event with payment mail
   
   When I follow "New event"
   And I fill in "Name" with "My event"
+  And I select "Default" from "Template"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -162,6 +167,7 @@ Scenario: Creating a new event with ticket expiry
   
   When I follow "New event"
   And I fill in "Name" with "My event"
+  And I select "Default" from "Template"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -255,6 +261,7 @@ Scenario: Creating an event with a pay before date
   Given I am on the events page
   And I follow "New event"
   And I fill in "Name" with "My event"
+  And I select "Default" from "Template"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Payment time" with "14"
