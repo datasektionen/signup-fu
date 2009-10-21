@@ -23,6 +23,8 @@ Rails::Initializer.run do |config|
   config.gem "rubyist-aasm", :lib => "aasm", :source => "http://gems.github.com"
   config.gem "authlogic"
   config.gem "liquid"
+  #config.gem "chriseppstein-compass"
+  config.gem "haml"
   #config.gem "ianwhite-pickle", :lib => "pickle", :source => "http://gems.github.com"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
