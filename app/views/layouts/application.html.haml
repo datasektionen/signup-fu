@@ -27,6 +27,6 @@
         
       #footer
         %p
-          = t('layout.created_by')
+          SignupFu is created by Patrik Stenmark
           - if current_user
-            = link_to t('layout.log_out'), user_session_path, :method => :delete
+            = link_to "Log out", user_session_path, :method => :delete
