@@ -36,13 +36,25 @@
     <%= f.select :ticket_type_id, @event.ticket_types.map { |p| ["#{p.name} (#{p.price} kr)", p.id] }, :caption => t('event_replies.form.ticket_type') %>
     <%= f.text_field :name, :caption => t('event_replies.form.name') %>
     <%= f.text_field :email, :caption => t('event_replies.form.email') %>
-    <%= f.text_area :food, :caption => t('event_replies.form.food'), :rows => 5 %>
+    
+    <div style="width: 330">
+    <h3>Matpreferenser</h3>
+      <li>
+        <ul>
+          <% FoodPreference.all.each do |food_pref| %>
+            <li>
+              <%= f.check_box_tag 'event_reply[food_preference_ids][]', food_pref.id, false, :id => dom_id(food_pref, "checkbox") %>
+              <%= f.label_tag dom_id(food_pref, "checkbox"), food_pref.name %>
+              
+            </li>
+          <% end -%>
+        </ul>
+      </li>
+      <%= f.text_area :food, :caption => t('event_replies.form.food'), :rows => 5 %>
+      
+    </div>
     <%= f.text_area :comments, :caption => t('event_replies.form.comments'), :rows => 5 %>
     
-    <% FoodPreference.all.each do |food_pref| %>
-      <%= f.label_tag dom_id(food_pref, "checkbox"), food_pref.name %>
-      <%= f.check_box_tag 'event_reply[food_preference_ids][]', food_pref.id, false, :id => dom_id(food_pref, "checkbox") %>
-    <% end -%>
     
     <%= f.submit t('event_replies.form.submit') %>
   <% end -%>

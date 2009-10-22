@@ -3,7 +3,7 @@
     form:
       name: Namn
       email: E-postadress
-      food: Matpreferenser
+      food: Andra matpreferenser
       comments: Kommentar
       ticket_type: Biljettyp
       submit: Boka
