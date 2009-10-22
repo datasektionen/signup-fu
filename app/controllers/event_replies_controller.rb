@@ -14,10 +14,6 @@ class EventRepliesController < ApplicationController
     end
   end
   
-  def admin_view?
-    current_user
-  end
-  
   def index
     @replies = @event.replies
   end
@@ -68,6 +64,11 @@ class EventRepliesController < ApplicationController
   
   
   protected
+  
+  def admin_view?
+    current_user && params[:admin_view] == "1"
+  end
+  helper_method :admin_view?
   
   def update_economy
     if EventReply.pay(params[:reply_ids])

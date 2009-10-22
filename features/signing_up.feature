@@ -133,9 +133,15 @@ Feature: Signing up
     #And I should see "1 Vegan"
   
 
-
-  
+  Scenario: Signing up when logged in
+    Given an event "My event"
+    And I am logged in as an admin
     
+    When I go to the new reply page for "My event"
+    
+    Then I should not see "Administrative functions"
+  
+
 #    Feature: Cucumber stock keeping
 #      In order to avoid interruption of cucumber consumption
 #      As a citizen of Cucumbia

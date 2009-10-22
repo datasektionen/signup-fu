@@ -1,6 +1,6 @@
 <h1><%= t('.header', :name => @event.name) %></h1>
 <% if @event.deadline.past? %>
-  <% if current_user %>
+  <% if admin_view? %>
     <p class="error">
       <%= t('.deadline_passed_warning', :name => @event.name) %> 
     </p>
@@ -10,7 +10,7 @@
     </p>
   <% end %>
 <% elsif @event.full?  %>
-  <% if current_user %>
+  <% if admin_view? %>
     <p class="error">
       <%= t('.event_full_warning', :name => @event.name) %> 
     </p>
@@ -22,10 +22,10 @@
 <% end %>
 
 
-<% if current_user || (!@event.deadline.past? && !@event.full?) %>
+<% if admin_view? || (!@event.deadline.past? && !@event.full?) %>
   <%= error_messages_for(:reply, :object_name => 'event_reply') %>
   <% signup_fu_form_for([@event, @reply]) do |f| %>
-    <% if current_user %>
+    <% if admin_view? %>
       <h3>Administrative functions</h3>
     
       <% if @event.send_mail_for?(:signup_confirmation) %>
