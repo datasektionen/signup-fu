@@ -5,29 +5,146 @@
 // Import all the default blueprint modules so that we can access their mixins.
 @import blueprint
 // Import the non-default scaffolding module.
-@import blueprint/modules/scaffolding.sass
+//@import blueprint/modules/scaffolding.sass
 
 // To generate css equivalent to the blueprint css but with your configuration applied, uncomment:
 // +blueprint
 
 //Recommended Blueprint configuration with scoping and semantic layout:
-+blueprint-typography("body.bp")
-+blueprint-scaffolding("body.bp")
-body.bp
++blueprint-typography("body")
+//+blueprint-scaffolding("body.bp")
+body
   +blueprint-utilities
   +blueprint-debug
   +blueprint-interaction
-  +blueprint-form
+  //+blueprint-form
   // Remove the scaffolding when you're ready to start doing visual design.
   // Or leave it in if you're happy with how blueprint looks out-of-the-box
   #container
     +container
   
-  #header, #footer
+  #header
+    +column(24)
+    h1
+      color: #E2007F
+      font-family: 'HelveticaNeue-UltraLight','Helvetica Neue UltraLight','Helvetica Neue',Arial,Helvetica,sans-serif
+      font-weight: 100
+      padding-top: 18px
+      padding-left: 90px
+
+      a
+        text-decoration: none
+        color: #E2007F
+        font-size: 72px
+        line-height: 72px
+
+        &visited
+          text-decoration: none
+          color: #E2007F
+    
+  
+  #footer
     +column(24)
   
   #content
     #navigation
       :float right
     +column(24)
+h2
+  font-size: 36px
+  margin-top: 18px
+  margin-bottom: 18px
+  margin-left: 18px
+  font-family: 'HelveticaNeue-UltraLight','Helvetica Neue UltraLight','Helvetica Neue',Arial,Helvetica,sans-serif
+  font-weight: 100
+  color: #E2007F
+
+h3
+  margin-bottom: 12px
+  border-bottom: 1px solid gray
+
+
+h4
+  font-size: 0.97em
+
+#errorExplanation
+  margin-bottom: 18px
+  margin-top: 18px
+  background-color: #C38A38
+  border: #CB3632 2px solid
+  padding: 9px
+
+  h3
+    border-bottom: none
+
+  ul
+    margin-top: 9px
+
+    li
+      list-style-type: disc
+      margin-left: 36px
+
+
+.fieldWithErrors input
+  background-color: #E2231B
+
+
+#flash_error
+  background-image: url(/images/icons/error.png)
+  background-repeat: no-repeat
+  background-position: center left
+  padding-left: 20px !important
+  border: 2px solid #CB3632
+  padding: 9px
+
+
+#flash_notice
+  background-image: url(/images/icons/information.png)
+  background-repeat: no-repeat
+  background-position: center left
+  padding-left: 20px !important
+  padding: 9px
+
+
+table.vertical_header th
+  text-align: left
+
+div.email
+  table.email
+    margin-left: 0
+
+  div.body
+    background-color: #DAE6F0
+    border: 1px solid #AAAAAA
+    padding: 5px
+    margin-left: 10px
+    font-family: monospace
+    margin-bottom: 20px
+
+form
+  ul
+  li
+    list-style-type: none
+    margin-bottom: 5px
+
+    label
+      display: block
+
+  input[type=submit]
+    margin: 10px
+    margin-left: 20px
+
+#economy_report_table input[type=checkbox]
+  height: 18px
+  width: 18px
+
+p
+  &.explanation
+    margin-bottom: 5px
+    margin-left: 15px
+
+  &.empty_list
+    margin-left: auto
+    margin-right: auto
+    text-align: center
 
