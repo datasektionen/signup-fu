@@ -3,11 +3,39 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe EventRepliesController do
   before do
     activate_authlogic
+  end
+  
+  describe "admin view" do
+    
+    before do
+      @event = mock_model(Event)
+      Event.stub!(:find).with("1").and_return(@event)
+    end
+    def do_get
+      get :new, :event_id => 1
+    end
+    
+    it "should render the specified template if not logged in" do
+      @controller.should_receive(:render_form)
+      do_get
+    end
+    
+    it "should render the new view if logged in " do
       UserSession.create(Factory(:admin))
+      @controller.should_receive(:render)
+      do_get
+    end
+    
+    it "should not render themplate if logged in" do
+      UserSession.create(Factory(:admin))
+      @controller.should_not_receive(:render_form)
+      do_get
+    end
   end
   
   describe "Creating replies via REST" do
     before do
+      UserSession.create(Factory(:admin))
 
       @valid_params = {
         :name => 'Kalle Persson',

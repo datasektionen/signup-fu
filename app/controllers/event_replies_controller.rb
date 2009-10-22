@@ -7,7 +7,15 @@ class EventRepliesController < ApplicationController
   
   def new
     @reply = EventReply.new
-    render_form
+    if admin_view?
+      render
+    else
+      render_form
+    end
+  end
+  
+  def admin_view?
+    current_user
   end
   
   def index
