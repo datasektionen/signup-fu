@@ -10,18 +10,20 @@
     #container
       #header
         %h1= link_to "SignupFu", root_path
-    
-      - if flash[:notice]
-        #flash_notice
-          = flash[:notice]
       
-      - if flash[:error]
-        #flash_error
-          = flash[:error]
       
       #content
         #navigation
           =yield :nav
+        
+        - if flash[:notice]
+          #flash_notice
+            = flash[:notice]
+        
+        - if flash[:error]
+          #flash_error
+            = flash[:error]
+        
         
         =yield
         
