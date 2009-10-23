@@ -408,17 +408,17 @@ Scenario: Adding a guest manually without mail sending
     | Name    | Value         |
     | body    | Yay! Party!   |
     | subject | Confirmation! |
-
+  
   When I go to the event page for "My event"
-
+  
   And I follow "Add guest"
   And I uncheck "Send signup confirmation mail"
   And I fill in "Namn" with "Kalle Persson"
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
-
+  
   When I go to the event page for "My event"
-
+  
   Then I should see "Kalle Persson"
   And "kalle@example.org" should receive 0 email
 
@@ -450,15 +450,16 @@ Scenario: Adding a guest to an event passed deadline
   And a guest to "My event" called "Karl Persson"
     ||
   And I am on the event page for "My event"
-
+  
   When I follow "Add guest"
-
+  
   Then I should see "Warning: Deadline for event My event is passed. However, since you are logged in, you can still add a new guest"
-
+  
   And I fill in "Namn" with "Nisse Karlsson"
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
-
+  
   When I go to the event page for "My event"
   Then I should see "Nisse Karlsson"
+
 
