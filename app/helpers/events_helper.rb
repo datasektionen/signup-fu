@@ -15,6 +15,10 @@ module EventsHelper
       "Reminded"
     when :cancelled
       "Cancelled"
+    when :attending
+      "Attending"
+    else
+      "Unknown state"
     end
     
   end

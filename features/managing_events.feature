@@ -463,3 +463,16 @@ Scenario: Adding a guest to an event passed deadline
   Then I should see "Nisse Karlsson"
 
 
+# Börja med att markera som attending -> betald
+Scenario: Marking a guest as attending
+  Given an event "My event"
+  And a guest to "My event" called "Karl Persson"
+    ||
+  
+  When I go to the guest list page for "My event"
+  And I fill in "Name" with "Karl Persson"
+  And I press "Attending"
+  
+  Then I should be on the guest list page for "My event"
+  And I should see "Attending"
+

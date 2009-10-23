@@ -1,5 +1,5 @@
 class EventRepliesController < ApplicationController
-  before_filter :load_parents, :only => [:new, :index, :create, :economy]
+  before_filter :load_parents, :only => [:set_attending, :new, :index, :create, :economy]
   #skip_before_filter :verify_authenticity_token
   skip_before_filter :require_user, :only => [:new, :create, :show]
   
@@ -60,6 +60,21 @@ class EventRepliesController < ApplicationController
     @reply.cancel!
     flash[:notice] = "Sucessfully removed #{@reply.name}"
     redirect_to(@reply.event)
+  end
+  
+  def set_attending
+    if reply = @event.replies.find_by_name(params[:name])
+      
+      begin
+        reply.attending!
+      rescue AASM::InvalidTransition => e
+        flash[:error] = "Unable to set #{reply.name} attending: #{e.message}"
+      end
+    else
+      flash[:error] = "No such guest!"
+    end
+    
+    redirect_to event_event_replies_path(@event)
   end
   
   

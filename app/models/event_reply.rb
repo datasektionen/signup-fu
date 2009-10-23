@@ -11,6 +11,7 @@ class EventReply < ActiveRecord::Base
   aasm_state :expired
   aasm_state :cancelled
   aasm_state :reminded
+  aasm_state :attending
 
   aasm_event :pay do
     transitions :to => :paid, :from => [:new], :on_transition => :on_paid
@@ -26,6 +27,10 @@ class EventReply < ActiveRecord::Base
 
   aasm_event :cancel do
     transitions :to => :cancelled, :from => [:new]
+  end
+  
+  aasm_event :attending do
+    transitions :to => :attending, :from => [:new, :paid, :reminded]
   end
   
   belongs_to :event
