@@ -3,8 +3,8 @@ module EventsHelper
     reply.food_preferences.map(&:name).join(", ") 
   end
   
-  def state(reply)
-    case reply.aasm_current_state
+  def payment_state(reply)
+    case reply.payment_state_name
     when :expired
       "Expired (No payment)"
     when :paid

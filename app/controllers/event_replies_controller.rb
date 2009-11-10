@@ -62,20 +62,17 @@ class EventRepliesController < ApplicationController
     redirect_to(@reply.event)
   end
   
-  def set_attending
-    if reply = @event.replies.find_by_name(params[:name])
-      
-      begin
-        reply.attending!
-      rescue AASM::InvalidTransition => e
-        flash[:error] = "Unable to set #{reply.name} attending: #{e.message}"
-      end
-    else
-      flash[:error] = "No such guest!"
-    end
-    
-    redirect_to event_event_replies_path(@event)
-  end
+  #def set_attending
+  #  if reply = @event.replies.find_by_name(params[:name])
+  #    unless reply.attending
+  #      flash[:error] = "Unable to set #{reply.name} attending: #{e.message}"
+  #    end
+  #  else
+  #    flash[:error] = "No such guest!"
+  #  end
+  #  
+  #  redirect_to event_event_replies_path(@event)
+  #end
   
   
   protected

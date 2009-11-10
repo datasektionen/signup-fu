@@ -36,12 +36,12 @@ end
       <td><%= reply.name %></td>
       <td><%= reply.email %></td>
       <td><%= reply.ticket_type.name %></td>
-      <td><%= state(reply) %></td>
+      <td><%= payment_state(reply) %></td>
       <td><%= food_preferences(reply)%></td>
       <td><%= reply.food %></td>
       <td><%= reply.comments %></td>
       <td>
-        <% unless reply.aasm_current_state == :cancelled %>
+        <% unless reply.cancelled? %>
           <%= link_to "Remove", event_reply_path(reply), :method => :delete, :confirm => "Do you really want to remove #{reply.name} from the guest list?" %>
         <% end %>
       </td>

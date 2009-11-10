@@ -2,36 +2,68 @@ class EventReply < ActiveRecord::Base
   
   attr_accessor :send_signup_confirmation
   
-  include AASM
   
-  aasm_initial_state :new
-
-  aasm_state :new
-  aasm_state :paid
-  aasm_state :expired
-  aasm_state :cancelled
-  aasm_state :reminded
-  aasm_state :attending
-
-  aasm_event :pay do
-    transitions :to => :paid, :from => [:new], :on_transition => :on_paid
-  end
-  
-  aasm_event :expire do
-    transitions :to => :expired, :from => [:reminded], :on_transition => :on_expire
-  end
-  
-  aasm_event :remind do
-    transitions :to => :reminded, :from => [:new], :on_transition => :on_remind
-  end
-
-  aasm_event :cancel do
-    transitions :to => :cancelled, :from => [:new]
+  state_machine(:payment_state, :initial => :new) do
+    state :new
+    state :reminded
+    state :paid
+    state :expired
+    
+    before_transition :on => :pay, :do => :on_paid
+    before_transition :on => :expire, :do => :on_expire
+    before_transition :on => :remind, :do => :on_remind
+    
+    event :pay do
+      transition :new => :paid, :reminded => :paid
+    end
+    
+    event :remind do
+      transition :new => :reminded
+    end
+    
+    event :expire do
+      transition :reminded => :expired
+    end
   end
   
-  aasm_event :attending do
-    transitions :to => :attending, :from => [:new, :paid, :reminded]
+  def cancelled?
+    false
+    
   end
+  
+  #state_machine()
+  #
+  #
+  #include AASM
+  #
+  #aasm_initial_state :new
+  #
+  #aasm_state :new
+  #aasm_state :paid
+  #aasm_state :expired
+  #aasm_state :cancelled
+  #aasm_state :reminded
+  #aasm_state :attending
+  #
+  #aasm_event :pay do
+  #  transitions :to => :paid, :from => [:new], :on_transition => :on_paid
+  #end
+  #
+  #aasm_event :expire do
+  #  transitions :to => :expired, :from => [:reminded], :on_transition => :on_expire
+  #end
+  #
+  #aasm_event :remind do
+  #  transitions :to => :reminded, :from => [:new], :on_transition => :on_remind
+  #end
+  #
+  #aasm_event :cancel do
+  #  transitions :to => :cancelled, :from => [:new]
+  #end
+  #
+  #aasm_event :attending do
+  #  transitions :to => :attending, :from => [:new, :paid, :reminded]
+  #end
   
   belongs_to :event
   belongs_to :ticket_type
@@ -40,7 +72,8 @@ class EventReply < ActiveRecord::Base
   validates_presence_of :event, :name, :email, :ticket_type, :message => 'is required'
   
   named_scope :ascend_by_name, :order => 'name ASC'
-  named_scope :not_cancelled, :conditions => ["aasm_state != 'cancelled'"]
+  #named_scope :not_cancelled, :conditions => ["aasm_state != 'cancelled'"]
+  named_scope :not_cancelled
   
   def self.pay(ids)
     now = Time.now
@@ -54,7 +87,7 @@ class EventReply < ActiveRecord::Base
       event = reply.event
       next unless event.expire_unpaid?
       if reply.should_be_expired?
-        reply.expire!
+        reply.expire
       end
     end
   end
@@ -64,7 +97,7 @@ class EventReply < ActiveRecord::Base
       event = reply.event
       next unless event.expire_unpaid?
       if reply.should_be_reminded?
-        reply.remind!
+        reply.remind
       end
     end
   end
@@ -78,7 +111,7 @@ class EventReply < ActiveRecord::Base
   end
   
   def should_be_reminded?
-    aasm_current_state == :new &&
+    new? &&
       Time.now > (created_at + event.payment_time.days)
   end
   
