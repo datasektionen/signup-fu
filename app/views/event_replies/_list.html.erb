@@ -25,7 +25,8 @@ end
     <th>Name</th>
     <th>E-mail</th>
     <th>Ticket type</th>
-    <th>State</th>
+    <th>Payment state</th>
+    <th>Guest state</th>
     <th>Food preferences</th>
     <th>Other food related</th>
     <th>Comments</th>
@@ -37,6 +38,7 @@ end
       <td><%= reply.email %></td>
       <td><%= reply.ticket_type.name %></td>
       <td><%= payment_state(reply) %></td>
+      <td><%= guest_state(reply) %></td>
       <td><%= food_preferences(reply)%></td>
       <td><%= reply.food %></td>
       <td><%= reply.comments %></td>

@@ -34,6 +34,10 @@ class EventReply < ActiveRecord::Base
     event :cancel do
       transition :new => :cancelled
     end
+    
+    event :attending do
+      transition :new => :attending
+    end
   end
   #
   #

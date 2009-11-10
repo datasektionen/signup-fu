@@ -13,13 +13,18 @@ module EventsHelper
       "Unpaid"
     when :reminded
       "Reminded"
-    when :cancelled
-      "Cancelled"
-    when :attending
-      "Attending"
     else
       "Unknown state"
     end
     
+  end
+  
+  def guest_state(reply)
+    case reply.guest_state_name
+    when :cancelled
+      "Cancelled"
+    when :attending
+      "Attending"
+    end
   end
 end
