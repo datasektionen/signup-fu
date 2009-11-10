@@ -21,6 +21,8 @@ module EventsHelper
   
   def guest_state(reply)
     case reply.guest_state_name
+    when :new
+      "New"
     when :cancelled
       "Cancelled"
     when :attending
