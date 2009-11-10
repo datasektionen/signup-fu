@@ -1,5 +1,5 @@
-rubyist-aasm --source http://gems.github.com
 openrain-action_mailer_tls --source http://gems.github.com
 authlogic
 liquid
 chriseppstein-compass --source http://gems.github.com
+state_machine --source http://gemcutter.org
