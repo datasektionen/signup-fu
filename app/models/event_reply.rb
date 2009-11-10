@@ -26,12 +26,15 @@ class EventReply < ActiveRecord::Base
     end
   end
   
-  def cancelled?
-    false
+  state_machine(:guest_state, :initial => :new) do
+    state :new
+    state :attending
+    state :cancelled
     
+    event :cancel do
+      transition :new => :cancelled
+    end
   end
-  
-  #state_machine()
   #
   #
   #include AASM
