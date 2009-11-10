@@ -17,7 +17,10 @@
     new Autocompleter.Local("name", "autocomplete_name", reply_names, {
       
     });
+    $('name').focus();
   </script>
+  <%= label_tag "paid" %>
+  <%= check_box_tag "paid", "1", true %>
   
   <%= submit_tag "Attending" %>
 <% end %>

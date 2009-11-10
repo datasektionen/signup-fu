@@ -70,11 +70,19 @@ class EventRepliesController < ApplicationController
   
   def set_attending
     if reply = @event.replies.find_by_name(params[:name])
-      unless reply.attending
+      # TODO: fire both events at the same time.
+      if reply.attending
+        flash[:notice] = "Set #{reply.name} as attending"
+        if params[:paid] && !reply.paid?
+          flash[:notice] += " and paid"
+          reply.pay!
+        end
+      else
         # TODO
         #flash[:error] = "Unable to set #{reply.name} attending: #{e.message}"
         flash[:error] = "Unable to set #{reply.name} attending."
       end
+      
     else
       flash[:error] = "No such guest!"
     end
