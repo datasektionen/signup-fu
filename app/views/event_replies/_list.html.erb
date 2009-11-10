@@ -43,6 +43,9 @@ end
       <td><%= reply.food %></td>
       <td><%= reply.comments %></td>
       <td>
+        <% unless reply.attending? %>
+          <%= link_to "Attending", set_attending_event_event_replies_path(@event, :name => reply.name), :method => :post %>
+        <% end -%>
         <% unless reply.cancelled? %>
           <%= link_to "Remove", event_reply_path(reply), :method => :delete, :confirm => "Do you really want to remove #{reply.name} from the guest list?" %>
         <% end %>
