@@ -523,3 +523,28 @@ p.empty_list {
   margin-left: auto;
   margin-right: auto;
   text-align: center; }
+
+/* line 158, ../../../app/stylesheets/screen.sass */
+div.autocomplete {
+  margin: 0px;
+  padding: 0px;
+  width: 250px;
+  background: #fff;
+  border: 1px solid #888;
+  position: absolute; }
+  /* line 166, ../../../app/stylesheets/screen.sass */
+  div.autocomplete ul {
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none; }
+    /* line 171, ../../../app/stylesheets/screen.sass */
+    div.autocomplete ul li.selected {
+      background-color: #ffb; }
+    /* line 174, ../../../app/stylesheets/screen.sass */
+    div.autocomplete ul li {
+      margin: 0;
+      padding: 2px;
+      height: 32px;
+      display: block;
+      list-style-type: none;
+      cursor: pointer; }

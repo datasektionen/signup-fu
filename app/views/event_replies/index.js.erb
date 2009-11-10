@@ -1,0 +1,5 @@
+var reply_names = [
+  <% @replies.each do |reply| -%>
+    '<%= reply.name %>', 
+  <% end -%>
+];

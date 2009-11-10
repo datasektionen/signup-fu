@@ -16,6 +16,12 @@ class EventRepliesController < ApplicationController
   
   def index
     @replies = @event.replies
+    respond_to do |format|
+      format.html
+      format.js do
+        
+      end
+    end
   end
   
   def create
@@ -65,7 +71,9 @@ class EventRepliesController < ApplicationController
   def set_attending
     if reply = @event.replies.find_by_name(params[:name])
       unless reply.attending
-        flash[:error] = "Unable to set #{reply.name} attending: #{e.message}"
+        # TODO
+        #flash[:error] = "Unable to set #{reply.name} attending: #{e.message}"
+        flash[:error] = "Unable to set #{reply.name} attending."
       end
     else
       flash[:error] = "No such guest!"
