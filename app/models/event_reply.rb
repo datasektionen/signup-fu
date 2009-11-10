@@ -79,8 +79,7 @@ class EventReply < ActiveRecord::Base
   validates_presence_of :event, :name, :email, :ticket_type, :message => 'is required'
   
   named_scope :ascend_by_name, :order => 'name ASC'
-  #named_scope :not_cancelled, :conditions => ["aasm_state != 'cancelled'"]
-  named_scope :not_cancelled
+  named_scope :not_cancelled, :conditions => ["guest_state != 'cancelled'"]
   
   def self.pay(ids)
     now = Time.now
