@@ -15,7 +15,7 @@ module MarkupHelper
   
   def stylesheet(*styles)
     styles.each do |style|
-      content_for(:head) do
+      content_for(:stylesheets) do
         stylesheet_link_tag(style)
       end
     end
@@ -23,7 +23,7 @@ module MarkupHelper
   
   def javascript(*scripts)
     scripts.each do |script|
-      content_for(:head) do
+      content_for(:javascripts) do
         javascript_include_tag(script)
       end
     end

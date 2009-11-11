@@ -3,7 +3,9 @@
     = javascript_include_tag "application", :cache => true
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js"
-    = yield :head
+    = yield :javascripts
+  
+    = yield :stylesheets
     = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
     = stylesheet_link_tag 'compiled/print.css', :media => 'print'
     /[if lt IE 8]
@@ -35,3 +37,4 @@
           SignupFu is created by Patrik Stenmark
           - if current_user
             = link_to "Log out", user_session_path, :method => :delete
+  
