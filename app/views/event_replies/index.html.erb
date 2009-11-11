@@ -1,4 +1,5 @@
-<%= javascript_include_tag event_event_replies_path(@event, :format => :js ) %>
+<% javascript event_event_replies_path(@event, :format => :js ) %>
+<% javascript "event_replies.js"%>
 
 <% content_for :nav do %>
   <%= button_link_to("Back to #{@event.name}", event_path(@event)) %>
@@ -13,13 +14,6 @@
   <%= label_tag("name") %>
   <%= text_field_tag "name" %>
   <div id="autocomplete_name" class="autocomplete"></div>
-  <script type="text/javascript" charset="utf-8">
-    new Autocompleter.Local("name", "autocomplete_name", reply_names, {
-      frequency: 0.1
-    });
-    
-    $('name').focus();
-  </script>
   <%= label_tag "paid" %>
   <%= check_box_tag "paid", "1", true %>
   

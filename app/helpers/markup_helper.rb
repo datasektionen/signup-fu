@@ -12,4 +12,21 @@ module MarkupHelper
     
     link_to(*args, &block)
   end
+  
+  def stylesheet(*styles)
+    styles.each do |style|
+      content_for(:head) do
+        stylesheet_link_tag(style)
+      end
+    end
+  end
+  
+  def javascript(*scripts)
+    scripts.each do |script|
+      content_for(:head) do
+        javascript_include_tag(script)
+      end
+    end
+  end
+  
 end
