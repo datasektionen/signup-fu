@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091110102918) do
+ActiveRecord::Schema.define(:version => 20091112095007) do
 
   create_table "event_replies", :force => true do |t|
     t.integer  "event_id"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(:version => 20091110102918) do
     t.integer  "ticket_type_id"
     t.datetime "paid_at"
     t.datetime "reminded_at"
-    t.string   "payment_state"
-    t.string   "guest_state"
+    t.string   "payment_state",  :null => false
+    t.string   "guest_state",    :null => false
   end
 
   create_table "event_replies_food_preferences", :id => false, :force => true do |t|

@@ -27,7 +27,8 @@ describe EventReply do
   it { should validate_presence_of(:ticket_type).with_message("can't be blank") }
   it { should have_and_belong_to_many(:food_preferences) }
   # This is for making the error messages make more sense...
-  it { should have_db_column(:aasm_state).of_type(:string).with_options(:null => false)}
+  it { should have_db_column(:payment_state).of_type(:string).with_options(:null => false)}
+  it { should have_db_column(:guest_state).of_type(:string).with_options(:null => false)}
   
   
   xit "should send confirmation mail if there are a mail template with name confirmation"
@@ -190,13 +191,13 @@ describe EventReply do
     end
     
     it "should not expire tickets that should not be expired" do
-      @knatte.should_not_receive(:expire!)
-      @fnatte.stub!(:expire!)
+      @knatte.should_not_receive(:expire)
+      @fnatte.stub!(:expire)
       EventReply.expire_old_unpaid_replies
     end
     
     it "should expire unpaid tickets that should be expired" do
-      @fnatte.should_receive(:expire!)
+      @fnatte.should_receive(:expire)
       EventReply.expire_old_unpaid_replies
     end
     
@@ -209,7 +210,7 @@ describe EventReply do
     
     it "should not do expiry process on events without expiry template" do
       @event.stub!(:expire_unpaid?).and_return(false)
-      @replies.each {|r| r.should_not_receive(:expire!) }
+      @replies.each {|r| r.should_not_receive(:expire) }
       EventReply.expire_old_unpaid_replies
     end
     
@@ -217,14 +218,14 @@ describe EventReply do
       @reply.save!
       @reply.remind!
       @reply.expire!
-      @reply.aasm_current_state.should == :expired
+      @reply.payment_state_name.should == :expired
     end
     
     it "should not expire unreminded replies" do
-      @reply.stub!(:aasm_current_state).and_return(:new)
+      @reply.stub!(:payment_state_name).and_return(:new)
       lambda {
         @reply.expire!
-      }.should raise_error(AASM::InvalidTransition)
+      }.should raise_error(StateMachine::InvalidTransition)
     end
   end
   
@@ -350,7 +351,7 @@ describe EventReply do
     
     it "should change state to reminded" do
       @reply.remind!
-      @reply.aasm_current_state.should == :reminded
+      @reply.payment_state_name.should == :reminded
     end
     
     it "should set reminded at date" do

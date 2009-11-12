@@ -26,51 +26,19 @@ class EventReply < ActiveRecord::Base
     end
   end
   
-  state_machine(:guest_state, :initial => :new) do
-    state :new
+  state_machine(:guest_state, :initial => :unknown) do
+    state :unknown
     state :attending
     state :cancelled
     
     event :cancel do
-      transition :new => :cancelled
+      transition :unknown => :cancelled
     end
     
     event :attending do
-      transition :new => :attending
+      transition :unknown => :attending
     end
   end
-  #
-  #
-  #include AASM
-  #
-  #aasm_initial_state :new
-  #
-  #aasm_state :new
-  #aasm_state :paid
-  #aasm_state :expired
-  #aasm_state :cancelled
-  #aasm_state :reminded
-  #aasm_state :attending
-  #
-  #aasm_event :pay do
-  #  transitions :to => :paid, :from => [:new], :on_transition => :on_paid
-  #end
-  #
-  #aasm_event :expire do
-  #  transitions :to => :expired, :from => [:reminded], :on_transition => :on_expire
-  #end
-  #
-  #aasm_event :remind do
-  #  transitions :to => :reminded, :from => [:new], :on_transition => :on_remind
-  #end
-  #
-  #aasm_event :cancel do
-  #  transitions :to => :cancelled, :from => [:new]
-  #end
-  #
-  #aasm_event :attending do
-  #  transitions :to => :attending, :from => [:new, :paid, :reminded]
-  #end
   
   belongs_to :event
   belongs_to :ticket_type
@@ -103,13 +71,16 @@ class EventReply < ActiveRecord::Base
       event = reply.event
       next unless event.expire_unpaid?
       if reply.should_be_reminded?
-        reply.remind
+        reply.remind!
       end
     end
   end
   
   def should_be_expired?
-    #if !reply.paid? && Time.now > (reply.created_at + event.payment_time.days)
+    #puts reminded?
+    #puts paid?
+    #puts Time.now > (created_at + event.payment_time.days) 
+    #puts Time.now > (reminded_at + event.expire_time_from_reminder.days)
     reminded? &&
       !paid? &&
       Time.now > (created_at + event.payment_time.days) &&
@@ -117,6 +88,8 @@ class EventReply < ActiveRecord::Base
   end
   
   def should_be_reminded?
+    #puts new?
+    #puts Time.now > (created_at + event.payment_time.days)
     new? &&
       Time.now > (created_at + event.payment_time.days)
   end
