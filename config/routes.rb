@@ -6,7 +6,8 @@ ActionController::Routing::Routes.draw do |map|
     events.resources :event_replies, :as => 'replies',
       :collection => {
         :economy => [:get, :post],
-        :set_attending => :post
+        :set_attending => :post,
+        :names => :get
       }
   end
   

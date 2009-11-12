@@ -48,6 +48,7 @@ class EventReply < ActiveRecord::Base
   
   named_scope :ascend_by_name, :order => 'name ASC'
   named_scope :not_cancelled, :conditions => ["guest_state != 'cancelled'"]
+  named_scope :not_attending, :conditions => ["guest_state != 'cancelled' AND guest_state != 'attending'"]
   
   def self.pay(ids)
     now = Time.now

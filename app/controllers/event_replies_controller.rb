@@ -1,5 +1,5 @@
 class EventRepliesController < ApplicationController
-  before_filter :load_parents, :only => [:set_attending, :new, :index, :create, :economy]
+  before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy]
   #skip_before_filter :verify_authenticity_token
   skip_before_filter :require_user, :only => [:new, :create, :show]
   
@@ -21,6 +21,13 @@ class EventRepliesController < ApplicationController
       format.js do
         
       end
+    end
+  end
+  
+  def names
+    @replies = @event.replies.not_attending
+    respond_to do |format|
+      format.js
     end
   end
   
