@@ -100,6 +100,12 @@ describe Event do
     @event.send_mail_for?(:signup_confirmation).should eql(false)
   end
   
+  it "should send_mail_for?(:signup_confirmation) if there are a signup confirmation template" do
+    @event.save!
+    @event.mail_templates.create!(:name => 'signup_confirmation', :body => 'body', :subject => 'subject')
+    @event.send_mail_for?(:signup_confirmation).should eql(true)
+  end
+  
   it "should fetch mail templates by name" do
     @event.save!
     confirmation_template = Factory(:mail_template, :event => @event, :name => 'signup_confirmation')

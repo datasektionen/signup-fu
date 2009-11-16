@@ -31,15 +31,6 @@ describe EventReply do
   it { should have_db_column(:guest_state).of_type(:string).with_options(:null => false)}
   
   
-  xit "should send confirmation mail if there are a mail template with name confirmation"
-  
-  it "should not send confirmation mail if there aren't any confirmation mail template" do
-    EventMailer.should_not_receive(:deliver_signup_confirmation)
-    
-    @reply.save!
-    
-  end
-    
   it "#paid?" do
     @reply.should_not be_paid
     
@@ -82,6 +73,21 @@ describe EventReply do
       @event.mail_templates.create!(:body => 'foo', :subject => 'bar', :name => 'payment_registered')      
     end
     
+    it "should send confirmation mail if there are a mail template with name confirmation" do
+      @reply.event.stub!(:send_mail_for?).with(:signup_confirmation).and_return(true)
+      
+      EventMailer.should_receive(:deliver_signup_confirmation)
+      
+      @reply.save!
+    end
+
+    it "should not send confirmation mail if there aren't any confirmation mail template" do
+      EventMailer.should_not_receive(:deliver_signup_confirmation)
+      
+      @reply.save!
+      
+    end
+    
     it "should send payment registration mail when there is a payment_registered mail template" do
       @reply = @event.replies.create!(:ticket_type => @ticket_type, :name => 'Kalle', :email => 'kalle@example.org')
     
@@ -92,20 +98,6 @@ describe EventReply do
       EventMailer.should_receive(:deliver_payment_registered).with(@reply)
     
       EventReply.pay([@reply.id])
-    end
-    
-    it "should send signup confirmation mail if no_signup_confirmation is not set" do
-      EventMailer.should_receive(:deliver_signup_confirmation)
-      
-      @reply = @event.replies.new(
-        :ticket_type => @ticket_type,
-        :name => 'Kalle',
-        :email => 'kalle@example.org'
-      )
-      @reply.event.stub!(:send_mail_for?).with(:signup_confirmation).and_return(true)
-      
-      @reply.save!
-      
     end
     
     # For use in REST-API
