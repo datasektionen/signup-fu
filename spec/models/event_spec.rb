@@ -56,7 +56,13 @@ describe Event do
   end
   it "should accept ticket_expiry and ticket_expire_reminder"
   
-  it "should not be valid with a expiry and no payment time"
+  it "should not be valid with a expiry and no payment time" do
+    event = Event.new(@valid_params.with(:expire_time_from_reminder => 10))
+    event.mail_templates << MailTemplate.new(:name => 'ticket_expired')
+    event.mail_templates << MailTemplate.new(:name => 'ticket_expire_reminder')
+    event.should_not be_valid
+    event.should have(1).error_on(:payment_time)
+  end
   
   it "should be full if it has more than max_guest guests" do
     event = Event.create!(@valid_params.with(:max_guests => 1))
