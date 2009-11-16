@@ -54,7 +54,6 @@ describe Event do
     event.should_not be_valid
     event.should have(1).error_on(:expire_time_from_reminder)
   end
-  it "should accept ticket_expiry and ticket_expire_reminder"
   
   it "should not be valid with a expiry and no payment time" do
     event = Event.new(@valid_params.with(:expire_time_from_reminder => 10))
