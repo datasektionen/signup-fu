@@ -6,7 +6,9 @@ describe Event do
     @valid_params = {
       :name => "My event",
       :ticket_types => [ticket_type],
-      :template => 'default'
+      :template => 'default',
+      :date => 20.days.from_now,
+      :deadline => 10.days.from_now
     }
     @event = Event.new(@valid_params)
     
@@ -15,7 +17,18 @@ describe Event do
   it { should have_many(:mail_templates) }
   it { should have_many(:ticket_types) }
   
-  it "should not allow deadline after date"
+  it { should validate_presence_of(:date) }
+  it { should validate_presence_of(:deadline) }
+  
+  it "should not allow deadline after date" do
+    @event = Event.new(@valid_params.with(
+      :deadline => 10.days.from_now, 
+      :date => 5.days.from_now
+    ))
+    
+    @event.should_not be_valid
+  end
+  
   it "should require a ticket type" do
     should validate_presence_of(:ticket_types)
   end

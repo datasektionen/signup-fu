@@ -4,6 +4,11 @@ class Event < ActiveRecord::Base
   validate :validate_ticket_expiry_attributes
   validates_presence_of :ticket_types
   validates_presence_of :template
+  validates_presence_of :date
+  validates_presence_of :deadline
+  
+  validate :validate_event_date_and_deadline
+  
   
   has_many :replies, :class_name => 'EventReply', :foreign_key => 'event_id'
   
@@ -63,6 +68,13 @@ class Event < ActiveRecord::Base
       if expire_time_from_reminder.blank?
         errors.add(:expire_time_from_reminder, 'must be present')
       end
+    end
+  end
+  
+  def validate_event_date_and_deadline
+    return if deadline.nil? || date.nil?
+    if deadline > date
+      errors.add_to_base("Can't have deadline after event date")
     end
   end
 end
