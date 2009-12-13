@@ -20,6 +20,8 @@ class Event < ActiveRecord::Base
     end
   end
   
+  acts_as_authentic
+  
   accepts_nested_attributes_for :ticket_types, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
   
   def self.templates

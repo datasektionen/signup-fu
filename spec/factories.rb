@@ -3,6 +3,8 @@ Factory.define(:event) do |e|
   e.date DateTime.new(2010, 9, 9, 9, 9)
   e.deadline DateTime.new(2010, 8, 8, 8, 8)
   e.template 'default'
+  e.password 'WordPass'
+  e.password_confirmation 'WordPass'
 end
 
 Factory.define(:reply, :class => EventReply) do |r|

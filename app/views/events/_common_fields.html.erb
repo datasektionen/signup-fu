@@ -1,4 +1,6 @@
 <%= f.select :template, Event.templates %>
+<%= f.password_field :password %>
+<%= f.password_field :password_confirmation %>
 <%= f.datetime_select :date %>
 <%= f.datetime_select :deadline %>
 <%= f.text_field :max_guests %>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091112095007) do
+ActiveRecord::Schema.define(:version => 20091213182220) do
 
   create_table "event_replies", :force => true do |t|
     t.integer  "event_id"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(:version => 20091112095007) do
     t.text     "signup_message"
     t.integer  "expire_time_from_reminder"
     t.string   "template"
+    t.string   "encrypted_password",        :default => "", :null => false
+    t.string   "persistence_token"
   end
 
   create_table "food_preferences", :force => true do |t|
