@@ -1,6 +1,5 @@
 class EventRepliesController < ApplicationController
   before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy]
-  #skip_before_filter :verify_authenticity_token
   skip_before_filter :require_user, :only => [:new, :create, :show]
   
   around_filter :set_locale, :only => [:new, :create, :show]
