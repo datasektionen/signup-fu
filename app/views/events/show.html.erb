@@ -7,6 +7,15 @@
 
 <h2><%= @event.name %></h2>
 
+<% unless @event.getting_started_shown? %>
+  <div id="getting_started">
+    <p>
+      This is the event page for your newly created event! Bookmark it or 
+      write down the URL to it!
+    </p>
+  </div>
+<% end -%>
+
 <table class="vertical_header">
   <tr>
     <th>Date</th>
