@@ -22,7 +22,7 @@ Given /^an event "([^\"]*)" with fields:$/ do |name, table|
 end
 
 When /^I create the event "([^\"]*)"$/ do |event_name|
-  When %q{I go to the events page}
+  When %q{I go to the homepage}
   When %q{I follow "New event"}
   When %q{I fill in "Name" with "My event"}
   When %q{I fill in "Password" with "WordPass"}

@@ -7,6 +7,9 @@ class Event < ActiveRecord::Base
   validates_presence_of :date
   validates_presence_of :deadline
   
+  validates_uniqueness_of :auth_name
+  before_validation_on_create :set_auth_name
+  
   validate :validate_event_date_and_deadline
   
   
@@ -20,7 +23,10 @@ class Event < ActiveRecord::Base
     end
   end
   
-  acts_as_authentic
+  acts_as_authentic do |config|
+    config.login_field = "auth_name"
+    config.merge_validates_length_of_login_field_options({:within => 3..128})
+  end
   
   accepts_nested_attributes_for :ticket_types, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
   
@@ -78,5 +84,9 @@ class Event < ActiveRecord::Base
     if deadline > date
       errors.add_to_base("Can't have deadline after event date")
     end
+  end
+  
+  def set_auth_name
+    self.auth_name = Authlogic::Random.hex_token
   end
 end

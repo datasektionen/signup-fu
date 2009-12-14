@@ -13,6 +13,9 @@ Scenario: Marking a reply as paid
     ||
   
   When I am on the event page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
+  
   And I follow "Economy"
   And I check the paid checkbox for "Kalle"
   And I press "Save"
@@ -30,6 +33,9 @@ Scenario: Sending a payment reported mail
     | subject | Payment received for {{EVENT_NAME}} |
   
   When I go to the economy page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
+  
   And I check the paid checkbox for "Kalle"
   And I press "Save"
   

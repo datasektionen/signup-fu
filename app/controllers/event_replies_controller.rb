@@ -1,6 +1,7 @@
 class EventRepliesController < ApplicationController
   before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy]
-  skip_before_filter :require_user, :only => [:new, :create, :show]
+  before_filter :require_event_session, :only => [:names, :set_attending, :index, :economy]
+  skip_before_filter :require_user
   
   around_filter :set_locale, :only => [:new, :create, :show]
   
@@ -100,7 +101,7 @@ class EventRepliesController < ApplicationController
   protected
   
   def admin_view?
-    current_user && params[:admin_view] == "1"
+    (current_user || current_event_session) && params[:admin_view] == "1"
   end
   helper_method :admin_view?
   

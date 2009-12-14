@@ -42,6 +42,26 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def require_event_session
+    if !current_event || current_event != @event
+      store_location
+      flash[:error] = "Please log in to this event"
+      redirect_to new_event_event_session_path(@event)
+      return false
+    end
+  end
+  
+  
+  def current_event_session
+    return @current_event_session if defined?(@current_event_session)
+    @current_event_session = EventSession.find
+  end
+
+  def current_event
+    return @current_event if defined?(@current_event)
+    @current_event = current_event_session && current_event_session.event
+  end
+  
   def store_location
     session[:return_to] = request.request_uri
   end

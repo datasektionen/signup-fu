@@ -4,7 +4,7 @@ I want to be able to create, edit and view my events
 So that I can have something that my guests can sign up to, so I get guests to my events
 
 Background:
-  Given I am logged in as an admin
+  #Given I am logged in as an admin
   
 Scenario: Showing a getting started box
   When I create the event "My event"
@@ -18,7 +18,7 @@ Scenario: Showing a getting started box
   
 
 Scenario: Creating a new event without max number of guests
-  Given I am on the events page
+  Given I am on the homepage
   And I follow "New event"
   And I fill in "Name" with "My event"
   And I fill in "Password" with "WordPass"
@@ -33,13 +33,12 @@ Scenario: Creating a new event without max number of guests
   And I fill in "Ticket type 1 price" with "100"
   And I press "Create event"
   
-  When I go to the events page
-  
-  Then I should see "My event"
+  Then I should be on the event page for "My event"
+  And I should see "My event"
   And I should see "2009-09-09 09:09"
 
 Scenario: Creating a new event with prices
-  Given I am on the events page
+  Given I am on the homepage
   
   When I follow "New event"
   And I fill in "Name" with "My event"
@@ -69,7 +68,7 @@ Scenario: Creating a new event with prices
 
 
 Scenario: Creating a new event without mails
-  Given I am on the events page
+  Given I am on the homepage
   
   When I follow "New event"
   And I fill in "Name" with "My event"
@@ -94,7 +93,7 @@ Scenario: Creating a new event without mails
 
 
 Scenario: Creating a new event with confirmation mail
-  Given I am on the events page
+  Given I am on the homepage
   
   When I follow "New event"
   And I fill in "Name" with "My event"
@@ -128,7 +127,7 @@ Scenario: Creating a new event with confirmation mail
   And I should not see "Payment registered mail"
 
 Scenario: Creating a new event with confirmation mail - default message
-  Given I am on the events page
+  Given I am on the homepage
   
   When I follow "New event"
   And I fill in "Name" with "My event"
@@ -159,7 +158,7 @@ Scenario: Creating a new event with confirmation mail - default message
 
 Scenario: Creating a new event with payment mail
   
-  Given I am on the events page
+  Given I am on the homepage
   
   When I follow "New event"
   And I fill in "Name" with "My event"
@@ -191,7 +190,7 @@ Scenario: Creating a new event with payment mail
   And I should see "Your ticket to {{EVENT_NAME}} is now paid"
 
 Scenario: Creating a new event with ticket expiry
-  Given I am on the events page
+  Given I am on the homepage
   
   When I follow "New event"
   And I fill in "Name" with "My event"
@@ -231,65 +230,47 @@ Scenario: Creating a new event with ticket expiry
   And I should see "Your are hereby reminded"
   
 
-Scenario: Event deletion
-  Given an event "My event"
-  
-  When I go to the events page
-  And I follow "Delete"
-  And I go to the events page
-  
-  Then I should not see "My event"
+# TODO fixa delete-länk
+#Scenario: Event deletion
+#  Given an event "My event"
+#  
+#  When I go to the event page for "My event"
+#  And I follow "Delete"
+#  
+#  Then the event "My event" should not exist in the database
 
-
-Scenario: Editing an event
-  Given an event "My event"
-  
-  When I go to the events page
-  And I follow "Edit"
-  
-  Then I should not see "Ticket 1 name"
-  And I should not see "Signup Confirmation"
-  
-  And I select "2010-10-10 10:10" as the "Date" date and time
-  And I press "Save"
-  
-  Then I should be on the event page for "My event"
-  And I should not see "2009-09-09"
-  And I should see "2010-10-10"
-  
+# TODO fixa edit-länk
+#Scenario: Editing an event
+#  Given an event "My event"
+#  
+#  When I go to the event page for "My event"
+#  And I follow "Edit"
+#  
+#  Then I should not see "Ticket 1 name"
+#  And I should not see "Signup Confirmation"
+#  
+#  And I select "2010-10-10 10:10" as the "Date" date and time
+#  And I press "Save"
+#  
+#  Then I should be on the event page for "My event"
+#  And I should not see "2009-09-09"
+#  And I should see "2010-10-10"
+#  
   
 
 Scenario: Viewing an event
   Given an event "My event"
   
-  When I go to the events page
-  And I follow "My event"
+  When I go to the event page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
   
   Then I should see "My event"
   And I should see "2010-09-09"
   And I should see "2010-08-08"
 
-Scenario: Viewing guests for an event
-  Given an event "My event"
-  
-  And a guest to "My event" called "Karl Persson"
-    | Name | Value           |
-    | food | Tomatallergiker |
-  
-  When I go to the event page for "My event"
-  
-  Then I should see "Karl Persson"
-  And I should see "Tomatallergiker"
-  And I should see "Unpaid"
-  
-  When now is "2009-10-10"
-  When I mark "Karl Persson" as paid
-  And I go to the event page for "My event"
-  
-  Then I should see "Paid (2009-10-10)"
-
 Scenario: Creating an event with a pay before date
-  Given I am on the events page
+  Given I am on the homepage
   And I follow "New event"
   And I fill in "Name" with "My event"
   And I fill in "Password" with "WordPass"
@@ -305,9 +286,7 @@ Scenario: Creating an event with a pay before date
   
   And I press "Create event"
   
-  When I go to the events page
-  And I follow "My event"
-  
+  Then I should be on the event page for "My event"
   And I should see "2009-09-09 09:09"
   And I should see "14 days"
   
@@ -338,6 +317,8 @@ Scenario: Reminder runs. Wtf NBS flashbacks
   Then I should see "You are hereby reminded" in the email
   
   When I go to the event page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
   
   Then I should see "Reminded"
 
@@ -371,6 +352,8 @@ Scenario: An expiring unpaid reply
   Then I should see "You, Kalle, are bad person. Your ticket is now void" in the email
   
   When I go to the event page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
   
   Then I should see "Expired (No payment)"
 
@@ -391,6 +374,8 @@ Scenario: Food weirdness summary
     | Food Preferences | Vegetarian |
   
   When I go to the event page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
   
   Then I should see "Number of..."
   And the food preferences summary should show 2 Vegetarian
@@ -399,7 +384,10 @@ Scenario: Food weirdness summary
 
 Scenario: Adding a guest when logged in as an admin
   Given an event "My event"
-  And I am on the event page for "My event"
+  When I go to the event page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
+  
   When I follow "Add guest"
     
   Then I should see "Administrative functions"
@@ -423,6 +411,9 @@ Scenario: Adding a guest manually with mail sending
     | subject | Confirmation! |
   
   When I go to the event page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
+  
   
   And I follow "Add guest"
   And I check "Send signup confirmation mail"
@@ -436,7 +427,7 @@ Scenario: Adding a guest manually with mail sending
   And "kalle@example.org" should receive 1 email
   And "kalle@example.org" should have 1 mail with subject "Confirmation!"
 
-Scenario: Adding a guest manually without mail sending
+Scenario: Adding a guest as admin without mail sending
   Given an event "My event"
   And "My event" has mail template "signup_confirmation" with fields:
     | Name    | Value         |
@@ -444,6 +435,8 @@ Scenario: Adding a guest manually without mail sending
     | subject | Confirmation! |
   
   When I go to the event page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
   
   And I follow "Add guest"
   And I uncheck "Send signup confirmation mail"
@@ -464,6 +457,8 @@ Scenario: Adding a guest to a full event
   And a guest to "My event" called "Karl Persson"
     ||
   And I am on the event page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
   
   When I follow "Add guest"
   
@@ -483,7 +478,10 @@ Scenario: Adding a guest to an event passed deadline
     |deadline| 10 days ago|
   And a guest to "My event" called "Karl Persson"
     ||
-  And I am on the event page for "My event"
+    
+  When I go to the event page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
   
   When I follow "Add guest"
   
@@ -504,6 +502,9 @@ Scenario: Marking a guest as attending
     ||
   
   When I go to the guest list page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Login"
+  
   And I fill in "Name" with "Karl Persson"
   And I press "Attending"
   
