@@ -11,3 +11,11 @@ Then /^the error flash should contain "([^\"]*)"$/ do |text|
     node.should contain(text)
   end
 end
+
+Then /^I should see the tag "([^\"]*)"$/ do |selector|
+  response.should have_selector(selector)
+end
+
+Then /^I should not see the tag "([^\"]*)"$/ do |selector|
+  response.should_not have_selector(selector)
+end

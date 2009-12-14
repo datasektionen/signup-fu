@@ -7,12 +7,14 @@
 
 <h2><%= @event.name %></h2>
 
-<% unless @event.getting_started_shown? %>
+<% unless @event.getting_started_dismissed? %>
   <div id="getting_started">
     <p>
       This is the event page for your newly created event! Bookmark it or 
       write down the URL to it!
     </p>
+    
+    <%= link_to "Dismiss", dismiss_getting_started_event_path(@event), :method => :post %>
   </div>
 <% end -%>
 

@@ -44,5 +44,12 @@ class EventsController < ApplicationController
     redirect_to(events_path)
   end
   
+  def dismiss_getting_started
+    @event = Event.find(params[:id])
+    @event.getting_started_dismissed = true
+    @event.save!
+    redirect_to(:action => 'show')
+  end
+  
   private
 end

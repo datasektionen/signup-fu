@@ -21,6 +21,23 @@ Given /^an event "([^\"]*)" with fields:$/ do |name, table|
   
 end
 
+When /^I create the event "([^\"]*)"$/ do |event_name|
+  When %q{I go to the events page}
+  When %q{I follow "New event"}
+  When %q{I fill in "Name" with "My event"}
+  When %q{I fill in "Password" with "WordPass"}
+  When %q{I fill in "Password confirmation" with "WordPass"}
+  When %q{I select "Default" from "Template"}
+  When %q{I select "2009-09-09 09:09" as the "Date" date and time}
+  When %q{I select "2009-08-08 08:08" as the "Deadline" date and time}
+  When %q{I fill in "Max guests" with "0"}
+  When %q{I fill in "Signup message" with "Foobar!"}
+  When %q{I fill in "Ticket type 1 name" with "With alcohol"}
+  When %q{I fill in "Ticket type 1 price" with "100"}
+  When %q{I press "Create event"}
+end
+
+
 Given /^a ticket type "([^\"]*)" for (\d+) on "([^\"]*)"$/ do |ticket_type_name, amount, event_name|
   event = Event.find_by_name(event_name)
   

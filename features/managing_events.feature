@@ -5,6 +5,17 @@ So that I can have something that my guests can sign up to, so I get guests to m
 
 Background:
   Given I am logged in as an admin
+  
+Scenario: Showing a getting started box
+  When I create the event "My event"
+  Then I should be on the event page for "My event"
+  And I should see the tag "div#getting_started"
+  
+  When I follow "Dismiss"
+  
+  Then I should be on the event page for "My event"
+  And I should not see the tag "div#getting_started"
+  
 
 Scenario: Creating a new event without max number of guests
   Given I am on the events page
