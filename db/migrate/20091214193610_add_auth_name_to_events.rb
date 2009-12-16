@@ -3,7 +3,7 @@ class AddAuthNameToEvents < ActiveRecord::Migration
     add_column :events, :auth_name, :string
     
     Event.all.each do |e|
-      e.password = 'kaka1234'
+      e.password = e.password_confirmation = 'kaka1234'
       e.auth_name = Authlogic::Random.friendly_token
       e.save!
     end
