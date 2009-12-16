@@ -58,13 +58,19 @@ class ApplicationController < ActionController::Base
   
   
   def current_event_session
-    return @current_event_session if defined?(@current_event_session)
-    @current_event_session = EventSession.find
+    if @current_event_session.nil?
+      @current_event_session = EventSession.find
+    else
+      @current_event_session
+    end
   end
 
   def current_event
-    return @current_event if defined?(@current_event)
-    @current_event = current_event_session && current_event_session.event
+    if @current_event.nil?
+      @current_event = current_event_session && current_event_session.event
+    else
+      @current_event
+    end
   end
   
   def store_location
