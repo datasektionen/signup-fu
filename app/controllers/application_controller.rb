@@ -8,20 +8,25 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   
-  
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user
-  before_filter :require_user
+  #before_filter :require_user
   
   private
   def current_user_session
-    return @current_user_session if defined?(@current_user_session)
-    @current_user_session = UserSession.find
+    if @current_user_session.nil?
+      @current_user_session = UserSession.find
+    else
+      @current_user_session
+    end
   end
 
   def current_user
-    return @current_user if defined?(@current_user)
-    @current_user = current_user_session && current_user_session.user
+    if @current_user.nil?
+      @current_user = current_user_session && current_user_session.user
+    else
+      @current_user
+    end
   end
   
   def require_user
