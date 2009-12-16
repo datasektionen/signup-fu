@@ -8,13 +8,19 @@
 <h2><%= @event.name %></h2>
 
 <% unless @event.getting_started_dismissed? %>
-  <div id="getting_started">
+  <div id="getting_started" class="success">
     <p>
-      This is the event page for your newly created event! Bookmark it or 
+      Your event has been created!
+    </p>
+    
+    <p>
+      This is the event page for your newly created event! Here you can administer your 
+      event, check the guest list, report payments, etc. Bookmark it or 
       write down the URL to it!
     </p>
     
-    <%= link_to "Dismiss", dismiss_getting_started_event_path(@event), :method => :post %>
+    <%= link_to "#{image_tag("buttons/tick.png")} Dismiss", dismiss_getting_started_event_path(@event), :method => :post, :class => 'button' %>
+    <br><br>
   </div>
 <% end -%>
 
