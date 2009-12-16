@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user
-  #before_filter :require_user
+  before_filter :require_user
   
   private
   def current_user_session
@@ -32,8 +32,7 @@ class ApplicationController < ActionController::Base
   def require_user
     unless current_user
       store_location
-      flash[:error] = "You must be logged in to access this page"
-      redirect_to new_user_session_url
+      render "errors/access_denied", :layout => true, :status => :forbidden
       return false
     end
   end
@@ -47,8 +46,8 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def require_event_session
-    if !current_event || current_event != @event
+  def require_event_session_or_user
+    if !current_user && (!current_event || current_event != @event)
       store_location
       flash[:error] = "Please log in to this event"
       redirect_to new_event_event_session_path(@event)

@@ -8,6 +8,9 @@ module NavigationHelpers
     when /the events page/
       events_path
       
+    when /the new event page/
+      new_event_path
+      
     when /the new reply page for "([^\"]*)"/
       event = Event.find_by_name($1)
       new_event_event_reply_path(event)
@@ -23,6 +26,13 @@ module NavigationHelpers
     when /the guest list page for "([^\"]*)"/
       event = Event.find_by_name($1)
       event_event_replies_path(event)
+
+    when /the login page/
+      new_user_session_path
+    
+    when /the event login page for "([^\"]*)"/
+      event = Event.find_by_name($1)
+      new_event_event_session_path(event)
     
     # Add more page name => path mappings here
     

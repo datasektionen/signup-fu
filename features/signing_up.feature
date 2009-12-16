@@ -38,7 +38,6 @@ Feature: Signing up
     Then the notice flash should contain "<flash message>" 
     And I should see "<message>"
     
-    When I log in as an admin 
     And I go to the event page for "My event"
     And I fill in "Password" with "WordPass"
     And I press "Login"
@@ -128,8 +127,7 @@ Feature: Signing up
     And I check "Vegan"
     And I press "Boka"
     
-    When I log in as an admin
-    And I go to the event page for "My event"
+    When I go to the event page for "My event"
     And I fill in "Password" with "WordPass"
     And I press "Login"
     

@@ -153,6 +153,12 @@ Then /^the food preferences summary should show (\d+) (.*)$/ do |count, kind|
   end
 end
 
+When /^I log in to the event page for "([^\"]*)"$/ do |event_name|
+  event = Event.find_by_name(event_name)
+  visit event_path(event)
+  fill_in "Password", :with => 'WordPass'
+  click_button("Login")
+end
 
 
 

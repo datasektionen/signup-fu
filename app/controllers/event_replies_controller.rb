@@ -1,6 +1,7 @@
 class EventRepliesController < ApplicationController
   before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy]
-  before_filter :require_event_session, :only => [:names, :set_attending, :index, :economy]
+  before_filter :require_event_session_or_user, :only => [:names, :set_attending, :index, :economy]
+  
   skip_before_filter :require_user
   
   around_filter :set_locale, :only => [:new, :create, :show]

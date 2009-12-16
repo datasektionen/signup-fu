@@ -23,3 +23,7 @@ end
 Then /^I should see a checkbox "([^\"]*)"$/ do |label|
   field_labeled(label).is_a?(Webrat::CheckboxField)
 end
+
+Then /^I should not be on (.+)$/ do |page_name|
+  URI.parse(current_url).path.should_not == path_to(page_name)
+end
