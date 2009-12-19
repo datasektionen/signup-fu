@@ -1,7 +1,5 @@
 <%= f.select :template, Event.templates %>
-<%= f.password_field :password %>
-<%= f.password_field :password_confirmation %>
 <%= f.datetime_select :date %>
 <%= f.datetime_select :deadline %>
-<%= f.text_field :max_guests %>
-<%= f.text_area :signup_message %>
+<%= f.text_field :max_guests, :class => 'text' %>
+<%= f.text_area :signup_message, :class => 'text'  %>
