@@ -23,7 +23,7 @@ Scenario: Creating a new event without max number of guests
   And I fill in "Name" with "My event"
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
-  And I select "Default" from "Template"
+  And I choose "Default"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -45,7 +45,7 @@ Scenario: Creating a new event with prices
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
   
-  And I select "Default" from "Template"
+  And I choose "Default"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -75,7 +75,7 @@ Scenario: Creating a new event without mails
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
   
-  And I select "Default" from "Template"
+  And I choose "Default"
     And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -100,7 +100,7 @@ Scenario: Creating a new event with confirmation mail
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
   
-  And I select "Default" from "Template"
+  And I choose "Default"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -134,7 +134,7 @@ Scenario: Creating a new event with confirmation mail - default message
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
   
-  And I select "Default" from "Template"
+  And I choose "Default"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -162,7 +162,7 @@ Scenario: Creating a new event with payment mail
   
   When I follow "New event"
   And I fill in "Name" with "My event"
-  And I select "Default" from "Template"
+  And I choose "Default"
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
   
@@ -197,7 +197,7 @@ Scenario: Creating a new event with ticket expiry
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
   
-  And I select "Default" from "Template"
+  And I choose "Default"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Max guests" with "0"
@@ -276,7 +276,7 @@ Scenario: Creating an event with a pay before date
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
   
-  And I select "Default" from "Template"
+  And I choose "Default"
   And I select "2009-09-09 09:09" as the "Date" date and time
   And I select "2009-08-08 08:08" as the "Deadline" date and time
   And I fill in "Payment time" with "14"

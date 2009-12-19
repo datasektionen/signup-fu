@@ -1,4 +1,12 @@
-<%= f.select :template, Event.templates %>
+<h3>Template</h3>
+<ul>
+<% Event.templates.each do |template_description, template_name| %>
+  <li>
+    <%= f.radio_button :template, template_name %> <label for="event_template_<%= template_name %>"><%= template_description %></label>
+  </li>
+<% end %>
+</ul>
+<h3>Dates</h3>
 <%= f.datetime_select :date %>
 <%= f.datetime_select :deadline %>
 <%= f.text_field :max_guests, :class => 'text' %>
