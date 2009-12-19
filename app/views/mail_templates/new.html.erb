@@ -1,7 +1,0 @@
-<% form_for([@event, @mail_template], :builder => signup_fu_form_builder) do |f| %>
-  <%= f.select :name, MailTemplate::TEMPLATE_TYPES, :caption => 'Template for' %>
-  <%= f.text_field :subject, :caption => 'Subject' %>
-  <%= f.text_area :body, :caption => 'Body' %>
-  <%= f.submit "Create mail" %>
-<% end -%>
-
