@@ -133,4 +133,11 @@ describe Event do
     @event.mail_templates.by_name(:signup_confirmation).should eql(confirmation_template)
   end
   
+  it "should have a has_terms?" do
+    @event.stub!(:terms).and_return(nil)
+    @event.has_terms?.should eql(false)
+    
+    @event.stub!(:terms).and_return("here be legal stuff")
+    @event.has_terms?.should eql(true)
+  end
 end

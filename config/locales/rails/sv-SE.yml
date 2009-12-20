@@ -104,6 +104,11 @@
         
   activerecord:
     errors:
+      models:
+        event_reply:
+          attributes:
+            terms:
+              accepted: apa
       template:
         header:
           one: "Ett fel förhindrade denna {{model}} från att sparas"
@@ -117,7 +122,7 @@
         exclusion: "är reserverat"
         invalid: "är ogiltigt"
         confirmation: "stämmer inte överens"
-        accepted : "måste vara accepterad"
+        accepted : "måste accepteras"
         empty: "får ej vara tom"
         blank: "måste anges"
         too_long: "är för lång (maximum är {{count}} tecken)"
@@ -166,7 +171,7 @@
     attributes:
       event_reply:
         name: Namn
-        
+        terms: villkoren
  
   date:
     formats:

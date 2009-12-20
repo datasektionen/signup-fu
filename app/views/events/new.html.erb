@@ -87,9 +87,31 @@
       
     </div>
   </div>
+  
+  <h3>Terms of booking</h3>
+  
+  <p class="notice">
+    This option will let you specify a text which will be shown on the booking page, with a checkbox
+    for accepting. Useful if you want to make sure your guests understand that
+    a signup is binding.
+  </p>
+  
+  <div>
+    <%= check_box_tag "use_terms", "1", false, 
+      :onclick => "$('use_terms').checked ? $('terms_settings').show():$('terms_settings').hide()",
+      :id => 'use_terms' %>
+    <label for="use_terms">
+      Terms of booking
+    </label>
+    
+    <div id="terms_settings" style="display: none">
+      <%= f.text_area :terms, :class => 'text' %>
+    </div>
+  </div>
+  
     
   <h3>Password</h3>
-  <p>
+  <p class="notice">
     To be able to see your guest list and manage payments you need to password protect
     your event. 
   </p>

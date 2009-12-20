@@ -56,6 +56,14 @@
     <%= f.text_area :comments, :caption => t('event_replies.form.comments'), :rows => 5 %>
     
     
+    <% if @event.has_terms? %>
+      <h3><%= t('event_replies.form.terms') %></h3>
+      
+      <%= simple_format(@event.terms) %>
+      
+      <%= f.check_box :terms, :caption => t('event_replies.form.accept_terms') %>
+    <% end -%>
+    
     <%= f.submit t('event_replies.form.submit') %>
   <% end -%>
   

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091214193610) do
+ActiveRecord::Schema.define(:version => 20091219195634) do
 
   create_table "event_replies", :force => true do |t|
     t.integer  "event_id"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20091214193610) do
     t.string   "persistence_token"
     t.boolean  "getting_started_dismissed", :default => false, :null => false
     t.string   "auth_name"
+    t.text     "terms"
   end
 
   create_table "food_preferences", :force => true do |t|
