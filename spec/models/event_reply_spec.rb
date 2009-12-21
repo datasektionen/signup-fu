@@ -76,13 +76,13 @@ describe EventReply do
     it "should send confirmation mail if there are a mail template with name confirmation" do
       @reply.event.stub!(:send_mail_for?).with(:signup_confirmation).and_return(true)
       
-      EventMailer.should_receive(:deliver_signup_confirmation)
+      EventMailer.should_receive(:send_later).with(:deliver_signup_confirmation, @reply)
       
       @reply.save!
     end
 
     it "should not send confirmation mail if there aren't any confirmation mail template" do
-      EventMailer.should_not_receive(:deliver_signup_confirmation)
+      EventMailer.should_not_receive(:send_later).with(:deliver_signup_confirmation)
       
       @reply.save!
       
@@ -95,7 +95,7 @@ describe EventReply do
     
       @reply.save!
     
-      EventMailer.should_receive(:deliver_payment_registered).with(@reply)
+      EventMailer.should_receive(:send_later).with(:deliver_payment_registered, @reply)
     
       EventReply.pay([@reply.id])
     end
@@ -196,7 +196,7 @@ describe EventReply do
     it "should send mail to expired" do
       @fnatte.save!
       @fnatte.remind!
-      EventMailer.should_receive(:deliver_reply_expired_notification).with(@fnatte)
+      EventMailer.should_receive(:send_later).with(:deliver_reply_expired_notification, @fnatte)
       @fnatte.expire!
     end
     
@@ -356,7 +356,7 @@ describe EventReply do
     end
     
     it "should send reminder letter" do
-      EventMailer.should_receive(:deliver_ticket_expire_reminder)
+      EventMailer.should_receive(:send_later).with(:deliver_ticket_expire_reminder, @reply)
       
       @reply.remind!
     end
