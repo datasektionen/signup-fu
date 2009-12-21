@@ -40,17 +40,17 @@ end
 namespace :delayed_job do
   desc "Start delayed_job process"
   task :start, :roles => :app do
-    run "cd #{current_path}; script/delayed_job start -- production"
+    run "export RAILS_ENV=production; cd #{current_path}; script/delayed_job start"
   end
  
   desc "Stop delayed_job process"
   task :stop, :roles => :app do
-    run "cd #{current_path}; script/delayed_job stop -- production"
+    run "export RAILS_ENV=production; cd #{current_path}; script/delayed_job stop"
   end
  
   desc "Restart delayed_job process"
   task :restart, :roles => :app do
-    run "cd #{current_path}; script/delayed_job restart -- production"
+    run "export RAILS_ENV=production; cd #{current_path}; script/delayed_job restart"
   end
 end
 after "deploy:start", "delayed_job:start"
