@@ -7,7 +7,14 @@
 <% end %>
 </ul>
 <h3>Dates</h3>
-<%= f.datetime_select :date %>
-<%= f.datetime_select :deadline %>
+
+<li>
+  <label for="event_date">Date</label>
+  <%= f.calendar_date_select :date, :time => true %>
+</li>
+<li>
+  <label for="event_deadline">Deadline</label>
+  <%= f.calendar_date_select :deadline, :time => true %>
+</li>
 <%= f.text_field :max_guests, :class => 'text' %>
 <%= f.text_area :signup_message, :class => 'text'  %>
