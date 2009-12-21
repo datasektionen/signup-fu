@@ -3,6 +3,7 @@ set :repository,  "git@dev.signup-fu.com:signup-fu.git"
 set :deploy_to, "/srv/rails/#{application}"
 
 set :scm, :git
+set :deploy_via, :remote_cache
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
 role :web, "signup-fu.com"                          # Your HTTP server, Apache/etc
