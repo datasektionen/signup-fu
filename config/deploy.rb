@@ -34,23 +34,23 @@ namespace :deploy do
   task :copy_config do
     run "cp #{shared_path}/config/* #{release_path}/config"
   end
-  after :"deploy:symlink", :"deploy:copy_config"
+  after "deploy:symlink", "deploy:copy_config"
 end
 
 namespace :delayed_job do
   desc "Start delayed_job process"
   task :start, :roles => :app do
-    run "cd #{current_path}; script/delayed_job start"
+    run "cd #{current_path}; script/delayed_job start -- production"
   end
  
   desc "Stop delayed_job process"
   task :stop, :roles => :app do
-    run "cd #{current_path}; script/delayed_job stop"
+    run "cd #{current_path}; script/delayed_job stop -- production"
   end
  
   desc "Restart delayed_job process"
   task :restart, :roles => :app do
-    run "cd #{current_path}; script/delayed_job restart"
+    run "cd #{current_path}; script/delayed_job restart -- production"
   end
 end
 after "deploy:start", "delayed_job:start"
