@@ -325,61 +325,20 @@ describe EventReply do
       @reply.should_not be_marked_for_reminding
     end
   end
-
-  describe "reminder runs!" do
-    before do
-      @reply = EventReply.new(
-        @valid_attributes.with(
-          :name => 'Knatte',
-          :email => 'knatte@example.org'
-        )
-      )
-      
-      @reply.save!
-      
-      @event.stub!(:payment_time).and_return(14)
-      EventMailer.stub!(:deliver_ticket_expire_reminder)
-    end
+  
+  it "should set reminded at date" do
+    now = Time.now
+    Time.stub!(:now).and_return(now)
     
-    it "should change state to reminded" do
-      @reply.remind!
-      @reply.payment_state_name.should == :reminded
-    end
+    @reply.remind!
+    @reply.reminded_at.should_not be_nil
+    @reply.reminded_at.to_s(:db).should eql(now.to_s(:db))
+  end
+  
+  it "should send reminder letter" do
+    EventMailer.should_receive(:send_later).with(:deliver_ticket_expire_reminder, @reply)
     
-    it "should set reminded at date" do
-      now = Time.now
-      Time.stub!(:now).and_return(now)
-      
-      @reply.remind!
-      @reply.reminded_at.should_not be_nil
-      @reply.reminded_at.to_s(:db).should eql(now.to_s(:db))
-    end
-    
-    it "should send reminder letter" do
-      EventMailer.should_receive(:send_later).with(:deliver_ticket_expire_reminder, @reply)
-      
-      @reply.remind!
-    end
-    
-    it "should remind replies that should be remindeded...." do
-      @event.stub!(:expire_unpaid?).and_return(true)
-      
-      @reply.stub!(:should_be_reminded?).and_return(true)
-      reply2 = EventReply.new(
-        @valid_attributes.with(
-          :name => 'Knatte',
-          :email => 'knatte@example.org'
-        )
-      )
-      
-      reply2.stub!(:should_be_reminded?).and_return(false)
-      
-      EventReply.stub!(:all).and_return([reply2, @reply])
-      
-      @reply.should_receive(:remind!)
-      
-      EventReply.remind_old_unpaid_replies
-    end
+    @reply.remind!
   end
   
   it "should save the record even if a mail error occurs (Net::SMTPFatalError)" do

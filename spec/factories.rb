@@ -9,6 +9,7 @@ end
 
 Factory.define(:reply, :class => EventReply) do |r|
   r.email "foo@example.org"
+  r.name "Kalle Testson"
 end
 
 Factory.define(:mail_template) do |t|

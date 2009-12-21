@@ -116,12 +116,17 @@ Given /^that "([^\"]*)" has a expire time from reminder of (\d+) days$/ do |even
 end
 
 
-When /^the ticket expire process is run$/ do
-  EventReply.expire_old_unpaid_replies
+When /^the ticket expire process is run for "([^\"]*)"$/ do |event_name|
+  event = Event.find_by_name(event_name)
+  puts "event = #{event.inspect}"
+  When %{I go to the economy page for "#{event}"}
+  When %{I follow "Expiry run"}
 end
 
-When /^the reminder process is run$/ do
-  EventReply.remind_old_unpaid_replies
+When /^the reminder process is run for "([^\"]*)"$/ do |event_name|
+  When %{I log in to the event page for "#{event_name}"}
+  When %{I go to the economy page for "#{event_name}"}
+  When %{I follow "Reminder run"}
 end
 
 

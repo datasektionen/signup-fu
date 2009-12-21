@@ -309,7 +309,7 @@ Scenario: Reminder runs. Wtf NBS flashbacks
     | email | kalle@example.org |
   
   And now is 3 weeks from now
-  And the reminder process is run
+  And the reminder process is run for "My event"
   
   Then "kalle@example.org" should receive 1 emails
   
@@ -317,8 +317,6 @@ Scenario: Reminder runs. Wtf NBS flashbacks
   Then I should see "You are hereby reminded" in the email
   
   When I go to the event page for "My event"
-  And I fill in "Password" with "WordPass"
-  And I press "Login"
   
   Then I should see "Reminded"
 
@@ -343,7 +341,7 @@ Scenario: An expiring unpaid reply
   And the reminder process is run
   And no emails have been sent
   And now is 4 weeks from now
-  And the ticket expire process is run
+  And the ticket expire process is run for "My event"
   
   Then "kalle@example.org" should receive 1 emails
   

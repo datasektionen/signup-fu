@@ -140,4 +140,29 @@ describe Event do
     @event.stub!(:terms).and_return("here be legal stuff")
     @event.has_terms?.should eql(true)
   end
+  
+  it "should remind replies that should be remindeded...." do
+    @event.stub!(:expire_unpaid?).and_return(true)
+    
+    unpaid_old_reply = mock_model(EventReply, :event => @event)
+    unpaid_old_reply.stub!(:should_be_reminded?).and_return(true)
+    reply2 = mock_model(EventReply, :event => @event)
+    reply2.stub!(:should_be_reminded?).and_return(false)
+    
+    @event.stub!(:replies).and_return([unpaid_old_reply, reply2])
+    
+    unpaid_old_reply.should_receive(:remind!)
+    
+    @event.remind_old_unpaid_replies
+  end
+  
+  it "should not attempt reminding on events without reminder active" do
+    @event.stub!(:expire_unpaid).and_return(false)
+    
+    @event.should_not_receive(:replies)
+    
+    @event.remind_old_unpaid_replies
+    
+  end
+  
 end
