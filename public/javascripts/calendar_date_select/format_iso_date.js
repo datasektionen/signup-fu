@@ -44,3 +44,6 @@ Date.parseFormattedString = function (string) {
     } 
     return date; 
 };
+
+CalendarDateSelect.timeFormat = '24h';
+

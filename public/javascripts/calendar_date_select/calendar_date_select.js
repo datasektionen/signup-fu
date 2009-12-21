@@ -22,8 +22,8 @@ Element.buildAndAppend = function(type, options, style)
 nil = null;
 
 Date.one_day = 24*60*60*1000;
-Date.weekdays = $w("S M T W T F S");
-Date.first_day_of_week = 0;
+Date.weekdays = $w("M T W T F S S");
+Date.first_day_of_week = 1;
 Date.months = $w("January February March April May June July August September October November December" );
 Date.padded2 = function(hour) { var padded2 = parseInt(hour, 10); if (hour < 10) padded2 = "0" + padded2; return padded2; }
 Date.prototype.getPaddedMinutes = function() { return Date.padded2(this.getMinutes()); }
@@ -195,8 +195,10 @@ CalendarDateSelect.prototype = {
       buttons_div.build("span", {innerHTML:"@", className: "at_sign"});
       
       var t = new Date();
+      var that = this;
+      
       this.hour_select = new SelectBox(buttons_div,
-        blank_time.concat($R(0,23).map(function(x) {t.setHours(x); return $A([t.getHours(),x])} )),
+        blank_time.concat($R(0,23).map(function(x) {t.setHours(x); return $A([that.formatTime(t),x])} )),
         { 
           calendar_date_select: this, 
           onchange: function() { this.calendar_date_select.updateSelectedDate( { hour: this.value });},
@@ -204,7 +206,6 @@ CalendarDateSelect.prototype = {
         }
       );
       buttons_div.build("span", {innerHTML:":", className: "seperator"});
-      var that = this;
       this.minute_select = new SelectBox(buttons_div,
         blank_time.concat($R(0,59).select(function(x){return (x % that.options.get('minute_interval')==0)}).map(function(x){ return $A([ Date.padded2(x), x]); } ) ),
         { 
@@ -439,5 +440,12 @@ CalendarDateSelect.prototype = {
   keyPress: function(e) {
     if (e.keyCode==Event.KEY_ESC) this.close();
   },
-  callback: function(name, param) { if (this.options.get(name)) { this.options.get(name).bind(this.target_element)(param); } }
+  callback: function(name, param) { if (this.options.get(name)) { this.options.get(name).bind(this.target_element)(param); } },
+  formatTime: function(t) {
+    if (CalendarDateSelect.timeFormat == '24h') {
+      return t.getHours();
+    } else {
+      return t.getAMPMHour()+ " " + t.getAMPM();
+    }
+  }
 }
