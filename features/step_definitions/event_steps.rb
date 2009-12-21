@@ -28,8 +28,8 @@ When /^I create the event "([^\"]*)"$/ do |event_name|
   When %q{I fill in "Password" with "WordPass"}
   When %q{I fill in "Password confirmation" with "WordPass"}
   When %q{I choose "Default"}
-  When %q{I select "2009-09-09 09:09" as the "Date" date and time}
-  When %q{I select "2009-08-08 08:08" as the "Deadline" date and time}
+  When %{I fill in "Date" with "2009-09-09 09:09"}
+  When %{I fill in "Deadline" with "2009-08-08 08:08"}
   When %q{I fill in "Max guests" with "0"}
   When %q{I fill in "Signup message" with "Foobar!"}
   When %q{I fill in "Ticket type 1 name" with "With alcohol"}

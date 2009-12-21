@@ -24,8 +24,8 @@ Scenario: Creating a new event without max number of guests
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
   And I choose "Default"
-  And I select "2009-09-09 09:09" as the "Date" date and time
-  And I select "2009-08-08 08:08" as the "Deadline" date and time
+  And I fill in "Date" with "2009-09-09 09:09"
+  And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Max guests" with "0"
   And I fill in "Signup message" with "Foobar!"
   
@@ -46,8 +46,8 @@ Scenario: Creating a new event with prices
   And I fill in "Password confirmation" with "WordPass"
   
   And I choose "Default"
-  And I select "2009-09-09 09:09" as the "Date" date and time
-  And I select "2009-08-08 08:08" as the "Deadline" date and time
+  And I fill in "Date" with "2009-09-09 09:09"
+  And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Max guests" with "0"
   
   And I fill in "Ticket type 1 price" with "199"
@@ -76,8 +76,8 @@ Scenario: Creating a new event without mails
   And I fill in "Password confirmation" with "WordPass"
   
   And I choose "Default"
-    And I select "2009-09-09 09:09" as the "Date" date and time
-  And I select "2009-08-08 08:08" as the "Deadline" date and time
+    And I fill in "Date" with "2009-09-09 09:09"
+  And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Max guests" with "0"
   And I fill in the following ticket types:
     | With alcohol    | 199 |
@@ -101,8 +101,8 @@ Scenario: Creating a new event with confirmation mail
   And I fill in "Password confirmation" with "WordPass"
   
   And I choose "Default"
-  And I select "2009-09-09 09:09" as the "Date" date and time
-  And I select "2009-08-08 08:08" as the "Deadline" date and time
+  And I fill in "Date" with "2009-09-09 09:09"
+  And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Max guests" with "0"
   And I fill in "Ticket type 1 name" with "With alcohol"
   And I fill in "Ticket type 1 price" with "100"
@@ -135,8 +135,8 @@ Scenario: Creating a new event with confirmation mail - default message
   And I fill in "Password confirmation" with "WordPass"
   
   And I choose "Default"
-  And I select "2009-09-09 09:09" as the "Date" date and time
-  And I select "2009-08-08 08:08" as the "Deadline" date and time
+  And I fill in "Date" with "2009-09-09 09:09"
+  And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Max guests" with "0"
   
   And I fill in "Ticket type 1 name" with "With alcohol"
@@ -166,8 +166,8 @@ Scenario: Creating a new event with payment mail
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
   
-  And I select "2009-09-09 09:09" as the "Date" date and time
-  And I select "2009-08-08 08:08" as the "Deadline" date and time
+  And I fill in "Date" with "2009-09-09 09:09"
+  And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Max guests" with "0"
   
   And I fill in "Ticket type 1 name" with "With alcohol"
@@ -198,8 +198,8 @@ Scenario: Creating a new event with ticket expiry
   And I fill in "Password confirmation" with "WordPass"
   
   And I choose "Default"
-  And I select "2009-09-09 09:09" as the "Date" date and time
-  And I select "2009-08-08 08:08" as the "Deadline" date and time
+  And I fill in "Date" with "2009-09-09 09:09"
+  And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Max guests" with "0"
   
   And I check "ticket_expired"
@@ -277,8 +277,8 @@ Scenario: Creating an event with a pay before date
   And I fill in "Password confirmation" with "WordPass"
   
   And I choose "Default"
-  And I select "2009-09-09 09:09" as the "Date" date and time
-  And I select "2009-08-08 08:08" as the "Deadline" date and time
+  And I fill in "Date" with "2009-09-09 09:09"
+  And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Payment time" with "14"
   And I fill in "Max guests" with "0"
   And I fill in the following ticket types:
@@ -414,12 +414,14 @@ Scenario: Adding a guest manually with mail sending
   And I fill in "Password" with "WordPass"
   And I press "Login"
   
-  
   And I follow "Add guest"
   And I check "Send signup confirmation mail"
+  And I choose "With alcohol (100 kr)"
   And I fill in "Namn" with "Kalle Persson"
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
+  
+  Then I should see "bokning lyckades"
   
   When I go to the event page for "My event"
   
@@ -440,9 +442,11 @@ Scenario: Adding a guest as admin without mail sending
   
   And I follow "Add guest"
   And I uncheck "Send signup confirmation mail"
+  And I choose "With alcohol (100 kr)"
   And I fill in "Namn" with "Kalle Persson"
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
+  Then I should see "bokning lyckades"
   
   When I go to the event page for "My event"
   
@@ -466,7 +470,10 @@ Scenario: Adding a guest to a full event
   
   And I fill in "Namn" with "Nisse Karlsson"
   And I fill in "E-postadress" with "kalle@example.org"
+  And I choose "With alcohol (100 kr)"
   And I press "Boka"
+  
+  Then I should see "bokning lyckades"
   
   When I go to the event page for "My event"
   Then I should see "Nisse Karlsson"
@@ -489,7 +496,10 @@ Scenario: Adding a guest to an event passed deadline
   
   And I fill in "Namn" with "Nisse Karlsson"
   And I fill in "E-postadress" with "kalle@example.org"
+  And I choose "With alcohol (100 kr)"
   And I press "Boka"
+  
+  Then I should see "bokning lyckades"
   
   When I go to the event page for "My event"
   Then I should see "Nisse Karlsson"

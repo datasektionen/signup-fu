@@ -32,7 +32,7 @@ Feature: Signing up
     When I go to the new reply page for "My event"
     And I fill in "Namn" with "Kalle"
     And I fill in "E-postadress" with "kalle@example.org"
-    And I select "<ticket type>" from "Biljettyp"
+    And I choose "<ticket type>"
     And I press "Boka"
     
     Then the notice flash should contain "<flash message>" 
