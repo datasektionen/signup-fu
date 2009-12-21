@@ -27,12 +27,4 @@ config.action_mailer.raise_delivery_errors = true
 # Enable threaded mode
 # config.threadsafe!
 
-ActionMailer::Base.delivery_method = :smtp
-ActionMailer::Base.smtp_settings = {
-  :tls => true,
-  :address => "smtp.gmail.com",
-  :port => 587,
-  :authentication => :plain,
-  :user_name => "signupfu@gmail.com",
-  :password => "k4km0nst3r"
-}
+ActionMailer::Base.delivery_method = :sendmail
