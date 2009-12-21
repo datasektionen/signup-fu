@@ -1,7 +1,7 @@
 <% content_for :nav do %>
   <% if @event.expire_unpaid? %>
-    
     <%= button_link_to("Reminder run", reminder_run_event_path(@event), :method => :post, :confirm => "Are you sure you want to do a reminder run? All unpaid replies older than #{@event.payment_time} days will be reminded.") %>
+    <%= button_link_to("Expiry run", expiry_run_event_path(@event), :method => :post, :confirm => "Are you sure you want to do a expire run? All unpaid replies reminded more than #{@event.expire_time_from_reminder} days will be expired.") %>
   <% end %>
   <%= button_link_to("Back to #{@event.name}", @event)%>
 <% end -%>

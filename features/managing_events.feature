@@ -338,7 +338,7 @@ Scenario: An expiring unpaid reply
     | email | kalle@example.org |
   
   When now is 3 weeks from now
-  And the reminder process is run
+  And the reminder process is run for "My event"
   And no emails have been sent
   And now is 4 weeks from now
   And the ticket expire process is run for "My event"
@@ -350,8 +350,6 @@ Scenario: An expiring unpaid reply
   Then I should see "You, Kalle, are bad person. Your ticket is now void" in the email
   
   When I go to the event page for "My event"
-  And I fill in "Password" with "WordPass"
-  And I press "Login"
   
   Then I should see "Expired (No payment)"
 

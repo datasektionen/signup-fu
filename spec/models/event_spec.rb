@@ -165,4 +165,29 @@ describe Event do
     
   end
   
+  describe "the expiration process" do
+    it "should not do expiry process on events without expiry template" do
+      @event.stub!(:expire_unpaid?).and_return(false)
+      reply = mock_model(EventReply, :event => @event)
+      @event.stub!(:replies).and_return([reply])
+      
+      reply.should_not_receive(:expire)
+      
+      @event.expire_old_unpaid_replies
+    end
+    
+    it "should not expire tickets that should not be expired" do
+      @event.stub!(:expire_unpaid?).and_return(true)
+      
+      reply_that_shall_not_expire = mock_model(EventReply, :event => @event, :should_be_expired? => false)
+      reply_that_shall_expire = mock_model(EventReply, :event => @event, :should_be_expired? => true)
+      @event.stub!(:replies).and_return([reply_that_shall_expire, reply_that_shall_not_expire])
+      
+      reply_that_shall_not_expire.should_not_receive(:expire)
+      reply_that_shall_expire.should_receive(:expire)
+      
+      @event.expire_old_unpaid_replies
+    end
+  end
+  
 end

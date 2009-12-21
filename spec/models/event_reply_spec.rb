@@ -182,28 +182,11 @@ describe EventReply do
       EventMailer.stub!(:deliver_ticket_expire_reminder)
     end
     
-    it "should not expire tickets that should not be expired" do
-      @knatte.should_not_receive(:expire)
-      @fnatte.stub!(:expire)
-      EventReply.expire_old_unpaid_replies
-    end
-    
-    it "should expire unpaid tickets that should be expired" do
-      @fnatte.should_receive(:expire)
-      EventReply.expire_old_unpaid_replies
-    end
-    
     it "should send mail to expired" do
       @fnatte.save!
       @fnatte.remind!
       EventMailer.should_receive(:send_later).with(:deliver_reply_expired_notification, @fnatte)
       @fnatte.expire!
-    end
-    
-    it "should not do expiry process on events without expiry template" do
-      @event.stub!(:expire_unpaid?).and_return(false)
-      @replies.each {|r| r.should_not_receive(:expire) }
-      EventReply.expire_old_unpaid_replies
     end
     
     it "should change state to expired" do

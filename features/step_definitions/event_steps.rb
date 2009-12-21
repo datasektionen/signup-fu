@@ -117,9 +117,7 @@ end
 
 
 When /^the ticket expire process is run for "([^\"]*)"$/ do |event_name|
-  event = Event.find_by_name(event_name)
-  puts "event = #{event.inspect}"
-  When %{I go to the economy page for "#{event}"}
+  When %{I go to the economy page for "#{event_name}"}
   When %{I follow "Expiry run"}
 end
 

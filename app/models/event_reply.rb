@@ -58,16 +58,6 @@ class EventReply < ActiveRecord::Base
     end
   end
   
-  def self.expire_old_unpaid_replies
-    all(:include => [:event]).each do |reply|
-      event = reply.event
-      next unless event.expire_unpaid?
-      if reply.should_be_expired?
-        reply.expire
-      end
-    end
-  end
-  
   def should_be_expired?
     #puts reminded?
     #puts paid?

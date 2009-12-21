@@ -3,7 +3,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :events, :member => {
       :dismiss_getting_started => :post,
-      :reminder_run => :post
+      :reminder_run => :post,
+      :expiry_run => :post
     }, :shallow => true do |events|
     events.resource :event_session
     events.resources :mail_templates

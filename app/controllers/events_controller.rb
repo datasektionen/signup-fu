@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_filter :load_event, :require_event_session_or_user, :only => [:show, :edit, :update, :destroy, :dismiss_getting_started, :reminder_run]
+  before_filter :load_event, :require_event_session_or_user, :only => [:show, :edit, :update, :destroy, :dismiss_getting_started, :reminder_run, :expiry_run]
   skip_before_filter :require_user, :except => [:index]
   
   def index
@@ -52,6 +52,11 @@ class EventsController < ApplicationController
   
   def reminder_run
     @event.remind_old_unpaid_replies
+    redirect_to(economy_event_event_replies_path(@event))
+  end
+  
+  def expiry_run
+    @event.expire_old_unpaid_replies
     redirect_to(economy_event_event_replies_path(@event))
   end
   
