@@ -27,6 +27,7 @@ Rails::Initializer.run do |config|
   config.gem "haml"
   config.gem "state_machine"
   config.gem "calendar_date_select"
+  config.gem "delayed_job"
   #config.gem "ianwhite-pickle", :lib => "pickle", :source => "http://gems.github.com"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
