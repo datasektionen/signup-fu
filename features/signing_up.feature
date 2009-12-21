@@ -12,7 +12,7 @@ Feature: Signing up
     
     Then I should see "Boka biljett till My event"
     
-    When I select "With alcohol (100 kr)" from "Biljettyp"
+    When I choose "With alcohol (100 kr)"
     And I fill in "Namn" with "<name>"
     And I fill in "E-postadress" with "<email>"
     And I press "Boka"
@@ -58,7 +58,7 @@ Feature: Signing up
     When I go to the new reply page for "My event"
     And I fill in "Namn" with "Kalle"
     And I fill in "E-postadress" with "kalle@example.org"
-    And I select "With alcohol (100 kr)" from "Biljettyp"
+    And I choose "With alcohol (100 kr)"
     And I press "Boka"
     
     Then I should receive an email
@@ -99,7 +99,7 @@ Feature: Signing up
     
     
     When I go to the new reply page for "My event"
-    And I select "With alcohol (100 kr)" from "Biljettyp"
+    And I choose "With alcohol (100 kr)"
     And I fill in "Namn" with "Kalle"
     And I fill in "E-postadress" with "kalle@example.org"
     And I press "Boka"
@@ -121,7 +121,7 @@ Feature: Signing up
     
     Then I should see "Vegan"
     And I should see "Vegetarian"
-    And I select "With alcohol (100 kr)" from "Biljettyp"
+    And I choose "With alcohol (100 kr)"
     And I fill in "Namn" with "Kalle"
     And I fill in "E-postadress" with "kalle@example.org"
     And I check "Vegan"
@@ -156,7 +156,7 @@ Feature: Signing up
     
     And I fill in "Namn" with "Kalle"
     And I fill in "E-postadress" with "kalle@example.org"
-    And I select "With alcohol (100 kr)" from "Biljettyp"
+    And I choose "With alcohol (100 kr)"
     And I press "Boka"
     
     Then I should see "villkoren måste accepteras"

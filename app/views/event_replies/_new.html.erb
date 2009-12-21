@@ -33,7 +33,16 @@
       <% end %>
     <% end %>
   
-    <%= f.select :ticket_type_id, @event.ticket_types.map { |p| ["#{p.name} (#{p.price} kr)", p.id] }, :caption => t('event_replies.form.ticket_type') %>
+    <h3><%= t('event_replies.form.ticket_type') %></h3>
+    <ul>
+    <% @event.ticket_types.each do |ticket_type| %>
+      <li>
+        <%= f.radio_button :ticket_type_id, ticket_type.id %>
+        <label for="event_reply_ticket_type_id_<%= ticket_type.id %>"><%= ticket_type.name %> (<%= ticket_type.price %> kr)</label>
+      </li>
+    <% end %>
+    </ul>
+    
     <%= f.text_field :name, :caption => t('event_replies.form.name') %>
     <%= f.text_field :email, :caption => t('event_replies.form.email') %>
     
