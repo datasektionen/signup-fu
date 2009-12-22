@@ -3,6 +3,8 @@ replies = replies.ascend_by_name
 if !params[:show_cancelled]
   replies = replies.not_cancelled
 end
+total_number_of_guests = replies.not_cancelled.count
+replies = replies.all(:include => [:food_preferences, :ticket_type])
 %>
 <p>
   <% if params[:show_cancelled] %>
@@ -16,7 +18,7 @@ end
 <table class="vertical_header">
   <tr>
     <th>Total number of guests</th>
-    <td><%= replies.not_cancelled.count %></td>
+    <td><%= total_number_of_guests %></td>
   </tr>
 </table>
 
