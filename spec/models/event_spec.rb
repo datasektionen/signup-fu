@@ -142,6 +142,9 @@ describe Event do
   end
   
   it "should remind replies that should be remindeded...." do
+    
+    Event.stub!(:find).with(@event.id).and_return(@event)
+    
     @event.stub!(:expire_unpaid?).and_return(true)
     
     unpaid_old_reply = mock_model(EventReply, :event => @event)
@@ -153,16 +156,8 @@ describe Event do
     
     unpaid_old_reply.should_receive(:remind!)
     
-    @event.remind_old_unpaid_replies
-  end
-  
-  it "should not attempt reminding on events without reminder active" do
-    @event.stub!(:expire_unpaid).and_return(false)
-    
-    @event.should_not_receive(:replies)
-    
-    @event.remind_old_unpaid_replies
-    
+    ReminderRun.new(@event.id).perform
+    # @event.remind_old_unpaid_replies
   end
   
   describe "the expiration process" do
