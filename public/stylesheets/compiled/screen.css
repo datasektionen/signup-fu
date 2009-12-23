@@ -607,3 +607,7 @@ div.autocomplete {
       display: block;
       list-style-type: none;
       cursor: pointer; }
+
+/* line 194, ../../../app/stylesheets/screen.sass */
+.clickable {
+  cursor: pointer; }
