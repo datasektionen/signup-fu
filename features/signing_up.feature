@@ -52,7 +52,7 @@ Feature: Signing up
     
     And "My event" has mail template "signup_confirmation" with fields:
       | Name    | Value                                      |
-      | body    | Thank you for signing up to {{EVENT_NAME}} |
+      | body    | Thank you for signing up to {{EVENT_NAME}}. Your payment reference is {{PAYMENT_REFERENCE}} |
       | subject | Thank you                                  |
     
     When I go to the new reply page for "My event"
@@ -65,7 +65,8 @@ Feature: Signing up
     
     When I open the email
     Then I should see "Thank you" in the subject
-    And I should see "Thank you for signing up to My event" in the email
+    And I should see "Thank you for signing up to My event." in the email
+    And I should see the payment reference for the reply from "Kalle" to "My event" in the email body
   
 
   Scenario: Trying to sign up to an event with passed deadline
