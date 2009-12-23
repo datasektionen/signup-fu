@@ -4,7 +4,7 @@ set :deploy_to, "/srv/rails/#{application}"
 
 set :scm, :git
 set :deploy_via, :remote_cache
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+set :git_enable_submodules, 1
 
 role :web, "signup-fu.com"                          # Your HTTP server, Apache/etc
 role :app, "signup-fu.com"                          # This may be the same as your `Web` server
@@ -16,6 +16,7 @@ set :use_sudo, false
 ssh_options[:keys] = %w(/Users/spatrik/.ssh/id_dsa)  
 
 default_run_options[:pty] = true
+
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
 # these http://github.com/rails/irs_process_scripts

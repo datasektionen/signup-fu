@@ -51,7 +51,10 @@ class EventsController < ApplicationController
   end
   
   def reminder_run
-    @event.remind_old_unpaid_replies
+    raise ArgumentError, "This event doesn't have any expiration set up" unless @event.expire_unpaid?
+    
+    Delayed::Job.enqueue(ReminderRun.new(@event.id))
+    flash[:notice] = "Reminder run created!"
     redirect_to(economy_event_event_replies_path(@event))
   end
   

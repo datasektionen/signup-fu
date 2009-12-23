@@ -13,6 +13,7 @@
     <tr>
       <th>Name</th>
       <th>Paid?</th>
+      <th>Reminded?</th>
     </tr>
     
     <% @replies.ascend_by_name.each do |reply| %>
@@ -24,6 +25,13 @@
           <% else %>
             <%= check_box_tag "reply_ids[]", reply.id, false, :id => "reply_#{reply.id}" %>
           <% end -%>
+        </td>
+        <td>
+          <% if reply.reminded? %>
+            Yes
+          <% else %>
+            No
+          <% end %>
         </td>
       </tr>
     <% end -%>
