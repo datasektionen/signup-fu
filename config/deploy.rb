@@ -58,3 +58,13 @@ end
 after "deploy:start", "delayed_job:start"
 after "deploy:stop", "delayed_job:stop"
 after "deploy:restart", "delayed_job:restart"
+
+desc "remote console" 
+task :console, :roles => :app do
+  input = ''
+  run "cd #{current_path} && ./script/console #{ENV['RAILS_ENV']}" do |channel, stream, data|
+    next if data.chomp == input.chomp || data.chomp == ''
+    print data
+    channel.send_data(input = $stdin.gets) if data =~ /^(>|\?)>/
+  end
+end
