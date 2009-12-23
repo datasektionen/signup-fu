@@ -60,16 +60,6 @@ class Event < ActiveRecord::Base
     !terms.blank?
   end
   
-  def expire_old_unpaid_replies
-    return unless expire_unpaid?
-    replies(:include => [:event]).each do |reply|
-      if reply.should_be_expired?
-        reply.expire
-      end
-    end
-  end
-  
-  
   private
   def check_correct_mail_templates
     if mail_templates.map(&:name).include?("ticket_expired") && !mail_templates.map(&:name).include?("ticket_expire_reminder")
