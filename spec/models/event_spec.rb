@@ -157,7 +157,6 @@ describe Event do
     unpaid_old_reply.should_receive(:remind!)
     
     ReminderRun.new(@event.id).perform
-    # @event.remind_old_unpaid_replies
   end
   
   describe "the expiration process" do
