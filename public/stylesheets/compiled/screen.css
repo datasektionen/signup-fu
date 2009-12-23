@@ -563,27 +563,30 @@ form li {
 form input[type=submit] {
   margin: 10px;
   margin-left: 20px; }
+/* line 154, ../../../app/stylesheets/screen.sass */
+form#new_event_reply textarea {
+  height: 100px; }
 
-/* line 153, ../../../app/stylesheets/screen.sass */
+/* line 157, ../../../app/stylesheets/screen.sass */
 .mail_template_settings {
   margin-bottom: 12px; }
 
-/* line 156, ../../../app/stylesheets/screen.sass */
+/* line 160, ../../../app/stylesheets/screen.sass */
 #economy_report_table input[type=checkbox] {
   height: 18px;
   width: 18px; }
 
-/* line 161, ../../../app/stylesheets/screen.sass */
+/* line 165, ../../../app/stylesheets/screen.sass */
 p.explanation {
   margin-bottom: 5px;
   margin-left: 15px; }
-/* line 165, ../../../app/stylesheets/screen.sass */
+/* line 169, ../../../app/stylesheets/screen.sass */
 p.empty_list {
   margin-left: auto;
   margin-right: auto;
   text-align: center; }
 
-/* line 170, ../../../app/stylesheets/screen.sass */
+/* line 174, ../../../app/stylesheets/screen.sass */
 div.autocomplete {
   margin: 0px;
   padding: 0px;
@@ -591,15 +594,15 @@ div.autocomplete {
   background: #fff;
   border: 1px solid #888;
   position: absolute; }
-  /* line 178, ../../../app/stylesheets/screen.sass */
+  /* line 182, ../../../app/stylesheets/screen.sass */
   div.autocomplete ul {
     margin: 0px;
     padding: 0px;
     list-style-type: none; }
-    /* line 183, ../../../app/stylesheets/screen.sass */
+    /* line 187, ../../../app/stylesheets/screen.sass */
     div.autocomplete ul li.selected {
       background-color: #ffb; }
-    /* line 186, ../../../app/stylesheets/screen.sass */
+    /* line 190, ../../../app/stylesheets/screen.sass */
     div.autocomplete ul li {
       margin: 0;
       padding: 2px;
@@ -608,6 +611,6 @@ div.autocomplete {
       list-style-type: none;
       cursor: pointer; }
 
-/* line 194, ../../../app/stylesheets/screen.sass */
+/* line 198, ../../../app/stylesheets/screen.sass */
 .clickable {
   cursor: pointer; }

@@ -1,4 +1,4 @@
-<h1><%= t('.header', :name => @event.name) %></h1>
+<h2><%= t('.header', :name => @event.name) %></h2>
 <% if @event.deadline.past? %>
   <% if admin_view? %>
     <p class="error">
@@ -24,7 +24,7 @@
 
 <% if admin_view? || (!@event.deadline.past? && !@event.full?) %>
   <%= error_messages_for(:reply, :object_name => 'event_reply') %>
-  <% signup_fu_form_for([@event, @reply]) do |f| %>
+  <% signup_fu_form_for([@event, @reply], :id => "new_event_reply") do |f| %>
     <% if admin_view? %>
       <h3>Administrative functions</h3>
     
@@ -43,8 +43,8 @@
     <% end %>
     </ul>
     
-    <%= f.text_field :name, :caption => t('event_replies.form.name') %>
-    <%= f.text_field :email, :caption => t('event_replies.form.email') %>
+    <%= f.text_field :name, :caption => t('event_replies.form.name'), :class => 'text' %>
+    <%= f.text_field :email, :caption => t('event_replies.form.email'), :class => 'text' %>
     
     <div style="width: 330">
     <h3>Matpreferenser</h3>
