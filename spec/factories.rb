@@ -5,6 +5,7 @@ Factory.define(:event) do |e|
   e.template 'default'
   e.password 'WordPass'
   e.password_confirmation 'WordPass'
+  e.ref_prefix "MyE"
 end
 
 Factory.define(:reply, :class => EventReply) do |r|

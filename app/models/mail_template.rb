@@ -25,6 +25,7 @@ class MailTemplate < ActiveRecord::Base
   def replace_variables(string, reply, event)
     string.gsub!("{{REPLY_NAME}}", reply.name)
     string.gsub!("{{EVENT_NAME}}", event.name)
+    string.gsub!("{{PAYMENT_REFERENCE}}", "#{event.ref_prefix}-#{reply.id}")
     string = parse_last_payment_date(string, event)
 
     string

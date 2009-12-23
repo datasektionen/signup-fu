@@ -37,8 +37,8 @@ describe MailTemplate do
     before do
       time = Time.local(2009, 1, 1)
       Time.stub!(:now).and_return(time)
-      @event = mock_model(Event, :name => 'My event', :payment_time => 14)
-      @reply = mock_model(EventReply, :event => @event, :name => 'Kalle', :email => "kalle@example.org")
+      @event = mock_model(Event, :name => 'My event', :payment_time => 14, :ref_prefix => 'MyE')
+      @reply = mock_model(EventReply, :id => 1, :event => @event, :name => 'Kalle', :email => "kalle@example.org")
       
     end
     
@@ -46,7 +46,8 @@ describe MailTemplate do
       [
         ["REPLY_NAME", "Kalle"],
         ['EVENT_NAME', 'My event'],
-        ['REPLY_LAST_PAYMENT_DATE', '2009-01-15']
+        ['REPLY_LAST_PAYMENT_DATE', '2009-01-15'],
+        ['PAYMENT_REFERENCE', "MyE-1"]
       ].each do |variable, result|
         it "should parse {{#{variable}}} for #{what}" do
           @template.send("#{what}=", "{{#{variable}}}")
