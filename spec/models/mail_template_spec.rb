@@ -49,8 +49,8 @@ describe MailTemplate do
     before do
       time = Time.local(2009, 1, 1)
       Time.stub!(:now).and_return(time)
-      @event = mock_model(Event, :name => 'My event', :payment_time => 14, :ref_prefix => 'MyE')
-      @reply = mock_model(EventReply, :id => 1, :event => @event, :name => 'Kalle', :email => "kalle@example.org")
+      @event = mock_model(Event, :name => 'My event', :payment_time => 14)
+      @reply = mock_model(EventReply, :id => 1, :event => @event, :name => 'Kalle', :email => "kalle@example.org", :payment_reference => 'MyE-1')
       
     end
     

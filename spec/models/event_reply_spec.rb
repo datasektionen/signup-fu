@@ -346,4 +346,10 @@ describe EventReply do
   
   it "should flag records that didn't get mail"
   
+  
+  it "should generate payment reference" do
+    @event.stub!(:has_payment_reference?).and_return(true)
+    @event.stub!(:ref_prefix).and_return("MyE")
+    @reply.payment_reference.should eql("MyE-#{@reply.id}")
+  end
 end
