@@ -33,6 +33,18 @@ describe MailTemplate do
     should validate_uniqueness_of(:name).scoped_to(:event_id)
   end
   
+  it "should not be valid with PAYMENT_REFERENCE if the event doesn't have a ref prefix" do
+    event = mock_model(Event, :ref_prefix => nil)
+    
+    @template.event = event
+    
+    @template.body = "Payment ref is {{PAYMENT_REFERENCE}}."
+    
+    @template.should_not be_valid
+    @template.should have(1).errors_on(:body)
+    @template.errors.on(:body).should == "can't have a PAYMENT_REFERENCE without a prefix on the event"
+  end
+  
   describe "parsing" do
     before do
       time = Time.local(2009, 1, 1)
