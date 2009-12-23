@@ -60,6 +60,10 @@ class Event < ActiveRecord::Base
     !terms.blank?
   end
   
+  def has_payment_reference?
+    !ref_prefix.blank?
+  end
+  
   private
   def check_correct_mail_templates
     if mail_templates.map(&:name).include?("ticket_expired") && !mail_templates.map(&:name).include?("ticket_expire_reminder")

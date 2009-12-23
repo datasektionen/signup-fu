@@ -11,28 +11,38 @@
 <% form_tag(economy_event_event_replies_path(@event)) do %>
   <table id="economy_report_table">
     <tr>
+      <% if @event.has_payment_reference? %>
+        <th>Payment ref</th>
+      <% end %>
       <th>Name</th>
-      <th>Paid?</th>
-      <th>Reminded?</th>
+      <th>Payment state</th>
+      <th>Mark as paid</th>
+      <% if @event.expire_unpaid? %>
+        <th>Reminded?</th>
+      <% end -%>
     </tr>
     
     <% @replies.ascend_by_name.each do |reply| %>
-      <tr>
+      <tr class="<%= cycle("odd", "even") %>">
+        <% if @event.has_payment_reference? %>
+          <td><%= reply.payment_reference %></td>
+        <% end -%>
         <td><%= reply.name %></td>
+        <td><%= payment_state(reply) %></td>
         <td>
-          <% if reply.paid? %>
-            <%= reply.paid_at.strftime("%Y-%m-%d") %>
-          <% else %>
+          <% unless reply.paid? %>
             <%= check_box_tag "reply_ids[]", reply.id, false, :id => "reply_#{reply.id}" %>
           <% end -%>
         </td>
-        <td>
-          <% if reply.reminded? %>
-            Yes
-          <% else %>
-            No
-          <% end %>
-        </td>
+        <% if @event.expire_unpaid? %>
+          <td>
+            <% if reply.reminded? %>
+              Yes
+            <% else %>
+              No
+            <% end %>
+          </td>
+        <% end -%>
       </tr>
     <% end -%>
   </table>

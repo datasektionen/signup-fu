@@ -58,6 +58,12 @@ class EventReply < ActiveRecord::Base
     end
   end
   
+  def payment_reference
+    return "" unless event.has_payment_reference?
+    
+    "#{event.ref_prefix}-#{self.id}"
+  end
+  
   def should_be_expired?
     #puts reminded?
     #puts paid?
