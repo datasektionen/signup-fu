@@ -19,9 +19,6 @@
       <th>Name</th>
       <th>Payment state</th>
       <th>Mark as paid</th>
-      <% if @event.expire_unpaid? %>
-        <th>Reminded?</th>
-      <% end -%>
     </tr>
     
     <% @replies.ascend_by_name.each do |reply| %>
@@ -36,15 +33,6 @@
             <%= check_box_tag "reply_ids[]", reply.id, false, :id => "reply_#{reply.id}" %>
           <% end -%>
         </td>
-        <% if @event.expire_unpaid? %>
-          <td>
-            <% if reply.reminded? %>
-              Yes
-            <% else %>
-              No
-            <% end %>
-          </td>
-        <% end -%>
       </tr>
     <% end -%>
   </table>
