@@ -42,6 +42,8 @@ class EventMailer < ActionMailer::Base
     from "no-reply@h.patrikstenmark.se"
     subject subject
     body body
+    reply_to reply.event.bounce_address
+    headers "Return-Path" => reply.event.bounce_address
     
   end
 end

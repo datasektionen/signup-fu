@@ -11,6 +11,7 @@ class Event < ActiveRecord::Base
   before_validation_on_create :set_auth_name
   
   validate :validate_event_date_and_deadline
+  validate :presence_of_bounce_address_when_sending_mails
   
   
   has_many :replies, :class_name => 'EventReply', :foreign_key => 'event_id'
@@ -91,6 +92,12 @@ class Event < ActiveRecord::Base
     return if deadline.nil? || date.nil?
     if deadline > date
       errors.add_to_base("Can't have deadline after event date")
+    end
+  end
+  
+  def presence_of_bounce_address_when_sending_mails
+    if mail_templates.size > 0 && self.bounce_address.blank?
+      errors.add(:bounce_address, "must be specified if sending mails")
     end
   end
   

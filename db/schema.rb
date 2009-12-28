@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091221160407) do
+ActiveRecord::Schema.define(:version => 20091228221154) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20091221160407) do
     t.boolean  "getting_started_dismissed", :default => false, :null => false
     t.string   "auth_name"
     t.text     "terms"
+    t.string   "bounce_address"
   end
 
   create_table "food_preferences", :force => true do |t|

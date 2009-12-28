@@ -175,4 +175,11 @@ describe Event do
     end
   end
   
+  it "must specify an return address if any email template is used" do
+    @event.mail_templates << Factory(:mail_template)
+    
+    @event.should_not be_valid
+    @event.should have(1).errors_on(:bounce_address)
+  end
+  
 end

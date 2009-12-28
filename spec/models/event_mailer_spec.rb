@@ -7,6 +7,7 @@ describe EventMailer do
     @event = mock_model(Event,
       :email_body => 'Welcome to #EVENT_NAME#, #REPLY_NAME#!',
       :email_subject => "Thanks #REPLY_NAME#",
+      :bounce_address => 'kaka@example.org',
       :name => 'My event',
       :mail_templates => @template_proxy
     )
