@@ -39,7 +39,6 @@ class EventMailer < ActionMailer::Base
     subject = template.render_subject(reply)
     
     recipients reply.email
-    from "no-reply@h.patrikstenmark.se"
     subject subject
     body body
     reply_to reply.event.bounce_address
