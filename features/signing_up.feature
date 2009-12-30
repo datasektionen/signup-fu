@@ -91,7 +91,9 @@ Feature: Signing up
   
   Scenario: Signing up to an event with last payment date
     Given now is "2009-01-01"
-    And an event "My event"
+    And an event "My event" with fields:
+      | Name           | Value           |
+      | bounce_address | foo@example.org |
     And "My event" has mail template "signup_confirmation" with fields:
       | Name    | Value                                            |
       | body    | Last payment date is {{REPLY_LAST_PAYMENT_DATE}} |

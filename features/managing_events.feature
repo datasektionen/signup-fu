@@ -111,6 +111,8 @@ Scenario: Creating a new event with confirmation mail
   And I fill in "Subject" with "Welcome" in "signup_confirmation_settings"
   And I fill in "Body" with "Welcome to {{EVENT_NAME}}" in "signup_confirmation_settings"
   
+  And I fill in "Bounce address" with "foo@example.org"
+  
   And I fill in the following ticket types:
     | With alcohol    | 199 |
     | Without alcohol | 179 |
@@ -177,6 +179,8 @@ Scenario: Creating a new event with payment mail
   And I fill in "Subject" with "Payment" in "payment_registered_settings"
   And I fill in "Body" with "Your ticket to {{EVENT_NAME}} is now paid" in "payment_registered_settings"
   
+  And I fill in "Bounce address" with "foo@example.org"
+  
   And I fill in the following ticket types:
     | With alcohol    | 199 |
     | Without alcohol | 179 |
@@ -212,6 +216,8 @@ Scenario: Creating a new event with ticket expiry
   And I fill in "Reminder time" with "3"
   And I fill in "Subject" with "Reminder" in "ticket_expire_reminder_settings"
   And I fill in "Body" with "Your are hereby reminded" in "ticket_expire_reminder_settings"
+  
+  And I fill in "Bounce address" with "foo@example.org"
   
   And I fill in the following ticket types:
     | With alcohol    | 199 |
