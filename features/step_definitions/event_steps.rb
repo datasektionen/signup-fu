@@ -8,7 +8,14 @@ Given /^an event "([^\"]*)" with fields:$/ do |name, table|
         field['Value'] =~ /(\d)+ days ago/
         deadline = $1.to_i.days.ago
         event.deadline = deadline
-        
+      when /require_pid/
+        if ["1", 1, "true"].include?(field['Value'])
+          event.require_pid = true
+        elsif ["0", 0, "false"].include?(field['Value'])
+          event.require_pid = false
+        else
+          raise ArgumentError, "#{field['Value']} is not an acceptable value for require_pid"
+        end
       else
         event.send("#{field['Name']}=", field['Value'])
       end

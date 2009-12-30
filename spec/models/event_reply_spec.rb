@@ -5,6 +5,7 @@ describe EventReply do
     @event = mock_model(Event)
     @event.stub(:send_mail_for?).with(:signup_confirmation).and_return(false)
     @event.stub!(:send_mail_for?).with(:payment_registered).and_return(false)
+    @event.stub!(:require_pid?).and_return(false)
     
     @ticket_type = mock_model(TicketType)
     @valid_attributes = {
@@ -346,10 +347,63 @@ describe EventReply do
   
   it "should flag records that didn't get mail"
   
+  it "should not require presence of pid without pid requirement on event" do
+    @reply.should_not validate_presence_of(:pid)
+  end
   
   it "should generate payment reference" do
     @event.stub!(:has_payment_reference?).and_return(true)
     @event.stub!(:ref_prefix).and_return("MyE")
     @reply.payment_reference.should eql("MyE-#{@reply.id}")
+  end
+  
+  describe "with pid requirements" do
+    before do
+      @event.stub!(:require_pid?).and_return(true)
+    end
+    it "should validate presence of pid" do
+      @reply.pid = nil
+      
+      @reply.should_not be_valid
+      @reply.should have(1).error_on(:pid)
+      @reply.errors.on(:pid).should eql("måste anges på korrekt form (YYMMDD-XXXX)")
+    end
+    
+    it "should accept yyyymmdd-xxxx format and convert to yymmdd-xxxx" do
+      @reply.pid = "19841027-0196"
+      @reply.should be_valid
+      @reply.save!
+      @reply.pid.should eql("841027-0196")
+    end
+    
+    it "should accept yymmdd-xxxx format and convert to yymmdd-xxxx" do
+      @reply.pid = "841027-0196"
+      @reply.should be_valid
+      @reply.save!
+      @reply.pid.should eql('841027-0196')
+    end
+    
+    it "should accept yyyymmddxxxx format and convert to yymmdd-xxxx" do
+      @reply.pid = "198410270196"
+      @reply.should be_valid
+      @reply.save!
+      @reply.pid.should eql('841027-0196')
+    end
+    
+    it "should accept yymmddxxxx format and convert to yymmdd-xxxx" do
+      @reply.pid = "8410270196"
+      @reply.should be_valid
+      @reply.save!
+      @reply.pid.should eql('841027-0196')
+    end
+    
+    ["1", "123456789", "123456789012345678"].each do |unaccepted_pid|
+      it "should not accept #{unaccepted_pid} as pid" do
+        @reply.pid = unaccepted_pid
+        @reply.should_not be_valid
+        @reply.should have(1).errors_on(:pid)
+      end
+    end
+    
   end
 end

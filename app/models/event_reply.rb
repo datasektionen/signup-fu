@@ -46,6 +46,9 @@ class EventReply < ActiveRecord::Base
   has_and_belongs_to_many :food_preferences
   validates_presence_of :event, :name, :email, :ticket_type, :message => 'is required'
   validates_acceptance_of :terms, :accept => "1", :message => "måste accepteras"
+  validate :correct_pid_format, :if => lambda { |reply| reply.event.present? && reply.event.require_pid? }
+  
+  before_validation :format_pid
   
   named_scope :ascend_by_name, :order => 'name ASC'
   named_scope :not_cancelled, :conditions => ["guest_state != 'cancelled'"]
@@ -116,5 +119,22 @@ class EventReply < ActiveRecord::Base
   def on_remind
     update_attribute(:reminded_at, Time.now)
     EventMailer.send_later(:deliver_ticket_expire_reminder, self)
+  end
+  
+  def format_pid
+    return if self.pid.nil?
+    
+    pid = self.pid.sub("-", "")
+    if pid.length == 10
+      self.pid = "#{pid[0..5]}-#{pid[6..9]}"
+    elsif pid.length == 12
+      self.pid = "#{pid[2..7]}-#{pid[8..11]}"
+    end
+  end
+  
+  def correct_pid_format
+    if pid !~ /\d{6}-\d{4}/
+      errors.add(:pid, "måste anges på korrekt form (YYMMDD-XXXX)")
+    end
   end
 end

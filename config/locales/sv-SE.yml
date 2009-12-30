@@ -9,6 +9,7 @@
       submit: Boka
       terms: Villkor
       accept_terms: Jag godkänner villkoren
+      pid: Personnummer
     new:
       header: Boka biljett till {{name}}
       deadline_passed: Deadline för anmälan till {{name}} har passerat

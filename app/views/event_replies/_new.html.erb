@@ -46,6 +46,10 @@
     <%= f.text_field :name, :caption => t('event_replies.form.name'), :class => 'text' %>
     <%= f.text_field :email, :caption => t('event_replies.form.email'), :class => 'text' %>
     
+    <% if @event.require_pid? %>
+      <%= f.text_field :pid, :caption => t('event_replies.form.pid'), :class => 'text' %>
+    <% end -%>
+    
     <div style="width: 330">
     <h3>Matpreferenser</h3>
       <li>

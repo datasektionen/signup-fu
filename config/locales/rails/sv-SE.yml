@@ -172,6 +172,7 @@
       event_reply:
         name: Namn
         terms: villkoren
+        pid: Personnummer
  
   date:
     formats:

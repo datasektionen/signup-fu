@@ -169,6 +169,28 @@ Feature: Signing up
     
     Then I should see "Din bokning lyckades"
     
+  Scenario: Signing up to event with personal identity number requirement
+    Given an event "My pid event" with fields:
+      | Name        | Value |
+      | require_pid | true  |
+  
+    When I go to the new reply page for "My pid event"
+  
+    Then I should see "Personnummer"
+  
+    When I fill in "Namn" with "Kalle"
+    And I fill in "E-postadress" with "kalle@example.org"
+    And I choose "With alcohol (100 kr)"
+    And I press "Boka"
+  
+    Then I should see "måste anges på korrekt form (YYMMDD-XXXX)"
+  
+    When I fill in "Personnummer" with "841027-0196"
+    And I press "Boka"
+  
+    Then I should see "Din bokning lyckades"
+  
+    
 #    Feature: Cucumber stock keeping
 #      In order to avoid interruption of cucumber consumption
 #      As a citizen of Cucumbia

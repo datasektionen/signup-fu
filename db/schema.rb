@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091228221154) do
+ActiveRecord::Schema.define(:version => 20091230192713) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20091228221154) do
     t.datetime "reminded_at"
     t.string   "payment_state",  :null => false
     t.string   "guest_state",    :null => false
+    t.string   "pid"
   end
 
   create_table "event_replies_food_preferences", :id => false, :force => true do |t|
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20091228221154) do
     t.string   "auth_name"
     t.text     "terms"
     t.string   "bounce_address"
+    t.boolean  "require_pid",               :default => false, :null => false
   end
 
   create_table "food_preferences", :force => true do |t|
