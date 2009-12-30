@@ -21,7 +21,7 @@
   <% end %>
 <% end %>
 
-
+<%# TODO refactor this %>
 <% if admin_view? || (!@event.deadline.past? && !@event.full?) %>
   <%= error_messages_for(:reply, :object_name => 'event_reply') %>
   <% signup_fu_form_for([@event, @reply], :id => "new_event_reply") do |f| %>
