@@ -1,6 +1,6 @@
 class EventRepliesController < ApplicationController
-  before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy]
-  before_filter :require_event_session_or_user, :only => [:names, :set_attending, :index, :economy]
+  before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy, :permit]
+  before_filter :require_event_session_or_user, :only => [:names, :set_attending, :index, :economy, :permit]
   
   skip_before_filter :require_user
   
@@ -67,6 +67,10 @@ class EventRepliesController < ApplicationController
       @replies = @event.replies
       @time = Time.now
     end
+  end
+  
+  def permit
+    @replies = @event.replies.paid
   end
   
   def destroy

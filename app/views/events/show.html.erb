@@ -1,4 +1,7 @@
 <% content_for :nav do %>
+  <% if @event.require_pid? %>
+    <%= button_link_to("Permit", permit_event_event_replies_path(@event)) %>
+  <% end -%>
   <%= button_link_to("Guests", event_event_replies_path(@event)) %>
   <%= button_link_to("Economy", economy_event_event_replies_path(@event)) %>
   <%= button_link_to("Edit", edit_event_path(@event)) %>

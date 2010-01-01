@@ -1,0 +1,15 @@
+<h2>Tillståndsrapport</h2>
+
+<table id="permit_report_table">
+  <tr>
+    <th>Name</th>
+    <th>Personal identification number</th>
+  </tr>
+  
+  <% @replies.ascend_by_name.each do |reply| %>
+    <tr>
+      <td><%= reply.name %></td>
+      <td><%= reply.pid %></td>
+    </tr>
+  <% end -%>
+</table>

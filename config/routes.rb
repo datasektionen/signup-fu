@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
     events.resources :event_replies, :as => 'replies',
       :collection => {
         :economy => [:get, :post],
+        :permit => :get,
         :set_attending => :post,
         :names => :get
       }
