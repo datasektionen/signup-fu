@@ -33,15 +33,19 @@
       <% end %>
     <% end %>
   
-    <h3><%= t('event_replies.form.ticket_type') %></h3>
-    <ul>
-    <% @event.ticket_types.each do |ticket_type| %>
-      <li>
-        <%= f.radio_button :ticket_type_id, ticket_type.id %>
-        <label for="event_reply_ticket_type_id_<%= ticket_type.id %>"><%= ticket_type.name %> (<%= ticket_type.price %> kr)</label>
-      </li>
-    <% end %>
-    </ul>
+    <% if @event.ticket_types.count == 1 %>
+      <%= f.hidden_field :ticket_type_id, :value => @event.ticket_types.first.id %>
+    <% else %>
+      <h3><%= t('event_replies.form.ticket_type') %></h3>
+      <ul>
+      <% @event.ticket_types.each do |ticket_type| %>
+        <li>
+          <%= f.radio_button :ticket_type_id, ticket_type.id %>
+          <label for="event_reply_ticket_type_id_<%= ticket_type.id %>"><%= ticket_type.name %> (<%= ticket_type.price %> kr)</label>
+        </li>
+      <% end %>
+      </ul>
+    <% end -%>
     
     <%= f.text_field :name, :caption => t('event_replies.form.name'), :class => 'text' %>
     <%= f.text_field :email, :caption => t('event_replies.form.email'), :class => 'text' %>
