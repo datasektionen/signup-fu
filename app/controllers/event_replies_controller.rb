@@ -11,7 +11,7 @@ class EventRepliesController < ApplicationController
     if admin_view?
       render
     else
-      render_form
+      render_templated_action(@event.template, 'new')
     end
   end
   
@@ -65,7 +65,7 @@ class EventRepliesController < ApplicationController
         end
       else
         format.html do
-          render_form
+          render_templated_action(@event.template, 'new')
         end
         format.xml { render :xml => @reply.errors, :status => :unprocessable_entity }
       end
@@ -74,6 +74,7 @@ class EventRepliesController < ApplicationController
   
   def show
     @reply = EventReply.find(params[:id])
+    render_templated_action(@reply.event.template, 'show')
   end
   
   def economy
@@ -153,10 +154,11 @@ class EventRepliesController < ApplicationController
     I18n.locale = :en
   end
   
-  def render_form
-    template_path = Rails.root + "app/templates/#{sanitize_filename(@event.template)}.liquid"
+  def render_templated_action(template, action)
+    template_path = Rails.root + "app/templates/#{sanitize_filename(template)}.liquid"
     template = Liquid::Template.parse(File.read(template_path))
-    form = render_to_string(:partial => 'new')
+    form = render_to_string(:partial => action)
     render :text => template.render('template_content' => form)
   end
+  
 end
