@@ -3,6 +3,16 @@ Feature: Signing up
   I want to be able to get information about and sign up to an event
   So that the event arranger can know who will come to the event and therefore plan properly and not kill anyone or buy too much or too little food.
   
+  Scenario: Signing up to event with more than one ticket type
+    Given an event "My event"
+    And a ticket type "Without alcohol" for 80 on "My event"
+    
+    When I go to the new reply page for "My event"
+    
+    Then I should see "With alcohol (100 kr)"
+    And I should see "Without alcohol (80 kr)"
+    
+  
   Scenario Outline: Signing up on free event
     Given an event "My event" with fields:
       | Name           | Value                    |
@@ -12,7 +22,6 @@ Feature: Signing up
     
     Then I should see "Boka biljett till My event"
     
-    When I choose "With alcohol (100 kr)"
     And I fill in "Namn" with "<name>"
     And I fill in "E-postadress" with "<email>"
     And I press "Boka"
@@ -26,27 +35,6 @@ Feature: Signing up
       |              | kalle | error  |                      | Namn måste anges         |
       | Karl Persson |       | error  |                      | Email måste anges        |
   
-  Scenario Outline: Choosing a Biljettyp
-    Given an event "My event"
-    
-    When I go to the new reply page for "My event"
-    And I fill in "Namn" with "Kalle"
-    And I fill in "E-postadress" with "kalle@example.org"
-    And I choose "<ticket type>"
-    And I press "Boka"
-    
-    Then the notice flash should contain "<flash message>" 
-    And I should see "<message>"
-    
-    And I go to the event page for "My event"
-    And I fill in "Password" with "WordPass"
-    And I press "Login"
-    Then I should see "With alcohol" in "guest_list_table"
-    
-    Examples:
-      | ticket type           | flash message        | message |
-      | With alcohol (100 kr) | Din bokning lyckades |         |
-  
   Scenario: Mail notification when signing up
     Given an event "My event"
     
@@ -58,7 +46,6 @@ Feature: Signing up
     When I go to the new reply page for "My event"
     And I fill in "Namn" with "Kalle"
     And I fill in "E-postadress" with "kalle@example.org"
-    And I choose "With alcohol (100 kr)"
     And I press "Boka"
     
     Then I should receive an email
@@ -102,7 +89,6 @@ Feature: Signing up
     
     
     When I go to the new reply page for "My event"
-    And I choose "With alcohol (100 kr)"
     And I fill in "Namn" with "Kalle"
     And I fill in "E-postadress" with "kalle@example.org"
     And I press "Boka"
@@ -124,7 +110,6 @@ Feature: Signing up
     
     Then I should see "Vegan"
     And I should see "Vegetarian"
-    And I choose "With alcohol (100 kr)"
     And I fill in "Namn" with "Kalle"
     And I fill in "E-postadress" with "kalle@example.org"
     And I check "Vegan"
@@ -159,7 +144,6 @@ Feature: Signing up
     
     And I fill in "Namn" with "Kalle"
     And I fill in "E-postadress" with "kalle@example.org"
-    And I choose "With alcohol (100 kr)"
     And I press "Boka"
     
     Then I should see "villkoren måste accepteras"
@@ -180,7 +164,6 @@ Feature: Signing up
   
     When I fill in "Namn" with "Kalle"
     And I fill in "E-postadress" with "kalle@example.org"
-    And I choose "With alcohol (100 kr)"
     And I press "Boka"
   
     Then I should see "måste anges på korrekt form (YYMMDD-XXXX)"

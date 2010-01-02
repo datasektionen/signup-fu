@@ -418,7 +418,6 @@ Scenario: Adding a guest manually with mail sending
   
   And I follow "Add guest"
   And I check "Send signup confirmation mail"
-  And I choose "With alcohol (100 kr)"
   And I fill in "Namn" with "Kalle Persson"
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
@@ -444,7 +443,6 @@ Scenario: Adding a guest as admin without mail sending
   
   And I follow "Add guest"
   And I uncheck "Send signup confirmation mail"
-  And I choose "With alcohol (100 kr)"
   And I fill in "Namn" with "Kalle Persson"
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
@@ -472,7 +470,6 @@ Scenario: Adding a guest to a full event
   
   And I fill in "Namn" with "Nisse Karlsson"
   And I fill in "E-postadress" with "kalle@example.org"
-  And I choose "With alcohol (100 kr)"
   And I press "Boka"
   
   Then I should see "bokning lyckades"
@@ -498,7 +495,6 @@ Scenario: Adding a guest to an event passed deadline
   
   And I fill in "Namn" with "Nisse Karlsson"
   And I fill in "E-postadress" with "kalle@example.org"
-  And I choose "With alcohol (100 kr)"
   And I press "Boka"
   
   Then I should see "bokning lyckades"
