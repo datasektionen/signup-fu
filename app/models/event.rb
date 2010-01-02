@@ -34,7 +34,8 @@ class Event < ActiveRecord::Base
   def self.templates
     [
       ['Default', 'default'],
-      ['DKM', 'dkm']
+      ['DKM', 'dkm'],
+      ['Plums', 'plums']
     ]
   end
   def full?
