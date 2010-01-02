@@ -1,5 +1,8 @@
 document.observe("dom:loaded", function(event) {
   $("economy_report_table").observe("click", function(event) {
+    if (event.element().nodeName == "INPUT") {
+      return;
+    }
     var clickedRow = event.findElement('tr');
     if (clickedRow) {
       toggleCheckbox("reply_" + clickedRow.id.sub("reply_row_", ""));
