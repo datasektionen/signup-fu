@@ -3,3 +3,5 @@ config/database.yml
 tmp/
 .DS_Store
 app/stylesheets/.sass-cache/
+public/javascripts/all.js
+config.rb
