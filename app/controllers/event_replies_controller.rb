@@ -157,6 +157,6 @@ class EventRepliesController < ApplicationController
     template_path = Rails.root + "app/templates/#{sanitize_filename(@event.template)}.liquid"
     template = Liquid::Template.parse(File.read(template_path))
     form = render_to_string(:partial => 'new')
-    render :text => template.render('signup_form' => form)
+    render :text => template.render('template_content' => form)
   end
 end
