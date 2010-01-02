@@ -1,10 +1,10 @@
 class EventRepliesController < ApplicationController
   before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy, :permit]
-  before_filter :require_event_session_or_user, :only => [:names, :set_attending, :index, :economy, :permit]
+  before_filter :require_event_session_or_user, :only => [:names, :set_attending, :index, :economy, :permit, :edit]
   
   skip_before_filter :require_user
   
-  around_filter :set_locale, :only => [:new, :create, :show]
+  around_filter :set_locale, :only => [:new, :create, :show, :edit]
   
   def new
     @reply = EventReply.new
@@ -22,6 +22,22 @@ class EventRepliesController < ApplicationController
       format.js do
         
       end
+    end
+  end
+  
+  def edit
+    @reply = EventReply.find(params[:id])
+    @event = @reply.event
+  end
+  
+  def update
+    @reply = EventReply.find(params[:id])
+    
+    if @reply.update_attributes(params[:event_reply])
+      flash[:notice] = "Updated event reply"
+      redirect_to(event_event_replies_path(@reply.event))
+    else
+      render :action => 'edit'
     end
   end
   
