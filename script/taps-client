@@ -2,7 +2,7 @@
 require File.dirname(__FILE__) + '/../config/boot'
 
 password = ARGV[0]
-host = ARGV[1]
+taps_host = ARGV[1]
 env = ARGV[2] || 'production'
 
 def newpass(len)
@@ -19,7 +19,7 @@ host = config['hostname'].nil? ? 'localhost' : config['hostname']
 
 dburl = "#{protocol}://#{config['username']}:#{config['password']}@#{host}/#{config['database']}"
 
-http_url = "http://taps:#{password}@#{host}:5000"
+http_url = "http://taps:#{password}@#{taps_host}:5000"
 
 puts "db url #{dburl}"
 puts "http url #{http_url}"
