@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/boot'
+
+env = ARGV[0] || 'production'
+
+def newpass(len)
+  chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+  return Array.new(10){||chars[rand(chars.size)]}.join
+end
+
+config = YAML::load(File.open(Rails.root.join('config/database.yml')))[env]
+
+username = 'taps'
+password = newpass(10)
+
+protocol = config['adapter'] == 'postgresql' ? 'postgres' : config['adapter']
+host = config['hostname'].nil? ? 'localhost' : config['hostname']
+
+url = "#{protocol}://#{config['username']}:#{config['password']}@#{host}/#{config['database']}"
+
+puts url
+
+command = "taps server #{url} taps #{password}"
+
+puts command
+
+puts "Password: #{password}"
+
+system(command)
