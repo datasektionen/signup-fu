@@ -57,7 +57,6 @@ class EventRepliesController < ApplicationController
     respond_to do |format|
       if @reply.save
         format.html do
-          flash[:notice] = t('flash.signup_successful')
           redirect_to(@reply)
         end
         format.xml do

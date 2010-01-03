@@ -422,7 +422,7 @@ Scenario: Adding a guest manually with mail sending
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
   
-  Then I should see "bokning lyckades"
+  Then I should see "You have been successfully signed up"
   
   When I go to the event page for "My event"
   
@@ -446,7 +446,7 @@ Scenario: Adding a guest as admin without mail sending
   And I fill in "Namn" with "Kalle Persson"
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
-  Then I should see "bokning lyckades"
+  Then I should see "You have been successfully signed up to "
   
   When I go to the event page for "My event"
   
@@ -472,7 +472,7 @@ Scenario: Adding a guest to a full event
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
   
-  Then I should see "bokning lyckades"
+  Then I should see "You have been successfully signed up"
   
   When I go to the event page for "My event"
   Then I should see "Nisse Karlsson"
@@ -497,7 +497,7 @@ Scenario: Adding a guest to an event passed deadline
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
   
-  Then I should see "bokning lyckades"
+  Then I should see "You have been successfully signed up"
   
   When I go to the event page for "My event"
   Then I should see "Nisse Karlsson"

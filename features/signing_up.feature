@@ -31,7 +31,7 @@ Feature: Signing up
     
     Examples:
       | name         | email | kind   | flash message        | message                  |
-      | Karl Persson | kalle | notice | Din bokning lyckades | Thank you for signing up |
+      | Karl Persson | kalle | notice |                      | Thank you for signing up |
       |              | kalle | error  |                      | Namn måste anges         |
       | Karl Persson |       | error  |                      | Email måste anges        |
   
@@ -151,7 +151,7 @@ Feature: Signing up
     When I check "Jag godkänner villkoren"
     And I press "Boka"
     
-    Then I should see "Din bokning lyckades"
+    Then I should see "You have been successfully signed up to My legal event"
     
   Scenario: Signing up to event with personal identity number requirement
     Given an event "My pid event" with fields:
@@ -171,7 +171,7 @@ Feature: Signing up
     When I fill in "Personnummer" with "841027-0196"
     And I press "Boka"
   
-    Then I should see "Din bokning lyckades"
+    Then I should see "You have been successfully signed up"
   
     
 #    Feature: Cucumber stock keeping
