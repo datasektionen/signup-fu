@@ -1,0 +1,38 @@
+%h2= t('.title', :name => @event.name)
+
+- if @event.deadline.past?
+  - if admin_view?
+    %p{:class => 'error'}
+      = t('.deadline_passed_warning', :name => @event.name)
+  - else
+    %p{:class => "error"}
+      = t('.deadline_passed', :name => @event.name) 
+- elsif @event.full? 
+  - if admin_view?
+    %p{:class => "error"}
+      = t('.event_full_warning', :name => @event.name) 
+  - else
+    %p{:class => "error"}
+      = t('.event_full', :name => @event.name) 
+      
+-# TODO refactor this
+- if admin_view? || (!@event.deadline.past? && !@event.full?)
+  = error_messages_for(:reply, :object_name => 'event_reply')
+  - signup_fu_form_for([@event, @reply], :id => "new_event_reply") do |f|
+    - if admin_view?
+      %h3= t('admin_functions')
+      
+      - if @event.send_mail_for?(:signup_confirmation)
+        = f.check_box :send_signup_confirmation, :caption => t('.send_signup_confirmation')
+    
+    = render :partial => 'form', :locals => {:f => f}
+    
+    - if @event.has_terms?
+      %h3= t('event_replies.form.terms')
+
+      = simple_format(@event.terms)
+
+      = f.check_box :terms, :caption => t('event_replies.form.accept_terms')
+    
+    = f.submit t('event_replies.form.submit')
+    
