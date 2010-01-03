@@ -1,0 +1,11 @@
+%h2= t('login')
+
+- form_for(@event_session, :url => event_event_session_path(@event)) do |f|
+  = f.error_messages
+  %br
+  = f.label :password
+  %br
+  = f.password_field :password
+  %br
+  = f.submit t('Login')
+  %br

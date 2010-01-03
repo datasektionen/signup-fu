@@ -1,9 +1,0 @@
-<h1>Login</h1>
- 
-<% form_for @event_session, :url => event_event_session_path(@event) do |f| %>
-  <%= f.error_messages %>
-  <%= f.label :password %><br />
-  <%= f.password_field :password %><br />
-  <br />
-  <%= f.submit "Login" %>
-<% end %>
