@@ -81,13 +81,12 @@ class EventRepliesController < ApplicationController
     if request.post?
       update_economy
     else
-      @replies = @event.replies
-      @time = Time.now
+      @replies = @event.replies.not_cancelled
     end
   end
   
   def permit
-    @replies = @event.replies.paid
+    @replies = @event.replies.not_cancelled.paid
   end
   
   def destroy
