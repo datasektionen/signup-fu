@@ -7,8 +7,8 @@
 
 %table#permit_report_table
   %tr
-    %th Name
-    %th Personal identification number
+    %th= EventReply.human_attribute_name("name") 
+    %th= EventReply.human_attribute_name("pid") 
   
   - @replies.ascend_by_name.each do |reply|
     %tr

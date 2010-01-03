@@ -56,6 +56,11 @@
   events:
     new:
       signup_confirmation: Bekräftelse på bokning
+    show:
+      permit: Tillståndsrapport
+      guests: Gästlista
+      economy: Ekonomirapport
+      add_guest: Ny gäst
   layout:
     created_by: SignupFu är skapat av Patrik Stenmark. 
     log_out: Logga ut

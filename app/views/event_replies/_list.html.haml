@@ -15,14 +15,13 @@
 
 %table#guest_list_table
   %tr
-    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} Name
-    %th{:style =>"width: 200px; max-width: 200px; min-width: 200px"} E-mail
-    %th{:style =>"width: 50px; max-width: 50px; min-width: 50px"} Ticket type
-    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} Food preferences
-    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} Other food related
-    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} Comments
-    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} &nbsp;
-    
+    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('event_replies.form.name')
+    %th{:style =>"width: 200px; max-width: 200px; min-width: 200px"}= t('event_replies.form.email')
+    %th{:style =>"width: 50px; max-width: 50px; min-width: 50px"}= t('event_replies.form.ticket_type')
+    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= EventReply.human_attribute_name("food_preferences")
+    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('event_replies.form.food')
+    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('event_replies.form.comments')
+    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= &nbsp;
     %th &nbsp;
     
   - replies.each do |reply|

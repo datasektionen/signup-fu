@@ -173,6 +173,9 @@
         name: Namn
         terms: villkoren
         pid: Personnummer
+        food_preferences: Matpreferenser
+        guest_state: Status
+        payment_state: Betalningsstatus
       mail_template:
         body: Brödtext
         subject: Ämnesrad
