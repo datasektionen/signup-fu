@@ -29,7 +29,7 @@
         <td><%= reply.name %></td>
         <td><%= payment_state(reply) %></td>
         <td>
-          <% unless reply.paid? %>
+          <% unless reply.paid? || reply.expired? %>
             <%= check_box_tag "reply_ids[]", reply.id, false, :id => "reply_#{reply.id}" %>
           <% end -%>
         </td>
