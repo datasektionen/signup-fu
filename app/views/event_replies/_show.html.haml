@@ -1,0 +1,4 @@
+-if @reply.event.signup_message
+  = textilize @reply.event.signup_message
+- else
+  = t('.default_signup_message', :name => @reply.event.name)
