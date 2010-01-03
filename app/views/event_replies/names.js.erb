@@ -1,5 +1,5 @@
 var reply_names = [
   <% @replies.each do |reply| -%>
-    '<%= reply.name %>', 
+    '<%= escape_javascript(reply.name) %>', 
   <% end -%>
 ];
