@@ -2,13 +2,13 @@
 <% javascript "event_replies.js"%>
 
 <% content_for :nav do %>
-  <%= button_link_to("Back to #{@event.name}", event_path(@event)) %>
+  <%= button_link_to(t("back_to", :name => @event.name), event_path(@event)) %>
 <% end -%>
 
-<h2>Event replies</h2>
+<h2><%= t('.title')</h2>
 
-<h3>Set attending</h3>
-<p>Search for first or last name. Press Enter when you have selected the person you want to mark as attending</p>
+<h3><%= t('.set_attending') %></h3>
+<p><%= t('.attending_instructions') %></p>
 
 <% form_tag(set_attending_event_event_replies_path(@event)) do %>
   <%= label_tag("name") %>
@@ -17,7 +17,7 @@
   <%= label_tag "paid" %>
   <%= check_box_tag "paid", "1", true %>
   
-  <%= submit_tag "Attending" %>
+  <%= submit_tag t(".submit_attending") %>
 <% end %>
 
 <%= render :partial => 'list', :locals => {:replies => @replies }%>
