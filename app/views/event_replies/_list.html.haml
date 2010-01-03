@@ -1,0 +1,51 @@
+-replies = replies.ascend_by_name
+-if !params[:show_cancelled]
+-  replies = replies.not_cancelled
+-total_number_of_guests = replies.not_cancelled.count
+-replies = replies.all(:include => [:food_preferences, :ticket_type])
+%p
+  - if params[:show_cancelled]
+    = link_to t('.show_active'), url_for
+  - else
+    = link_to t('.show_cancelled'), url_for(:show_cancelled => true)
+
+%table.vertical_header
+  %tr
+    %th= t('.total_number_of_guests')
+    %td= total_number_of_guests
+
+%table#guest_list_table
+  %tr
+    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} Name
+    %th{:style =>"width: 200px; max-width: 200px; min-width: 200px"} E-mail
+    %th{:style =>"width: 50px; max-width: 50px; min-width: 50px"} Ticket type
+    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} Food preferences
+    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} Other food related
+    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} Comments
+    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} &nbsp;
+    
+    %th &nbsp;
+    
+  - replies.each do |reply|
+    %tr{:class => "#{cycle('even', 'odd')}"
+      %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= reply.name 
+      %td{:style => "width: 200px; max-width: 200px; min-width: 200px"}= reply.email 
+      %td{:style => "width: 50px; max-width: 50px; min-width: 50px"}= reply.ticket_type.name 
+      %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= food_preferences(reply)
+      %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= reply.food 
+      %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= reply.comments 
+      %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}
+        - unless reply.attending?
+          =# link_to "Attending", set_attending_event_event_replies_path(@event, :name => reply.name), :method => :post
+        - unless reply.cancelled?
+          = link_to t('remove'), event_reply_path(reply), :method => :delete, :confirm => t(".remove_confirmation", :name => reply.name)
+        = link_to t('edit'), edit_event_reply_path(reply)
+
+%table#food_preferences_summary.vertical_header
+  %tr
+    %th= t('number_of') 
+    %td &nbsp;
+  - FoodPreference.all.each do |food_preference|
+    %tr
+      %th= food_preference.name
+      %td= replies.to_a.select { |r| r.food_preferences.include?(food_preference) }.size
