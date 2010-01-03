@@ -14,14 +14,14 @@
     <%= ticket_type_form.text_field :price, :caption => "Ticket type #{ticket_type_index} price", :class => 'text' %>
   <% end -%>
   
-  <h3>Signup confirmation</h3>
+  <h3><%= t('.signup_confirmation') %></h3>
   
   <div class="mail_template_settings">
     <%= check_box_tag "event[mail_templates_attributes][signup_confirmation][enable]", "1", false, 
       :onclick => "$('signup_confirmation').checked ? $('signup_confirmation_settings').show():$('signup_confirmation_settings').hide()",
       :id => 'signup_confirmation' %>
     <label for="signup_confirmation">
-      Signup Confirmation
+      <%= t('.signup_confirmation') %>
     </label>
     
     <div id="signup_confirmation_settings" style="display: none">

@@ -53,7 +53,9 @@
     default_signup_message: Du har nu bokat en biljett till {{name}}!
     
     
-      
+  events:
+    new:
+      signup_confirmation: Bekräftelse på bokning
   layout:
     created_by: SignupFu är skapat av Patrik Stenmark. 
     log_out: Logga ut

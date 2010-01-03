@@ -173,6 +173,9 @@
         name: Namn
         terms: villkoren
         pid: Personnummer
+      mail_template:
+        body: Brödtext
+        subject: Ämnesrad
  
   date:
     formats:

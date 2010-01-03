@@ -1,8 +1,7 @@
--replies = replies.ascend_by_name
--if !params[:show_cancelled]
--  replies = replies.not_cancelled
--total_number_of_guests = replies.not_cancelled.count
--replies = replies.all(:include => [:food_preferences, :ticket_type])
+- replies = replies.ascend_by_name
+- replies = replies.not_cancelled if !params[:show_cancelled]
+- total_number_of_guests = replies.not_cancelled.count
+- replies = replies.all(:include => [:food_preferences, :ticket_type])
 %p
   - if params[:show_cancelled]
     = link_to t('.show_active'), url_for
@@ -49,3 +48,6 @@
     %tr
       %th= food_preference.name
       %td= replies.to_a.select { |r| r.food_preferences.include?(food_preference) }.size
+
+
+
