@@ -9,6 +9,7 @@ describe EventRepliesController do
     
     before do
       @event = mock_model(Event)
+      @event.stub!(:template).and_return("default")
       Event.stub!(:find).with("1").and_return(@event)
     end
     def do_get(options = {})
@@ -16,18 +17,18 @@ describe EventRepliesController do
     end
     
     it "should render the event template if not logged in" do
-      @controller.should_receive(:render_form)
+      @controller.should_receive(:render_templated_action).with('default', 'new')
       do_get
     end
     
     it "should render the event template if not logged in and query param admin_view is set" do
-      @controller.should_receive(:render_form)
+      @controller.should_receive(:render_templated_action).with('default', 'new')
       do_get(:admin_view => 1)
     end
     
     it "should render the event template if logged in and viewing replies/new" do
       UserSession.create(Factory(:admin))
-      @controller.should_receive(:render_form)
+      @controller.should_receive(:render_templated_action).with('default', 'new')
       do_get
     end
     
@@ -39,7 +40,7 @@ describe EventRepliesController do
     
     it "should not render themplate if logged in and query param admin_view is set" do
       UserSession.create(Factory(:admin))
-      @controller.should_not_receive(:render_form)
+      @controller.should_not_receive(:render_templated_action)
       do_get(:admin_view => 1)
     end
   end
