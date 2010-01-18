@@ -1,3 +1,8 @@
+<% content_for :nav do %>
+  <%= button_link_to("Back to #{@event.name}", @event)%>
+<% end -%>
+
+
 <h2>Tillståndsrapport</h2>
 
 <table id="permit_report_table">

@@ -1,3 +1,8 @@
+<% content_for :nav do %>
+  <%= button_link_to("Back to #{@event.name}", @event)%>
+<% end -%>
+
+
 <h2>Edit <%= @event.name %></h2>
 
 <% form_for(@event, :builder => signup_fu_form_builder) do |f| %>
