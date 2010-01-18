@@ -227,6 +227,10 @@ describe EventReply do
       end
     end
     
+    it "should not be expired if cancelled" do
+      @reply.stub!(:payment_state).and_return('cancelled')
+      @reply.should_not be_marked_for_expire
+    end
     
     it "should not be expired if reminded, paid and after pay date" do
       @reply.stub!(:created_at).and_return(21.days.ago)
@@ -292,6 +296,11 @@ describe EventReply do
       @event.stub!(:expire_time_from_reminder).and_return(5)
       
       EventMailer.stub!(:deliver_ticket_expire_reminder)
+    end
+    
+    it "should not be reminded if cancelled" do
+      @reply.stub!(:guest_state).and_return('cancelled')
+      @reply.should_not be_marked_for_reminding
     end
     
     it "should be reminded if after payment date" do
