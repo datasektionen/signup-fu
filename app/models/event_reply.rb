@@ -82,7 +82,7 @@ class EventReply < ActiveRecord::Base
   def should_be_reminded?
     #puts new?
     #puts Time.now > (created_at + event.payment_time.days)
-    new? &&
+    (new? && unknown?) &&
       Time.now > (created_at + event.payment_time.days)
   end
   

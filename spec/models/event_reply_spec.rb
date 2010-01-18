@@ -303,6 +303,18 @@ describe EventReply do
       @reply.should_not be_marked_for_reminding
     end
     
+    it "should not be reminded if expired" do
+      @event.stub!(:send_mail_for?).with(:ticket_expired).and_return(true)
+
+      Timecop.freeze(8.days.ago) do
+        @reply.remind!
+      end
+
+      @reply.expire!
+
+      @reply.should_not be_marked_for_reminding
+    end
+    
     it "should be reminded if after payment date" do
       @reply.should be_marked_for_reminding
     end

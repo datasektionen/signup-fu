@@ -321,11 +321,6 @@ Scenario: Reminder runs. Wtf NBS flashbacks
   
   When "kalle@example.org" opens the email with subject "Reminder"
   Then I should see "You are hereby reminded" in the email
-  
-  When I go to the event page for "My event"
-  
-  Then I should see "Reminded"
-
 
 Scenario: An expiring unpaid reply
   Given an event "My event"
@@ -354,10 +349,6 @@ Scenario: An expiring unpaid reply
   When "kalle@example.org" opens the email with subject "You haven't paid for My event"
   
   Then I should see "You, Kalle, are bad person. Your ticket is now void" in the email
-  
-  When I go to the event page for "My event"
-  
-  Then I should see "Expired (No payment)"
 
 Scenario: Food weirdness summary
   Given an event "My event"
@@ -516,6 +507,8 @@ Scenario: Marking a guest as attending
   And I fill in "Name" with "Karl Persson"
   And I press "Attending"
   
-  Then I should be on the guest list page for "My event"
-  And I should see "Attending"
+  # TODO how check this now that I've removed it from the guest
+  # list page? (d146f1df6243db70144dac12b4c6d2d6ce9acc10)
+  #Then I should be on the guest list page for "My event"
+  #And I should see "Attending"
 
