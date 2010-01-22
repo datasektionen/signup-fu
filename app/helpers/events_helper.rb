@@ -12,7 +12,7 @@ module EventsHelper
     when :new
       "Unpaid"
     when :reminded
-      "Reminded"
+      "Reminded (#{reply.reminded_at.strftime("%Y-%m-%d")})"
     else
       "Unknown state"
     end
