@@ -28,6 +28,7 @@ Rails::Initializer.run do |config|
   config.gem "state_machine"
   config.gem "calendar_date_select"
   config.gem 'RedCloth'
+  config.gem 'formtastic'
   #config.gem "ianwhite-pickle", :lib => "pickle", :source => "http://gems.github.com"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
@@ -48,6 +49,6 @@ Rails::Initializer.run do |config|
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
-  config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+  config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
   #config.i18n.default_locale = :'sv-SE'
 end
