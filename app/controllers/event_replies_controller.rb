@@ -1,6 +1,6 @@
 class EventRepliesController < ApplicationController
   before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy, :permit]
-  before_filter :require_event_session_or_user, :only => [:names, :set_attending, :index, :economy, :permit, :edit]
+  before_filter :require_event_session_or_user, :only => [:names, :set_attending, :index, :economy, :permit]
   
   skip_before_filter :require_user
   
@@ -28,10 +28,13 @@ class EventRepliesController < ApplicationController
   def edit
     @reply = EventReply.find(params[:id])
     @event = @reply.event
+    require_event_session_or_user
   end
   
   def update
     @reply = EventReply.find(params[:id])
+    @event = @reply.event
+    require_event_session_or_user
     
     if @reply.update_attributes(params[:event_reply])
       flash[:notice] = "Updated event reply"
