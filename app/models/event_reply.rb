@@ -51,7 +51,7 @@ class EventReply < ActiveRecord::Base
   before_validation :format_pid
   
   named_scope :ascend_by_name, :order => 'name ASC'
-  named_scope :not_cancelled, :conditions => ["guest_state != 'cancelled'"]
+  named_scope :not_cancelled, :conditions => ["guest_state != 'cancelled' AND payment_state != 'expired'"]
   named_scope :not_attending, :conditions => ["guest_state != 'cancelled' AND guest_state != 'attending'"]
   named_scope :paid, :conditions => ["payment_state = 'paid'"]
   
