@@ -268,6 +268,18 @@ describe EventReply do
       
       @reply.should be_marked_for_expire
     end
+    
+    it "should not be expired if cancelled" do
+      @reply.stub!(:created_at).and_return(30.days.ago)
+      Timecop.freeze(10.days.ago) do
+        @reply.remind!
+      end
+
+      @reply.cancel!
+      
+      @reply.should_not be_marked_for_expire
+    end
+    
     #
     #it "should not be expired unless reminded once"
   end

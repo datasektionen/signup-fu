@@ -75,6 +75,7 @@ class EventReply < ActiveRecord::Base
     #puts Time.now > (reminded_at + event.expire_time_from_reminder.days)
     reminded? &&
       !paid? &&
+      !cancelled? && 
       Time.now > (created_at + event.payment_time.days) &&
       Time.now > (reminded_at + event.expire_time_from_reminder.days)
   end
