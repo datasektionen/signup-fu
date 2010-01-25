@@ -69,10 +69,6 @@ class EventReply < ActiveRecord::Base
   end
   
   def should_be_expired?
-    #puts reminded?
-    #puts paid?
-    #puts Time.now > (created_at + event.payment_time.days) 
-    #puts Time.now > (reminded_at + event.expire_time_from_reminder.days)
     reminded? &&
       !paid? &&
       !cancelled? && 
@@ -81,8 +77,6 @@ class EventReply < ActiveRecord::Base
   end
   
   def should_be_reminded?
-    #puts new?
-    #puts Time.now > (created_at + event.payment_time.days)
     (new? && unknown?) &&
       Time.now > (created_at + event.payment_time.days)
   end
