@@ -83,7 +83,7 @@ class EventRepliesController < ApplicationController
     if request.post?
       update_economy
     else
-      @replies = @event.replies.not_cancelled
+      @replies = @event.replies
     end
   end
   

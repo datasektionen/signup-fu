@@ -17,6 +17,7 @@
         <th>Payment ref</th>
       <% end %>
       <th>Name</th>
+      <th>Guest state</th>
       <th>Payment state</th>
       <th>Mark as paid</th>
     </tr>
@@ -27,6 +28,7 @@
           <td><%= reply.payment_reference %></td>
         <% end -%>
         <td><%= reply.name %></td>
+        <td><%= guest_state(reply) %></td>
         <td><%= payment_state(reply) %></td>
         <td>
           <% unless reply.paid? || reply.expired? %>
