@@ -54,6 +54,8 @@ class EventReply < ActiveRecord::Base
   named_scope :not_cancelled, :conditions => ["guest_state != 'cancelled' AND payment_state != 'expired'"]
   named_scope :not_attending, :conditions => ["guest_state != 'cancelled' AND guest_state != 'attending'"]
   named_scope :paid, :conditions => ["payment_state = 'paid'"]
+  named_scope :unpaid, :conditions => ["payment_state = 'new'"]
+  named_scope :reminded, :conditions => ["payment_state = 'reminded'"]
   
   def self.pay(ids)
     now = Time.now

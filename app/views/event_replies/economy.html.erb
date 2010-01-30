@@ -10,6 +10,28 @@
 
 <h2>Economy</h2>
 
+<h3>Summary</h3>
+
+<table class="vertical_header">
+  <tr>
+    <th>Total (Uncancelled, Unexpired)</th>
+    <td><%= @event.replies.not_cancelled.count %></td>
+  </tr>
+  <tr>
+    <th>Paid</th>
+    <td><%= @event.replies.not_cancelled.paid.count %></td>
+  </tr>
+  
+  <tr>
+    <th>Unpaid (Not including cancelled, expired. Including reminded)</th>
+    <td><%= @event.replies.not_cancelled.unpaid.count + @event.replies.not_cancelled.reminded.count %></td>
+  </tr>
+  <tr>
+    <th>Reminded and unpaid</th>
+    <td><%= @event.replies.not_cancelled.reminded.count %></td>
+  </tr>
+</table>
+
 <% form_tag(economy_event_event_replies_path(@event)) do %>
   <table id="economy_report_table">
     <tr>
