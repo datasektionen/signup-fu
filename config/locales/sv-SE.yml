@@ -59,6 +59,9 @@
     new:
       signup_confirmation: Bekräftelse på bokning
       payment_registered: Betalningsbekräftelse
+      ticket_types: Biljettyper
+      ticket_type_name: Biljettnamn {{number}}
+      ticket_type_price: Biljettpris {{number}}
     show:
       permit: Tillståndsrapport
       guests: Gästlista

@@ -38,8 +38,8 @@ When /^I create the event "([^\"]*)"$/ do |event_name|
   When %{I fill in "Deadline" with "2009-08-08 08:08"}
   When %q{I fill in "Max guests" with "0"}
   When %q{I fill in "Signup message" with "Foobar!"}
-  When %q{I fill in "Ticket type 1 name" with "With alcohol"}
-  When %q{I fill in "Ticket type 1 price" with "100"}
+  When %q{I fill in "Biljettnamn 1" with "With alcohol"}
+  When %q{I fill in "Biljettpris 1" with "100"}
   When %q{I press "Create event"}
 end
 
@@ -151,8 +151,8 @@ end
 When /^I fill in the following ticket types:$/ do |table|
   table.raw.each_with_index do |ticket, i|
     ticket_name, ticket_price = ticket
-    fill_in "Ticket type #{i + 1} name", :with => ticket_name
-    fill_in "Ticket type #{i + 1} price", :with => ticket_price
+    fill_in "Biljettpris #{i + 1}", :with => ticket_price
+    fill_in "Biljettnamn #{i + 1}", :with => ticket_name
   end
 end
 

@@ -29,8 +29,8 @@ Scenario: Creating a new event without max number of guests
   And I fill in "Max guests" with "0"
   And I fill in "Signup message" with "Foobar!"
   
-  And I fill in "Ticket type 1 name" with "With alcohol"
-  And I fill in "Ticket type 1 price" with "100"
+  And I fill in "Biljettnamn 1" with "With alcohol"
+  And I fill in "Biljettpris 1" with "100"
   And I press "Create event"
   
   Then I should be on the event page for "My event"
@@ -50,11 +50,11 @@ Scenario: Creating a new event with prices
   And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Max guests" with "0"
   
-  And I fill in "Ticket type 1 price" with "199"
-  And I fill in "Ticket type 1 name" with "With alcohol"
+  And I fill in "Biljettpris 1" with "199"
+  And I fill in "Biljettnamn 1" with "With alcohol"
   
-  And I fill in "Ticket type 2 price" with "179"
-  And I fill in "Ticket type 2 name" with "Without alcohol"
+  And I fill in "Biljettpris 2" with "179"
+  And I fill in "Biljettnamn 2" with "Without alcohol"
   
   And I press "Create event"
   
@@ -104,8 +104,8 @@ Scenario: Creating a new event with confirmation mail
   And I fill in "Date" with "2009-09-09 09:09"
   And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Max guests" with "0"
-  And I fill in "Ticket type 1 name" with "With alcohol"
-  And I fill in "Ticket type 1 price" with "100"
+  And I fill in "Biljettnamn 1" with "With alcohol"
+  And I fill in "Biljettpris 1" with "100"
   
   And I check "Bekräftelse på bokning"
   And I fill in "Ämnesrad" with "Welcome" in "signup_confirmation_settings"
@@ -141,8 +141,8 @@ Scenario: Creating a new event with confirmation mail - default message
   And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Max guests" with "0"
   
-  And I fill in "Ticket type 1 name" with "With alcohol"
-  And I fill in "Ticket type 1 price" with "100"
+  And I fill in "Biljettnamn 1" with "With alcohol"
+  And I fill in "Biljettpris 1" with "100"
   
   And I check "Bekräftelse på bokning"
   
@@ -172,8 +172,8 @@ Scenario: Creating a new event with payment mail
   And I fill in "Deadline" with "2009-08-08 08:08"
   And I fill in "Max guests" with "0"
   
-  And I fill in "Ticket type 1 name" with "With alcohol"
-  And I fill in "Ticket type 1 price" with "100"
+  And I fill in "Biljettnamn 1" with "With alcohol"
+  And I fill in "Biljettpris 1" with "100"
   
   And I check "Betalningsbekräftelse"
   And I fill in "Ämnesrad" with "Payment" in "payment_registered_settings"
