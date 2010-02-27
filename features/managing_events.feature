@@ -512,3 +512,25 @@ Scenario: Marking a guest as attending
   #Then I should be on the guest list page for "My event"
   #And I should see "Attending"
 
+Scenario: Viewing guest list to a non-food event
+  Given an event "My event" with fields:
+    | Name                 | Value |
+    | use_food_preferences | false |
+  And a guest to "My event" called "Karl Persson"
+    ||
+  
+  When I go to the event page for "My event"
+  And I fill in "Password" with "WordPass"
+  And I press "Logga in"
+  
+  Then I should not see "Matpreferenser"
+  And I should not see "Andra matpreferenser"
+  
+  When I go to the guest list page for "My event"
+  
+  Then I should not see "Matpreferenser"
+  And I should not see "Andra matpreferenser"
+
+
+
+

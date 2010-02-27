@@ -16,17 +16,18 @@
 - if @event.require_pid?
   = f.text_field :pid, :caption => t('event_replies.form.pid'), :class => 'text'
 
-%div{:style => 'width: 330px'}
-  %h3 Matpreferenser
-  
-  %li
-    %ul
-      - FoodPreference.all.each do |food_pref|
-        %li
-          = f.check_box_tag 'event_reply[food_preference_ids][]', food_pref.id, @reply.food_preferences.include?(food_pref), :id => dom_id(food_pref, "checkbox")
-          = f.label_tag dom_id(food_pref, "checkbox"), food_pref.name
-          
-= f.text_area :food, :caption => t('event_replies.form.food'), :rows => 5
+- if @event.use_food_preferences?
+  %div{:style => 'width: 330px'}
+    %h3 Matpreferenser
+    
+    %li
+      %ul
+        - FoodPreference.all.each do |food_pref|
+          %li
+            = f.check_box_tag 'event_reply[food_preference_ids][]', food_pref.id, @reply.food_preferences.include?(food_pref), :id => dom_id(food_pref, "checkbox")
+            = f.label_tag dom_id(food_pref, "checkbox"), food_pref.name
+            
+  = f.text_area :food, :caption => t('event_replies.form.food'), :rows => 5
   
 = f.text_area :comments, :caption => t('event_replies.form.comments'), :rows => 5
 

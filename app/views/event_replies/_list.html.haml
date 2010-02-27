@@ -18,8 +18,9 @@
     %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('event_replies.form.name')
     %th{:style =>"width: 200px; max-width: 200px; min-width: 200px"}= t('event_replies.form.email')
     %th{:style =>"width: 50px; max-width: 50px; min-width: 50px"}= t('event_replies.form.ticket_type')
-    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= EventReply.human_attribute_name("food_preferences")
-    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('event_replies.form.food')
+    - if @event.use_food_preferences?
+      %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= EventReply.human_attribute_name("food_preferences")
+      %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('event_replies.form.food')
     %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('event_replies.form.comments')
     %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} &nbsp;
     %th &nbsp;
@@ -29,8 +30,9 @@
       %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= reply.name 
       %td{:style => "width: 200px; max-width: 200px; min-width: 200px"}= reply.email 
       %td{:style => "width: 50px; max-width: 50px; min-width: 50px"}= reply.ticket_type.name 
-      %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= food_preferences(reply)
-      %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= reply.food 
+      - if @event.use_food_preferences?
+        %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= food_preferences(reply)
+        %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= reply.food 
       %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= reply.comments 
       %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}
         - unless reply.attending?
@@ -39,14 +41,15 @@
           = link_to t('remove'), event_reply_path(reply), :method => :delete, :confirm => t(".remove_confirmation", :name => reply.name)
         = link_to t('edit'), edit_event_reply_path(reply)
 
-%table#food_preferences_summary.vertical_header
-  %tr
-    %th= t('.number_of') 
-    %td &nbsp;
-  - FoodPreference.all.each do |food_preference|
+- if @event.use_food_preferences?
+  %table#food_preferences_summary.vertical_header
     %tr
-      %th= food_preference.name
-      %td= replies.to_a.select { |r| r.food_preferences.include?(food_preference) }.size
-
+      %th= t('.number_of') 
+      %td &nbsp;
+    - FoodPreference.all.each do |food_preference|
+      %tr
+        %th= food_preference.name
+        %td= replies.to_a.select { |r| r.food_preferences.include?(food_preference) }.size
+  
 
 

@@ -62,6 +62,9 @@
       ticket_types: Biljettyper
       ticket_type_name: Biljettnamn {{number}}
       ticket_type_price: Biljettpris {{number}}
+      title: Nytt event
+    common_fields:
+      use_food_preferences: Använd matpreferenser
     show:
       permit: Tillståndsrapport
       guests: Gästlista

@@ -173,7 +173,17 @@ Feature: Signing up
   
     Then I should see "Du har nu bokat en biljett till My pid event"
   
-    
+Scenario: Signing up to a foodless event
+  Given an event "My event" with fields:
+    | Name                 | Value |
+    | use_food_preferences | false |
+
+  When I go to the new reply page for "My event"
+
+  Then I should not see "Matpreferenser"
+  And I should not see "Andra matpreferenser"
+
+
 #    Feature: Cucumber stock keeping
 #      In order to avoid interruption of cucumber consumption
 #      As a citizen of Cucumbia
