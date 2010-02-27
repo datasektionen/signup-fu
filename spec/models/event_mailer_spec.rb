@@ -51,7 +51,10 @@ describe EventMailer do
     end
     
     it "should get the confirmation template" do
-      @template_proxy.should_receive(:by_name).with(:signup_confirmation)
+      @template_proxy.should_receive(:by_name).with(:signup_confirmation).and_return(mock_model(MailTemplate, 
+        :render_body => "body",
+        :render_subject => "subject"
+      ))
       EventMailer.create_signup_confirmation(@reply)
     end
     
@@ -71,7 +74,10 @@ describe EventMailer do
     end
     
     it "should get the correct template" do
-      @template_proxy.should_receive(:by_name).with(:payment_registered)
+      @template_proxy.should_receive(:by_name).with(:payment_registered).and_return(mock_model(MailTemplate, 
+        :render_body => "body",
+        :render_subject => "subject"
+      ))
       EventMailer.create_payment_registered(@reply)
     end
     
