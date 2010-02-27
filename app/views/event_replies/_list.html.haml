@@ -21,11 +21,11 @@
     %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= EventReply.human_attribute_name("food_preferences")
     %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('event_replies.form.food')
     %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('event_replies.form.comments')
-    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= &nbsp;
+    %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} &nbsp;
     %th &nbsp;
     
   - replies.each do |reply|
-    %tr{:class => "#{cycle('even', 'odd')}"
+    %tr{:class => "#{cycle('even', 'odd')}"}
       %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= reply.name 
       %td{:style => "width: 200px; max-width: 200px; min-width: 200px"}= reply.email 
       %td{:style => "width: 50px; max-width: 50px; min-width: 50px"}= reply.ticket_type.name 
@@ -41,7 +41,7 @@
 
 %table#food_preferences_summary.vertical_header
   %tr
-    %th= t('number_of') 
+    %th= t('.number_of') 
     %td &nbsp;
   - FoodPreference.all.each do |food_preference|
     %tr

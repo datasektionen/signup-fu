@@ -13,27 +13,27 @@ Feature: Signing up
     And I should see "Without alcohol (80 kr)"
     
   
-  Scenario Outline: Signing up on free event
-    Given an event "My event" with fields:
-      | Name           | Value                    |
-      | signup_message | Thank you for signing up |
-    
-    When I go to the new reply page for "My event"
-    
-    Then I should see "Boka biljett till My event"
-    
-    And I fill in "Namn" with "<name>"
-    And I fill in "E-postadress" with "<email>"
-    And I press "Boka"
-    
-    Then the <kind> flash should contain "<flash message>" 
-    And I should see "<message>"
-    
-    Examples:
-      | name         | email | kind   | flash message        | message                  |
-      | Karl Persson | kalle | notice |                      | Thank you for signing up |
-      |              | kalle | error  |                      | Namn måste anges         |
-      | Karl Persson |       | error  |                      | Email måste anges        |
+#  Scenario Outline: Signing up on free event
+#    Given an event "My event" with fields:
+#      | Name           | Value                    |
+#      | signup_message | Thank you for signing up |
+#    
+#    When I go to the new reply page for "My event"
+#    
+#    Then I should see "Boka biljett till My event"
+#    
+#    And I fill in "Namn" with "<name>"
+#    And I fill in "E-postadress" with "<email>"
+#    And I press "Boka"
+#    
+#    Then the <kind> flash should contain "<flash message>" 
+#    And I should see "<message>"
+#    
+#    Examples:
+#      | name         | email | kind   | flash message        | message                  |
+#      | Karl Persson | kalle | notice |                      | Thank you for signing up |
+#      |              | kalle | error  |                      | Namn måste anges         |
+#      | Karl Persson |       | error  |                      | Email måste anges        |
   
   Scenario: Mail notification when signing up
     Given an event "My event"
@@ -117,7 +117,7 @@ Feature: Signing up
     
     When I go to the event page for "My event"
     And I fill in "Password" with "WordPass"
-    And I press "Login"
+    And I press "Logga in"
     
     Then I should see "Vegan"
     #And I should see "1 Vegan"
@@ -151,7 +151,7 @@ Feature: Signing up
     When I check "Jag godkänner villkoren"
     And I press "Boka"
     
-    Then I should see "You have been successfully signed up to My legal event"
+    Then I should see "Du har nu bokat en biljett till My legal event"
     
   Scenario: Signing up to event with personal identity number requirement
     Given an event "My pid event" with fields:
@@ -171,7 +171,7 @@ Feature: Signing up
     When I fill in "Personnummer" with "841027-0196"
     And I press "Boka"
   
-    Then I should see "You have been successfully signed up"
+    Then I should see "Du har nu bokat en biljett till My pid event"
   
     
 #    Feature: Cucumber stock keeping

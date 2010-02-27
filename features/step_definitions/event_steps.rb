@@ -29,8 +29,7 @@ Given /^an event "([^\"]*)" with fields:$/ do |name, table|
 end
 
 When /^I create the event "([^\"]*)"$/ do |event_name|
-  When %q{I go to the homepage}
-  When %q{I follow "New event"}
+  When %q{I go to the new event page}
   When %q{I fill in "Name" with "My event"}
   When %q{I fill in "Password" with "WordPass"}
   When %q{I fill in "Password confirmation" with "WordPass"}
@@ -125,13 +124,13 @@ end
 
 When /^the ticket expire process is run for "([^\"]*)"$/ do |event_name|
   When %{I go to the economy page for "#{event_name}"}
-  When %{I follow "Expiry run"}
+  When %{I follow "Expiry-körning"}
 end
 
 When /^the reminder process is run for "([^\"]*)"$/ do |event_name|
   When %{I log in to the event page for "#{event_name}"}
   When %{I go to the economy page for "#{event_name}"}
-  When %{I follow "Reminder run"}
+  When %{I follow "Påminnelsekörning"}
 end
 
 
@@ -167,7 +166,7 @@ When /^I log in to the event page for "([^\"]*)"$/ do |event_name|
   event = Event.find_by_name(event_name)
   visit event_path(event)
   fill_in "Password", :with => 'WordPass'
-  click_button("Login")
+  click_button("Logga in")
 end
 
 

@@ -7,10 +7,7 @@
       %li
         = f.radio_button :ticket_type_id, ticket_type.id 
         %label{:for => "event_reply_ticket_type_id_#{ticket_type.id}"}
-          = ticket_type.name
-          (
-          = ticket_type.price
-          )
+          = "#{ticket_type.name} (#{ticket_type.price} kr)"
           
 
 = f.text_field :name, :caption => t('event_replies.form.name'), :class => 'text'

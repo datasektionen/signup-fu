@@ -22,7 +22,7 @@ Scenario Outline: Access denied for not logged in
   
   When I go to <page>
   
-  Then I should see "Access denied"
+  Then I should see "Du har inte rätt att se denna sida"
   And I should not be on the login page
   
   Examples:

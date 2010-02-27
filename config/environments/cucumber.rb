@@ -29,4 +29,3 @@ config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.
 
 config.gem "shoulda"
 config.gem "factory_girl"
-config.gem 'email_spec'

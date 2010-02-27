@@ -19,7 +19,7 @@ Scenario: Showing a getting started box
 
 Scenario: Creating a new event without max number of guests
   Given I am on the homepage
-  And I follow "New event"
+  And I go to the new event page
   And I fill in "Name" with "My event"
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
@@ -40,7 +40,7 @@ Scenario: Creating a new event without max number of guests
 Scenario: Creating a new event with prices
   Given I am on the homepage
   
-  When I follow "New event"
+  When I go to the new event page
   And I fill in "Name" with "My event"
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
@@ -70,7 +70,7 @@ Scenario: Creating a new event with prices
 Scenario: Creating a new event without mails
   Given I am on the homepage
   
-  When I follow "New event"
+  When I go to the new event page
   And I fill in "Name" with "My event"
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
@@ -95,7 +95,7 @@ Scenario: Creating a new event without mails
 Scenario: Creating a new event with confirmation mail
   Given I am on the homepage
   
-  When I follow "New event"
+  When I go to the new event page
   And I fill in "Name" with "My event"
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
@@ -107,9 +107,9 @@ Scenario: Creating a new event with confirmation mail
   And I fill in "Ticket type 1 name" with "With alcohol"
   And I fill in "Ticket type 1 price" with "100"
   
-  And I check "Signup confirmation"
-  And I fill in "Subject" with "Welcome" in "signup_confirmation_settings"
-  And I fill in "Body" with "Welcome to {{EVENT_NAME}}" in "signup_confirmation_settings"
+  And I check "Bekräftelse på bokning"
+  And I fill in "Ämnesrad" with "Welcome" in "signup_confirmation_settings"
+  And I fill in "Brödtext" with "Welcome to {{EVENT_NAME}}" in "signup_confirmation_settings"
   
   And I fill in "Bounce address" with "foo@example.org"
   
@@ -131,7 +131,7 @@ Scenario: Creating a new event with confirmation mail
 Scenario: Creating a new event with confirmation mail - default message
   Given I am on the homepage
   
-  When I follow "New event"
+  When I go to the new event page
   And I fill in "Name" with "My event"
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
@@ -144,25 +144,25 @@ Scenario: Creating a new event with confirmation mail - default message
   And I fill in "Ticket type 1 name" with "With alcohol"
   And I fill in "Ticket type 1 price" with "100"
   
-  And I check "Signup confirmation"
+  And I check "Bekräftelse på bokning"
   
   # The texts are in config/settings.yml
-  Then "Subject" in "signup_confirmation_settings" should have text "Thank you for signing up to {{EVENT_NAME}}"
-  And "Body" in "signup_confirmation_settings" should have text "Welcome to {{EVENT_NAME}}!"
+  Then "Ämnesrad" in "signup_confirmation_settings" should have text "Thank you for signing up to {{EVENT_NAME}}"
+  And "Brödtext" in "signup_confirmation_settings" should have text "Welcome to {{EVENT_NAME}}!"
   
-  And "Subject" in "payment_registered_settings" should have text "Payment registered for {{EVENT_NAME}}"
-  And "Body" in "payment_registered_settings" should have text "Your payment for {{EVENT_NAME}} is now registered!"
+  And "Ämnesrad" in "payment_registered_settings" should have text "Payment registered for {{EVENT_NAME}}"
+  And "Brödtext" in "payment_registered_settings" should have text "Your payment for {{EVENT_NAME}} is now registered!"
   
   
-  And "Subject" in "ticket_expired_settings" should have text "Your ticket to {{EVENT_NAME}} has expired"
-  And "Body" in "ticket_expired_settings" should have text "No more ticket to {{EVENT_NAME}} for you!"
+  And "Ämnesrad" in "ticket_expired_settings" should have text "Your ticket to {{EVENT_NAME}} has expired"
+  And "Brödtext" in "ticket_expired_settings" should have text "No more ticket to {{EVENT_NAME}} for you!"
   
 
 Scenario: Creating a new event with payment mail
   
   Given I am on the homepage
   
-  When I follow "New event"
+  When I go to the new event page
   And I fill in "Name" with "My event"
   And I choose "Default"
   And I fill in "Password" with "WordPass"
@@ -176,8 +176,8 @@ Scenario: Creating a new event with payment mail
   And I fill in "Ticket type 1 price" with "100"
   
   And I check "Payment confirmation"
-  And I fill in "Subject" with "Payment" in "payment_registered_settings"
-  And I fill in "Body" with "Your ticket to {{EVENT_NAME}} is now paid" in "payment_registered_settings"
+  And I fill in "Ämnesrad" with "Payment" in "payment_registered_settings"
+  And I fill in "Brödtext" with "Your ticket to {{EVENT_NAME}} is now paid" in "payment_registered_settings"
   
   And I fill in "Bounce address" with "foo@example.org"
   
@@ -196,7 +196,7 @@ Scenario: Creating a new event with payment mail
 Scenario: Creating a new event with ticket expiry
   Given I am on the homepage
   
-  When I follow "New event"
+  When I go to the new event page
   And I fill in "Name" with "My event"
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
@@ -208,14 +208,14 @@ Scenario: Creating a new event with ticket expiry
   
   And I check "ticket_expired"
   And I fill in "Payment time" with "10"
-  And I fill in "Subject" with "No payment received" in "ticket_expired_settings"
-  And I fill in "Body" with "Your ticket to {{EVENT_NAME}} is now expired" in "ticket_expired_settings"
+  And I fill in "Ämnesrad" with "No payment received" in "ticket_expired_settings"
+  And I fill in "Brödtext" with "Your ticket to {{EVENT_NAME}} is now expired" in "ticket_expired_settings"
   
   # För javascriptad checkbox
   And I fill in "event_mail_templates_ticket_expire_reminder_enabled" with "1"
   And I fill in "Reminder time" with "3"
-  And I fill in "Subject" with "Reminder" in "ticket_expire_reminder_settings"
-  And I fill in "Body" with "Your are hereby reminded" in "ticket_expire_reminder_settings"
+  And I fill in "Ämnesrad" with "Reminder" in "ticket_expire_reminder_settings"
+  And I fill in "Brödtext" with "Your are hereby reminded" in "ticket_expire_reminder_settings"
   
   And I fill in "Bounce address" with "foo@example.org"
   
@@ -269,7 +269,7 @@ Scenario: Viewing an event
   
   When I go to the event page for "My event"
   And I fill in "Password" with "WordPass"
-  And I press "Login"
+  And I press "Logga in"
   
   Then I should see "My event"
   And I should see "2010-09-09"
@@ -277,7 +277,7 @@ Scenario: Viewing an event
 
 Scenario: Creating an event with a pay before date
   Given I am on the homepage
-  And I follow "New event"
+  And I go to the new event page
   And I fill in "Name" with "My event"
   And I fill in "Password" with "WordPass"
   And I fill in "Password confirmation" with "WordPass"
@@ -368,9 +368,9 @@ Scenario: Food weirdness summary
   
   When I go to the event page for "My event"
   And I fill in "Password" with "WordPass"
-  And I press "Login"
+  And I press "Logga in"
   
-  Then I should see "Number of..."
+  Then I should see "Antal..."
   And the food preferences summary should show 2 Vegetarian
   And the food preferences summary should show 1 Vegan
 
@@ -379,21 +379,21 @@ Scenario: Adding a guest when logged in as an admin
   Given an event "My event"
   When I go to the event page for "My event"
   And I fill in "Password" with "WordPass"
-  And I press "Login"
+  And I press "Logga in"
   
-  When I follow "Add guest"
+  When I follow "Ny gäst"
     
-  Then I should see "Administrative functions"
-  And I should not see "Send signup confirmation mail"
+  Then I should see "Administrativa funktioner"
+  And I should not see "Skicka bekräftelse på bokning"
   
   And "My event" has mail template "signup_confirmation" with fields:
     | Name    | Value         |
     | body    | Yay! Party!   |
     | subject | Confirmation! |
   When I go to the event page for "My event"
-  And I follow "Add guest"
+  And I follow "Ny gäst"
   
-  Then I should see a checkbox "Send signup confirmation mail"
+  Then I should see a checkbox "Skicka bekräftelse på bokning"
 
 
 Scenario: Adding a guest manually with mail sending
@@ -405,15 +405,15 @@ Scenario: Adding a guest manually with mail sending
   
   When I go to the event page for "My event"
   And I fill in "Password" with "WordPass"
-  And I press "Login"
+  And I press "Logga in"
   
-  And I follow "Add guest"
-  And I check "Send signup confirmation mail"
+  And I follow "Ny gäst"
+  And I check "Skicka bekräftelse på bokning"
   And I fill in "Namn" with "Kalle Persson"
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
   
-  Then I should see "You have been successfully signed up"
+  Then I should see "Du har nu bokat en biljett till My event"
   
   When I go to the event page for "My event"
   
@@ -430,14 +430,14 @@ Scenario: Adding a guest as admin without mail sending
   
   When I go to the event page for "My event"
   And I fill in "Password" with "WordPass"
-  And I press "Login"
+  And I press "Logga in"
   
-  And I follow "Add guest"
-  And I uncheck "Send signup confirmation mail"
+  And I follow "Ny gäst"
+  And I uncheck "Skicka bekräftelse på bokning"
   And I fill in "Namn" with "Kalle Persson"
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
-  Then I should see "You have been successfully signed up to "
+  Then I should see "Du har nu bokat en biljett till My event"
   
   When I go to the event page for "My event"
   
@@ -453,17 +453,17 @@ Scenario: Adding a guest to a full event
     ||
   And I am on the event page for "My event"
   And I fill in "Password" with "WordPass"
-  And I press "Login"
+  And I press "Logga in"
   
-  When I follow "Add guest"
+  When I follow "Ny gäst"
   
-  Then I should see "Warning: This event is full! Adding a guest will bypass the max number of guests!"
+  Then I should see "Obs: Detta arrangemang är fullt! Eftersom du är inloggad kan du trots detta lägga till en gäst, men går då förbi maxgränsen."
   
   And I fill in "Namn" with "Nisse Karlsson"
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
   
-  Then I should see "You have been successfully signed up"
+  Then I should see "Du har nu bokat en biljett till My event"
   
   When I go to the event page for "My event"
   Then I should see "Nisse Karlsson"
@@ -478,17 +478,17 @@ Scenario: Adding a guest to an event passed deadline
     
   When I go to the event page for "My event"
   And I fill in "Password" with "WordPass"
-  And I press "Login"
+  And I press "Logga in"
   
-  When I follow "Add guest"
+  When I follow "Ny gäst"
   
-  Then I should see "Warning: Deadline for event My event is passed. However, since you are logged in, you can still add a new guest"
+  Then I should see "Obs: Deadline för My event har passerat. Eftersom du är inloggad kan du trots detta lägga till gäster"
   
   And I fill in "Namn" with "Nisse Karlsson"
   And I fill in "E-postadress" with "kalle@example.org"
   And I press "Boka"
   
-  Then I should see "You have been successfully signed up"
+  Then I should see "Du har nu bokat en biljett till My event"
   
   When I go to the event page for "My event"
   Then I should see "Nisse Karlsson"
@@ -502,10 +502,10 @@ Scenario: Marking a guest as attending
   
   When I go to the guest list page for "My event"
   And I fill in "Password" with "WordPass"
-  And I press "Login"
+  And I press "Logga in"
   
   And I fill in "Name" with "Karl Persson"
-  And I press "Attending"
+  And I press "Pricka av"
   
   # TODO how check this now that I've removed it from the guest
   # list page? (d146f1df6243db70144dac12b4c6d2d6ce9acc10)

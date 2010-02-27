@@ -20,7 +20,7 @@
   = error_messages_for(:reply, :object_name => 'event_reply')
   - signup_fu_form_for([@event, @reply], :id => "new_event_reply") do |f|
     - if admin_view?
-      %h3= t('admin_functions')
+      %h3= t('.admin_functions')
       
       - if @event.send_mail_for?(:signup_confirmation)
         = f.check_box :send_signup_confirmation, :caption => t('.send_signup_confirmation')

@@ -150,9 +150,9 @@ class EventRepliesController < ApplicationController
   end
   
   def set_locale
-    I18n.locale = :'sv-SE'
+    #I18n.locale = :'sv-SE'
     yield
-    I18n.locale = :en
+    #I18n.locale = :en
   end
   
   def render_templated_action(template, action)

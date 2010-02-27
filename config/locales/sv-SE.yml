@@ -16,8 +16,12 @@
       event_full: Tyvärr är max antal anmälda redan anmälda
       deadline_passed_warning: "Obs: Deadline för {{name}} har passerat. Eftersom du är inloggad kan du trots detta lägga till gäster"
       event_full_warning: "Obs: Detta arrangemang är fullt! Eftersom du är inloggad kan du trots detta lägga till en gäst, men går då förbi maxgränsen."
+      admin_functions: Administrativa funktioner
+      send_signup_confirmation: Skicka bekräftelse på bokning
     edit:
       title: Redigera bokning
+    show:
+      default_signup_message: Du har nu bokat en biljett till {{name}}!
     index:
       title: Gäster
       set_attending: Pricka av
@@ -27,6 +31,7 @@
       total_number_of_guests: Totalt antal gäster
       show_active: Visa aktiva
       show_cancelled: Visa avbokade
+      number_of: Antal...
     economy:
       reminder_run: Påminnelsekörning
       expiry_run: Expiry-körning
@@ -48,9 +53,6 @@
       
     remove_confirmation: Är du säger på att du vill ta bort {{name}}?
     number_of: Antal...
-    admin_functions: Administrationsfunktioner
-    send_signup_confirmation: Skicka bekräftelse på bokning
-    default_signup_message: Du har nu bokat en biljett till {{name}}!
     
     
   events:

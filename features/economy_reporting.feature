@@ -11,9 +11,9 @@ Scenario: Marking a reply as paid
   
   When I log in to the event page for "My event"
   
-  And I follow "Economy"
+  And I follow "Ekonomi"
   And I check the paid checkbox for "Kalle"
-  And I press "Save"
+  And I press "Spara"
   
   Then I should see "2009-01-01"
 
@@ -28,10 +28,10 @@ Scenario: Sending a payment reported mail
     | subject | Payment received for {{EVENT_NAME}} |
   
   When I log in to the event page for "My event"
-  And I follow "Economy"
+  And I follow "Ekonomi"
   
   And I check the paid checkbox for "Kalle"
-  And I press "Save"
+  And I press "Spara"
   
   Then "kalle@example.org" should receive 1 emails
   
