@@ -1,3 +1,0 @@
-[submodule "vendor/plugins/email-spec"]
-	path = vendor/plugins/email-spec
-	url = git://github.com/spatrik/email-spec.git
