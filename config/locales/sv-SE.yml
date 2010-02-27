@@ -58,6 +58,7 @@
   events:
     new:
       signup_confirmation: Bekräftelse på bokning
+      payment_registered: Betalningsbekräftelse
     show:
       permit: Tillståndsrapport
       guests: Gästlista

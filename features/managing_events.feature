@@ -175,7 +175,7 @@ Scenario: Creating a new event with payment mail
   And I fill in "Ticket type 1 name" with "With alcohol"
   And I fill in "Ticket type 1 price" with "100"
   
-  And I check "Payment confirmation"
+  And I check "Betalningsbekräftelse"
   And I fill in "Ämnesrad" with "Payment" in "payment_registered_settings"
   And I fill in "Brödtext" with "Your ticket to {{EVENT_NAME}} is now paid" in "payment_registered_settings"
   

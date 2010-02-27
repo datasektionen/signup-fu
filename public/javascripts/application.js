@@ -1,2 +1,8 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+function toggleTicketExpiry() {
+  if ($('ticket_expired').checked) {
+    $('ticket_expired_settings').show();
+    $('event_mail_templates_ticket_expire_reminder_enabled').value = "1"
+  } else {
+    $('ticket_expired_settings').hide();
+  }
+}

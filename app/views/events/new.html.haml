@@ -1,0 +1,88 @@
+%h2= t('.title')
+
+= error_messages_for(:event)
+
+-form_for(@event, :builder => signup_fu_form_builder) do |f|
+  = f.text_field :name, :class => 'title'
+  = render :partial => 'common_fields', :locals => {:f => f}
+  
+  %h3= t('.ticket_types')
+  - ticket_type_index = 0
+  - f.fields_for(:ticket_types) do |ticket_type_form|
+    - ticket_type_index += 1
+    = ticket_type_form.text_field :name, :caption => "Ticket type #{ticket_type_index} name", :class => 'text'
+    = ticket_type_form.text_field :price, :caption => "Ticket type #{ticket_type_index} price", :class => 'text'
+  
+  %h3= t('.signup_confirmation')
+  
+  .mail_template_settings
+    = mail_template_checkbox 'signup_confirmation'
+    
+    #signup_confirmation_settings{:style => 'display: none'}
+      = render :partial => 'mail_template_form', :locals => { :name => 'signup_confirmation', :f => f } 
+  
+  %div{:style => 'clear: both'}
+  
+  %h3= t('.payment_registered')
+  
+  .mail_template_settings
+    = mail_template_checkbox 'payment_registered'
+    
+    #payment_registered_settings{:style => 'display: none'}
+      
+      = render :partial => 'mail_template_form', :locals => { :name => 'payment_registered', :f => f }
+  
+  %div{:style => 'clear: both'}
+  
+  
+  %h3 Reminders and automatic cancellation
+  
+  .mail_template_settings
+    
+    = check_box_tag "event[mail_templates_attributes][ticket_expired][enable]", "1", false, :onclick => "toggleTicketExpiry()", :id => 'ticket_expired'
+    %label{:for => 'ticket_expired'} Last payment (with expire) 
+    
+    #ticket_expired_settings{:style => 'display: none'}
+      = f.text_field :payment_time
+      = f.text_field :expire_time_from_reminder, :caption => 'Reminder time'
+      
+      %h4 Ticket Expired
+      
+      = render :partial => 'mail_template_form', :locals => { :name => 'ticket_expired', :f => f }
+      
+      #ticket_expire_reminder_settings
+        %h4 Reminder
+        = hidden_field_tag "event[mail_templates_attributes][ticket_expire_reminder][enable]", "0", :id => 'event_mail_templates_ticket_expire_reminder_enabled'
+        = render :partial => 'mail_template_form', :locals => { :name => 'ticket_expire_reminder', :f => f }
+        
+  %h3 Bounce address
+  %p.notice
+    This specifies the address that will be used for replies and bounces to emails. 
+    <strong>It is required when sending emails</strong>.
+    
+  = f.text_field :bounce_address
+  
+  %h3 Terms of booking
+  
+  %p.notice
+    This option will let you specify a text which will be shown on the booking page, with a checkbox
+    for accepting. Useful if you want to make sure your guests understand that
+    a signup is binding.
+  
+  %div
+    = check_box_tag "use_terms", "1", false,  :onclick => "$('use_terms').checked ? $('terms_settings').show():$('terms_settings').hide()", :id => 'use_terms'
+    %label{:for => 'use_terms'} Terms of booking
+    
+    #terms_settings{:style => 'display:none'}
+      = f.text_area :terms, :class => 'text'
+  
+  %h3 Password
+  %p.notice
+    To be able to see your guest list and manage payments you need to password protect
+    your event. 
+  = f.password_field :password, :class => 'text'
+  = f.password_field :password_confirmation, :class => 'text' 
+  
+  
+  
+  = f.submit "Create event"
