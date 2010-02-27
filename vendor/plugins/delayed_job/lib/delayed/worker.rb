@@ -1,3 +1,5 @@
+require 'timeout'
+
 module Delayed
   class Worker
     cattr_accessor :min_priority, :max_priority, :max_attempts, :max_run_time, :sleep_delay, :logger
@@ -18,6 +20,17 @@ module Delayed
 
     # name_prefix is ignored if name is set directly
     attr_accessor :name_prefix
+    
+    cattr_reader :backend
+    
+    def self.backend=(backend)
+      if backend.is_a? Symbol
+        require "delayed/backend/#{backend}"
+        backend = "Delayed::Backend::#{backend.to_s.classify}::Job".constantize
+      end
+      @@backend = backend
+      silence_warnings { ::Delayed.const_set(:Job, backend) }
+    end
 
     def initialize(options={})
       @quiet = options[:quiet]
@@ -70,6 +83,26 @@ module Delayed
       Delayed::Job.clear_locks!(name)
     end
     
+    # Do num jobs and return stats on success/failure.
+    # Exit early if interrupted.
+    def work_off(num = 100)
+      success, failure = 0, 0
+
+      num.times do
+        case reserve_and_run_one_job
+        when true
+            success += 1
+        when false
+            failure += 1
+        else
+          break  # leave if no work could be done
+        end
+        break if $exit # leave if we're exiting
+      end
+
+      return [success, failure]
+    end
+    
     def run(job)
       runtime =  Benchmark.realtime do
         Timeout.timeout(self.class.max_run_time.to_i) { job.invoke_job }
@@ -99,7 +132,7 @@ module Delayed
 
     def say(text, level = Logger::INFO)
       puts text unless @quiet
-      logger.add level, text if logger
+      logger.add level, "#{Time.now.strftime('%FT%T%z')}: #{text}" if logger
     end
 
   protected
@@ -127,26 +160,6 @@ module Delayed
       end
 
       run(job) if job
-    end
-
-    # Do num jobs and return stats on success/failure.
-    # Exit early if interrupted.
-    def work_off(num = 100)
-      success, failure = 0, 0
-
-      num.times do
-        case reserve_and_run_one_job
-        when true
-            success += 1
-        when false
-            failure += 1
-        else
-          break  # leave if no work could be done
-        end
-        break if $exit # leave if we're exiting
-      end
-
-      return [success, failure]
     end
   end
 end
