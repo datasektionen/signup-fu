@@ -18,7 +18,13 @@ class EventRepliesController < ApplicationController
   def index
     @replies = @event.replies
     respond_to do |format|
-      format.html
+      format.html do
+        if logged_in?
+          render
+        else
+          render_templated_action(@event.template, 'index')
+        end
+      end
       format.js do
         
       end
