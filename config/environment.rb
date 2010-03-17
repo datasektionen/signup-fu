@@ -29,6 +29,7 @@ Rails::Initializer.run do |config|
   config.gem "calendar_date_select"
   config.gem 'RedCloth'
   config.gem 'formtastic'
+  config.gem 'compass', :version => '0.8.17'
   #config.gem "ianwhite-pickle", :lib => "pickle", :source => "http://gems.github.com"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
