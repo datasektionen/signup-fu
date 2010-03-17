@@ -27,6 +27,7 @@ class MailTemplate < ActiveRecord::Base
     string.gsub!("{{REPLY_NAME}}", reply.name)
     string.gsub!("{{EVENT_NAME}}", event.name)
     string.gsub!("{{PAYMENT_REFERENCE}}", reply.payment_reference)
+    string.gsub!("{{PRICE}}", reply.ticket_type.price.to_s)
     string = parse_last_payment_date(string, event)
 
     string
