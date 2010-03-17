@@ -183,6 +183,24 @@ Scenario: Signing up to a foodless event
   Then I should not see "Matpreferenser"
   And I should not see "Andra matpreferenser"
 
+Scenario: Viewing guest list as a non-admin
+  Given an event "My event"
+  
+  When I go to the new reply page for "My event"
+  And I fill in "Namn" with "Kalle"
+  And I fill in "E-postadress" with "kalle@example.org"
+  And I fill in "Kommentar" with "My gosh, party!"
+  And I fill in "Andra matpreferenser" with "I like cucumbers"
+  And I press "Boka"
+  
+  And I go to the guest list page for "My event"
+  
+  Then I should see "Kalle"
+  And I should see "My gosh, party!"
+  And I should not see "I like cucumbers"
+  And I should not see "kalle@example.org"
+  And I should not see "Ta bort"
+  And I should not see "Redigera"
 
 #    Feature: Cucumber stock keeping
 #      In order to avoid interruption of cucumber consumption

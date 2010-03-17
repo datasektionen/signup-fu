@@ -9,10 +9,13 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   filter_parameter_logging :password, :password_confirmation
-  helper_method :current_user_session, :current_user
+  helper_method :current_user_session, :current_user, :logged_in?
   before_filter :require_user
   
   private
+  def logged_in?
+    !(current_user.nil? && current_event.nil?)
+  end
   def current_user_session
     if @current_user_session.nil?
       @current_user_session = UserSession.find
