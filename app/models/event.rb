@@ -35,7 +35,8 @@ class Event < ActiveRecord::Base
     [
       ['Default', 'default'],
       ['DKM', 'dkm'],
-      ['Plums', 'plums']
+      ['Plums', 'plums'],
+      ['Vårbalen', 'varbalen']
     ]
   end
   def full?
