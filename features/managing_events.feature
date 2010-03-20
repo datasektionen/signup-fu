@@ -500,9 +500,11 @@ Scenario: Marking a guest as attending
   And a guest to "My event" called "Karl Persson"
     ||
   
-  When I go to the guest list page for "My event"
+  When I go to the event page for "My event"
   And I fill in "Password" with "WordPass"
   And I press "Logga in"
+  And I go to the guest list page for "My event"
+  
   
   And I fill in "Name" with "Karl Persson"
   And I press "Pricka av"
@@ -530,7 +532,5 @@ Scenario: Viewing guest list to a non-food event
   
   Then I should not see "Matpreferenser"
   And I should not see "Andra matpreferenser"
-
-
 
 
