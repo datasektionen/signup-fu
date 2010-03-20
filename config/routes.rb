@@ -6,7 +6,6 @@ ActionController::Routing::Routes.draw do |map|
       :reminder_run => :post,
       :expiry_run => :post
     }, :shallow => true do |events|
-    events.resource :event_session
     events.resources :mail_templates
     events.resources :event_replies, :as => 'replies',
       :collection => {

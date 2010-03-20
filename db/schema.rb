@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100320175229) do
+ActiveRecord::Schema.define(:version => 20100320193807) do
 
   create_table "custom_field_values", :force => true do |t|
     t.integer  "event_reply_id"
@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(:version => 20100320175229) do
     t.string   "encrypted_password",        :default => "",    :null => false
     t.string   "persistence_token"
     t.boolean  "getting_started_dismissed", :default => false, :null => false
-    t.string   "auth_name"
     t.text     "terms"
     t.string   "bounce_address"
     t.boolean  "require_pid",               :default => false, :null => false
