@@ -43,6 +43,10 @@ class EventReply < ActiveRecord::Base
   belongs_to :event
   belongs_to :ticket_type
   
+  has_many :custom_field_values
+  accepts_nested_attributes_for :custom_field_values
+  
+  
   has_and_belongs_to_many :food_preferences
   validates_presence_of :event, :name, :email, :ticket_type, :message => 'is required'
   validates_acceptance_of :terms, :accept => "1", :message => "måste accepteras"

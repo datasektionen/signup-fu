@@ -14,6 +14,7 @@ class EventsController < ApplicationController
     @event.mail_templates.build
     
     3.times { @event.ticket_types.build }
+    3.times { @event.custom_fields.build }
   end
   
   def edit

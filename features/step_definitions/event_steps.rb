@@ -156,6 +156,12 @@ When /^I fill in the following ticket types:$/ do |table|
   end
 end
 
+Given /^the event "([^\"]*)" has custom field "([^\"]*)"$/ do |event_name, custom_field_name|
+  event = Event.find_by_name(event_name)
+  event.custom_fields.create!(:name => custom_field_name)
+end
+
+
 Then /^the food preferences summary should show (\d+) (.*)$/ do |count, kind|
   response.body.should match_selector("#food_preferences_summary") do |table|
     table.css("tr").any? { |tr| tr.css("th").first.content == kind && tr.css("td").first.content == count }

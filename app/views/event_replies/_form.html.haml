@@ -28,6 +28,11 @@
             = f.label_tag dom_id(food_pref, "checkbox"), food_pref.name
             
   = f.text_area :food, :caption => t('event_replies.form.food'), :rows => 5
+
+- @event.custom_fields.each do |custom_field|
+  - f.fields_for(:custom_field_values, custom_field.values.build) do |custom_fields_form|
+    = custom_fields_form.hidden_field :custom_field_id
+    = custom_fields_form.text_field :value, :caption => custom_field.name, :class => 'text'
   
 = f.text_area :comments, :caption => t('event_replies.form.comments'), :rows => 5
 

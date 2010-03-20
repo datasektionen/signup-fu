@@ -13,6 +13,13 @@
     = ticket_type_form.text_field :name, :caption => t('.ticket_type_name', :number => ticket_type_index), :class => 'text'
     = ticket_type_form.text_field :price, :caption => t('.ticket_type_price', :number => ticket_type_index), :class => 'text'
   
+  %h3= t('.custom_fields')
+  
+  - custom_field_index = 0
+  - f.fields_for(:custom_fields) do |custom_fields_form|
+    - custom_field_index += 1
+    = custom_fields_form.text_field :name, :caption => t('.custom_field_name', :number => custom_field_index), :class => 'text'
+  
   %h3= t('.signup_confirmation')
   
   .mail_template_settings
