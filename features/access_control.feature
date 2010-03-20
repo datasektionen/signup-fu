@@ -22,22 +22,11 @@ Scenario Outline: Access denied for not logged in
   
   When I go to <page>
   
-  Then I should see "Du har inte rätt att se denna sida"
-  And I should not be on the login page
-  
+  #Then I should be on the login page
+
   Examples:
     | page                              |
     | the events page                   |
-
-Scenario Outline: Access denied with redirect to event login for not logged in
-  Given an event "My event"
-  
-  When I go to <page>
-  
-  Then I should be on the event login page for "My event"
-  
-  Examples:
-    | page                            |
     | the event page for "My event"   |
     | the economy page for "My event" |
     
@@ -47,7 +36,6 @@ Scenario Outline: Access granted for not logged in
   
   Then I should not get an 403 status code
   And I should not be on the login page
-  And I should not be on the event login page for "My event"
 
   Examples: 
     |page|

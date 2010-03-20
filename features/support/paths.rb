@@ -30,10 +30,6 @@ module NavigationHelpers
     when /the login page/
       new_user_session_path
     
-    when /the event login page for "([^\"]*)"/
-      event = Event.find_by_name($1)
-      new_event_event_session_path(event)
-    
     # Add more page name => path mappings here
     
     else

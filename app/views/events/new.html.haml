@@ -83,13 +83,4 @@
     #terms_settings{:style => 'display:none'}
       = f.text_area :terms, :class => 'text'
   
-  %h3 Password
-  %p.notice
-    To be able to see your guest list and manage payments you need to password protect
-    your event. 
-  = f.password_field :password, :class => 'text'
-  = f.password_field :password_confirmation, :class => 'text' 
-  
-  
-  
   = f.submit "Create event"

@@ -1,6 +1,5 @@
 class EventsController < ApplicationController
-  before_filter :load_event, :require_event_session_or_user, :only => [:show, :edit, :update, :destroy, :dismiss_getting_started, :reminder_run, :expiry_run]
-  skip_before_filter :require_user, :except => [:index]
+  before_filter :load_event, :only => [:show, :edit, :update, :destroy, :dismiss_getting_started, :reminder_run, :expiry_run]
   
   def index
     @events = Event.all

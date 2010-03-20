@@ -31,8 +31,6 @@ end
 When /^I create the event "([^\"]*)"$/ do |event_name|
   When %q{I go to the new event page}
   When %q{I fill in "Name" with "My event"}
-  When %q{I fill in "Password" with "WordPass"}
-  When %q{I fill in "Password confirmation" with "WordPass"}
   When %q{I choose "Default"}
   When %{I fill in "Date" with "2009-09-09 09:09"}
   When %{I fill in "Deadline" with "2009-08-08 08:08"}
@@ -171,8 +169,6 @@ end
 When /^I log in to the event page for "([^\"]*)"$/ do |event_name|
   event = Event.find_by_name(event_name)
   visit event_path(event)
-  fill_in "Password", :with => 'WordPass'
-  click_button("Logga in")
 end
 
 

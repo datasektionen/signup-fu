@@ -8,9 +8,7 @@ describe Event do
       :ticket_types => [ticket_type],
       :template => 'default',
       :date => 20.days.from_now,
-      :deadline => 10.days.from_now,
-      :password => 'WordPass',
-      :password_confirmation => 'WordPass'
+      :deadline => 10.days.from_now
     }
     @event = Event.new(@valid_params)
     
