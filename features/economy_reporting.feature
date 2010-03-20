@@ -3,13 +3,16 @@ As a event arranger
 I want to be able to have an economy reporting system
 So that I can keep track of which guests has paid, so that I can send baltic inkasso after the ones that don't, so I can make as much money as possible
 
+Background:
+  Given I am logged in as an admin
+
 Scenario: Marking a reply as paid
   Given now is "2009-01-01"
   And an event "My event"
   And a guest to "My event" called "Kalle"
     ||
   
-  When I log in to the event page for "My event"
+  When I go to the event page for "My event"
   
   And I follow "Ekonomi"
   And I check the paid checkbox for "Kalle"
@@ -27,7 +30,7 @@ Scenario: Sending a payment reported mail
     | body    | Thank you for paying, {{REPLY_NAME}} |
     | subject | Payment received for {{EVENT_NAME}} |
   
-  When I log in to the event page for "My event"
+  When I go to the event page for "My event"
   And I follow "Ekonomi"
   
   And I check the paid checkbox for "Kalle"

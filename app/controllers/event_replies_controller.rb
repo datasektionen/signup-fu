@@ -1,7 +1,7 @@
 class EventRepliesController < ApplicationController
   before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy, :permit]
   #before_filter :require_event_session_or_user, :only => [:names, :set_attending, :economy, :permit]
-  
+  filter_resource_access :additional_collection => {:names => :manage, :permit => :manage, :economy => :manage}# :nested_in => :events, :shallow => true, :context => :replies
   
   around_filter :set_locale, :only => [:new, :create, :show, :edit]
   

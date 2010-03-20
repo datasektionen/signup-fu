@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_filter :load_event, :only => [:show, :edit, :update, :destroy, :dismiss_getting_started, :reminder_run, :expiry_run]
+  filter_resource_access :additional_member => {:expiry_run => :manage, :reminder_run => :manage, :dismiss_getting_started => :manage }
   
   def index
     @events = Event.all

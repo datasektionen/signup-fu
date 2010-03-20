@@ -126,7 +126,6 @@ When /^the ticket expire process is run for "([^\"]*)"$/ do |event_name|
 end
 
 When /^the reminder process is run for "([^\"]*)"$/ do |event_name|
-  When %{I log in to the event page for "#{event_name}"}
   When %{I go to the economy page for "#{event_name}"}
   When %{I follow "Påminnelsekörning"}
 end
@@ -164,11 +163,6 @@ Then /^the food preferences summary should show (\d+) (.*)$/ do |count, kind|
   response.body.should match_selector("#food_preferences_summary") do |table|
     table.css("tr").any? { |tr| tr.css("th").first.content == kind && tr.css("td").first.content == count }
   end
-end
-
-When /^I log in to the event page for "([^\"]*)"$/ do |event_name|
-  event = Event.find_by_name(event_name)
-  visit event_path(event)
 end
 
 

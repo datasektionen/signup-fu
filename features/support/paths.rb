@@ -12,23 +12,28 @@ module NavigationHelpers
       new_event_path
       
     when /the new reply page for "([^\"]*)"/
-      event = Event.find_by_name($1)
+      event = find_event($1)
       new_event_event_reply_path(event)
     
     when /the event page for "([^\"]*)"/
-      event = Event.find_by_name($1)
+      event = find_event($1)
       event_path(event)
       
     when /the economy page for "([^\"]*)"/
-      event = Event.find_by_name($1)
+      event = find_event($1)
       economy_event_event_replies_path(event)
       
     when /the guest list page for "([^\"]*)"/
-      event = Event.find_by_name($1)
+      event = find_event($1)
       event_event_replies_path(event)
+      
+    when /the permit report page for "([^\"]*)"/
+      event = find_event($1)
+      permit_event_event_replies_path(event)
+    
 
     when /the login page/
-      new_user_session_path
+      login_path
     
     # Add more page name => path mappings here
     
@@ -36,6 +41,12 @@ module NavigationHelpers
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in features/support/paths.rb"
     end
+  end
+  
+  def find_event(name)
+    event = Event.find_by_name(name)
+    raise "No event found" if event.nil?
+    event
   end
 end
 

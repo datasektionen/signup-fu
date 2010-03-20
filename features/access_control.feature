@@ -16,20 +16,23 @@ Scenario Outline: Access granted for admin
     | the event page for "My event"    |
     | the new reply page for "My event" |
     | the economy page for "My event"   |
+    | the permit report page for "My event" |
+    
 
 Scenario Outline: Access denied for not logged in
   Given an event "My event"
   
   When I go to <page>
   
-  #Then I should be on the login page
+  Then I should be on the login page
 
   Examples:
     | page                              |
     | the events page                   |
     | the event page for "My event"   |
     | the economy page for "My event" |
-    
+    | the permit report page for "My event" |
+
 Scenario Outline: Access granted for not logged in
   Given an event "My event"
   When I go to <page>
@@ -42,3 +45,6 @@ Scenario Outline: Access granted for not logged in
     | the homepage|
     | the new event page                |
     | the new reply page for "My event"|
+
+Scenario: Only listing own events.
+  

@@ -4,7 +4,7 @@ I want to be able to create, edit and view my events
 So that I can have something that my guests can sign up to, so I get guests to my events
 
 Background:
-  #Given I am logged in as an admin
+  Given I am logged in as an admin
   
 Scenario: Showing a getting started box
   When I create the event "My event"

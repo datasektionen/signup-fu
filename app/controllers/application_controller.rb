@@ -13,6 +13,20 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user, :logged_in?
   
+  before_filter :set_current_user
+  
+  def permission_denied 
+    flash[:error] = "Sorry, you not allowed to access that page."
+    if current_user.nil?
+      redirect_to login_path
+    else
+      render :text => "Access denied", :layout => true
+    end
+  end
+  # permission_denied must be public, since declarative_authorization does
+  # respond_to?...
+  hide_action :permission_denied
+  
   private
   def logged_in?
     !(current_user.nil? && current_event.nil?)
@@ -84,5 +98,9 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
-  protected
+  
+  def set_current_user
+    Authorization.current_user = current_user
+  end
+  
 end

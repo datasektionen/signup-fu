@@ -37,4 +37,5 @@ Factory.define(:admin, :class => User) do |f|
   f.persistence_token Authlogic::Random.hex_token 
   f.single_access_token Authlogic::Random.friendly_token
   f.perishable_token Authlogic::Random.friendly_token
+  f.admin true
 end
