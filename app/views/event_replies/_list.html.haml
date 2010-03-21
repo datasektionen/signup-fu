@@ -26,10 +26,10 @@
         %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= EventReply.human_attribute_name("food_preferences")
         %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('event_replies.form.food')
     %th{:style =>"width: #{width}px; max-width: #{width}px; min-width: #{width}px"}= t('event_replies.form.comments')
-    - if logged_in?
-      - @event.custom_fields.each do |field|
-        %th= field.name
-    
+
+    - @event.custom_fields.each do |field|
+      %th= field.name
+    - if logged_in?    
       %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} &nbsp;
       %th &nbsp;
     
@@ -43,10 +43,10 @@
           %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= food_preferences(reply)
           %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}= reply.food 
       %td{:style => "width: #{width}px; max-width: #{width}px; min-width: #{width}px"}= reply.comments 
+      - @event.custom_fields.each do |field|
+        - value = reply.custom_field_values.detect { |v| v.custom_field == field }
+        %td= value.try(:value)
       - if logged_in?
-        - @event.custom_fields.each do |field|
-          - value = reply.custom_field_values.detect { |v| v.custom_field == field }
-          %td= value.try(:value)
         %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}
           - unless reply.attending?
             =# link_to "Attending", set_attending_event_event_replies_path(@event, :name => reply.name), :method => :post
