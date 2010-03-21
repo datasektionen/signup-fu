@@ -1,0 +1,21 @@
+%h2
+  Events
+%table
+  %tr
+    %th
+      Name
+    %th
+      Date
+    %th
+  - for event in @events
+    %tr
+      %td
+        = link_to event.name, event
+      %td
+        = event.date.strftime("%Y-%m-%d %H:%M")
+      %td
+        = button_link_to "Edit", edit_event_path(event)
+        = button_link_to "Delete", event, :method => :delete, :confirm => "Are you sure you want to delete \"#{event.name}\""
+%p#actions
+  = button_link_to "New event", new_event_path
+.break
