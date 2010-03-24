@@ -12,7 +12,7 @@ describe EventMailer do
       :mail_templates => @template_proxy
     )
     
-    @reply = mock_model(EventReply,
+    @reply = mock_model(Reply,
       :event => @event,
       :name => "Kalle",
       :email => "kalle@example.org"

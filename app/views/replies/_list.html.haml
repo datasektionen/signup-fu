@@ -18,14 +18,14 @@
 
 %table#guest_list_table
   %tr
-    %th{:style =>"width: #{width}px; max-width: #{width}px; min-width: #{width}px"}= t('event_replies.form.name')
+    %th{:style =>"width: #{width}px; max-width: #{width}px; min-width: #{width}px"}= t('replies.form.name')
     - if logged_in?
-      %th{:style =>"width: 200px; max-width: 200px; min-width: 200px"}= t('event_replies.form.email')
-      %th{:style =>"width: 50px; max-width: 50px; min-width: 50px"}= t('event_replies.form.ticket_type')
+      %th{:style =>"width: 200px; max-width: 200px; min-width: 200px"}= t('replies.form.email')
+      %th{:style =>"width: 50px; max-width: 50px; min-width: 50px"}= t('replies.form.ticket_type')
       - if @event.use_food_preferences?
-        %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= EventReply.human_attribute_name("food_preferences")
-        %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('event_replies.form.food')
-      %th{:style =>"width: #{width}px; max-width: #{width}px; min-width: #{width}px"}= t('event_replies.form.comments')
+        %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= Reply.human_attribute_name("food_preferences")
+        %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"}= t('replies.form.food')
+      %th{:style =>"width: #{width}px; max-width: #{width}px; min-width: #{width}px"}= t('replies.form.comments')
 
     - @event.custom_fields.each do |field|
       %th= field.name
@@ -49,10 +49,10 @@
       - if logged_in?
         %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}
           - unless reply.attending?
-            =# link_to "Attending", set_attending_event_event_replies_path(@event, :name => reply.name), :method => :post
+            =# link_to "Attending", set_attending_event_replies_path(@event, :name => reply.name), :method => :post
           - unless reply.cancelled?
-            = link_to t('remove'), event_reply_path(reply), :method => :delete, :confirm => t(".remove_confirmation", :name => reply.name)
-          = link_to t('edit'), edit_event_reply_path(reply)
+            = link_to t('remove'), reply_path(reply), :method => :delete, :confirm => t(".remove_confirmation", :name => reply.name)
+          = link_to t('edit'), edit_reply_path(reply)
 
 - if logged_in?
   - if @event.use_food_preferences?

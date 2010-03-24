@@ -12,14 +12,14 @@ module EventsHelper
   def payment_state(reply)
     case reply.payment_state_name
     when :expired
-      t('event_replies.states.payment.expired')
+      t('replies.states.payment.expired')
     when :paid
-      t('event_replies.states.payment.paid', :at => reply.paid_at.strftime("%Y-%m-%d"))
+      t('replies.states.payment.paid', :at => reply.paid_at.strftime("%Y-%m-%d"))
     when :new
-      t('event_replies.states.payment.new')
+      t('replies.states.payment.new')
     when :reminded
       #"Reminded (#{reply.reminded_at.strftime("%Y-%m-%d")})"
-      t('event_replies.states.payment.reminded')
+      t('replies.states.payment.reminded')
     else
       "Unknown state"
     end
@@ -28,9 +28,9 @@ module EventsHelper
   def guest_state(reply)
     case reply.guest_state_name
     when :unknown
-      t('event_replies.states.guest.new')
+      t('replies.states.guest.new')
     when :cancelled
-      t('event_replies.states.guest.cancelled')
+      t('replies.states.guest.cancelled')
     when :attending
       "Attending"
     else

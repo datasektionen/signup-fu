@@ -17,8 +17,8 @@
       
 -# TODO refactor this
 - if admin_view? || (!@event.deadline.past? && !@event.full?)
-  = error_messages_for(:reply, :object_name => 'event_reply')
-  - signup_fu_form_for([@event, @reply], :id => "new_event_reply") do |f|
+  = error_messages_for(:reply, :object_name => 'reply')
+  - signup_fu_form_for([@event, @reply], :id => "new_reply") do |f|
     - if admin_view?
       %h3= t('.admin_functions')
       
@@ -28,11 +28,11 @@
     = render :partial => 'form', :locals => {:f => f}
     
     - if @event.has_terms?
-      %h3= t('event_replies.form.terms')
+      %h3= t('replies.form.terms')
 
       = simple_format(@event.terms)
 
-      = f.check_box :terms, :caption => t('event_replies.form.accept_terms')
+      = f.check_box :terms, :caption => t('replies.form.accept_terms')
     
-    = f.submit t('event_replies.form.submit')
+    = f.submit t('replies.form.submit')
     

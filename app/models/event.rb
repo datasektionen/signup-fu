@@ -10,7 +10,9 @@ class Event < ActiveRecord::Base
   validate :validate_event_date_and_deadline
   validate :presence_of_bounce_address_when_sending_mails
   
-  has_many :replies, :class_name => 'EventReply', :foreign_key => 'event_id'
+  has_many :replies
+  
+  belongs_to :user
   
   has_many :custom_fields
   accepts_nested_attributes_for :custom_fields, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
@@ -23,7 +25,9 @@ class Event < ActiveRecord::Base
     end
   end
   
-  #using_access_control
+  belongs_to :owner, :class_name => 'User', :foreign_key => 'user_id'
+  
+  using_access_control
   
   accepts_nested_attributes_for :ticket_types, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
   

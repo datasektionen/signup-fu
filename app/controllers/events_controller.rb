@@ -1,16 +1,20 @@
 class EventsController < ApplicationController
-  before_filter :load_event, :only => [:show, :edit, :update, :destroy, :dismiss_getting_started, :reminder_run, :expiry_run]
-  filter_resource_access :additional_member => {:expiry_run => :manage, :reminder_run => :manage, :dismiss_getting_started => :manage }
+  #before_filter :load_event, :only => [:show, :edit, :update, :destroy, :dismiss_getting_started, :reminder_run, :expiry_run]
+  filter_resource_access :additional_member => {
+    :expiry_run => :manage,
+    :reminder_run => :manage,
+    :dismiss_getting_started => :manage
+  }
   
   def index
-    @events = Event.all
+    @events = Event.with_permissions_to(:manage)
   end
   
   def show
   end
   
   def new
-    @event = Event.new
+    @event = Event.new(:user => current_user)
     @event.mail_templates.build
     
     3.times { @event.ticket_types.build }
@@ -32,6 +36,7 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(params[:event])
+    @event.user = current_user
     
     if @event.save
       redirect_to(event_path(@event))
@@ -56,7 +61,7 @@ class EventsController < ApplicationController
     
     Delayed::Job.enqueue(ReminderRun.new(@event.id))
     flash[:notice] = "Reminder run enqueued!"
-    redirect_to(economy_event_event_replies_path(@event))
+    redirect_to(economy_event_replies_path(@event))
   end
   
   def expiry_run
@@ -64,7 +69,7 @@ class EventsController < ApplicationController
     
     Delayed::Job.enqueue(ExpiryRun.new(@event.id))
     flash[:notice] = "Expiry run enqueued"
-    redirect_to(economy_event_event_replies_path(@event))
+    redirect_to(economy_event_replies_path(@event))
   end
   
   private

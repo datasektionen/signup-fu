@@ -25,7 +25,7 @@
     %th Reminded and unpaid
     %td= @event.replies.not_cancelled.reminded.count
 
-- form_tag(economy_event_event_replies_path(@event)) do 
+- form_tag(economy_event_replies_path(@event)) do 
   %table#economy_report_table
     %tr
       - if @event.has_payment_reference? 

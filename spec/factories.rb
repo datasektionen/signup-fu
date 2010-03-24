@@ -6,7 +6,7 @@ Factory.define(:event) do |e|
   e.ref_prefix "MyE"
 end
 
-Factory.define(:reply, :class => EventReply) do |r|
+Factory.define(:reply) do |r|
   r.email "foo@example.org"
   r.name "Kalle Testson"
 end

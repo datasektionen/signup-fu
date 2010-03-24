@@ -75,14 +75,6 @@ Given /^(\d+) guests signed up to "([^\"]*)"$/ do |count, event_name|
   
 end
 
-
-
-#Given /^a guest to "([^\"]*)" called "([^\"]*)"$/ do |event_name, name|
-#  event = Event.find_by_name(event_name)
-#  reply = Factory(:reply, :name => name)
-#  event.replies << reply
-#end
-
 Given /^a guest to "([^\"]*)" called "([^\"]*)"$/ do |event_name, name, table|
   event = Event.find_by_name(event_name)
   
@@ -110,7 +102,9 @@ end
 Given /^that "([^\"]*)" has a payment time of (\d+) days$/ do |event_name, count|
   event = Event.find_by_name(event_name)
   event.payment_time = count.to_i
-  event.save!
+  without_access_control do 
+    event.save!
+  end
 end
 
 Given /^that "([^\"]*)" has a expire time from reminder of (\d+) days$/ do |event_name, count|

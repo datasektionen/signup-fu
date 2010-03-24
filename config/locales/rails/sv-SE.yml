@@ -105,7 +105,7 @@
   activerecord:
     errors:
       models:
-        event_reply:
+        reply:
           attributes:
             terms:
               accepted: apa
@@ -166,10 +166,10 @@
       # login: "Handle"
       # will translate User attribute "login" as "Handle"
     models:
-      event_reply: bokning
+      reply: bokning
     
     attributes:
-      event_reply:
+      reply:
         name: Namn
         terms: villkoren
         pid: Personnummer

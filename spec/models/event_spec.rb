@@ -145,9 +145,9 @@ describe Event do
     
     @event.stub!(:expire_unpaid?).and_return(true)
     
-    unpaid_old_reply = mock_model(EventReply, :event => @event)
+    unpaid_old_reply = mock_model(Reply, :event => @event)
     unpaid_old_reply.stub!(:should_be_reminded?).and_return(true)
-    reply2 = mock_model(EventReply, :event => @event)
+    reply2 = mock_model(Reply, :event => @event)
     reply2.stub!(:should_be_reminded?).and_return(false)
     
     @event.stub!(:replies).and_return([unpaid_old_reply, reply2])
@@ -162,8 +162,8 @@ describe Event do
       Event.stub!(:find).with(@event.id).and_return(@event)
       @event.stub!(:expire_unpaid?).and_return(true)
       
-      reply_that_shall_not_expire = mock_model(EventReply, :event => @event, :should_be_expired? => false)
-      reply_that_shall_expire = mock_model(EventReply, :event => @event, :should_be_expired? => true)
+      reply_that_shall_not_expire = mock_model(Reply, :event => @event, :should_be_expired? => false)
+      reply_that_shall_expire = mock_model(Reply, :event => @event, :should_be_expired? => true)
       @event.stub!(:replies).and_return([reply_that_shall_expire, reply_that_shall_not_expire])
       
       reply_that_shall_not_expire.should_not_receive(:expire)

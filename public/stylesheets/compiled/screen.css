@@ -449,7 +449,7 @@ form li {
 form input[type=submit] {
   margin: 10px;
   margin-left: 20px; }
-form#new_event_reply textarea, form.edit_event_reply textarea {
+form#new_reply textarea, form.edit_reply textarea {
   height: 100px; }
 
 .mail_template_settings {

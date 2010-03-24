@@ -9,10 +9,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100320200347) do
+ActiveRecord::Schema.define(:version => 20100324201047) do
 
   create_table "custom_field_values", :force => true do |t|
-    t.integer  "event_reply_id"
+    t.integer  "reply_id"
     t.integer  "custom_field_id"
     t.string   "value"
     t.datetime "created_at"
@@ -37,27 +37,6 @@ ActiveRecord::Schema.define(:version => 20100320200347) do
     t.string   "locked_by"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "event_replies", :force => true do |t|
-    t.integer  "event_id"
-    t.string   "name"
-    t.string   "email"
-    t.text     "food"
-    t.text     "comments"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "ticket_type_id"
-    t.datetime "paid_at"
-    t.datetime "reminded_at"
-    t.string   "payment_state",  :null => false
-    t.string   "guest_state",    :null => false
-    t.string   "pid"
-  end
-
-  create_table "event_replies_food_preferences", :id => false, :force => true do |t|
-    t.integer "food_preference_id"
-    t.integer "event_reply_id"
   end
 
   create_table "events", :force => true do |t|
@@ -94,6 +73,27 @@ ActiveRecord::Schema.define(:version => 20100320200347) do
     t.string   "subject"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "replies", :force => true do |t|
+    t.integer  "event_id"
+    t.string   "name"
+    t.string   "email"
+    t.text     "food"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "ticket_type_id"
+    t.datetime "paid_at"
+    t.datetime "reminded_at"
+    t.string   "payment_state",  :null => false
+    t.string   "guest_state",    :null => false
+    t.string   "pid"
+  end
+
+  create_table "replies_food_preferences", :id => false, :force => true do |t|
+    t.integer "food_preference_id"
+    t.integer "reply_id"
   end
 
   create_table "ticket_types", :force => true do |t|

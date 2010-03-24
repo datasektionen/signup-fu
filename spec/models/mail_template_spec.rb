@@ -50,7 +50,7 @@ describe MailTemplate do
       time = Time.local(2009, 1, 1)
       Time.stub!(:now).and_return(time)
       @event = mock_model(Event, :name => 'My event', :payment_time => 14)
-      @reply = mock_model(EventReply,
+      @reply = mock_model(Reply,
         :id => 1,
         :event => @event,
         :name => 'Kalle',

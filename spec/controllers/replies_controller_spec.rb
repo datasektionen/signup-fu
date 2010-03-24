@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe EventRepliesController do
+describe RepliesController do
   before do
     activate_authlogic
   end
@@ -10,6 +10,7 @@ describe EventRepliesController do
     before do
       @event = mock_model(Event)
       @event.stub!(:template).and_return("default")
+      @event.stub!(:replies).and_return(mock("proxy thing", :new => Reply.new))
       Event.stub!(:find).with("1").and_return(@event)
     end
     def do_get(options = {})
@@ -54,8 +55,8 @@ describe EventRepliesController do
         :email => 'kalle@example.org',
         :ticket_type_id => 1
       }
-      @reply = mock_model(EventReply, :save => true)
-      EventReply.stub!(:new).and_return(@reply)
+      @reply = mock_model(Reply, :save => true)
+      Reply.stub!(:new).and_return(@reply)
       
       @event = mock_model(Event)
       mock_association(@event, :replies, :new_object => @reply)
@@ -74,10 +75,10 @@ describe EventRepliesController do
       model.stub!(association).and_return(association_proxy)
     end
     
-    def do_post(event_reply_params = {}, params = {})
+    def do_post(reply_params = {}, params = {})
       request.accept = "text/xml"
       general_params = {:format => 'xml', :event_id => @event}.merge(params)
-      post :create, {:event_reply => @valid_params.merge(event_reply_params)}.merge(general_params)
+      post :create, {:reply => @valid_params.merge(reply_params)}.merge(general_params)
     end
     
     it "should create a reply" do

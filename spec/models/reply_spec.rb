@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'net/smtp'
 
-describe EventReply do
+describe Reply do
   before(:each) do
     @event = mock_model(Event)
     @event.stub(:send_mail_for?).with(:signup_confirmation).and_return(false)
@@ -17,7 +17,7 @@ describe EventReply do
       :ticket_type => @ticket_type
     }
     
-    @reply = EventReply.new(@valid_attributes)
+    @reply = Reply.new(@valid_attributes)
   end
   
   it "should be valid" do
@@ -46,12 +46,12 @@ describe EventReply do
     now = Time.now
     Time.stub!(:now).and_return(now)
     
-    reply1 = mock_model(EventReply)
+    reply1 = mock_model(Reply)
     reply1.should_receive(:pay!)
     
-    EventReply.stub!(:find).and_return([reply1])
+    Reply.stub!(:find).and_return([reply1])
     
-    EventReply.pay([1])
+    Reply.pay([1])
   end
   
   it "should not have a paid_at on create" do
@@ -62,7 +62,7 @@ describe EventReply do
     now = Time.now
     Time.stub!(:now).and_return(now)
     
-    reply = EventReply.create!(@valid_attributes)
+    reply = Reply.create!(@valid_attributes)
     reply.pay!
     
     reply.paid_at.should == now
@@ -100,7 +100,7 @@ describe EventReply do
     
       EventMailer.should_receive(:send_later).with(:deliver_payment_registered, @reply)
     
-      EventReply.pay([@reply.id])
+      Reply.pay([@reply.id])
     end
     
     # For use in REST-API
@@ -153,7 +153,7 @@ describe EventReply do
       @event.stub!(:payment_time).and_return(14)
       @event.stub!(:reminder_time).and_return(7)
       
-      @knatte = EventReply.new(
+      @knatte = Reply.new(
         @valid_attributes.with(
           :name => 'Knatte',
           :email => 'knatte@example.org'
@@ -161,7 +161,7 @@ describe EventReply do
       )
       @knatte.stub!(:should_be_expired?).and_return(false)
       
-      @fnatte = EventReply.new(
+      @fnatte = Reply.new(
         @valid_attributes.with(
           :name => 'Fnatte',
           :email => 'fnatte@example.org'
@@ -170,7 +170,7 @@ describe EventReply do
       @fnatte.stub!(:should_be_expired?).and_return(true)
       @fnatte.stub!(:created_at).and_return(21.days.ago)
       
-      #@tjatte = EventReply.new(
+      #@tjatte = Reply.new(
       #  @valid_attributes.with(
       #    :name => 'Tjatte',
       #    :email => 'tjatte@example.org'
@@ -179,7 +179,7 @@ describe EventReply do
       #@tjatte.stub!(:created_at).and_return(7.days.ago)
       
       @replies = [@knatte,@fnatte]
-      EventReply.stub!(:find).and_return(@replies)
+      Reply.stub!(:find).and_return(@replies)
       
       EventMailer.stub!(:deliver_reply_expired_notification)
       EventMailer.stub!(:deliver_ticket_expire_reminder)
@@ -209,7 +209,7 @@ describe EventReply do
   
   describe "#should_be_expired?" do
     before do
-      @reply = EventReply.new(
+      @reply = Reply.new(
         @valid_attributes.with(
           :name => 'Knatte',
           :email => 'knatte@example.org'
@@ -296,7 +296,7 @@ describe EventReply do
     
     
     before do
-      @reply = EventReply.new(
+      @reply = Reply.new(
         @valid_attributes.with(
           :name => 'Knatte',
           :email => 'knatte@example.org'
@@ -364,7 +364,7 @@ describe EventReply do
     @event.stub(:send_mail_for?).with(:signup_confirmation).and_return(true)
     EventMailer.stub!(:deliver_signup_confirmation).and_raise(Net::SMTPFatalError)
     
-    reply = EventReply.new(@valid_attributes)
+    reply = Reply.new(@valid_attributes)
     
     reply.save.should be_true
     
@@ -374,7 +374,7 @@ describe EventReply do
     @event.stub(:send_mail_for?).with(:signup_confirmation).and_return(true)
     EventMailer.stub!(:deliver_signup_confirmation).and_raise(Net::SMTPAuthenticationError)
     
-    reply = EventReply.new(@valid_attributes)
+    reply = Reply.new(@valid_attributes)
     
     reply.save.should be_true
     

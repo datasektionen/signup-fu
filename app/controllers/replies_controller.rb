@@ -1,12 +1,17 @@
-class EventRepliesController < ApplicationController
+class RepliesController < ApplicationController
   before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy, :permit]
   #before_filter :require_event_session_or_user, :only => [:names, :set_attending, :economy, :permit]
-  filter_resource_access :additional_collection => {:names => :manage, :permit => :manage, :economy => :manage}# :nested_in => :events, :shallow => true, :context => :replies
+  filter_resource_access :additional_collection => {
+    :names => :manage,
+    :permit => :manage,
+    :economy => :manage,
+    :set_attending => :manage
+  }, :nested_in => :events, :shallow => true
   
   around_filter :set_locale, :only => [:new, :create, :show, :edit]
   
   def new
-    @reply = EventReply.new
+    #@reply = @event.replies.build
     if admin_view?
       render
     else
@@ -31,19 +36,18 @@ class EventRepliesController < ApplicationController
   end
   
   def edit
-    @reply = EventReply.find(params[:id])
+    @reply = Reply.find(params[:id])
     @event = @reply.event
     require_event_session_or_user
   end
   
   def update
-    @reply = EventReply.find(params[:id])
+    @reply = Reply.find(params[:id])
     @event = @reply.event
-    require_event_session_or_user
     
-    if @reply.update_attributes(params[:event_reply])
+    if @reply.update_attributes(params[:reply])
       flash[:notice] = "Updated event reply"
-      redirect_to(event_event_replies_path(@reply.event))
+      redirect_to(event_replies_path(@reply.event))
     else
       render :action => 'edit'
     end
@@ -58,9 +62,9 @@ class EventRepliesController < ApplicationController
   
   def create
     if request.format == :xml
-      params[:event_reply][:send_signup_confirmation] = false if params[:event_reply][:send_signup_confirmation].nil?
+      params[:reply][:send_signup_confirmation] = false if params[:reply][:send_signup_confirmation].nil?
     end
-    @reply = @event.replies.new(params[:event_reply])
+    @reply = @event.replies.new(params[:reply])
     
     respond_to do |format|
       if @reply.save
@@ -80,7 +84,7 @@ class EventRepliesController < ApplicationController
   end
   
   def show
-    @reply = EventReply.find(params[:id])
+    @reply = Reply.find(params[:id])
     render_templated_action(@reply.event.template, 'show')
   end
   
@@ -97,7 +101,7 @@ class EventRepliesController < ApplicationController
   end
   
   def destroy
-    @reply = EventReply.find(params[:id])
+    @reply = Reply.find(params[:id])
     @reply.cancel!
     flash[:notice] = "Sucessfully removed #{@reply.name}"
     redirect_to(@reply.event)
@@ -122,7 +126,7 @@ class EventRepliesController < ApplicationController
       flash[:error] = "No such guest!"
     end
     
-    redirect_to event_event_replies_path(@event)
+    redirect_to event_replies_path(@event)
   end
   
   
@@ -134,8 +138,8 @@ class EventRepliesController < ApplicationController
   helper_method :admin_view?
   
   def update_economy
-    if EventReply.pay(params[:reply_ids])
-      redirect_to economy_event_event_replies_path(@event)
+    if Reply.pay(params[:reply_ids])
+      redirect_to economy_event_replies_path(@event)
     else
       render :action => 'economy'
     end

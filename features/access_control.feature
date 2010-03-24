@@ -42,9 +42,5 @@ Scenario Outline: Access granted for not logged in
 
   Examples: 
     |page|
-    | the homepage|
     | the new event page                |
     | the new reply page for "My event"|
-
-Scenario: Only listing own events.
-  

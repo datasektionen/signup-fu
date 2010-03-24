@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
       :expiry_run => :post
     }, :shallow => true do |events|
     events.resources :mail_templates
-    events.resources :event_replies, :as => 'replies',
+    events.resources :replies, :as => 'replies',
       :collection => {
         :economy => [:get, :post],
         :permit => :get,
@@ -21,5 +21,5 @@ ActionController::Routing::Routes.draw do |map|
   
   map.login "login", :controller => 'user_sessions', :action => 'new'
   
-  map.root :controller => 'home', :action => 'index'
+  map.root :controller => 'events', :action => 'index'
 end

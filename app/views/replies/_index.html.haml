@@ -7,7 +7,7 @@
   %h3= t('.set_attending')
   %p= t('.attending_instructions')
   
-  -form_tag(set_attending_event_event_replies_path(@event)) do
+  -form_tag(set_attending_event_replies_path(@event)) do
     = label_tag("name")
     = text_field_tag "name"
     %div#autocomplete_name.autocomplete

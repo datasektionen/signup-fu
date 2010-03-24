@@ -1,11 +1,11 @@
 <% content_for :nav do %>
   <% if @event.require_pid? %>
-    <%= button_link_to(t('.permit'), permit_event_event_replies_path(@event)) %>
+    <%= button_link_to(t('.permit'), permit_event_replies_path(@event)) %>
   <% end -%>
-  <%= button_link_to(t(".guests"), event_event_replies_path(@event)) %>
-  <%= button_link_to(t(".economy"), economy_event_event_replies_path(@event)) %>
+  <%= button_link_to(t(".guests"), event_replies_path(@event)) %>
+  <%= button_link_to(t(".economy"), economy_event_replies_path(@event)) %>
   <%= button_link_to(t("edit"), edit_event_path(@event)) %>
-  <%= button_link_to(t(".add_guest"), new_event_event_reply_path(@event, :admin_view => 1)) %>
+  <%= button_link_to(t(".add_guest"), new_event_reply_path(@event, :admin_view => 1)) %>
 <% end -%>
 
 <h2><%= @event.name %></h2>
@@ -106,6 +106,6 @@
 <% if @event.replies.empty? %>
   <p class="empty_list">No guests. You really need more PR.</p>
 <% else %>
-  <%= render :partial => 'event_replies/list', :locals => {:replies => @event.replies} %>
+  <%= render :partial => 'replies/list', :locals => {:replies => @event.replies} %>
 <% end %>
 

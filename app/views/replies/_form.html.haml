@@ -1,20 +1,20 @@
 - if @event.ticket_types.count == 1
   = f.hidden_field :ticket_type_id, :value => @event.ticket_types.first.id
 - else
-  %h3= t('event_replies.form.ticket_type')
+  %h3= t('replies.form.ticket_type')
   %ul
     - @event.ticket_types.each do |ticket_type|
       %li
         = f.radio_button :ticket_type_id, ticket_type.id 
-        %label{:for => "event_reply_ticket_type_id_#{ticket_type.id}"}
+        %label{:for => "reply_ticket_type_id_#{ticket_type.id}"}
           = "#{ticket_type.name} (#{ticket_type.price} kr)"
           
 
-= f.text_field :name, :caption => t('event_replies.form.name'), :class => 'text'
-= f.text_field :email, :caption => t('event_replies.form.email'), :class => 'text'
+= f.text_field :name, :caption => t('replies.form.name'), :class => 'text'
+= f.text_field :email, :caption => t('replies.form.email'), :class => 'text'
 
 - if @event.require_pid?
-  = f.text_field :pid, :caption => t('event_replies.form.pid'), :class => 'text'
+  = f.text_field :pid, :caption => t('replies.form.pid'), :class => 'text'
 
 - if @event.use_food_preferences?
   %div{:style => 'width: 330px'}
@@ -24,12 +24,12 @@
       %ul
         - FoodPreference.all.each do |food_pref|
           %li
-            = f.check_box_tag 'event_reply[food_preference_ids][]', food_pref.id, @reply.food_preferences.include?(food_pref), :id => dom_id(food_pref, "checkbox")
+            = f.check_box_tag 'reply[food_preference_ids][]', food_pref.id, @reply.food_preferences.include?(food_pref), :id => dom_id(food_pref, "checkbox")
             = f.label_tag dom_id(food_pref, "checkbox"), food_pref.name
             
-  = f.text_area :food, :caption => t('event_replies.form.food'), :rows => 5
+  = f.text_area :food, :caption => t('replies.form.food'), :rows => 5
 
-= f.text_area :comments, :caption => t('event_replies.form.comments'), :rows => 5
+= f.text_area :comments, :caption => t('replies.form.comments'), :rows => 5
 
 - @event.custom_fields.each do |custom_field|
   - f.fields_for(:custom_field_values, custom_field.values.build) do |custom_fields_form|

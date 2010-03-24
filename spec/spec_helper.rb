@@ -10,7 +10,6 @@ require "authlogic/test_case"
 require "email_spec/helpers"
 require "email_spec/matchers"
 
-
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
 

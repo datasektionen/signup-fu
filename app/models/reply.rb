@@ -1,4 +1,4 @@
-class EventReply < ActiveRecord::Base
+class Reply < ActiveRecord::Base
   
   attr_accessor :send_signup_confirmation
   
@@ -63,7 +63,7 @@ class EventReply < ActiveRecord::Base
   
   def self.pay(ids)
     now = Time.now
-    EventReply.find(ids).each do |reply|
+    Reply.find(ids).each do |reply|
       reply.pay!
     end
   end

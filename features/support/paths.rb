@@ -13,7 +13,7 @@ module NavigationHelpers
       
     when /the new reply page for "([^\"]*)"/
       event = find_event($1)
-      new_event_event_reply_path(event)
+      new_event_reply_path(event)
     
     when /the event page for "([^\"]*)"/
       event = find_event($1)
@@ -21,15 +21,15 @@ module NavigationHelpers
       
     when /the economy page for "([^\"]*)"/
       event = find_event($1)
-      economy_event_event_replies_path(event)
+      economy_event_replies_path(event)
       
     when /the guest list page for "([^\"]*)"/
       event = find_event($1)
-      event_event_replies_path(event)
+      event_replies_path(event)
       
     when /the permit report page for "([^\"]*)"/
       event = find_event($1)
-      permit_event_event_replies_path(event)
+      permit_event_replies_path(event)
     
 
     when /the login page/

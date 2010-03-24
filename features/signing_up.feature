@@ -195,7 +195,7 @@ Scenario: Viewing guest list as a non-admin
   And I go to the guest list page for "My event"
   
   Then I should see "Kalle"
-  And I should see "My gosh, party!"
+  And I should not see "My gosh, party!"
   And I should not see "I like cucumbers"
   And I should not see "kalle@example.org"
   And I should not see "Ta bort"
