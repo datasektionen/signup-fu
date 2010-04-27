@@ -1,6 +1,15 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/boot'
 
+puts ARGV.size
+if ARGV.any? { |a| a == "-h" } || ARGV.size == 1 || ARGV.size > 3
+  puts "Usage: #{$0} password taps_host [environment]"
+  puts
+  puts "  environment defaults to production"
+  exit(1)
+end
+  
+
 password = ARGV[0]
 taps_host = ARGV[1]
 env = ARGV[2] || 'production'
