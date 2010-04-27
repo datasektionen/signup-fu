@@ -66,6 +66,11 @@ ActiveRecord::Schema.define(:version => 20100324201047) do
     t.datetime "updated_at"
   end
 
+  create_table "food_preferences_replies", :id => false, :force => true do |t|
+    t.integer "food_preference_id"
+    t.integer "reply_id"
+  end
+
   create_table "mail_templates", :force => true do |t|
     t.integer  "event_id"
     t.string   "name"
@@ -89,11 +94,6 @@ ActiveRecord::Schema.define(:version => 20100324201047) do
     t.string   "payment_state",  :null => false
     t.string   "guest_state",    :null => false
     t.string   "pid"
-  end
-
-  create_table "replies_food_preferences", :id => false, :force => true do |t|
-    t.integer "food_preference_id"
-    t.integer "reply_id"
   end
 
   create_table "ticket_types", :force => true do |t|
