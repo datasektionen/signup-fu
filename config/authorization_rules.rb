@@ -3,6 +3,7 @@ authorization do
     has_permission_on :events, :to => :manage
     has_permission_on :replies, :to => :manage
     has_permission_on :authorization_rules, :to => :read
+    has_permission_on :users, :to => :manage
   end
   
   role :user do
@@ -25,6 +26,6 @@ end
 
 privileges do
   privilege :manage do
-    includes :create, :new, :read, :update, :index, :show, :edit
+    includes :create, :new, :read, :update, :index, :show, :edit, :destroy
   end
 end

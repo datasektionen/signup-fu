@@ -85,6 +85,11 @@
   back_to: Tillbaka till {{name}}
   save: Spara
   login: Logga in
+  
+  users:
+    index:
+      title: Lista användare
+      new: Skapa ny användare
 #en:
 #  activerecord:
 #    models:
