@@ -1,5 +1,6 @@
-<% f.fields_for(:mail_templates_attributes, :index => name) do |ff| %>
-  <%= ff.hidden_field :name, :value => name %>
+<% f.fields_for(:mail_templates, f.object.mail_templates.by_name(name, :build_new => true)) do |ff| %>
+  <%= ff.hidden_field :name %>
+  <%= ff.check_box :enable, :caption => t("events.new.#{name}") %>
   <%= ff.text_field :subject, :value => APP_CONFIG[:default_messages][name][:subject], :class => 'text', :caption => t('activerecord.attributes.mail_template.subject') %>
   <%= ff.text_area :body, :value => APP_CONFIG[:default_messages][name][:body], :class => 'text', :caption => t('activerecord.attributes.mail_template.body')  %>
 <% end -%>

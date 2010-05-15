@@ -1,8 +1,12 @@
 module EventsHelper
   
   def mail_template_checkbox(mail_template)
-    check_box_tag("event[mail_templates_attributes][#{mail_template}][enable]", "1", false, :onclick => "$('#{mail_template}').checked ? $('#{mail_template}_settings').show():$('#{mail_template}_settings').hide()", :id => "#{mail_template}") +
+    check_box_tag("ladida", "1", false, :onclick => "$('#{mail_template}').checked ? $('#{mail_template}_settings').show():$('#{mail_template}_settings').hide()", :id => "#{mail_template}") +
        %Q{<label for="#{mail_template}">} + t(".#{mail_template}") + "</label>"
+  end
+  
+  def next_button
+    button_to_function "#{t('.next_step')} »", "next_step()"
   end
   
   def food_preferences(reply)

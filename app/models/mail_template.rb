@@ -3,6 +3,7 @@ class MailTemplate < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :event_id
   validates_presence_of :body, :subject
   validate :no_payment_reference_without_prefix
+  attr_accessor :enable
   
   TEMPLATE_TYPES = [
     ['Signup Confirmation', 'signup_confirmation'],

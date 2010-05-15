@@ -4,4 +4,3 @@ document.observe("dom:loaded", function(event) {
   });
   $('name').focus();
 });
-

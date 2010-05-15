@@ -101,7 +101,7 @@ Scenario: Creating a new event with confirmation mail
   
   And I check "Bekräftelse på bokning"
   And I fill in "Ämnesrad" with "Welcome" in "signup_confirmation_settings"
-  And I fill in "Brödtext" with "Welcome to {{EVENT_NAME}}" in "signup_confirmation_settings"
+  And I fill in "Brödtext" with "Welcome to My event" in "signup_confirmation_settings"
   
   And I fill in "Bounce address" with "foo@example.org"
   
@@ -115,7 +115,7 @@ Scenario: Creating a new event with confirmation mail
   
   And I should see "Signup confirmation"
   And I should see "Welcome"
-  And I should see "Welcome to {{EVENT_NAME}}"
+  And I should see "Welcome to My event"
   
   And I should not see "Ticket expiry"
   And I should not see "Payment registered mail"

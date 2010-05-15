@@ -1,86 +1,117 @@
+- javascript 'events'
+
 %h2= t('.title')
 
 = error_messages_for(:event)
 
+%ul#event_tabs.subsection_tabs
+  %li.tab
+    %a{:href => "#general_tab_area"}= t('.general_settings')
+  %li.tab
+    %a{:href => "#ticket_types_tab_area"}= t('.ticket_types')
+  %li.tab
+    %a{:href => "#custom_fields_tab_area"}= t('.custom_fields')
+  %li.tab
+    %a{:href => "#signup_confirmation_tab_area"}= t('.signup_confirmation')
+  %li.tab
+    %a{:href => "#payment_registered_tab_area"}= t('.payment_registered')
+  %li.tab
+    %a{:href => "#ticket_expired_tab_area"}= t('.ticket_expired')
+  %li.tab
+    %a{:href => "#final_settings_tab_area"}= t('.final_settings')
+
+%div{:style => 'clear: both'}
+  
 -form_for(@event, :builder => signup_fu_form_builder) do |f|
-  = f.text_field :name, :class => 'title'
-  = render :partial => 'common_fields', :locals => {:f => f}
   
-  %h3= t('.ticket_types')
-  - ticket_type_index = 0
-  - f.fields_for(:ticket_types) do |ticket_type_form|
-    - ticket_type_index += 1
-    = ticket_type_form.text_field :name, :caption => t('.ticket_type_name', :number => ticket_type_index), :class => 'text'
-    = ticket_type_form.text_field :price, :caption => t('.ticket_type_price', :number => ticket_type_index), :class => 'text'
-  
-  %h3= t('.custom_fields')
-  
-  - custom_field_index = 0
-  - f.fields_for(:custom_fields) do |custom_fields_form|
-    - custom_field_index += 1
-    = custom_fields_form.text_field :name, :caption => t('.custom_field_name', :number => custom_field_index), :class => 'text'
-  
-  %h3= t('.signup_confirmation')
-  
-  .mail_template_settings
-    = mail_template_checkbox 'signup_confirmation'
+  %div#general_tab_area
+    = f.text_field :name, :class => 'title'
+    = render :partial => 'common_fields', :locals => {:f => f}
     
-    #signup_confirmation_settings{:style => 'display: none'}
-      = render :partial => 'mail_template_form', :locals => { :name => 'signup_confirmation', :f => f } 
+    = next_button
   
-  %div{:style => 'clear: both'}
+  %div#ticket_types_tab_area
+    %h3= t('.ticket_types')
+    - ticket_type_index = 0
+    - f.fields_for(:ticket_types) do |ticket_type_form|
+      - ticket_type_index += 1
+      = ticket_type_form.text_field :name, :caption => t('.ticket_type_name', :number => ticket_type_index), :class => 'text'
+      = ticket_type_form.text_field :price, :caption => t('.ticket_type_price', :number => ticket_type_index), :class => 'text'
+      
+    = next_button
   
-  %h3= t('.payment_registered')
   
-  .mail_template_settings
-    = mail_template_checkbox 'payment_registered'
+  %div#custom_fields_tab_area
+    %h3= t('.custom_fields')
     
-    #payment_registered_settings{:style => 'display: none'}
-      
-      = render :partial => 'mail_template_form', :locals => { :name => 'payment_registered', :f => f }
-  
-  %div{:style => 'clear: both'}
-  
-  
-  %h3 Reminders and automatic cancellation
-  
-  .mail_template_settings
+    - custom_field_index = 0
+    - f.fields_for(:custom_fields) do |custom_fields_form|
+      - custom_field_index += 1
+      = custom_fields_form.text_field :name, :caption => t('.custom_field_name', :number => custom_field_index), :class => 'text'
     
-    = check_box_tag "event[mail_templates_attributes][ticket_expired][enable]", "1", false, :onclick => "toggleTicketExpiry()", :id => 'ticket_expired'
-    %label{:for => 'ticket_expired'} Last payment (with expire) 
+    = next_button
     
-    #ticket_expired_settings{:style => 'display: none'}
-      = f.text_field :payment_time
-      = f.text_field :expire_time_from_reminder, :caption => 'Reminder time'
-      
-      %h4 Ticket Expired
-      
-      = render :partial => 'mail_template_form', :locals => { :name => 'ticket_expired', :f => f }
-      
-      #ticket_expire_reminder_settings
-        %h4 Reminder
-        = hidden_field_tag "event[mail_templates_attributes][ticket_expire_reminder][enable]", "0", :id => 'event_mail_templates_ticket_expire_reminder_enabled'
-        = render :partial => 'mail_template_form', :locals => { :name => 'ticket_expire_reminder', :f => f }
+  %div#signup_confirmation_tab_area
+    %h3= t('.signup_confirmation')
+    
+    .mail_template_settings
+      #signup_confirmation_settings{:style => ''}
+        = render :partial => 'mail_template_form', :locals => { :name => 'signup_confirmation', :f => f } 
+    
+    = next_button
+  
+  %div#payment_registered_tab_area
+    %h3= t('.payment_registered')
+    
+    .mail_template_settings
+      #payment_registered_settings{:style => ''}
         
-  %h3 Bounce address
-  %p.notice
-    This specifies the address that will be used for replies and bounces to emails. 
-    <strong>It is required when sending emails</strong>.
+        = render :partial => 'mail_template_form', :locals => { :name => 'payment_registered', :f => f }
     
-  = f.text_field :bounce_address
+    = next_button
   
-  %h3 Terms of booking
-  
-  %p.notice
-    This option will let you specify a text which will be shown on the booking page, with a checkbox
-    for accepting. Useful if you want to make sure your guests understand that
-    a signup is binding.
-  
-  %div
-    = check_box_tag "use_terms", "1", false,  :onclick => "$('use_terms').checked ? $('terms_settings').show():$('terms_settings').hide()", :id => 'use_terms'
-    %label{:for => 'use_terms'} Terms of booking
+  %div#ticket_expired_tab_area
+    %h3 Reminders and automatic cancellation
     
-    #terms_settings{:style => 'display:none'}
-      = f.text_area :terms, :class => 'text'
+    .mail_template_settings
+      
+      =# check_box_tag "asfasdfsf[mail_templates_attributes][ticket_expired][enable]", "1", false, :onclick => "", :id => 'ticket_expired'
+      %label{:for => 'ticket_expired'} Last payment (with expire) 
+      
+      #ticket_expired_settings{:style => ''}
+        = f.text_field :payment_time
+        = f.text_field :expire_time_from_reminder, :caption => 'Reminder time'
+        
+        %h4 Ticket Expired
+        
+        = render :partial => 'mail_template_form', :locals => { :name => 'ticket_expired', :f => f }
+        
+        #ticket_expire_reminder_settings
+          %h4 Reminder
+          = hidden_field_tag "asdfdsfevent[mail_templates_attributes][ticket_expire_reminder][enable]", "0", :id => 'event_mail_templates_ticket_expire_reminder_enabled'
+          = render :partial => 'mail_template_form', :locals => { :name => 'ticket_expire_reminder', :f => f }
+      = next_button
   
-  = f.submit "Create event"
+  %div#final_settings_tab_area
+    %h3 Bounce address
+    %p.notice
+      This specifies the address that will be used for replies and bounces to emails. 
+      <strong>It is required when sending emails</strong>.
+      
+    = f.text_field :bounce_address
+  
+    %h3 Terms of booking
+    
+    %p.notice
+      This option will let you specify a text which will be shown on the booking page, with a checkbox
+      for accepting. Useful if you want to make sure your guests understand that
+      a signup is binding.
+    
+    %div
+      = check_box_tag "use_terms", "1", false,  :onclick => "$('use_terms').checked ? $('terms_settings').show():$('terms_settings').hide()", :id => 'use_terms'
+      %label{:for => 'use_terms'} Terms of booking
+      
+      #terms_settings{:style => 'display:none'}
+        = f.text_area :terms, :class => 'text'
+    
+    = f.submit "Create event"

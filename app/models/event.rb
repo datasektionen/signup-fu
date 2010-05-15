@@ -20,10 +20,17 @@ class Event < ActiveRecord::Base
   has_many :ticket_types
   
   has_many :mail_templates do
-    def by_name(name)
-      find(:first, :conditions => {:name => name.to_s})
+    def by_name(name, options = {})
+      template = find(:first, :conditions => {:name => name.to_s})
+      
+      if options[:build_new] && template.nil?
+        template = new(:name => name.to_s)
+      end
+      template
     end
   end
+  
+  accepts_nested_attributes_for :mail_templates, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) || attrs['enable'] != "1" }
   
   belongs_to :owner, :class_name => 'User', :foreign_key => 'user_id'
   
@@ -49,14 +56,6 @@ class Event < ActiveRecord::Base
   
   def send_mail_for?(name)
     mail_templates.by_name(name).present?
-  end
-  
-  def mail_templates_attributes=(mail_templates_params)
-    mail_templates_params.each_pair do |template_name, template_attributes|
-      if template_attributes.delete(:enable) == "1"
-        mail_templates << MailTemplate.new(template_attributes)
-      end
-    end
   end
   
   def has_terms?

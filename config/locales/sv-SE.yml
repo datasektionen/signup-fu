@@ -58,13 +58,16 @@
   events:
     new:
       signup_confirmation: Bekräftelse på bokning
-      payment_registered: Betalningsbekräftelse
+      payment_registered: Betalnings-bekräftelse
       ticket_types: Biljettyper
+      general_settings: Allmänna inställningar
+      final_settings: Slutliga inställningar
       ticket_type_name: Biljettnamn {{number}}
       ticket_type_price: Biljettpris {{number}}
       title: Nytt event
       custom_fields: Anpassade fält
       custom_field_name: Anpassat fält {{number}}
+      ticket_expired: Last payment (with expiry)
     common_fields:
       use_food_preferences: Använd matpreferenser
     show:
