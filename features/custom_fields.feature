@@ -1,4 +1,4 @@
-
+Feature: Custom fields
 
 Scenario: Creating an event with custom fields
   Given I am on the homepage
