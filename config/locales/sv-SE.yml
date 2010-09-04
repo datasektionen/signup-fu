@@ -11,17 +11,17 @@
       accept_terms: Jag godkänner villkoren
       pid: Personnummer
     new:
-      title: Boka biljett till {{name}}
-      deadline_passed: Deadline för anmälan till {{name}} har passerat
+      title: Boka biljett till %{name}
+      deadline_passed: Deadline för anmälan till %{name} har passerat
       event_full: Tyvärr är max antal anmälda redan anmälda
-      deadline_passed_warning: "Obs: Deadline för {{name}} har passerat. Eftersom du är inloggad kan du trots detta lägga till gäster"
+      deadline_passed_warning: "Obs: Deadline för %{name} har passerat. Eftersom du är inloggad kan du trots detta lägga till gäster"
       event_full_warning: "Obs: Detta arrangemang är fullt! Eftersom du är inloggad kan du trots detta lägga till en gäst, men går då förbi maxgränsen."
       admin_functions: Administrativa funktioner
       send_signup_confirmation: Skicka bekräftelse på bokning
     edit:
       title: Redigera bokning
     show:
-      default_signup_message: Du har nu bokat en biljett till {{name}}!
+      default_signup_message: Du har nu bokat en biljett till %{name}!
     index:
       title: Gäster
       set_attending: Pricka av
@@ -42,7 +42,7 @@
     states:
       payment:
         expired: Expired (Obetald)
-        paid: Betald ({{at}})
+        paid: Betald (%{at})
         new: Obetald
         reminded: Påmind
       guest: 
@@ -51,25 +51,23 @@
         attending: Avprickad
       
       
-    remove_confirmation: Är du säger på att du vill ta bort {{name}}?
+    remove_confirmation: Är du säger på att du vill ta bort %{name}?
     number_of: Antal...
     
     
   events:
     new:
       signup_confirmation: Bekräftelse på bokning
-      payment_registered: Betalnings-bekräftelse
+      payment_registered: Betalningsbekräftelse
       ticket_types: Biljettyper
       general_settings: Allmänna inställningar
       final_settings: Slutliga inställningar
-      ticket_type_name: Biljettnamn {{number}}
-      ticket_type_price: Biljettpris {{number}}
+      ticket_type_name: Biljettnamn %{number}
+      ticket_type_price: Biljettpris %{number}
       title: Nytt event
       custom_fields: Anpassade fält
-      custom_field_name: Anpassat fält {{number}}
+      custom_field_name: Anpassat fält %{number}
       ticket_expired: Last payment (with expiry)
-    common_fields:
-      use_food_preferences: Använd matpreferenser
     show:
       permit: Tillståndsrapport
       guests: Gästlista
@@ -85,7 +83,7 @@
     access_denied: Åtkomst nekad
   remove: Ta bort
   edit: Redigera
-  back_to: Tillbaka till {{name}}
+  back_to: Tillbaka till %{name}
   save: Spara
   login: Logga in
   
@@ -93,6 +91,30 @@
     index:
       title: Lista användare
       new: Skapa ny användare
+  activerecord:
+    models:
+      reply: bokning
+    
+    attributes:
+      reply:
+        name: Namn
+        terms: villkoren
+        pid: Personnummer
+        food_preferences: Matpreferenser
+        guest_state: Status
+        payment_state: Betalningsstatus
+        email: E-postadress
+        food: Andra matpreferenser
+        comments: Kommentarer
+      mail_template:
+        body: Brödtext
+        subject: Ämnesrad
+  simple_form:
+    labels:
+      terms: Jag godkänner villkoren
+      use_food_preferences: Använd matpreferenser
+      ref_prefix: Betalningsreferensprefix
+      require_pid: Kräv personnummer
 #en:
 #  activerecord:
 #    models:

@@ -1,3 +1,3 @@
-require 'declarative_authorization/maintenance'
-
-World(Authorization::TestHelper)
+#require 'declarative_authorization/maintenance'
+#
+#World(Authorization::TestHelper)

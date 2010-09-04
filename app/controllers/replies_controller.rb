@@ -1,17 +1,17 @@
 class RepliesController < ApplicationController
   before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy, :permit]
-  #before_filter :require_event_session_or_user, :only => [:names, :set_attending, :economy, :permit]
-  filter_resource_access :additional_collection => {
-    :names => :manage,
-    :permit => :manage,
-    :economy => :manage,
-    :set_attending => :manage
-  }, :nested_in => :events, :shallow => true
+  
+  #filter_resource_access :additional_collection => {
+  #  :names => :manage,
+  #  :permit => :manage,
+  #  :economy => :manage,
+  #  :set_attending => :manage
+  #}, :nested_in => :events, :shallow => true
   
   around_filter :set_locale, :only => [:new, :create, :show, :edit]
   
   def new
-    #@reply = @event.replies.build
+    @reply = @event.replies.build
     if admin_view?
       render
     else
@@ -133,7 +133,8 @@ class RepliesController < ApplicationController
   protected
   
   def admin_view?
-    (current_user || current_event_session) && params[:admin_view] == "1"
+    #(current_user || current_event_session) && 
+    params[:admin_view] == "1"
   end
   helper_method :admin_view?
   

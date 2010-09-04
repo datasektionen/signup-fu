@@ -1,2 +1,0 @@
-autotest: --format pretty --drb
-autotest-all: --format pretty --drb

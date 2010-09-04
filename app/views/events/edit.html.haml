@@ -1,0 +1,9 @@
+- content_for :nav do
+  = button_link_to("Back to #{@event.name}", @event)
+
+%h2 Edit #{@event.name}
+
+= simple_form_for(@event) do |f|
+  = render :partial => 'common_fields', :locals => {:f => f}
+  
+  = f.submit "Save"

@@ -1,20 +1,23 @@
 class EventsController < ApplicationController
-  #before_filter :load_event, :only => [:show, :edit, :update, :destroy, :dismiss_getting_started, :reminder_run, :expiry_run]
-  filter_resource_access :additional_member => {
-    :expiry_run => :manage,
-    :reminder_run => :manage,
-    :dismiss_getting_started => :manage
-  }
+  #filter_resource_access :additional_member => {
+  #  :expiry_run => :manage,
+  #  :reminder_run => :manage,
+  #  :dismiss_getting_started => :manage
+  #}
   
   def index
-    @events = Event.with_permissions_to(:manage)
+    # TODO AUTH 
+    #@events = Event.with_permissions_to(:manage)
+    @events = Event.all
+
   end
   
   def show
+    @event = Event.find(params[:id])
   end
   
   def new
-    @event = Event.new(:user => current_user)
+    @event = Event.new
     @event.mail_templates.build
     
     3.times { @event.ticket_types.build }
@@ -22,9 +25,11 @@ class EventsController < ApplicationController
   end
   
   def edit
+    @event = Event.find(params[:id])
   end
   
   def update
+    @event = Event.find(params[:id])    
     
     if @event.update_attributes(params[:event])
       flash[:notice] = "Event successfully updated"
@@ -36,7 +41,8 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(params[:event])
-    @event.user = current_user
+    # TODO AUTH
+    #@event.user = current_user
     
     if @event.save
       redirect_to(event_path(@event))
@@ -51,12 +57,14 @@ class EventsController < ApplicationController
   end
   
   def dismiss_getting_started
+    @event = Event.find(params[:id])
     @event.getting_started_dismissed = true
     @event.save!
     redirect_to(:action => 'show')
   end
   
   def reminder_run
+    @event = Event.find(params[:id])
     raise ArgumentError, "This event doesn't have any expiration set up" unless @event.expire_unpaid?
     
     Delayed::Job.enqueue(ReminderRun.new(@event.id))
@@ -65,6 +73,7 @@ class EventsController < ApplicationController
   end
   
   def expiry_run
+    @event = Event.find(params[:id])
     raise ArgumentError, "This event doesn't have any expiration set up" unless @event.expire_unpaid?
     
     Delayed::Job.enqueue(ExpiryRun.new(@event.id))

@@ -1,7 +1,8 @@
-log/*
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/**/*
 config/database.yml
-tmp/
-.DS_Store
-app/stylesheets/.sass-cache/
-public/javascripts/all.js
+app/stylesheets/.sass-cache
 config.rb
+.DS_Store

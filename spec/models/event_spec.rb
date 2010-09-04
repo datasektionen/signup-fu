@@ -13,13 +13,7 @@ describe Event do
     @event = Event.new(@valid_params)
     
   end
-  
-  it { should have_many(:mail_templates) }
-  it { should have_many(:ticket_types) }
-  
-  it { should validate_presence_of(:date) }
-  it { should validate_presence_of(:deadline) }
-  
+    
   it "should not allow deadline after date" do
     @event = Event.new(@valid_params.with(
       :deadline => 10.days.from_now, 
@@ -27,10 +21,6 @@ describe Event do
     ))
     
     @event.should_not be_valid
-  end
-  
-  it "should require a ticket type" do
-    should validate_presence_of(:ticket_types)
   end
   
   it "should not accept ticket_expiry without ticket_expire_reminder" do

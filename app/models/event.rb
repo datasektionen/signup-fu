@@ -12,8 +12,6 @@ class Event < ActiveRecord::Base
   
   has_many :replies
   
-  belongs_to :user
-  
   has_many :custom_fields
   accepts_nested_attributes_for :custom_fields, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
   
@@ -34,7 +32,7 @@ class Event < ActiveRecord::Base
   
   belongs_to :owner, :class_name => 'User', :foreign_key => 'user_id'
   
-  using_access_control
+  #using_access_control
   
   accepts_nested_attributes_for :ticket_types, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
   

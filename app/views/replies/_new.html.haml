@@ -17,13 +17,12 @@
       
 -# TODO refactor this
 - if admin_view? || (!@event.deadline.past? && !@event.full?)
-  = error_messages_for(:reply, :object_name => 'reply')
-  - signup_fu_form_for([@event, @reply], :id => "new_reply") do |f|
+  = simple_form_for([@event, @reply], :id => "new_reply") do |f|
     - if admin_view?
       %h3= t('.admin_functions')
       
       - if @event.send_mail_for?(:signup_confirmation)
-        = f.check_box :send_signup_confirmation, :caption => t('.send_signup_confirmation')
+        = f.input :send_signup_confirmation, :label => t('.send_signup_confirmation'), :as => :boolean
     
     = render :partial => 'form', :locals => {:f => f}
     
@@ -32,7 +31,7 @@
 
       = simple_format(@event.terms)
 
-      = f.check_box :terms, :caption => t('replies.form.accept_terms')
+      = f.input :terms, :as => :boolean
     
     = f.submit t('replies.form.submit')
     

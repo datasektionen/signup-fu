@@ -28,7 +28,7 @@ describe EventMailer do
     end
     
     it "should get body from the template" do
-      @email.should have_text(/body/)
+      @email.should have_body_text(/body/)
     end
     
     it "should send mail to the correct address" do

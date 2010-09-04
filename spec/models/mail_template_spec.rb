@@ -15,24 +15,6 @@ describe MailTemplate do
     MailTemplate.create!(@valid_attributes)
   end
   
-  it { should belong_to(:event) }
-  
-  it { should validate_presence_of(:body) }
-  it { should validate_presence_of(:subject) }
-  
-  %w(signup_confirmation payment_registered ticket_expired ticket_expire_reminder).each do |allowed_value|
-    it { should allow_value(allowed_value).for(:name) }
-  end
-  
-  %w(confirmation).each do |disallowed_value|
-    it { should_not allow_value(disallowed_value).for(:name) }
-  end
-  
-  it do
-    Factory(:mail_template)
-    should validate_uniqueness_of(:name).scoped_to(:event_id)
-  end
-  
   it "should not be valid with PAYMENT_REFERENCE if the event doesn't have a ref prefix" do
     event = mock_model(Event, :ref_prefix => nil)
     

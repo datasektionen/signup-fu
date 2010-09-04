@@ -54,12 +54,12 @@ class Reply < ActiveRecord::Base
   
   before_validation :format_pid
   
-  named_scope :ascend_by_name, :order => 'name ASC'
-  named_scope :not_cancelled, :conditions => ["guest_state != 'cancelled' AND payment_state != 'expired'"]
-  named_scope :not_attending, :conditions => ["guest_state != 'cancelled' AND guest_state != 'attending'"]
-  named_scope :paid, :conditions => ["payment_state = 'paid'"]
-  named_scope :unpaid, :conditions => ["payment_state = 'new'"]
-  named_scope :reminded, :conditions => ["payment_state = 'reminded'"]
+  scope :ascend_by_name, order(:name.asc)
+  scope :not_cancelled, where(:guest_state.ne => 'cancelled', :payment_state.ne => 'expired')
+  scope :not_attending, where(:guest_state.ne => 'cancelled', :guest_state.ne => 'attending')
+  scope :paid, where(:payment_state => 'paid')
+  scope :unpaid, where(:payment_state => 'new')
+  scope :reminded, where(:payment_state => 'reminded')
   
   def self.pay(ids)
     now = Time.now

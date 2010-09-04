@@ -44,7 +44,6 @@ end
 
 Given /^a ticket type "([^\"]*)" for (\d+) on "([^\"]*)"$/ do |ticket_type_name, amount, event_name|
   event = Event.find_by_name(event_name)
-  
   event.ticket_types.create!(:name => ticket_type_name, :price => amount)
 end
 
@@ -102,9 +101,9 @@ end
 Given /^that "([^\"]*)" has a payment time of (\d+) days$/ do |event_name, count|
   event = Event.find_by_name(event_name)
   event.payment_time = count.to_i
-  without_access_control do 
+#  without_access_control do 
     event.save!
-  end
+#  end
 end
 
 Given /^that "([^\"]*)" has a expire time from reminder of (\d+) days$/ do |event_name, count|

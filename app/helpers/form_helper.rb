@@ -1,3 +1,5 @@
+# TODO-RAILS3 ta bort skiten!
+
 module FormHelper
   def signup_fu_form_for(*args, &block)
     options = args.extract_options!.merge(:builder => signup_fu_form_builder)

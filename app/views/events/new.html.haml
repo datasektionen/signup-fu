@@ -22,10 +22,10 @@
 
 %div{:style => 'clear: both'}
   
--form_for(@event, :builder => signup_fu_form_builder) do |f|
+= simple_form_for(@event) do |f|
   
   %div#general_tab_area
-    = f.text_field :name, :class => 'title'
+    = f.input :name
     = render :partial => 'common_fields', :locals => {:f => f}
     
     = next_button
@@ -33,10 +33,10 @@
   %div#ticket_types_tab_area
     %h3= t('.ticket_types')
     - ticket_type_index = 0
-    - f.fields_for(:ticket_types) do |ticket_type_form|
+    = f.simple_fields_for(:ticket_types) do |ticket_type_form|
       - ticket_type_index += 1
-      = ticket_type_form.text_field :name, :caption => t('.ticket_type_name', :number => ticket_type_index), :class => 'text'
-      = ticket_type_form.text_field :price, :caption => t('.ticket_type_price', :number => ticket_type_index), :class => 'text'
+      = ticket_type_form.input :name, :label => t('.ticket_type_name', :number => ticket_type_index)
+      = ticket_type_form.input :price, :label => t('.ticket_type_price', :number => ticket_type_index)
       
     = next_button
   
@@ -45,9 +45,9 @@
     %h3= t('.custom_fields')
     
     - custom_field_index = 0
-    - f.fields_for(:custom_fields) do |custom_fields_form|
+    = f.simple_fields_for(:custom_fields) do |custom_fields_form|
       - custom_field_index += 1
-      = custom_fields_form.text_field :name, :caption => t('.custom_field_name', :number => custom_field_index), :class => 'text'
+      = custom_fields_form.input :name, :label => t('.custom_field_name', :number => custom_field_index), :class => 'text'
     
     = next_button
     
@@ -75,12 +75,12 @@
     
     .mail_template_settings
       
-      =# check_box_tag "asfasdfsf[mail_templates_attributes][ticket_expired][enable]", "1", false, :onclick => "", :id => 'ticket_expired'
+      = check_box_tag "asfasdfsf[mail_templates_attributes][ticket_expired][enable]", "1", false, :onclick => "", :id => 'ticket_expired'
       %label{:for => 'ticket_expired'} Last payment (with expire) 
       
       #ticket_expired_settings{:style => ''}
-        = f.text_field :payment_time
-        = f.text_field :expire_time_from_reminder, :caption => 'Reminder time'
+        = f.input :payment_time
+        = f.input :expire_time_from_reminder, :caption => 'Reminder time'
         
         %h4 Ticket Expired
         
@@ -98,7 +98,7 @@
       This specifies the address that will be used for replies and bounces to emails. 
       <strong>It is required when sending emails</strong>.
       
-    = f.text_field :bounce_address
+    = f.input :bounce_address
   
     %h3 Terms of booking
     
