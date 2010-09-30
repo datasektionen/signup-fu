@@ -10,6 +10,9 @@ gem 'RedCloth'
 gem 'simple_form'
 gem 'compass'
 gem 'meta_where'
+gem 'devise'
+gem 'cancan'
+gem 'delayed_job'
 
 group :test do
   gem 'rspec-rails',">= 2.0.0.beta.19"
