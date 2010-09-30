@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   resource :account, :controller => "users"
   
   shallow do
@@ -21,11 +23,6 @@ Rails.application.routes.draw do
       end
     end
   end
-  
-  resources :users
-  resource :user_session
-  
-  match "login", :to => "user_sessions#new"
   
   match "/", :to => "events#index", :as => 'root'
 end

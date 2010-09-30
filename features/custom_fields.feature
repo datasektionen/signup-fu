@@ -1,7 +1,8 @@
 Feature: Custom fields
 
 Scenario: Creating an event with custom fields
-  Given I am on the homepage
+  Given I am logged in as an admin
+  And I am on the homepage
   And I go to the new event page
   And I fill in "Name" with "My event"
   And I choose "Default"

@@ -7,6 +7,8 @@ class RepliesController < ApplicationController
   #  :economy => :manage,
   #  :set_attending => :manage
   #}, :nested_in => :events, :shallow => true
+  skip_before_filter :authenticate_user!, :only => [:new, :create, :show, :index]
+  
   
   around_filter :set_locale, :only => [:new, :create, :show, :edit]
   

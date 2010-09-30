@@ -20,17 +20,3 @@ Then /^I should not see the tag "([^\"]*)"$/ do |selector|
   page.should_not have_css(selector)
 end
 
-Then /^I should not be redirected$/ do
-  response.should_not be_redirect
-end
-
-Then /^I should not get an (\d+) status code$/ do |status|
-  status = status.to_i
-  response.status.to_i.should_not == status
-end
-
-Then /^I should get an (\d+) status code$/ do |status|
-  status = status.to_i
-  response.status.to_i.should == status
-end
-

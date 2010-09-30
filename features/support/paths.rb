@@ -33,7 +33,7 @@ module NavigationHelpers
     
 
     when /the login page/
-      login_path
+      new_user_session_path
     
     # Add more page name => path mappings here
     

@@ -26,6 +26,16 @@ Factory.define(:food_preference) do |f|
   f.name "Vegan"
 end
 
+Factory.define(:user) do |f|
+  
+end
+
+Factory.define(:admin, :parent => :user) do |f|
+  f.email "admin@example.org"
+  f.password "kakakaka"
+  f.admin true
+end
+
 #Factory.define(:admin, :class => User) do |f|
 #  salt = Authlogic::Random.hex_token
 #  f.login 'admin'
