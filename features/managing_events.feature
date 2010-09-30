@@ -357,24 +357,23 @@ Scenario: Food weirdness summary
   #And the food preferences summary should show 1 Vegan
 
 
-# TODO AUTH
-#Scenario: Adding a guest when logged in as an admin
-#  Given an event "My event"
-#  When I go to the event page for "My event"
-#  
-#  When I follow "Ny gäst"
-#    
-#  Then I should see "Administrativa funktioner"
-#  And I should not see "Skicka bekräftelse på bokning"
-#  
-#  And "My event" has mail template "signup_confirmation" with fields:
-#    | Name    | Value         |
-#    | body    | Yay! Party!   |
-#    | subject | Confirmation! |
-#  When I go to the event page for "My event"
-#  And I follow "Ny gäst"
-#  
-#  Then I should see a checkbox "Skicka bekräftelse på bokning"
+Scenario: Adding a guest when logged in as an admin
+  Given an event "My event"
+  When I go to the event page for "My event"
+  
+  When I follow "Ny gäst"
+    
+  Then I should see "Administrativa funktioner"
+  And I should not see "Skicka bekräftelse på bokning"
+  
+  And "My event" has mail template "signup_confirmation" with fields:
+    | Name    | Value         |
+    | body    | Yay! Party!   |
+    | subject | Confirmation! |
+  When I go to the event page for "My event"
+  And I follow "Ny gäst"
+  
+  Then I should see a checkbox "Skicka bekräftelse på bokning"
 
 # TODO MAIL
 #Scenario: Adding a guest manually with mail sending

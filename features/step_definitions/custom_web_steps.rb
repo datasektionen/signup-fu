@@ -21,7 +21,8 @@ When /^I take a snapshot$/ do
 end
 
 Then /^I should see a checkbox "([^\"]*)"$/ do |label|
-  field_labeled(label).is_a?(Webrat::CheckboxField)
+  field = find_field(label)
+  field['type'].should == 'checkbox'
 end
 
 Then /^I should not be on (.+)$/ do |page_name|
