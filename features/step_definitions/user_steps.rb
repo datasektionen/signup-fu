@@ -10,3 +10,7 @@ end
 When /^I log in as an admin$/ do
   Given("I am logged in as an admin")
 end
+
+When "I sign out" do
+  visit destroy_user_session_path
+end

@@ -20,9 +20,7 @@ Scenario: Creating an event with custom fields
   
   When I go to the new reply page for "My event"
   
-  # TODO Auth
-  #Then I should see "Årskurs"
-  
+  Then I should see "Årskurs"
   
 Scenario: Signing up to event with custom fields and viewing it
   Given an event "My event"
@@ -37,16 +35,21 @@ Scenario: Signing up to event with custom fields and viewing it
   And I fill in "Årskurs" with "2004"
   And I press "Boka"
   
-  # TODO auth
   When I go to the event page for "My event"
-  #Then I should not see "Årskurs"
-  #Then I should not see "2004"
+  Then I should not see "Årskurs"
+  Then I should not see "2004"
   
   When I go to the guest list page for "My event"
   
-  # FIXME
-  #Then I should see "Årskurs"
-  #Then I should see "2004"
+  Then I should see "Årskurs"
+  Then I should see "2004"
+  
+  When I sign out
+  When I go to the guest list page for "My event"
+  Then I should see "Årskurs"
+  And I should see "2004"
+  
+  
   
 
 
