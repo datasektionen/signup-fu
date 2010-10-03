@@ -41,8 +41,7 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(params[:event])
-    # TODO AUTH
-    #@event.user = current_user
+    @event.owner = current_user
     
     if @event.save
       redirect_to(event_path(@event))

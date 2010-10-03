@@ -4,8 +4,9 @@ I want to be able to create, edit and view my events
 So that I can have something that my guests can sign up to, so I get guests to my events
 
 Background:
-  Given I am logged in as an admin
-  
+  Given I am logged in as dkm
+
+
 Scenario: Showing a getting started box
   When I create the event "My event"
   Then I should be on the event page for "My event"
@@ -18,7 +19,7 @@ Scenario: Showing a getting started box
   
 
 Scenario: Creating a new event without max number of guests
-  Given I am on the homepage
+  And I am on the homepage
   And I go to the new event page
   And I fill in "Name" with "My event"
   And I choose "Default"
@@ -36,7 +37,7 @@ Scenario: Creating a new event without max number of guests
   And I should see "2009-09-09 09:09"
 
 Scenario: Creating a new event with prices
-  Given I am on the homepage
+  And I am on the homepage
   
   When I go to the new event page
   And I fill in "Name" with "My event"
@@ -250,7 +251,7 @@ Scenario: Editing an event
   
 
 Scenario: Viewing an event
-  Given an event "My event"
+  Given an event "My event" owned by "dkm@d.kth.se"
   
   When I go to the event page for "My event"
   

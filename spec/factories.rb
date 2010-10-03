@@ -36,6 +36,12 @@ Factory.define(:admin, :parent => :user) do |f|
   f.admin true
 end
 
+Factory.define(:dkm, :parent => :user) do |f|
+  f.email "dkm@d.kth.se"
+  f.password "osthyvel"
+  f.admin false
+end
+
 #Factory.define(:admin, :class => User) do |f|
 #  salt = Authlogic::Random.hex_token
 #  f.login 'admin'

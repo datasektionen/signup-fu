@@ -13,6 +13,7 @@ class Event < ActiveRecord::Base
   has_many :replies
   
   has_many :custom_fields
+  belongs_to :owner, :class_name => 'User', :foreign_key => 'user_id'
   accepts_nested_attributes_for :custom_fields, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
   
   has_many :ticket_types
@@ -30,7 +31,6 @@ class Event < ActiveRecord::Base
   
   accepts_nested_attributes_for :mail_templates, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) || attrs['enable'] != "1" }
   
-  belongs_to :owner, :class_name => 'User', :foreign_key => 'user_id'
   
   #using_access_control
   

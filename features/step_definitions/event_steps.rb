@@ -52,6 +52,14 @@ Given /^an event "([^\"]*)"$/ do |name|
   Given %Q{an event "#{name}" with fields:}, Cucumber::Ast::Table.new([])
 end
 
+Given /^an event "([^\"]*)" owned by "([^\"]*)"$/ do |event_name, user_email|
+  Given %Q{an event "#{event_name}"}
+  event = Event.find_by_name(event_name)
+  user = User.find_by_email(user_email)
+  event.owner = user
+  event.save!
+end
+
 Given /^(\d+) guests signed up to "([^\"]*)"$/ do |count, event_name|
   count = count.to_i
   event = Event.find_by_name(event_name)
