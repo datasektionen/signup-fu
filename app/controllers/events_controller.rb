@@ -1,15 +1,13 @@
 class EventsController < ApplicationController
-  #filter_resource_access :additional_member => {
-  #  :expiry_run => :manage,
-  #  :reminder_run => :manage,
-  #  :dismiss_getting_started => :manage
-  #}
+  load_and_authorize_resource
+
+
   
   def index
     # TODO AUTH 
     #@events = Event.with_permissions_to(:manage)
-    @events = Event.all
-
+    #@events = Event.accessible_by(current_ability)
+    
   end
   
   def show

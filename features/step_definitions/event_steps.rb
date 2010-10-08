@@ -49,7 +49,14 @@ end
 
 
 Given /^an event "([^\"]*)"$/ do |name|
-  Given %Q{an event "#{name}" with fields:}, Cucumber::Ast::Table.new([])
+  if name == "My event"
+    Given %Q{an event "#{name}" with fields:}, Cucumber::Ast::Table.new([])
+  else
+    name = name.downcase.gsub(/[åä]/, "a").gsub("ö", "o").gsub(/[\s-]/, "_")
+    event = Factory.build(name.to_sym)
+    event.ticket_types << Factory(:ticket_type)
+    event.save!
+  end
 end
 
 Given /^an event "([^\"]*)" owned by "([^\"]*)"$/ do |event_name, user_email|

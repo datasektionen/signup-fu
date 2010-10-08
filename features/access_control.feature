@@ -42,3 +42,23 @@ Scenario Outline: Access granted for not logged in
   Examples: 
     |page|
     | the new reply page for "My event" |
+
+Scenario: Restricting access
+  Given I am logged in as dkm
+  And an event "Plums"
+  And an event "D-dagsgasque"
+  
+  When I go to the events page
+  
+  Then I should see "Plums"
+  And I should not see "D-dagsgasque"
+
+Scenario: Viewing all events as an admin user
+  Given I am logged in as an admin
+  And an event "Plums"
+  And an event "D-dagsgasque"
+
+  When I go to the events page
+
+  Then I should see "Plums"
+  And I should see "D-dagsgasque"

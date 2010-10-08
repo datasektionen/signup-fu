@@ -14,7 +14,8 @@ gem 'devise'
 gem 'cancan'
 gem 'delayed_job'
 
-group :test do
+group :development, :test do
+  gem 'ruby-debug'
   gem 'rspec-rails',">= 2.0.0.beta.19"
   gem 'capybara'
   gem 'database_cleaner'

@@ -6,6 +6,19 @@ Factory.define(:event) do |e|
   e.ref_prefix "MyE"
 end
 
+Factory.define(:plums, :parent => :event) do |f|
+  f.name "Plums"
+  f.template "default"
+  f.ref_prefix "PLUMS"
+  f.owner { |a| User.find_by_email("dkm@d.kth.se") || a.association(:dkm) }
+end
+
+Factory.define(:d_dagsgasque, :parent => :event) do |f|
+  f.name "D-dagsgasque"
+  f.template "default"
+  f.owner { |a| User.find_by_email("naringsliv@d.kth.se") || a.association(:nlg) }
+end
+
 Factory.define(:reply) do |r|
   r.email "foo@example.org"
   r.name "Kalle Testson"
@@ -39,6 +52,12 @@ end
 Factory.define(:dkm, :parent => :user) do |f|
   f.email "dkm@d.kth.se"
   f.password "osthyvel"
+  f.admin false
+end
+
+Factory.define(:nlg, :parent => :user) do |f|
+  f.email 'naringsliv@d.kth.se'
+  f.password 'pastaslev'
   f.admin false
 end
 
