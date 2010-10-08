@@ -2,8 +2,7 @@ Feature: Access control
 
 Scenario Outline: Access granted for admin
   Given I am logged in as an admin
-  And an event "My event"
-  
+  And an event "My event"  
   When I go to <page>
   
   Then I should not see "Access denied"
@@ -19,8 +18,7 @@ Scenario Outline: Access granted for admin
     
 
 Scenario Outline: Access denied for not logged in
-  Given an event "My event"
-  
+  Given an event "My event"  
   When I go to <page>
   
   Then I should be on the login page

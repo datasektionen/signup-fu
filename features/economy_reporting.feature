@@ -22,7 +22,7 @@ Scenario: Marking a reply as paid
 
 # TODO EMAIL-SPEC
 #Scenario: Sending a payment reported mail
-#  Given an event "My event"
+#  Given an event "My event" owned by "random_user@example.org"
 #  And a guest to "My event" called "Kalle"
 #    | Name  | Value             |
 #    | email | kalle@example.org |

@@ -7,11 +7,17 @@ Given /^I am logged in as an admin$/ do
 end
 
 Given "I am logged in as dkm" do
-  Factory(:dkm)
+  if User.find_by_email("dkm@d.kth.se").nil?
+    Factory(:dkm)
+  end
   visit new_user_session_path
   fill_in "Email", :with => 'dkm@d.kth.se'
   fill_in 'Password', :with => 'osthyvel'
   click_button "Sign in"
+end
+
+When /^I log in as dkm$/ do
+  Given("I am logged in as dkm")
 end
 
 

@@ -4,6 +4,9 @@ Given /^an event "([^\"]*)" with fields:$/ do |name, table|
   unless table.raw.empty?
     table.hashes.each do |field|
       case field["Name"]
+      when /owner/
+        event.owner = User.find_by_email(field['Value'])
+        raise "no such user #{email}" if event.owner.nil?        
       when /deadline/
         field['Value'] =~ /(\d)+ days ago/
         deadline = $1.to_i.days.ago
@@ -28,20 +31,6 @@ Given /^an event "([^\"]*)" with fields:$/ do |name, table|
   
 end
 
-When /^I create the event "([^\"]*)"$/ do |event_name|
-  When %q{I go to the new event page}
-  When %q{I fill in "Name" with "My event"}
-  When %q{I choose "Default"}
-  When %{I fill in "Date" with "2009-09-09 09:09"}
-  When %{I fill in "Deadline" with "2009-08-08 08:08"}
-  When %q{I fill in "Max guests" with "0"}
-  When %q{I fill in "Signup message" with "Foobar!"}
-  When %q{I fill in "Biljettnamn 1" with "With alcohol"}
-  When %q{I fill in "Biljettpris 1" with "100"}
-  When %q{I press "Create event"}
-end
-
-
 Given /^a ticket type "([^\"]*)" for (\d+) on "([^\"]*)"$/ do |ticket_type_name, amount, event_name|
   event = Event.find_by_name(event_name)
   event.ticket_types.create!(:name => ticket_type_name, :price => amount)
@@ -49,21 +38,9 @@ end
 
 
 Given /^an event "([^\"]*)"$/ do |name|
-  if name == "My event"
-    Given %Q{an event "#{name}" with fields:}, Cucumber::Ast::Table.new([])
-  else
-    name = name.downcase.gsub(/[åä]/, "a").gsub("ö", "o").gsub(/[\s-]/, "_")
-    event = Factory.build(name.to_sym)
-    event.ticket_types << Factory(:ticket_type)
-    event.save!
-  end
-end
-
-Given /^an event "([^\"]*)" owned by "([^\"]*)"$/ do |event_name, user_email|
-  Given %Q{an event "#{event_name}"}
-  event = Event.find_by_name(event_name)
-  user = User.find_by_email(user_email)
-  event.owner = user
+  name = name.downcase.gsub(/[åä]/, "a").gsub("ö", "o").gsub(/[\s-]/, "_")
+  event = Factory.build(name.to_sym)
+  event.ticket_types << Factory(:ticket_type)
   event.save!
 end
 

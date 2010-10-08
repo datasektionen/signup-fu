@@ -14,7 +14,7 @@ Feature: Signing up
     
   
 #  Scenario Outline: Signing up on free event
-#    Given an event "My event" with fields:
+#    Given an event "My event" owned by "dkm@d.kth.se" with fields:
 #      | Name           | Value                    |
 #      | signup_message | Thank you for signing up |
 #    
@@ -36,7 +36,7 @@ Feature: Signing up
 #      | Karl Persson |       | error  |                      | Email måste anges        |
   
 #  Scenario: Mail notification when signing up
-#    Given an event "My event"
+#    Given an event "My event" owned by "random_user@example.org"
 #    
 #    And "My event" has mail template "signup_confirmation" with fields:
 #      | Name    | Value                                      |
@@ -57,16 +57,16 @@ Feature: Signing up
   
 
   Scenario: Trying to sign up to an event with passed deadline
-    Given an event "My event" with fields:
+    Given an event "Plums" with fields:
       | Name     | Value       |
       | deadline | 10 days ago |
     
-    When I go to the new reply page for "My event"
+    When I go to the new reply page for "Plums"
     
-    Then I should see "Deadline för anmälan till My event har passerat"
+    Then I should see "Deadline för anmälan till Plums har passerat"
   
   Scenario: Trying to sign up to an event with max number already signed up
-    Given an event "My very small event" with fields:
+    And an event "My very small event" with fields:
       | Name       | Value |
       | max_guests | 2     |
     And 2 guests signed up to "My very small event"
@@ -101,29 +101,30 @@ Feature: Signing up
   
   
   Scenario: Food preferences
-    Given an event "My event"
+    Given an event "Plums"
     
     Given food preference "Vegan" 
     And food preference "Vegetarian"
     
-    When I go to the new reply page for "My event"
+    When I go to the new reply page for "Plums"
     
     Then I should see "Vegan"
     And I should see "Vegetarian"
-    And I fill in "Namn" with "Kalle"
+    
+    When I fill in "Namn" with "Kalle"
     And I fill in "E-postadress" with "kalle@example.org"
     And I check "Vegan"
     And I press "Boka"
     
-    When I go to the event page for "My event"
+    When I log in as dkm
+    And I go to the event page for "Plums"
     
-    # FIXME decl_auth
-    #Then I should see "Vegan"
-    #And I should see "1 Vegan"
+    Then I should see "Vegan"
+    #And I should see 1 "Vegan" in food preferences table
   
 
   Scenario: Signing up when logged in
-    #Given an event "My event"
+    #Given an event "My event" owned by "random_user@example.org"
     #And I am logged in as an admin
     #
     #When I go to the new reply page for "My event"
@@ -132,9 +133,11 @@ Feature: Signing up
   
     
   Scenario: Signing up to an event with terms
-    Given an event "My legal event" with fields:
+    Given I am logged in as dkm
+    And an event "My legal event" with fields:
       | Name  | Value               |
       | terms | Anmälan är bindande |
+      | owner | dkm@d.kth.se        |
     
     When I go to the new reply page for "My legal event"
     
@@ -154,9 +157,11 @@ Feature: Signing up
     Then I should see "Du har nu bokat en biljett till My legal event"
     
   Scenario: Signing up to event with personal identity number requirement
-    Given an event "My pid event" with fields:
-      | Name        | Value |
-      | require_pid | true  |
+    Given I am logged in as dkm
+    And an event "My pid event" with fields:
+      | Name        | Value        |
+      | require_pid | true         |
+      | owner       | dkm@d.kth.se |
   
     When I go to the new reply page for "My pid event"
   
@@ -174,10 +179,12 @@ Feature: Signing up
     Then I should see "Du har nu bokat en biljett till My pid event"
   
 Scenario: Signing up to a foodless event
-  Given an event "My event" with fields:
-    | Name                 | Value |
-    | use_food_preferences | false |
-
+  Given I am logged in as dkm
+  And an event "My event" with fields:
+    | Name                 | Value        |
+    | use_food_preferences | false        |
+    | owner                | dkm@d.kth.se |
+    
   When I go to the new reply page for "My event"
 
   Then I should not see "Matpreferenser"

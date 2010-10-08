@@ -1,21 +1,24 @@
 Factory.define(:event) do |e|
-  e.name "My event"
   e.date DateTime.new(2011, 9, 9, 9, 9)
   e.deadline DateTime.new(2011, 8, 8, 8, 8)
   e.template 'default'
-  e.ref_prefix "MyE"
+end
+
+Factory.define(:my_event, :parent => :event) do |f|
+  f.name "My event"
+  f.ref_prefix "MyE"
+  f.owner { |a| User.find_by_email("myuser@example.org") || a.association(:my_user) }
+  
 end
 
 Factory.define(:plums, :parent => :event) do |f|
   f.name "Plums"
-  f.template "default"
   f.ref_prefix "PLUMS"
   f.owner { |a| User.find_by_email("dkm@d.kth.se") || a.association(:dkm) }
 end
 
 Factory.define(:d_dagsgasque, :parent => :event) do |f|
   f.name "D-dagsgasque"
-  f.template "default"
   f.owner { |a| User.find_by_email("naringsliv@d.kth.se") || a.association(:nlg) }
 end
 
@@ -58,6 +61,12 @@ end
 Factory.define(:nlg, :parent => :user) do |f|
   f.email 'naringsliv@d.kth.se'
   f.password 'pastaslev'
+  f.admin false
+end
+
+Factory.define(:my_user, :parent => :user) do |f|
+  f.email "myuser@example.org"
+  f.password "kookies"
   f.admin false
 end
 

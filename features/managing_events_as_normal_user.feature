@@ -6,15 +6,15 @@ So that I can have something that my guests can sign up to, so I get guests to m
 Background:
   Given I am logged in as dkm
 
-Scenario: Showing a getting started box
-  When I create the event "My event"
-  Then I should be on the event page for "My event"
-  And I should see the tag "div#getting_started"
-  
-  When I follow "Dismiss"
-  
-  Then I should be on the event page for "My event"
-  And I should not see the tag "div#getting_started"
+#Scenario: Showing a getting started box
+#  When I create the event "My event"
+#  Then I should be on the event page for "My event"
+#  And I should see the tag "div#getting_started"
+#  
+#  When I follow "Dismiss"
+#  
+#  Then I should be on the event page for "My event"
+#  And I should not see the tag "div#getting_started"
   
 Scenario: Creating a new event without max number of guests
   And I am on the homepage
@@ -225,7 +225,7 @@ Scenario: Creating a new event with payment mail
 
 # TODO fixa delete-länk
 #Scenario: Event deletion
-#  Given an event "My event"
+#  Given an event "My event" owned by "random_user@example.org"
 #  
 #  When I go to the event page for "My event"
 #  And I follow "Delete"
@@ -233,27 +233,27 @@ Scenario: Creating a new event with payment mail
 #  Then the event "My event" should not exist in the database
 
 Scenario: Editing an event
-  Given an event "My event"
+  Given an event "Plums"
   
-  When I go to the event page for "My event"
+  When I go to the event page for "Plums"
   And I follow "Redigera"
   
   And I fill in "Date" with "2012-10-10 10:10"
   And I fill in "Deadline" with "2012-09-10 10:10"
   And I press "Save"
   
-  Then I should be on the event page for "My event"
+  Then I should be on the event page for "Plums"
   And I should not see "2009-09-09"
   And I should see "2012-10-10"
   
   
 
 Scenario: Viewing an event
-  Given an event "My event" owned by "dkm@d.kth.se"
+  Given an event "Plums"
   
-  When I go to the event page for "My event"
+  When I go to the event page for "Plums"
   
-  Then I should see "My event"
+  Then I should see "Plums"
   And I should see "2011-09-09"
   And I should see "2011-08-08"
 
@@ -279,23 +279,23 @@ Scenario: Creating an event with a pay before date
 
 
 Scenario: Reminder runs. Wtf NBS flashbacks
-  Given an event "My event"
-  And that "My event" has a payment time of 14 days
-  And "My event" has mail template "ticket_expired" with fields:
+  Given an event "Plums"
+  And that "Plums" has a payment time of 14 days
+  And "Plums" has mail template "ticket_expired" with fields:
     | Name    | Value                                                        |
     | body    | You, {{REPLY_NAME}}, are bad person. Your ticket is now void |
     | subject | You haven't paid for {{EVENT_NAME}}                          |
-  And "My event" has mail template "ticket_expire_reminder" with fields:
+  And "Plums" has mail template "ticket_expire_reminder" with fields:
     | Name    | Value                   |
     | body    | You are hereby reminded |
     | subject | Reminder                |
   
-  And a guest to "My event" called "Kalle"
+  And a guest to "Plums" called "Kalle"
     | Name  | Value            |
     | email | kalle@example.org |
   
   And now is 3 weeks from now
-  And the reminder process is run for "My event"
+  And the reminder process is run for "Plums"
 
 # TODO MAIL 
 #  Then "kalle@example.org" should receive 1 emails
@@ -304,26 +304,26 @@ Scenario: Reminder runs. Wtf NBS flashbacks
 #  Then I should see "You are hereby reminded" in the email
 
 Scenario: An expiring unpaid reply
-  Given an event "My event"
-  And that "My event" has a payment time of 14 days
-  And that "My event" has a expire time from reminder of 5 days
-  And "My event" has mail template "ticket_expire_reminder" with fields:
+  Given an event "Plums"
+  And that "Plums" has a payment time of 14 days
+  And that "Plums" has a expire time from reminder of 5 days
+  And "Plums" has mail template "ticket_expire_reminder" with fields:
     | Name    | Value |
     | body    | foo   |
     | subject | bar   |
-  And "My event" has mail template "ticket_expired" with fields:
+  And "Plums" has mail template "ticket_expired" with fields:
     | Name    | Value                                                        |
     | body    | You, {{REPLY_NAME}}, are bad person. Your ticket is now void |
     | subject | You haven't paid for {{EVENT_NAME}}                          |
-  And a guest to "My event" called "Kalle"
+  And a guest to "Plums" called "Kalle"
     | Name  | Value             |
     | email | kalle@example.org |
   
   When now is 3 weeks from now
-  And the reminder process is run for "My event"
+  And the reminder process is run for "Plums"
   And no emails have been sent
   And now is 4 weeks from now
-  And the ticket expire process is run for "My event"
+  And the ticket expire process is run for "Plums"
  
 # TODO MAIL 
 #  Then "kalle@example.org" should receive 1 emails
@@ -333,22 +333,22 @@ Scenario: An expiring unpaid reply
 #  Then I should see "You, Kalle, are bad person. Your ticket is now void" in the email
 
 Scenario: Food weirdness summary
-  Given an event "My event"
+  Given an event "Plums"
   And food preference "Vegan"
   And food preference "Vegetarian"
-  And a guest to "My event" called "Kalle"
+  And a guest to "Plums" called "Kalle"
     | Name  | Value             |
     | Food Preferences | Vegan  |
   
-  And a guest to "My event" called "Pelle"
+  And a guest to "Plums" called "Pelle"
     | Name             | Value      |
     | Food Preferences | Vegetarian |
   
-  And a guest to "My event" called "Stina"
+  And a guest to "Plums" called "Stina"
     | Name             | Value      |
     | Food Preferences | Vegetarian |
   
-  When I go to the event page for "My event"
+  When I go to the event page for "Plums"
   
   # FIXME decl_auth
   #Then I should see "Antal..."
@@ -356,27 +356,27 @@ Scenario: Food weirdness summary
   #And the food preferences summary should show 1 Vegan
 
 
-Scenario: Adding a guest when logged in as an admin
-  Given an event "My event"
-  When I go to the event page for "My event"
+Scenario: Adding a guest when logged in as an event owner
+  Given an event "Plums"
+  When I go to the event page for "Plums"
   
   When I follow "Ny gäst"
     
   Then I should see "Administrativa funktioner"
   And I should not see "Skicka bekräftelse på bokning"
   
-  And "My event" has mail template "signup_confirmation" with fields:
+  And "Plums" has mail template "signup_confirmation" with fields:
     | Name    | Value         |
     | body    | Yay! Party!   |
     | subject | Confirmation! |
-  When I go to the event page for "My event"
+  When I go to the event page for "Plums"
   And I follow "Ny gäst"
   
   Then I should see a checkbox "Skicka bekräftelse på bokning"
 
 # TODO MAIL
 #Scenario: Adding a guest manually with mail sending
-#  Given an event "My event"
+#  Given an event "My event" owned by "random_user@example.org"
 #  And "My event" has mail template "signup_confirmation" with fields:
 #    | Name    | Value         |
 #    | body    | Yay! Party!   |
@@ -400,7 +400,7 @@ Scenario: Adding a guest when logged in as an admin
 #
 # TODO AUTH
 #Scenario: Adding a guest as admin without mail sending
-#  Given an event "My event"
+#  Given an event "My event" owned by "random_user@example.org"
 #  And "My event" has mail template "signup_confirmation" with fields:
 #    | Name    | Value         |
 #    | body    | Yay! Party!   |
@@ -422,7 +422,7 @@ Scenario: Adding a guest when logged in as an admin
 #
 #
 #Scenario: Adding a guest to a full event
-#  Given an event "My event" with fields:
+#  Given an event "My event" owned by "dkm@d.kth.se" with fields:
 #    | Name       | Value |
 #    | max_guests | 1     |
 #  And a guest to "My event" called "Karl Persson"
@@ -443,7 +443,7 @@ Scenario: Adding a guest when logged in as an admin
 #  Then I should see "Nisse Karlsson"
 #
 #Scenario: Adding a guest to an event passed deadline
-#  Given an event "My event" with fields:
+#  Given an event "My event" owned by "dkm@d.kth.se" with fields:
 #    | Name       | Value |
 #    | max_guests | 1     |
 #    |deadline| 10 days ago|
@@ -468,11 +468,11 @@ Scenario: Adding a guest when logged in as an admin
 
 # Börja med att markera som attending -> betald
 Scenario: Marking a guest as attending
-  Given an event "My event"
-  And a guest to "My event" called "Karl Persson"
+  Given an event "Plums"
+  And a guest to "Plums" called "Karl Persson"
     ||
   
-  And I go to the guest list page for "My event"
+  And I go to the guest list page for "Plums"
   
   And I fill in "Name" with "Karl Persson"
   And I press "Pricka av"
@@ -483,18 +483,19 @@ Scenario: Marking a guest as attending
   #And I should see "Attending"
 
 Scenario: Viewing guest list to a non-food event
-  Given an event "My event" with fields:
-    | Name                 | Value |
-    | use_food_preferences | false |
-  And a guest to "My event" called "Karl Persson"
+  Given an event "Seminarie" with fields:
+    | Name                 | Value       |
+    | use_food_preferences | false       |
+    | owner                | dkm@d.kth.se|
+  And a guest to "Seminarie" called "Karl Persson"
     ||
   
-  When I go to the event page for "My event"
+  When I go to the event page for "Seminarie"
   
   Then I should not see "Matpreferenser"
   And I should not see "Andra matpreferenser"
   
-  When I go to the guest list page for "My event"
+  When I go to the guest list page for "Seminarie"
   
   Then I should not see "Matpreferenser"
   And I should not see "Andra matpreferenser"
