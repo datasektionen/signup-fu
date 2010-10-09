@@ -2,7 +2,7 @@
 - replies = replies.not_cancelled if !params[:show_cancelled]
 - total_number_of_guests = replies.not_cancelled.count
 - replies = replies.all(:include => [:food_preferences, :ticket_type])
-- if logged_in?
+- if can?(:manage, @event)
   %p
     - if params[:show_cancelled]
       = link_to t('.show_active'), url_for
@@ -14,12 +14,12 @@
     %th= t('.total_number_of_guests')
     %td= total_number_of_guests
 
-- width = logged_in? ? 100 : 300
+- width = can?(:manage, @event) ? 100 : 300
 
 %table#guest_list_table
   %tr
     %th{:style =>"width: #{width}px; max-width: #{width}px; min-width: #{width}px"}= t('replies.form.name')
-    - if logged_in?
+    - if can?(:manage, @event)
       %th{:style =>"width: 200px; max-width: 200px; min-width: 200px"}= t('replies.form.email')
       %th{:style =>"width: 50px; max-width: 50px; min-width: 50px"}= t('replies.form.ticket_type')
       - if @event.use_food_preferences?
@@ -29,14 +29,14 @@
 
     - @event.custom_fields.each do |field|
       %th= field.name
-    - if logged_in?    
+    - if can?(:manage, @event)
       %th{:style =>"width: 100px; max-width: 100px; min-width: 100px"} &nbsp;
       %th &nbsp;
     
   - replies.each do |reply|
     %tr{:class => "#{cycle('even', 'odd')}"}
       %td{:style => "width: #{width}px; max-width: #{width}px; min-width: #{width}px"}= reply.name 
-      - if logged_in?
+      - if can?(:manage, @event)
         %td{:style => "width: 200px; max-width: 200px; min-width: 200px"}= reply.email 
         %td{:style => "width: 50px; max-width: 50px; min-width: 50px"}= reply.ticket_type.name 
         - if @event.use_food_preferences?
@@ -46,7 +46,7 @@
       - @event.custom_fields.each do |field|
         - value = reply.custom_field_values.detect { |v| v.custom_field == field }
         %td= value.try(:value)
-      - if logged_in?
+      - if can?(:manage, @event)
         %td{:style => "width: 100px; max-width: 100px; min-width: 100px"}
           - unless reply.attending?
             =# link_to "Attending", set_attending_event_replies_path(@event, :name => reply.name), :method => :post
@@ -54,7 +54,7 @@
             = link_to t('remove'), reply_path(reply), :method => :delete, :confirm => t(".remove_confirmation", :name => reply.name)
           = link_to t('edit'), edit_reply_path(reply)
 
-- if logged_in?
+- if can?(:manage, @event)
   - if @event.use_food_preferences?
     %table#food_preferences_summary.vertical_header
       %tr

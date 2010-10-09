@@ -1,4 +1,4 @@
-- if logged_in?
+- if can?(:manage, @event)
   -content_for :nav do
     = button_link_to(t("back_to", :name => @event.name), event_path(@event))
   
