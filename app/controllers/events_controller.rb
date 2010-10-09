@@ -11,7 +11,6 @@ class EventsController < ApplicationController
   end
   
   def show
-    @event = Event.find(params[:id])
   end
   
   def new
@@ -23,12 +22,9 @@ class EventsController < ApplicationController
   end
   
   def edit
-    @event = Event.find(params[:id])
   end
   
   def update
-    @event = Event.find(params[:id])    
-    
     if @event.update_attributes(params[:event])
       flash[:notice] = "Event successfully updated"
       redirect_to @event
