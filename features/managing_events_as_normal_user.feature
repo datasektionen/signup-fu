@@ -181,48 +181,6 @@ Scenario: Creating a new event with payment mail
   And I should see "Payment"
   And I should see "Your ticket to {{EVENT_NAME}} is now paid"
 
-# TODO-RAILS3
-#Scenario: Creating a new event with ticket expiry
-#  Given I am on the homepage
-#  
-#  When I go to the new event page
-#  And I fill in "Name" with "My event"
-#  
-#  And I choose "Default"
-#  And I fill in "Date" with "2009-09-09 09:09"
-#  And I fill in "Deadline" with "2009-08-08 08:08"
-#  And I fill in "Max guests" with "0"
-#  
-#  And I check "ticket_expired"
-#  And I fill in "Payment time" with "10"
-#  And I fill in "Ämnesrad" with "No payment received" in "ticket_expired_settings"
-#  And I fill in "Brödtext" with "Your ticket to {{EVENT_NAME}} is now expired" in "ticket_expired_settings"
-#  
-#  # För javascriptad checkbox
-#  And I fill in "event_mail_templates_ticket_expire_reminder_enabled" with "1"
-#  And I fill in "Reminder time" with "3"
-#  And I fill in "Ämnesrad" with "Reminder" in "ticket_expire_reminder_settings"
-#  And I fill in "Brödtext" with "Your are hereby reminded" in "ticket_expire_reminder_settings"
-#  
-#  And I fill in "Bounce address" with "foo@example.org"
-#  
-#  And I fill in the following ticket types:
-#    | With alcohol    | 199 |
-#    | Without alcohol | 179 |
-#  
-#  And I press "Create event"
-#  
-#  Then I should be on the event page for "My event"
-#  
-#  And I should see "Ticket expiry"
-#  And I should see "10 days"
-#  And I should see "3 days"
-#  And I should see "No payment received"
-#  And I should see "Your ticket to {{EVENT_NAME}} is now expired"
-#  And I should see "Reminder"
-#  And I should see "Your are hereby reminded"
-  
-
 # TODO fixa delete-länk
 #Scenario: Event deletion
 #  Given an event "My event" owned by "random_user@example.org"
