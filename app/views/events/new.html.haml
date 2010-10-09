@@ -2,79 +2,56 @@
 
 %h2= t('.title')
 
-= error_messages_for(:event)
-
-%ul#event_tabs.subsection_tabs
-  %li.tab
-    %a{:href => "#general_tab_area"}= t('.general_settings')
-  %li.tab
-    %a{:href => "#ticket_types_tab_area"}= t('.ticket_types')
-  %li.tab
-    %a{:href => "#custom_fields_tab_area"}= t('.custom_fields')
-  %li.tab
-    %a{:href => "#signup_confirmation_tab_area"}= t('.signup_confirmation')
-  %li.tab
-    %a{:href => "#payment_registered_tab_area"}= t('.payment_registered')
-  %li.tab
-    %a{:href => "#ticket_expired_tab_area"}= t('.ticket_expired')
-  %li.tab
-    %a{:href => "#final_settings_tab_area"}= t('.final_settings')
+-#= error_messages_for(:event)
+-#
+-#%ul#event_tabs.subsection_tabs
+-#  %li.tab
+-#    %a{:href => "#general_tab_area"}= t('.general_settings')
+-#  %li.tab
+-#    %a{:href => "#ticket_types_tab_area"}= t('.ticket_types')
+-#  %li.tab
+-#    %a{:href => "#custom_fields_tab_area"}= t('.custom_fields')
+-#  %li.tab
+-#    %a{:href => "#signup_confirmation_tab_area"}= t('.signup_confirmation')
+-#  %li.tab
+-#    %a{:href => "#payment_registered_tab_area"}= t('.payment_registered')
+-#  %li.tab
+-#    %a{:href => "#ticket_expired_tab_area"}= t('.ticket_expired')
+-#  %li.tab
+-#    %a{:href => "#final_settings_tab_area"}= t('.final_settings')
 
 %div{:style => 'clear: both'}
   
 = simple_form_for(@event) do |f|
-  
-  %div#general_tab_area
+  %fieldset
+    %legend= t('.general_settings')
     = f.input :name
     = render :partial => 'common_fields', :locals => {:f => f}
-    
-    = next_button
   
-  %div#ticket_types_tab_area
-    %h3= t('.ticket_types')
+  %fieldset
+    %legend= t('.ticket_types')
+    
     - ticket_type_index = 0
     = f.simple_fields_for(:ticket_types) do |ticket_type_form|
       - ticket_type_index += 1
       = ticket_type_form.input :name, :label => t('.ticket_type_name', :number => ticket_type_index)
       = ticket_type_form.input :price, :label => t('.ticket_type_price', :number => ticket_type_index)
-      
-    = next_button
-  
-  
-  %div#custom_fields_tab_area
-    %h3= t('.custom_fields')
     
-    - custom_field_index = 0
-    = f.simple_fields_for(:custom_fields) do |custom_fields_form|
-      - custom_field_index += 1
-      = custom_fields_form.input :name, :label => t('.custom_field_name', :number => custom_field_index), :class => 'text'
-    
-    = next_button
-    
-  %div#signup_confirmation_tab_area
-    %h3= t('.signup_confirmation')
-    
+  %fieldset
+    %legend= t('.signup_confirmation')
     .mail_template_settings
       #signup_confirmation_settings{:style => ''}
         = render :partial => 'mail_template_form', :locals => { :name => 'signup_confirmation', :f => f } 
-    
-    = next_button
-  
-  %div#payment_registered_tab_area
-    %h3= t('.payment_registered')
-    
+  %fieldset
+    %legend= t('.payment_registered')
     .mail_template_settings
       #payment_registered_settings{:style => ''}
         
         = render :partial => 'mail_template_form', :locals => { :name => 'payment_registered', :f => f }
-    
-    = next_button
-  
-  %div#ticket_expired_tab_area
-    %h3 Reminders and automatic cancellation
-    
+
+  %fieldset
+    %legend Reminders and automatic cancellation
     .mail_template_settings
-      
       = check_box_tag "asfasdfsf[mail_templates_attributes][ticket_expired][enable]", "1", false, :onclick => "", :id => 'ticket_expired'
       %label{:for => 'ticket_expired'} Last payment (with expire) 
       
@@ -90,16 +67,17 @@
           %h4 Reminder
           = hidden_field_tag "asdfdsfevent[mail_templates_attributes][ticket_expire_reminder][enable]", "0", :id => 'event_mail_templates_ticket_expire_reminder_enabled'
           = render :partial => 'mail_template_form', :locals => { :name => 'ticket_expire_reminder', :f => f }
-      = next_button
-  
-  %div#final_settings_tab_area
+    
+  %fieldset
+    %legend Slutliga inställningar
+    
     %h3 Bounce address
     %p.notice
       This specifies the address that will be used for replies and bounces to emails. 
       <strong>It is required when sending emails</strong>.
       
     = f.input :bounce_address
-  
+    
     %h3 Terms of booking
     
     %p.notice
@@ -115,3 +93,13 @@
         = f.text_area :terms, :class => 'text'
     
     = f.submit "Create event"
+    
+    
+:javascript
+  $('#new_event').jWizard({
+    debug: true,
+    buttons: {
+      cancelType: "reset",
+      finishType: "submit"
+    },
+  })
