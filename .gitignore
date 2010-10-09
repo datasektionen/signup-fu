@@ -8,4 +8,4 @@ config.rb
 .DS_Store
 TODO.txt
 rerun.txt
-vendor/plugins/rails_upgrade
+vendor/plugins/rails_upgradedb/schema.rb
