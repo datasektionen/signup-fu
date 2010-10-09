@@ -36,12 +36,20 @@
       - ticket_type_index += 1
       = ticket_type_form.input :name, :label => t('.ticket_type_name', :number => ticket_type_index)
       = ticket_type_form.input :price, :label => t('.ticket_type_price', :number => ticket_type_index)
+  %fieldset
+    %legend= t('.custom_fields')
+    - custom_field_index = 0
+    = f.simple_fields_for(:custom_fields) do |custom_fields_form|
+      - custom_field_index += 1
+      = custom_fields_form.input :name, :label => t('.custom_field_name', :number => custom_field_index), :class => 'text'
+
     
   %fieldset
     %legend= t('.signup_confirmation')
     .mail_template_settings
       #signup_confirmation_settings{:style => ''}
         = render :partial => 'mail_template_form', :locals => { :name => 'signup_confirmation', :f => f } 
+  
   %fieldset
     %legend= t('.payment_registered')
     .mail_template_settings
