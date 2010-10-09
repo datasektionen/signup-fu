@@ -404,7 +404,6 @@ Scenario: Adding a guest to an event passed deadline
   
   When I follow "Ny gäst"
   
-  And show me the page
   Then I should see "Obs: Deadline för Plums har passerat. Eftersom du är inloggad kan du trots detta lägga till gäster"
   
   And I fill in "Namn" with "Nisse Karlsson"

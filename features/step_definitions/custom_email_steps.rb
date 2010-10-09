@@ -11,6 +11,6 @@ Then /^I should see the payment reference for the reply from "([^\"]*)" to "([^\
   
   reference = "#{event.ref_prefix}-#{reply.id}"
   
-  current_email.body.should contain(reference)
+  current_email.body.should include(reference)
 end
 
