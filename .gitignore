@@ -6,3 +6,6 @@ config/database.yml
 app/stylesheets/.sass-cache
 config.rb
 .DS_Store
+TODO.txt
+rerun.txt
+vendor/plugins/rails_upgrade
