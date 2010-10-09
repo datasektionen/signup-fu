@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
   
   has_many :mail_templates do
     def by_name(name, options = {})
-      template = find(:first, :conditions => {:name => name.to_s})
+      template = where(:name => name.to_s).first
       
       if options[:build_new] && template.nil?
         template = new(:name => name.to_s)
