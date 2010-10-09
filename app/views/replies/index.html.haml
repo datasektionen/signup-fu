@@ -1,4 +1,5 @@
-- javascript names_event_replies_path(@event, :format => :js )
+- if can?(:manage, @event)
+  - javascript names_event_replies_path(@event, :format => :js )
 - javascript "replies.js"
 
 = render 'index'
