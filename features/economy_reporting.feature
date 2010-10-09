@@ -20,26 +20,25 @@ Scenario: Marking a reply as paid
   
   Then I should see "2009-01-01"
 
-# TODO EMAIL-SPEC
-#Scenario: Sending a payment reported mail
-#  Given an event "My event" owned by "random_user@example.org"
-#  And a guest to "My event" called "Kalle"
-#    | Name  | Value             |
-#    | email | kalle@example.org |
-#  And "My event" has mail template "payment_registered" with fields:
-#    | Name    | Value                               |
-#    | body    | Thank you for paying, {{REPLY_NAME}} |
-#    | subject | Payment received for {{EVENT_NAME}} |
-#  
-#  When I go to the event page for "My event"
-#  And I follow "Ekonomi"
-#  
-#  And I check the paid checkbox for "Kalle"
-#  And I press "Spara"
-#  
-#  Then "kalle@example.org" should receive 1 emails
-#  
-#  When "kalle@example.org" opens the email with subject "Payment received for My event"
-#  
-#  Then I should see "Thank you for paying, Kalle" in the email
+Scenario: Sending a payment reported mail
+  Given an event "Plums"
+  And a guest to "Plums" called "Kalle"
+    | Name  | Value             |
+    | email | kalle@example.org |
+  And "Plums" has mail template "payment_registered" with fields:
+    | Name    | Value                               |
+    | body    | Thank you for paying, {{REPLY_NAME}} |
+    | subject | Payment received for {{EVENT_NAME}} |
   
+  When I go to the event page for "Plums"
+  And I follow "Ekonomi"
+  
+  And I check the paid checkbox for "Kalle"
+  And I press "Spara"
+  
+  Then "kalle@example.org" should receive 1 emails
+  
+  When "kalle@example.org" opens the email with subject "Payment received for Plums"
+  
+  Then I should see "Thank you for paying, Kalle" in the email body
+ 
