@@ -13,6 +13,7 @@ gem 'meta_where'
 gem 'devise'
 gem 'cancan'
 gem 'delayed_job'
+gem 'exceptional'
 
 group :development, :test do
   gem 'ruby-debug'
