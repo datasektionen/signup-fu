@@ -16,5 +16,7 @@ module SignupFu
     
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.default_locale = :'sv-SE'
+    
+    config.action_view.javascript_expansions[:defaults] = %w(jquery jquery-ui rails application)
   end
 end
