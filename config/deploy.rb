@@ -1,3 +1,5 @@
+require 'bundler/capistrano'
+
 set :application, "signup-fu"
 set :repository,  "git@dev.signup-fu.com:signup-fu.git"
 set :deploy_to, "/srv/rails/#{application}"

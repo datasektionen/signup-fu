@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.0'
 gem 'mysql'
+gem 'pg'
 
 gem "liquid"
 gem "haml"
@@ -14,6 +15,7 @@ gem 'devise'
 gem 'cancan'
 gem 'delayed_job'
 gem 'exceptional'
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'ruby-debug'
