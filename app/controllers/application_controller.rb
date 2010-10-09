@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   before_filter :authenticate_user!
   
+  rescue_from CanCan::AccessDenied do |exception|
+    render 'errors/access_denied'
+  end
+
   def permission_denied 
     flash[:error] = "Sorry, you not allowed to access that page."
     if current_user.nil?

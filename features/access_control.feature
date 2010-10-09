@@ -50,6 +50,10 @@ Scenario: Restricting access
   
   Then I should see "Plums"
   And I should not see "D-dagsgasque"
+  
+  When I go to the event page for "D-dagsgasque"
+  Then I should see "Du har inte rätt att se denna sida"
+
 
 Scenario: Viewing all events as an admin user
   Given I am logged in as an admin
