@@ -44,6 +44,24 @@ Given /^an event "([^\"]*)"$/ do |name|
   event.save!
 end
 
+Given /^an event "([^"]*)" with maximum (\d+) guest$/ do |name, max_guests|
+  name = name.downcase.gsub(/[åä]/, "a").gsub("ö", "o").gsub(/[\s-]/, "_")
+  event = Factory.build(name.to_sym)
+  event.ticket_types << Factory(:ticket_type)
+  event.max_guests = max_guests.to_i
+  event.save!
+end
+
+
+Given /^an event "([^"]*)" with deadline (\d+) days ago$/ do |name, days_ago|
+  name = name.downcase.gsub(/[åä]/, "a").gsub("ö", "o").gsub(/[\s-]/, "_")
+  event = Factory.build(name.to_sym)
+  event.ticket_types << Factory(:ticket_type)
+  event.deadline = days_ago.to_i.days.ago
+  event.save!
+end
+
+
 Given /^(\d+) guests signed up to "([^\"]*)"$/ do |count, event_name|
   count = count.to_i
   event = Event.find_by_name(event_name)

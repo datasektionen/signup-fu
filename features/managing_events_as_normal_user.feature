@@ -255,11 +255,10 @@ Scenario: Reminder runs. Wtf NBS flashbacks
   And now is 3 weeks from now
   And the reminder process is run for "Plums"
 
-# TODO MAIL 
-#  Then "kalle@example.org" should receive 1 emails
-#  
-#  When "kalle@example.org" opens the email with subject "Reminder"
-#  Then I should see "You are hereby reminded" in the email
+  Then "kalle@example.org" should receive 1 emails
+  
+  When "kalle@example.org" opens the email with subject "Reminder"
+  Then I should see "You are hereby reminded" in the email body
 
 Scenario: An expiring unpaid reply
   Given an event "Plums"
@@ -283,12 +282,11 @@ Scenario: An expiring unpaid reply
   And now is 4 weeks from now
   And the ticket expire process is run for "Plums"
  
-# TODO MAIL 
-#  Then "kalle@example.org" should receive 1 emails
-#  
-#  When "kalle@example.org" opens the email with subject "You haven't paid for My event"
-#  
-#  Then I should see "You, Kalle, are bad person. Your ticket is now void" in the email
+  Then "kalle@example.org" should receive 1 emails
+  
+  When "kalle@example.org" opens the email with subject "You haven't paid for Plums"
+  
+  Then I should see "You, Kalle, are bad person. Your ticket is now void" in the email body
 
 Scenario: Food weirdness summary
   Given an event "Plums"
@@ -332,96 +330,91 @@ Scenario: Adding a guest when logged in as an event owner
   
   Then I should see a checkbox "Skicka bekräftelse på bokning"
 
-# TODO MAIL
-#Scenario: Adding a guest manually with mail sending
-#  Given an event "My event" owned by "random_user@example.org"
-#  And "My event" has mail template "signup_confirmation" with fields:
-#    | Name    | Value         |
-#    | body    | Yay! Party!   |
-#    | subject | Confirmation! |
-#  
-#  When I go to the event page for "My event"
-#  
-#  And I follow "Ny gäst"
-#  And I check "Skicka bekräftelse på bokning"
-#  And I fill in "Namn" with "Kalle Persson"
-#  And I fill in "E-postadress" with "kalle@example.org"
-#  And I press "Boka"
-#  
-#  Then I should see "Du har nu bokat en biljett till My event"
-#  
-#  When I go to the event page for "My event"
-#  
-#  Then I should see "Kalle Persson"
-#  And "kalle@example.org" should receive 1 email
-#  And "kalle@example.org" should have 1 mail with subject "Confirmation!"
-#
-# TODO AUTH
-#Scenario: Adding a guest as admin without mail sending
-#  Given an event "My event" owned by "random_user@example.org"
-#  And "My event" has mail template "signup_confirmation" with fields:
-#    | Name    | Value         |
-#    | body    | Yay! Party!   |
-#    | subject | Confirmation! |
-#  
-#  When I go to the event page for "My event"
-#  
-#  And I follow "Ny gäst"
-#  And I uncheck "Skicka bekräftelse på bokning"
-#  And I fill in "Namn" with "Kalle Persson"
-#  And I fill in "E-postadress" with "kalle@example.org"
-#  And I press "Boka"
-#  Then I should see "Du har nu bokat en biljett till My event"
-#  
-#  When I go to the event page for "My event"
-#  
-#  Then I should see "Kalle Persson"
-#  And "kalle@example.org" should receive 0 email
-#
-#
-#Scenario: Adding a guest to a full event
-#  Given an event "My event" owned by "dkm@d.kth.se" with fields:
-#    | Name       | Value |
-#    | max_guests | 1     |
-#  And a guest to "My event" called "Karl Persson"
-#    ||
-#  And I am on the event page for "My event"
-#  
-#  When I follow "Ny gäst"
-#  
-#  Then I should see "Obs: Detta arrangemang är fullt! Eftersom du är inloggad kan du trots detta lägga till en gäst, men går då förbi maxgränsen."
-#  
-#  And I fill in "Namn" with "Nisse Karlsson"
-#  And I fill in "E-postadress" with "kalle@example.org"
-#  And I press "Boka"
-#  
-#  Then I should see "Du har nu bokat en biljett till My event"
-#  
-#  When I go to the event page for "My event"
-#  Then I should see "Nisse Karlsson"
-#
-#Scenario: Adding a guest to an event passed deadline
-#  Given an event "My event" owned by "dkm@d.kth.se" with fields:
-#    | Name       | Value |
-#    | max_guests | 1     |
-#    |deadline| 10 days ago|
-#  And a guest to "My event" called "Karl Persson"
-#    ||
-#    
-#  When I go to the event page for "My event"
-#  
-#  When I follow "Ny gäst"
-#  
-#  Then I should see "Obs: Deadline för My event har passerat. Eftersom du är inloggad kan du trots detta lägga till gäster"
-#  
-#  And I fill in "Namn" with "Nisse Karlsson"
-#  And I fill in "E-postadress" with "kalle@example.org"
-#  And I press "Boka"
-#  
-#  Then I should see "Du har nu bokat en biljett till My event"
-#  
-#  When I go to the event page for "My event"
-#  Then I should see "Nisse Karlsson"
+Scenario: Adding a guest manually with mail sending
+  Given an event "Plums"
+  And "Plums" has mail template "signup_confirmation" with fields:
+    | Name    | Value         |
+    | body    | Yay! Party!   |
+    | subject | Confirmation! |
+  
+  When I go to the event page for "Plums"
+  
+  And I follow "Ny gäst"
+  And I check "Skicka bekräftelse på bokning"
+  And I fill in "Namn" with "Kalle Persson"
+  And I fill in "E-postadress" with "kalle@example.org"
+  And I press "Boka"
+  
+  Then I should see "Du har nu bokat en biljett till Plums"
+  
+  When I go to the event page for "Plums"
+  
+  Then I should see "Kalle Persson"
+  
+  And "kalle@example.org" should receive 1 email
+  And "kalle@example.org" should have 1 mail with subject "Confirmation!"
+
+Scenario: Adding a guest as admin without mail sending
+  Given an event "Plums"
+  And "Plums" has mail template "signup_confirmation" with fields:
+    | Name    | Value         |
+    | body    | Yay! Party!   |
+    | subject | Confirmation! |
+  
+  When I go to the event page for "Plums"
+  
+  And I follow "Ny gäst"
+  And I uncheck "Skicka bekräftelse på bokning"
+  And I fill in "Namn" with "Kalle Persson"
+  And I fill in "E-postadress" with "kalle@example.org"
+  And I press "Boka"
+  Then I should see "Du har nu bokat en biljett till Plums"
+  
+  When I go to the event page for "Plums"
+  
+  Then I should see "Kalle Persson"
+  And "kalle@example.org" should receive 0 email
+
+
+Scenario: Adding a guest to a full event
+  Given an event "Plums" with maximum 1 guest
+  And a guest to "Plums" called "Karl Persson"
+    ||
+  And I am on the event page for "Plums"
+  
+  When I follow "Ny gäst"
+  
+  Then I should see "Obs: Detta arrangemang är fullt! Eftersom du är inloggad kan du trots detta lägga till en gäst, men går då förbi maxgränsen."
+  
+  And I fill in "Namn" with "Nisse Karlsson"
+  And I fill in "E-postadress" with "kalle@example.org"
+  And I press "Boka"
+  
+  Then I should see "Du har nu bokat en biljett till Plums"
+  
+  When I go to the event page for "Plums"
+  Then I should see "Nisse Karlsson"
+
+Scenario: Adding a guest to an event passed deadline
+  Given an event "Plums" with deadline 10 days ago
+  And a guest to "Plums" called "Karl Persson"
+    ||
+    
+  When I go to the event page for "Plums"
+  
+  When I follow "Ny gäst"
+  
+  And show me the page
+  Then I should see "Obs: Deadline för Plums har passerat. Eftersom du är inloggad kan du trots detta lägga till gäster"
+  
+  And I fill in "Namn" with "Nisse Karlsson"
+  And I fill in "E-postadress" with "kalle@example.org"
+  And I press "Boka"
+  
+  Then I should see "Du har nu bokat en biljett till Plums"
+  
+  When I go to the event page for "Plums"
+  Then I should see "Nisse Karlsson"
 
 
 # Börja med att markera som attending -> betald
