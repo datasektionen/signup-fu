@@ -135,6 +135,7 @@ Feature: Signing up
     When I go to the new reply page for "My legal event"
     
     Then I should see "Anmälan är bindande"
+    
     And I should see "Jag godkänner villkoren"
     
     And I fill in "Namn" with "Kalle"

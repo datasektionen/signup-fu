@@ -4,19 +4,19 @@ Scenario: Creating an event with custom fields
   Given I am logged in as an admin
   And I am on the homepage
   And I go to the new event page
-  And I fill in "Name" with "My event"
-  And I choose "Default"
-  And I fill in "Date" with "2011-09-09 09:09"
-  And I fill in "Deadline" with "2011-08-08 08:08"
-  And I fill in "Max guests" with "0"
-  And I fill in "Signup message" with "Foobar!"
+  And I fill in "Arrangemangets namn" with "My event"
+  And I select "Default" from "Mall"
+  And I fill in "Datum" with "2011-09-09 09:09"
+  And I fill in "Sista anmälningsdatum" with "2011-08-08 08:08"
+  And I fill in "Max antal gäster" with "0"
+  And I fill in "Meddelande" with "Foobar!"
   
   And I fill in "Biljettnamn 1" with "With alcohol"
   And I fill in "Biljettpris 1" with "100"
   
   And I fill in "Anpassat fält 1" with "Årskurs"
   
-  And I press "Create event"
+  And I press "Create Event"
   
   When I go to the new reply page for "My event"
   

@@ -1,14 +1,4 @@
-%h3
-  Template
-%ul
-  - Event.templates.each do |template_description, template_name|
-    %li
-      = f.radio_button :template, template_name
-      %label{ :for => "event_template_#{template_name}" }
-        = template_description
-%h3
-  Dates
-
+= f.input :template, :collection => Event.templates
 = f.input :date, :as => :string
 = f.input :deadline, :as => :string
 = f.input :ref_prefix

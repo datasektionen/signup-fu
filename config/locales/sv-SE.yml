@@ -68,6 +68,17 @@
       custom_fields: Anpassade fält
       custom_field_name: Anpassat fält %{number}
       ticket_expired: Last payment (with expiry)
+      template: Mall
+      last_payment: Sista betalningsdag
+      ticket_expired: Bokning borttagen
+      payment_reminder: Betalningspåminnelse
+      reminders_and_cancellation: Påminnelser och automatisk borttagning
+      bounce_address: Studsadress
+      bounce_address_notice:   This specifies the address that will be used for replies and bounces to emails. <strong>It is required when sending emails</strong>.
+      terms_of_booking: Bokningsvillkor
+      terms_of_booking_notice: This option will let you specify a text which will be shown on the booking page, with a checkbox for accepting. Useful if you want to make sure your guests understand that a signup is binding.
+      
+      
     show:
       permit: Tillståndsrapport
       guests: Gästlista
@@ -111,10 +122,29 @@
         subject: Ämnesrad
   simple_form:
     labels:
-      terms: Jag godkänner villkoren
-      use_food_preferences: Använd matpreferenser
-      ref_prefix: Betalningsreferensprefix
-      require_pid: Kräv personnummer
+      reply:
+        terms: Jag godkänner villkoren
+      event:
+        use_food_preferences: Använd matpreferenser
+        ref_prefix: Betalningsreferensprefix
+        require_pid: Kräv personnummer
+        name: Arrangemangets namn
+        template: Mall
+        date: Datum
+        deadline: Sista anmälningsdatum
+        max_guests: Max antal gäster
+        signup_message: Meddelande
+        payment_time: Betalningstid
+        expire_time_from_reminder: Påminnelsetid
+        bounce_address: Studsadress
+        terms_of_booking: Bokningsvillkor
+
+    hints:
+      event:
+        signup_message: Visas efter att någon anmält sig till arrangemanget
+        payment_time: Antalet dagar en gäst har på sig innan en betalningspåminnelse skickas
+        expire_time_from_reminder: Antalet dagar en gäst har på sig efter att betalningspåminnelse skickats innan bokningen tas bort
+        
 #en:
 #  activerecord:
 #    models:

@@ -1,0 +1,121 @@
+form {
+  
+  div.input {
+    margin-bottom: 5px;
+  }
+  input, select { font: normal normal 14px/17px Helvetica, Tahoma, sans-serif; }
+  textarea { font: normal normal 14px/17px monospace; }
+
+  input[type=submit] {
+    margin: 6px 0 0 0;
+    padding: 2px 8px;
+    font-weight: bold;
+  }
+
+  label { margin-top: 8px; }
+
+  .radio, .check_boxes, .select {
+    position: relative;
+  }
+
+  label.boolean { margin-right: 10px; }
+  
+  .radio label,
+  .check_boxes label,
+  .select label {
+    font-weight: bold;
+    width: 200px;
+    display: block;
+    margin-right: 20px;
+  }
+  
+  .check_boxes input.check_boxes,
+  .check_boxes label.collection_check_boxes {
+    margin-top: 0;
+    display: inline;
+  }
+  .check_boxes input.check_boxes { margin: 5px 5px 0 0; }
+
+  label.collection_radio,
+  label.collection_check_boxes {
+    font-weight: normal;
+    width: auto;
+  }
+
+  .boolean .hint { color: #555; font-style: italic; }
+  
+  .radio .hint,
+  .check_boxes .hint,
+  .select .hint {
+    float: left;
+    clear: left;
+    width: 200px;
+    font-weight: normal;
+    color: #999999;
+    text-align: right;
+  }
+  .string, .date, .text, .password, .file, .integer, .url, .email {
+    position: relative;
+  }
+  
+  .string label,
+  .date label,
+  .text label,
+  .password label,
+  .file label,
+  .integer label,
+  .url label,
+  .select label,
+  .email label {
+    margin-right: 20px;
+    float: left;
+    clear: left;
+    font-weight: bold;
+    width: 200px;
+  }
+  
+  .string .hint,
+  .date .hint,
+  .text .hint,
+  .password .hint,
+  .file .hint,
+  .integer .hint,
+  .url .hint,
+  .email .hint {
+    display: block;
+    color: #999999;
+  }
+  
+  .string input, .date input, .text input, .password input,
+  .file input, .integer input, .url input, .email input,
+  .select select,
+  textarea {
+    border: 1px solid #999999;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    padding: 4px 3px;
+    width: 400px;
+  }
+
+  label.datetime { margin-right: 6px; }
+}
+
+.field_with_errors {
+  span.error {
+    color: #D12F19;
+    display: block;
+  }
+  input.string  {
+    background-color: #FBE3E4;
+  }
+}
+
+form.post, form.text_node {
+  textarea {
+    width: 700px;
+    height: 400px;
+  }
+  .calendar_data { margin-top: 10px; }
+}
+

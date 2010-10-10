@@ -58,6 +58,20 @@ class Event < ActiveRecord::Base
     !ref_prefix.blank?
   end
   
+  def ticket_types_for_new_form
+    while self.ticket_types.size < 3
+      ticket_types.build
+    end
+    ticket_types
+  end
+  
+  def custom_fields_for_new_form
+    while self.custom_fields.size < 3
+      custom_fields.build
+    end
+    custom_fields
+  end
+  
   private
   def check_correct_mail_templates
     if mail_templates.map(&:name).include?("ticket_expired") && !mail_templates.map(&:name).include?("ticket_expire_reminder")

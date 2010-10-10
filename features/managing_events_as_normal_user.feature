@@ -19,16 +19,16 @@ Background:
 Scenario: Creating a new event without max number of guests
   And I am on the homepage
   And I go to the new event page
-  And I fill in "Name" with "My event"
-  And I choose "Default"
-  And I fill in "Date" with "2009-09-09 09:09"
-  And I fill in "Deadline" with "2009-08-08 08:08"
-  And I fill in "Max guests" with "0"
-  And I fill in "Signup message" with "Foobar!"
+  And I fill in "Arrangemangets namn" with "My event"
+  And I select "Default" from "Mall"
+  And I fill in "Datum" with "2009-09-09 09:09"
+  And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
+  And I fill in "Max antal gäster" with "0"
+  And I fill in "Meddelande" with "Foobar!"
   
   And I fill in "Biljettnamn 1" with "With alcohol"
   And I fill in "Biljettpris 1" with "100"
-  And I press "Create event"
+  And I press "Create Event"
   
   Then I should be on the event page for "My event"
   And I should see "My event"
@@ -38,12 +38,12 @@ Scenario: Creating a new event with prices
   And I am on the homepage
   
   When I go to the new event page
-  And I fill in "Name" with "My event"
+  And I fill in "Arrangemangets namn" with "My event"
   
-  And I choose "Default"
-  And I fill in "Date" with "2009-09-09 09:09"
-  And I fill in "Deadline" with "2009-08-08 08:08"
-  And I fill in "Max guests" with "0"
+  And I select "Default" from "Mall"
+  And I fill in "Datum" with "2009-09-09 09:09"
+  And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
+  And I fill in "Max antal gäster" with "0"
   
   And I fill in "Biljettpris 1" with "199"
   And I fill in "Biljettnamn 1" with "With alcohol"
@@ -51,7 +51,7 @@ Scenario: Creating a new event with prices
   And I fill in "Biljettpris 2" with "179"
   And I fill in "Biljettnamn 2" with "Without alcohol"
   
-  And I press "Create event"
+  And I press "Create Event"
   
   Then I should be on the event page for "My event"
     
@@ -66,17 +66,17 @@ Scenario: Creating a new event without mails
   Given I am on the homepage
   
   When I go to the new event page
-  And I fill in "Name" with "My event"
+  And I fill in "Arrangemangets namn" with "My event"
   
-  And I choose "Default"
-    And I fill in "Date" with "2009-09-09 09:09"
-  And I fill in "Deadline" with "2009-08-08 08:08"
-  And I fill in "Max guests" with "0"
+  And I select "Default" from "Mall"
+  And I fill in "Datum" with "2009-09-09 09:09"
+  And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
+  And I fill in "Max antal gäster" with "0"
   And I fill in the following ticket types:
     | With alcohol    | 199 |
     | Without alcohol | 179 |
   
-  And I press "Create event"
+  And I press "Create Event"
   
   Then I should be on the event page for "My event"
   
@@ -89,12 +89,12 @@ Scenario: Creating a new event with confirmation mail
   Given I am on the homepage
   
   When I go to the new event page
-  And I fill in "Name" with "My event"
+  And I fill in "Arrangemangets namn" with "My event"
   
-  And I choose "Default"
-  And I fill in "Date" with "2009-09-09 09:09"
-  And I fill in "Deadline" with "2009-08-08 08:08"
-  And I fill in "Max guests" with "0"
+  And I select "Default" from "Mall"
+  And I fill in "Datum" with "2009-09-09 09:09"
+  And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
+  And I fill in "Max antal gäster" with "0"
   And I fill in "Biljettnamn 1" with "With alcohol"
   And I fill in "Biljettpris 1" with "100"
   
@@ -102,13 +102,13 @@ Scenario: Creating a new event with confirmation mail
   And I fill in "Ämnesrad" with "Welcome" in "signup_confirmation_settings"
   And I fill in "Brödtext" with "Welcome to My event" in "signup_confirmation_settings"
   
-  And I fill in "Bounce address" with "foo@example.org"
+  And I fill in "Studsadress" with "foo@example.org"
   
   And I fill in the following ticket types:
     | With alcohol    | 199 |
     | Without alcohol | 179 |
   
-  And I press "Create event"
+  And I press "Create Event"
   
   Then I should be on the event page for "My event"
   
@@ -123,12 +123,12 @@ Scenario: Creating a new event with confirmation mail - default message
   Given I am on the homepage
   
   When I go to the new event page
-  And I fill in "Name" with "My event"
+  And I fill in "Arrangemangets namn" with "My event"
   
-  And I choose "Default"
-  And I fill in "Date" with "2009-09-09 09:09"
-  And I fill in "Deadline" with "2009-08-08 08:08"
-  And I fill in "Max guests" with "0"
+  And I select "Default" from "Mall"
+  And I fill in "Datum" with "2009-09-09 09:09"
+  And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
+  And I fill in "Max antal gäster" with "0"
   
   And I fill in "Biljettnamn 1" with "With alcohol"
   And I fill in "Biljettpris 1" with "100"
@@ -153,12 +153,12 @@ Scenario: Creating a new event with payment mail
   Given I am on the homepage
   
   When I go to the new event page
-  And I fill in "Name" with "My event"
-  And I choose "Default"
+  And I fill in "Arrangemangets namn" with "My event"
+  And I select "Default" from "Mall"
   
-  And I fill in "Date" with "2009-09-09 09:09"
-  And I fill in "Deadline" with "2009-08-08 08:08"
-  And I fill in "Max guests" with "0"
+  And I fill in "Datum" with "2009-09-09 09:09"
+  And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
+  And I fill in "Max antal gäster" with "0"
   
   And I fill in "Biljettnamn 1" with "With alcohol"
   And I fill in "Biljettpris 1" with "100"
@@ -167,13 +167,13 @@ Scenario: Creating a new event with payment mail
   And I fill in "Ämnesrad" with "Payment" in "payment_registered_settings"
   And I fill in "Brödtext" with "Your ticket to {{EVENT_NAME}} is now paid" in "payment_registered_settings"
   
-  And I fill in "Bounce address" with "foo@example.org"
+  And I fill in "Studsadress" with "foo@example.org"
   
   And I fill in the following ticket types:
     | With alcohol    | 199 |
     | Without alcohol | 179 |
   
-  And I press "Create event"
+  And I press "Create Event"
   
   Then I should be on the event page for "My event"
   
@@ -196,8 +196,8 @@ Scenario: Editing an event
   When I go to the event page for "Plums"
   And I follow "Redigera"
   
-  And I fill in "Date" with "2012-10-10 10:10"
-  And I fill in "Deadline" with "2012-09-10 10:10"
+  And I fill in "Datum" with "2012-10-10 10:10"
+  And I fill in "Sista anmälningsdatum" with "2012-09-10 10:10"
   And I press "Save"
   
   Then I should be on the event page for "Plums"
@@ -218,17 +218,17 @@ Scenario: Viewing an event
 Scenario: Creating an event with a pay before date
   Given I am on the homepage
   And I go to the new event page
-  And I fill in "Name" with "My event"
+  And I fill in "Arrangemangets namn" with "My event"
   
-  And I choose "Default"
-  And I fill in "Date" with "2009-09-09 09:09"
-  And I fill in "Deadline" with "2009-08-08 08:08"
-  And I fill in "Payment time" with "14"
-  And I fill in "Max guests" with "0"
+  And I select "Default" from "Mall"
+  And I fill in "Datum" with "2009-09-09 09:09"
+  And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
+  And I fill in "Betalningstid" with "14"
+  And I fill in "Max antal gäster" with "0"
   And I fill in the following ticket types:
     | With alcohol    | 199 |
   
-  And I press "Create event"
+  And I press "Create Event"
   
   Then I should be on the event page for "My event"
   And I should see "2009-09-09 09:09"
