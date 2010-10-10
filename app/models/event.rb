@@ -11,13 +11,9 @@ class Event < ActiveRecord::Base
   validate :presence_of_bounce_address_when_sending_mails
   
   has_many :replies
-  
   has_many :custom_fields
   belongs_to :owner, :class_name => 'User', :foreign_key => 'user_id'
-  accepts_nested_attributes_for :custom_fields, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
-  
   has_many :ticket_types
-  
   has_many :mail_templates do
     def by_name(name, options = {})
       template = where(:name => name.to_s).first
@@ -28,12 +24,9 @@ class Event < ActiveRecord::Base
       template
     end
   end
-  
+
+  accepts_nested_attributes_for :custom_fields, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
   accepts_nested_attributes_for :mail_templates, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) || attrs['enable'] != "1" }
-  
-  
-  #using_access_control
-  
   accepts_nested_attributes_for :ticket_types, :reject_if => lambda { |attrs| attrs.values.all?(&:blank?) }
   
   def self.templates
@@ -44,6 +37,7 @@ class Event < ActiveRecord::Base
       ['Vårbalen', 'varbalen']
     ]
   end
+  
   def full?
     max_guests != 0 && replies.not_cancelled.count >= max_guests
   end
