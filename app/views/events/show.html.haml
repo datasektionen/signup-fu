@@ -1,0 +1,145 @@
+%section#event_info
+  %h2.foo= @event.name
+  
+  %div
+    - unless @event.getting_started_dismissed?
+      #getting_started.success
+        %p
+          Your event has been created!
+        %p
+          This is the event page for your newly created event! Here you can administer your
+          event, check the guest list, report payments, etc. Bookmark it or
+          write down the URL to it!
+        = link_to "#{image_tag("buttons/tick.png")} Dismiss", dismiss_getting_started_event_path(@event), :method => :post, :class => 'button'
+        %br/
+        %br/
+    %div
+      - if @event.require_pid
+        = button_link_to(t('.permit'), permit_event_replies_path(@event))
+      = button_link_to(t(".guests"), event_replies_path(@event))
+      = button_link_to(t(".economy"), economy_event_replies_path(@event))
+      = button_link_to(t("edit"), edit_event_path(@event))
+      = button_link_to(t(".add_guest"), new_event_reply_path(@event, :admin_view => 1))
+  
+  
+  %div.info_box
+    %h3 Information
+    %table.vertical_header{:style => 'margin-bottom: 0px'}
+      %tr
+        %th Date
+        %td
+          = @event.date.strftime("%Y-%m-%d %H:%M")
+      %tr
+        %th Deadline
+        %td= @event.deadline.strftime("%Y-%m-%d %H:%M")
+      - if @event.payment_time
+        %tr
+          %th Payment time
+          %td
+            = @event.payment_time
+            days
+      - if @event.expire_time_from_reminder
+        %tr
+          %th Reminder time
+          %td
+            = @event.expire_time_from_reminder
+            days
+      %tr
+        %th Mail vid anmälan
+        %td.signup_confirmation
+          - if @event.send_mail_for?(:signup_confirmation)
+            Ja
+          - else
+            Nej
+      %tr
+        %th Mail vid betalning
+        %td.payment_registered
+          - if @event.send_mail_for?(:payment_registered)
+            Ja
+          - else
+            Nej
+      %tr
+        %th Påminnelse och borttagning
+        %td.ticket_expired
+          - if @event.send_mail_for?(:ticket_expired)
+            Ja
+          - else
+            Nej
+      
+
+  
+  %div.info_box
+    %h3 Biljettyper
+    %table.vertical_header
+      - for type in @event.ticket_types
+        %tr
+          %th= type.name
+          %td
+            = type.price
+            kr
+    
+      
+  .clear
+  
+  -#%table.vertical_header
+  -#  %tr
+  -#    %th Date
+  -#    %td
+  -#      = @event.date.strftime("%Y-%m-%d %H:%M")
+  -#  %tr
+  -#    %th Deadline
+  -#    %td= @event.deadline.strftime("%Y-%m-%d %H:%M")
+  -#  - if @event.payment_time
+  -#    %tr
+  -#      %th Payment time
+  -#      %td
+  -#        = @event.payment_time
+  -#        days
+  -#  - if @event.expire_time_from_reminder
+  -#    %tr
+  -#      %th Reminder time
+  -#      %td
+  -#        = @event.expire_time_from_reminder
+  -#        days
+  -#- if @event.send_mail_for?(:signup_confirmation)
+  -#  = render :partial => 'email', :locals => {                                                                              |
+  -#    :title => 'Signup confirmation',                                                                                      |
+  -#    :explanation => "An e-mail will be sent out to everyone who signs up to this event. This email will look like this.", |
+  -#    :template => @event.mail_templates.by_name(:signup_confirmation) }                                                    |
+  -#- if @event.send_mail_for?(:ticket_expired)
+  -#  = render :partial => 'email', :locals => {                                                                                    |
+  -#    :title => 'Ticket expiry reminder',                                                                                         |
+  -#    :explanation => "If a ticket isn't paid within #{@event.payment_time} days, it will be reminded using this mail template.", |
+  -#    :template => @event.mail_templates.by_name(:ticket_expire_reminder) }                                                       |
+  -#  -#
+  -#  = render :partial => 'email', :locals => {                                                                                                       |
+  -#    :title => 'Ticket expiry',                                                                                                                     |
+  -#    :explanation => "If a ticket isn't paid within XXXX days after reminder, it will be deleted and the following mail will be sent to the guest", |
+  -#    :template => @event.mail_templates.by_name(:ticket_expired) }                                                                                  |
+  -#- if @event.send_mail_for?(:payment_registered)
+  -#  = render :partial => 'email', :locals => {                                                                                                        |
+  -#    :title => 'Payment registered mail',                                                                                                            |
+  -#    :explanation => "An e-mail will be sent out to guests when their payment is registered in the economy system. This email will look like this.", |
+  -#    :template => @event.mail_templates.by_name(:payment_registered) }                                                                               |
+  -#
+  -#%h3 Ticket types
+  -#- if !@event.ticket_types.blank?
+  -#  %table.vertical_header
+  -#    - for type in @event.ticket_types
+  -#      %tr
+  -#        %th= type.name
+  -#        %td
+  -#          = type.price
+  -#          kr
+  -#- else
+  
+  %h3 Guests
+  - if @event.replies.empty?
+    %p.empty_list No guests. You really need more PR.
+  - else
+    = render :partial => 'replies/list', :locals => {:replies => @event.replies}
+
+:javascript
+  $(function() {
+  $('a.button').button();
+  });

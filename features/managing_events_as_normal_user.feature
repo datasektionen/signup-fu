@@ -32,7 +32,7 @@ Scenario: Creating a new event without max number of guests
   
   Then I should be on the event page for "My event"
   And I should see "My event"
-  And I should see "2009-09-09 09:09"
+  And I should see a "no guests" message
 
 Scenario: Creating a new event with prices
   And I am on the homepage
@@ -112,9 +112,7 @@ Scenario: Creating a new event with confirmation mail
   
   Then I should be on the event page for "My event"
   
-  And I should see "Signup confirmation"
-  And I should see "Welcome"
-  And I should see "Welcome to My event"
+  And I should see "Signup confirmation" mail as active
   
   And I should not see "Ticket expiry"
   And I should not see "Payment registered mail"
@@ -177,9 +175,7 @@ Scenario: Creating a new event with payment mail
   
   Then I should be on the event page for "My event"
   
-  And I should see "Payment registered"
-  And I should see "Payment"
-  And I should see "Your ticket to {{EVENT_NAME}} is now paid"
+  Then I should see "Payment registered" mail as active
 
 # TODO fixa delete-länk
 #Scenario: Event deletion
@@ -198,7 +194,7 @@ Scenario: Editing an event
   
   And I fill in "Datum" with "2012-10-10 10:10"
   And I fill in "Sista anmälningsdatum" with "2012-09-10 10:10"
-  And I press "Save"
+  And I press "Update Event"
   
   Then I should be on the event page for "Plums"
   And I should not see "2009-09-09"
@@ -237,7 +233,7 @@ Scenario: Creating an event with a pay before date
 
 
 Scenario: Reminder runs. Wtf NBS flashbacks
-  Given an event "Plums"
+  And an event "Plums"
   And that "Plums" has a payment time of 14 days
   And "Plums" has mail template "ticket_expired" with fields:
     | Name    | Value                                                        |
@@ -261,7 +257,7 @@ Scenario: Reminder runs. Wtf NBS flashbacks
   Then I should see "You are hereby reminded" in the email body
 
 Scenario: An expiring unpaid reply
-  Given an event "Plums"
+  And an event "Plums"
   And that "Plums" has a payment time of 14 days
   And that "Plums" has a expire time from reminder of 5 days
   And "Plums" has mail template "ticket_expire_reminder" with fields:

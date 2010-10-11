@@ -10,7 +10,7 @@ module EventsHelper
   end
   
   def food_preferences(reply)
-    reply.food_preferences.map(&:name).join(", ") 
+    reply.food_preferences.map(&:name).join(", ")
   end
   
   def payment_state(reply)

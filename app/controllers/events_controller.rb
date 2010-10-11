@@ -1,13 +1,8 @@
 class EventsController < ApplicationController
   load_and_authorize_resource
 
-
-  
   def index
-    # TODO AUTH 
-    #@events = Event.with_permissions_to(:manage)
-    #@events = Event.accessible_by(current_ability)
-    
+    @events = @events.order(:date.asc)
   end
   
   def show

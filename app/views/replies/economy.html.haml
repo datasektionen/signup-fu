@@ -1,52 +1,55 @@
 - javascript "economy"
+%section
+  %h2.foo= t('.title')
 
-- content_for :nav do
   - if @event.expire_unpaid?
     = button_link_to(t('.reminder_run'), reminder_run_event_path(@event), :method => :post, :confirm => "Are you sure you want to do a reminder run? All unpaid replies older than #{@event.payment_time} days will be reminded.")
     = button_link_to(t('.expiry_run'), expiry_run_event_path(@event), :method => :post, :confirm => "Are you sure you want to do a expire run? All unpaid replies reminded more than #{@event.expire_time_from_reminder} days will be expired.")
-  
+
   = button_link_to(t('back_to', :name => @event.name), @event)
 
-%h2= t('.title')
 
-%h3 Summary
+  %h3 Summary
 
-%table.vertical_header
-  %tr
-    %th Total (Uncancelled, Unexpired)
-    %td= @event.replies.not_cancelled.count
-  %tr  
-    %th Paid
-    %td= @event.replies.not_cancelled.paid.count
-  %tr  
-    %th Unpaid (Not including cancelled, expired. Including reminded)
-    %td= @event.replies.not_cancelled.unpaid.count + @event.replies.not_cancelled.reminded.count
-  %tr  
-    %th Reminded and unpaid
-    %td= @event.replies.not_cancelled.reminded.count
-
-= form_tag(economy_event_replies_path(@event)) do 
-  %table#economy_report_table
+  %table.vertical_header
     %tr
-      - if @event.has_payment_reference? 
-        %th= t('.payment_ref')
-      %th Name
-      %th Guest state
-      %th Payment state
-      %th= t('.mark_as_paid')
+      %th Total (Uncancelled, Unexpired)
+      %td= @event.replies.not_cancelled.count
+    %tr  
+      %th Paid
+      %td= @event.replies.not_cancelled.paid.count
+    %tr  
+      %th Unpaid (Not including cancelled, expired. Including reminded)
+      %td= @event.replies.not_cancelled.unpaid.count + @event.replies.not_cancelled.reminded.count
+    %tr  
+      %th Reminded and unpaid
+      %td= @event.replies.not_cancelled.reminded.count
 
-    - @replies.ascend_by_name.each do |reply|
-      %tr{:class => "#{reply.paid? ? "" : "clickable" }", :id => "reply_row_#{reply.id}"}
-        - if @event.has_payment_reference?
-          %td= reply.payment_reference
+  = form_tag(economy_event_replies_path(@event)) do 
+    %table#economy_report_table
+      %tr
+        - if @event.has_payment_reference? 
+          %th= t('.payment_ref')
+        %th Name
+        %th Guest state
+        %th Payment state
+        %th= t('.mark_as_paid')
+
+      - @replies.ascend_by_name.each do |reply|
+        %tr{:class => "#{reply.paid? ? "" : "clickable" }", :id => "reply_row_#{reply.id}"}
+          - if @event.has_payment_reference?
+            %td= reply.payment_reference
         
-        %td= reply.name
-        %td= guest_state(reply)
-        %td= payment_state(reply)
-        %td
-          - unless reply.paid? || reply.expired?
-            = check_box_tag "reply_ids[]", reply.id, false, :id => "reply_#{reply.id}"
+          %td= reply.name
+          %td= guest_state(reply)
+          %td= payment_state(reply)
+          %td
+            - if !reply.paid? && !reply.expired?
+              = check_box_tag "reply_ids[]", reply.id, false, :id => "reply_#{reply.id}"
+            - else
+              &nbsp;
+              
   
-  = submit_tag t('save')
+    = submit_tag t('save')
   
   

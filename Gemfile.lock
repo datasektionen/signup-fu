@@ -41,6 +41,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.3)
+    childprocess (0.0.7)
+      ffi (~> 0.6.3)
     columnize (0.3.1)
     compass (0.10.5)
       haml (>= 3.0.4)
@@ -137,8 +139,9 @@ GEM
     ruby-debug-base (0.10.3)
       linecache (>= 0.3)
     rubyzip (0.9.4)
-    selenium-webdriver (0.0.28)
-      ffi (>= 0.6.1)
+    selenium-webdriver (0.0.29)
+      childprocess (>= 0.0.7)
+      ffi (~> 0.6.3)
       json_pure
       rubyzip
     simple_form (1.2.2)

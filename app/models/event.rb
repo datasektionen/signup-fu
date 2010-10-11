@@ -6,6 +6,7 @@ class Event < ActiveRecord::Base
   validates_presence_of :template
   validates_presence_of :date
   validates_presence_of :deadline
+  validates_presence_of :name
   
   validate :validate_event_date_and_deadline
   validate :presence_of_bounce_address_when_sending_mails

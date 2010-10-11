@@ -1,33 +1,35 @@
 <html>
   <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>SignupFu</title>
-    <script src="/javascripts/prototype.js" type="text/javascript"></script>
-    <script src="/javascripts/effects.js" type="text/javascript"></script>
-    <script src="/javascripts/dragdrop.js" type="text/javascript"></script>
-    <script src="/javascripts/controls.js" type="text/javascript"></script>
+    <title>Signup-fu</title>
+    <meta name="csrf-param" content="authenticity_token"/>
+    <meta name="csrf-token" content="9kBsDXROYAU0/5/PmNww1reP+C67DYX+9Y9AeVWQ+lo="/>
+    <script src="/javascripts/jquery.js?1286638643" type="text/javascript"></script>
+    <script src="/javascripts/jquery-ui.js?1286798316" type="text/javascript"></script>
+    <script src="/javascripts/rails.js?1286638643" type="text/javascript"></script>
 
-    <script src="/javascripts/application.js" type="text/javascript"></script>
-        <link href="/stylesheets/compiled/screen.css" media="screen" rel="stylesheet" type="text/css" />  </head>
-  
-  <body id="signup_fu">
+    <script src="/javascripts/application.js?1286908828" type="text/javascript"></script>
+    <script src="/javascripts/application.js?1286908828" type="text/javascript"></script>
+    <script src="/javascripts/jquery.jWizard.js?1286723357" type="text/javascript"></script>
     
-    <div id="container">
-      
-      <div id="header">
-        <h1 style="font-size: 72px; line-height: 72px">SignupFu</h1>
-      </div>
-      
-      <div id="content">
-        {{template_content}}
-      </div>
-      
-      <div id="footer">
-        <p>
-        </p>
-      </div>
-      
+    
+    <link href="/stylesheets/compiled/screen.css?1287154903" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/jWizard.base.css?1286831375" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/jquery-ui/signup-fu/jquery-ui-1.8.5.custom.css?1286798316" media="screen, projection" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body class='events_index'>
+    <div id='wrap'>
+      <nav id='mainnav'>
+        <h1 id='textlogo'>
+          <a href='/'>
+            Signup<span>Fu</span></a>
+        </h1>
+      </nav>
+      <section class='normalpage' id='content'>
+        <section>
+          {{ template_content }}
+        </section>
+      </section>
     </div>
-    
   </body>
 </html>

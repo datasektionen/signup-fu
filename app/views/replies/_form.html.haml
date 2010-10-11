@@ -2,31 +2,29 @@
   = f.hidden_field :ticket_type_id, :value => @event.ticket_types.first.id
 - else
   %h3= t('replies.form.ticket_type')
-  %ul
+  %ol
     - @event.ticket_types.each do |ticket_type|
       %li
-        = f.radio_button :ticket_type_id, ticket_type.id
-        %label{:for => "reply_ticket_type_id_#{ticket_type.id}"}
-          = "#{ticket_type.name} (#{ticket_type.price} kr)"
-          
+        = f.radio_button :ticket_type_id, ticket_type.id, :id => dom_id(ticket_type, 'radio')
+        = label_tag(dom_id(ticket_type, 'radio'), ticket_type.name)
+    
 
 = f.input :name
 = f.input :email
 
 - if @event.require_pid?
-  = f.input :pid
+  = f.input :pid, :required => true
 
 - if @event.use_food_preferences?
-  %div{:style => 'width: 330px'}
+  %div
     %h3 Matpreferenser
     
-    %li
-      %ul
-        - FoodPreference.all.each do |food_pref|
-          %li
-            = check_box_tag 'reply[food_preference_ids][]', food_pref.id, @reply.food_preferences.include?(food_pref), :id => dom_id(food_pref, "checkbox")
-            = label_tag dom_id(food_pref, "checkbox"), food_pref.name
-            
+    %ol
+      - FoodPreference.all.each do |fp|
+        %li
+          = check_box_tag 'reply[food_preference_ids][]', fp.id, @reply.food_preferences.include?(fp), :id => dom_id(fp, 'checkbox')
+          = label_tag(dom_id(fp, 'checkbox'), fp.name)
+        
   = f.input :food
 
 = f.input :comments

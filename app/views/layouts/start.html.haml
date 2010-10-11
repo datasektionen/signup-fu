@@ -1,0 +1,54 @@
+%html
+  %head
+    %title Signup-fu
+    
+    = csrf_meta_tag
+    = javascript_include_tag :defaults
+    = javascript_include_tag 'jquery.jWizard.js'
+    = yield :javascripts
+  
+    = yield :stylesheets
+    = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'jquery-ui/signup-fu/jquery-ui-1.8.5.custom.css', :media => "screen, projection"
+
+  %body
+    #wrap
+      %nav#mainnav
+        %h1#textlogo
+          Signup
+          %span> Fu
+        %ul
+          %li.active
+            %a{:href => "index.html"} Home
+          %li
+            %a{:href => "products.html"} Kontakt
+          %li
+            %a{:href => "about.html"} Sign up
+          %li
+            = link_to "Logga in", new_user_session_path
+      %section#content
+        %header#homeheader
+          = yield :header
+      
+      %section#page
+        = yield
+    
+    %footer
+      #bottom
+        %a{:href => "#"} Home
+        |
+        %a{:href => "#"} About Us
+        |
+        %a{:href => "#"} Contact Us
+        |
+        %a{:href => "#"} Support
+        |
+        %a{:href => "#"} Products
+        |
+        %a{:href => "#"} Services
+        .clear
+      #credits
+        Design based on a
+        %a{:href => "http://cssheaven.org", :title => "Download more css templates"} Website Template
+        by CSSHeaven
+      

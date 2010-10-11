@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100930165640) do
+ActiveRecord::Schema.define(:version => 20101012185120) do
 
   create_table "custom_field_values", :force => true do |t|
     t.integer  "reply_id"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(:version => 20100930165640) do
     t.string   "bounce_address"
     t.boolean  "require_pid",               :default => false, :null => false
     t.boolean  "use_food_preferences",      :default => true,  :null => false
-    t.integer  "user_id"
+    t.integer  "user_id",                                      :null => false
   end
 
   create_table "food_preferences", :force => true do |t|

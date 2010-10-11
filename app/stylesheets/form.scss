@@ -1,4 +1,14 @@
 form {
+  font-size: 12px;
+  ol {
+    list-style: none;
+    margin-left: 10px;
+    li {
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+  }
+      
   
   div.input {
     margin-bottom: 5px;
@@ -34,7 +44,9 @@ form {
     margin-top: 0;
     display: inline;
   }
-  .check_boxes input.check_boxes { margin: 5px 5px 0 0; }
+  .check_boxes input.check_boxes {
+    margin: 5px 5px 0 0;
+  }
 
   label.collection_radio,
   label.collection_check_boxes {
@@ -68,10 +80,10 @@ form {
   .select label,
   .email label {
     margin-right: 20px;
-    float: left;
     clear: left;
     font-weight: bold;
     width: 200px;
+    display: block;
   }
   
   .string .hint,
@@ -101,12 +113,19 @@ form {
   label.datetime { margin-right: 6px; }
 }
 
+form.reply {
+  textarea {
+    height: 100px;
+  }
+}
+
 .field_with_errors {
   span.error {
     color: #D12F19;
     display: block;
   }
-  input.string  {
+  input.string,
+  select  {
     background-color: #FBE3E4;
   }
 }
@@ -119,3 +138,23 @@ form.post, form.text_node {
   .calendar_data { margin-top: 10px; }
 }
 
+
+input[type="checkbox"] {
+  margin: 0 3px 0 0;
+  position: relative;
+  top: -2px;
+  vertical-align: middle;
+}
+
+input[type="radio"] {
+  margin: 0 3px 0 0;
+  position: relative;
+  top: -2px;
+  vertical-align: middle;
+}
+
+.check_boxes label {
+  display: inline;
+  padding: 0;
+  vertical-align: middle;
+}

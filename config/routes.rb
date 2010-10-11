@@ -24,5 +24,5 @@ Rails.application.routes.draw do
     end
   end
   
-  match "/", :to => "events#index", :as => 'root'
+  match "/", :to => "home#index", :as => 'root'
 end

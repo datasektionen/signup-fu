@@ -1,6 +1,6 @@
 Given /^an event "([^\"]*)" with fields:$/ do |name, table|
   event = Factory.build(:event, :name => name)
-
+  event.owner = User.find_by_email('myuser@example.org') || Factory(:my_user)
   unless table.raw.empty?
     table.hashes.each do |field|
       case field["Name"]
@@ -166,6 +166,20 @@ Then /^the food preferences summary should show (\d+) (.*)$/ do |count, kind|
   response.body.should match_selector("#food_preferences_summary") do |table|
     table.css("tr").any? { |tr| tr.css("th").first.content == kind && tr.css("td").first.content == count }
   end
+end
+
+Then /^I should see "([^"]*)" mail as active$/ do |mail_name|
+  css_class = case mail_name
+  when "Signup confirmation"
+    "signup_confirmation"
+  when "Payment registered"
+    "payment_registered"
+  else
+    raise "Unknown mail type #{mail_name}"
+  end
+  
+  page.should have_css(".#{css_class}", :text => "Ja")
+  
 end
 
 

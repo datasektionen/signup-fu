@@ -1,6 +1,7 @@
 %html
   %head
     %title Signup-fu
+    
     = csrf_meta_tag
     = javascript_include_tag :defaults
     = javascript_include_tag 'jquery.jWizard.js'
@@ -8,38 +9,25 @@
   
     = yield :stylesheets
     = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
-    = stylesheet_link_tag 'compiled/print.css', :media => 'print'
-    = stylesheet_link_tag 'compiled/screen2.css', :media => 'screen, projection'
     = stylesheet_link_tag 'jWizard.base.css', :media => "screen, projection"
-    = stylesheet_link_tag 'jquery-ui/cupertino/jquery-ui-1.8.5.custom.css', :media => "screen, projection"
-    
-    /[if lt IE 8]
-      = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
-  
-  %body#signup_fu.bp
-    #container
-      #header
-        %h1= link_to "SignupFu", root_path
-      
-      
-      #content
-        #navigation
-          =yield :nav
-        
-        - if flash[:notice]
-          #flash_notice
-            = flash[:notice]
-        
-        - if flash[:error]
-          #flash_error
-            = flash[:error]
-        
-        
-        =yield
-        
-      #footer
-        %p
-          = t('layout.created_by')
-          -#- if current_user
-          -#  = link_to t("layout.logout"), user_session_path, :method => :delete
-  
+    = stylesheet_link_tag 'jquery-ui/signup-fu/jquery-ui-1.8.5.custom.css', :media => "screen, projection"
+
+  %body{:class => "#{params[:controller]}_#{params[:action]}"}
+    #wrap
+      %nav#mainnav
+        %h1#textlogo
+          %a{:href => root_path}
+            Signup
+            %span> Fu
+        %ul
+          %li.active
+            %a{:href => "index.html"} Home
+          %li
+            %a{:href => "products.html"} Kontakt
+          %li
+            %a{:href => "about.html"} Sign up
+          %li
+            = link_to "Logga in", new_user_session_path
+
+      %section#content.normalpage
+        = yield

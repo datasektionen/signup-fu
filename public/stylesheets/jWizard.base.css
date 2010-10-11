@@ -8,6 +8,7 @@
 	.jw-header h2 {
 		margin: 0;
 		padding: .3em 0;
+		background-image: none;
 	}
 	.jw-header .jw-counter {
 		float: right;

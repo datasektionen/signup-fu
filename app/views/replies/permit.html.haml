@@ -1,18 +1,16 @@
-- content_for :nav do
+%section
+  %h2.foo= t('.title')
+
   = button_link_to("Back to #{@event.name}", @event)
 
-
-%h2= t('.title')
-
-
-%table#permit_report_table
-  %tr
-    %th= Reply.human_attribute_name("name") 
-    %th= Reply.human_attribute_name("pid") 
-  
-  - @replies.ascend_by_name.each do |reply|
+  %table#permit_report_table
     %tr
-      %td= reply.name
-      %td= reply.pid
+      %th= Reply.human_attribute_name("name") 
+      %th= Reply.human_attribute_name("pid") 
+  
+    - @replies.ascend_by_name.each do |reply|
+      %tr
+        %td= reply.name
+        %td= reply.pid
   
 

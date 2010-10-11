@@ -1,4 +1,4 @@
-%h2= t('.title', :name => @event.name)
+%h2.foo= t('.title', :name => @event.name)
 
 - if @event.deadline.past?
   - if admin_view?

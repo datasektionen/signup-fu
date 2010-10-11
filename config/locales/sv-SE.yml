@@ -32,6 +32,7 @@
       show_active: Visa aktiva
       show_cancelled: Visa avbokade
       number_of: Antal...
+      remove_confirmation: Är du säker på att du vill ta bort %{name}?
     economy:
       reminder_run: Påminnelsekörning
       expiry_run: Expiry-körning
@@ -57,26 +58,28 @@
     
   events:
     new:
+      title: Nytt arrangemang
+      
+    form:
       signup_confirmation: Bekräftelse på bokning
       payment_registered: Betalningsbekräftelse
+      ticket_expired: Bokning borttagen
       ticket_types: Biljettyper
       general_settings: Allmänna inställningar
       final_settings: Slutliga inställningar
       ticket_type_name: Biljettnamn %{number}
       ticket_type_price: Biljettpris %{number}
-      title: Nytt event
       custom_fields: Anpassade fält
       custom_field_name: Anpassat fält %{number}
-      ticket_expired: Last payment (with expiry)
       template: Mall
       last_payment: Sista betalningsdag
-      ticket_expired: Bokning borttagen
       payment_reminder: Betalningspåminnelse
       reminders_and_cancellation: Påminnelser och automatisk borttagning
       bounce_address: Studsadress
       bounce_address_notice:   This specifies the address that will be used for replies and bounces to emails. <strong>It is required when sending emails</strong>.
       terms_of_booking: Bokningsvillkor
       terms_of_booking_notice: This option will let you specify a text which will be shown on the booking page, with a checkbox for accepting. Useful if you want to make sure your guests understand that a signup is binding.
+      
       
       
     show:

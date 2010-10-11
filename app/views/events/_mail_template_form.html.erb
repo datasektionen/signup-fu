@@ -1,6 +1,6 @@
 <%= f.simple_fields_for(:mail_templates, f.object.mail_templates.by_name(name, :build_new => true)) do |ff| %>
   <%= ff.hidden_field :name %>
-  <%= ff.input :enable, :label => t("events.new.#{name}"), :as => :boolean %>
+  <%= ff.input :enable, :label => t("events.form.#{name}"), :as => :boolean %>
   <%= ff.input :subject, :value => APP_CONFIG[:default_messages][name][:subject], :label => t('activerecord.attributes.mail_template.subject') %>
   <%= ff.input :body, :value => APP_CONFIG[:default_messages][name][:body], :label => t('activerecord.attributes.mail_template.body')  %>
 <% end -%>
