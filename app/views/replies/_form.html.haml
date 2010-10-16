@@ -6,7 +6,7 @@
     - @event.ticket_types.each do |ticket_type|
       %li
         = f.radio_button :ticket_type_id, ticket_type.id, :id => dom_id(ticket_type, 'radio')
-        = label_tag(dom_id(ticket_type, 'radio'), ticket_type.name)
+        = label_tag(dom_id(ticket_type, 'radio'), "#{ticket_type.name} (#{ticket_type.price} kr)")
     
 
 = f.input :name

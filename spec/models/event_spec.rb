@@ -8,7 +8,8 @@ describe Event do
       :ticket_types => [ticket_type],
       :template => 'default',
       :date => 20.days.from_now,
-      :deadline => 10.days.from_now
+      :deadline => 10.days.from_now,
+      :owner => Factory(:my_user)
     }
     @event = Event.new(@valid_params)
     
