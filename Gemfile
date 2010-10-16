@@ -18,6 +18,9 @@ gem 'exceptional'
 gem 'jquery-rails'
 
 group :development, :test do
+  gem 'autotest'
+  gem 'autotest-fsevent'
+  gem 'autotest-growl'
   gem 'ruby-debug'
   gem 'rspec-rails',">= 2.0.0.beta.19"
   gem 'capybara'
