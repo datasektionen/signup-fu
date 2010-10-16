@@ -108,19 +108,19 @@ class Reply < ActiveRecord::Base
     update_attribute(:paid_at, Time.now)
     
     if event.send_mail_for?(:payment_registered)
-      EventMailer.payment_registered(self).delay.deliver
+      EventMailer.delay.payment_registered(self)
     end
   end
   
   def on_expire
     if event.send_mail_for?(:ticket_expired)
-      EventMailer.reply_expired_notification(self).delay.deliver
+      EventMailer.delay.reply_expired_notification(self)
     end
   end
   
   def on_remind
     update_attribute(:reminded_at, Time.now)
-    EventMailer.ticket_expire_reminder(self).delay.deliver
+    EventMailer.delay.ticket_expire_reminder(self)
   end
   
   def format_pid

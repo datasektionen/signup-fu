@@ -81,11 +81,9 @@ describe Reply do
       stub_event_mailer_methods
       @reply.event.stub!(:send_mail_for?).with(:signup_confirmation).and_return(true)
       
-      # Delayed job
-      
-      mail_mock = mock("signup confirmation mail")
-      mail_mock.should_receive(:delay).and_return(mock(:deliver => true))
-      EventMailer.stub(:signup_confirmation).with(@reply).and_return(mail_mock)
+      mock = mock("thingie")
+      mock.should_receive(:signup_confirmation)
+      EventMailer.should_receive(:delay).and_return(mock)
       
       @reply.save!
     end
@@ -104,18 +102,14 @@ describe Reply do
     
       @reply.save!
       
-      EventMailer.should send_mail_through_delayed_job(:payment_registered, @reply)
+      mock = mock("thingie")
+      mock.should_receive(:payment_registered)
+      EventMailer.should_receive(:delay).and_return(mock)
+      
     
       Reply.pay([@reply.id])
     end
     
-    RSpec::Matchers.define :send_mail_through_delayed_job do |mail_name, reply|
-      match do |mailer|
-        mock_mail = mock("payment registred mock")
-        mock_mail.should_receive(:delay).and_return(mock(:deliver => true))
-        mailer.should_receive(mail_name).with(reply).and_return(mock_mail)
-      end
-    end
     
     [true, "true", "1"].each do |trueish|
       it "should interpret \"#{trueish}\" as true" do
