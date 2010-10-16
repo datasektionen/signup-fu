@@ -1,10 +1,12 @@
 %h2.foo Registrera ny användare
 
 %section
-  = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-    = f.input :email
-    = f.input :password
-    = f.input :password_confirmation
-    = f.submit "Registrera"
-  
-  = render :partial => "devise/shared/links"
+  %p
+    Signups currently disabled
+  -#= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+  -#  = f.input :email
+  -#  = f.input :password
+  -#  = f.input :password_confirmation
+  -#  = f.submit "Registrera"
+  -#
+  -#= render :partial => "devise/shared/links"
