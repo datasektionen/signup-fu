@@ -9,18 +9,20 @@ Factory.define(:my_event, :parent => :event) do |f|
   f.name "My event"
   f.ref_prefix "MyE"
   f.owner { |a| User.find_by_email("myuser@example.org") || a.association(:my_user) }
-  
+  f.slug "my-event"
 end
 
 Factory.define(:plums, :parent => :event) do |f|
   f.name "Plums"
   f.ref_prefix "PLUMS"
   f.owner { |a| User.find_by_email("dkm@d.kth.se") || a.association(:dkm) }
+  f.slug "plums"
 end
 
 Factory.define(:d_dagsgasque, :parent => :event) do |f|
   f.name "D-dagsgasque"
   f.owner { |a| User.find_by_email("naringsliv@d.kth.se") || a.association(:nlg) }
+  f.slug "ddagen"
 end
 
 Factory.define(:reply) do |r|
@@ -51,24 +53,28 @@ Factory.define(:admin, :parent => :user) do |f|
   f.email "admin@example.org"
   f.password "kakakaka"
   f.admin true
+  f.name "admin"
 end
 
 Factory.define(:dkm, :parent => :user) do |f|
   f.email "dkm@d.kth.se"
   f.password "osthyvel"
   f.admin false
+  f.name "dkm"
 end
 
 Factory.define(:nlg, :parent => :user) do |f|
   f.email 'naringsliv@d.kth.se'
   f.password 'pastaslev'
   f.admin false
+  f.name "naringsliv"
 end
 
 Factory.define(:my_user, :parent => :user) do |f|
   f.email "myuser@example.org"
   f.password "kookies"
   f.admin false
+  f.name "my"
 end
 
 #Factory.define(:admin, :class => User) do |f|

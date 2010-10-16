@@ -1,6 +1,7 @@
 Given /^an event "([^\"]*)" with fields:$/ do |name, table|
   event = Factory.build(:event, :name => name)
   event.owner = User.find_by_email('myuser@example.org') || Factory(:my_user)
+  event.slug = name.gsub(" ", "-").downcase
   unless table.raw.empty?
     table.hashes.each do |field|
       case field["Name"]

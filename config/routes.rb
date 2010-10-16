@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   resource :account, :controller => "users"
   
+  match "/e/:username/:event_name/new" => "replies#new", :as => 'public_new_reply'
+  match "/e/:username/:event_name" => 'replies#create', :via => :post
+  match "/e/:username/:event_name/tack" => "replies#thanks", :as => 'public_reply_created'
+  match "/e/:username/:event_name" => "replies#index", :as => 'public_event'
+  
   shallow do
     resources :events do
       member do

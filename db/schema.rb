@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101012185120) do
+ActiveRecord::Schema.define(:version => 20101016190418) do
 
   create_table "custom_field_values", :force => true do |t|
     t.integer  "reply_id"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20101012185120) do
     t.boolean  "require_pid",               :default => false, :null => false
     t.boolean  "use_food_preferences",      :default => true,  :null => false
     t.integer  "user_id",                                      :null => false
+    t.string   "slug"
   end
 
   create_table "food_preferences", :force => true do |t|
@@ -120,6 +121,7 @@ ActiveRecord::Schema.define(:version => 20101012185120) do
     t.boolean  "admin",                               :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

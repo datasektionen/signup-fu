@@ -1,6 +1,6 @@
 class RepliesController < ApplicationController
-  before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy, :permit]
-  skip_before_filter :authenticate_user!, :only => [:new, :create, :show, :index]
+  before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy, :permit, :thanks]
+  skip_before_filter :authenticate_user!, :only => [:new, :create, :show, :index, :thanks]
   around_filter :set_locale, :only => [:new, :create, :show, :edit]
   
   def new
@@ -62,12 +62,13 @@ class RepliesController < ApplicationController
     respond_to do |format|
       if @reply.save
         format.html do
-          redirect_to(@reply)
+          redirect_to(public_reply_created_path(@event.owner.name, @event.slug))
         end
         format.xml do
           render :xml => @reply, :status => :created, :location => @reply
         end
       else
+        puts @reply.errors.inspect
         format.html do
           render_templated_action(@event.template, 'new')
         end
@@ -79,6 +80,10 @@ class RepliesController < ApplicationController
   def show
     @reply = Reply.find(params[:id])
     render_templated_action(@reply.event.template, 'show')
+  end
+  
+  def thanks
+    render_templated_action(@event.template, 'show')
   end
   
   def economy
@@ -142,7 +147,12 @@ class RepliesController < ApplicationController
   end
   
   def load_parents
-    @event = Event.find(params[:event_id])
+    if params[:event_id]
+      @event = Event.find(params[:event_id])
+    else
+      @event_owner = User.find_by_name(params[:username])
+      @event = @event_owner.events.find_by_slug(params[:event_name])
+    end
   end
   
   def sanitize_filename(filename)

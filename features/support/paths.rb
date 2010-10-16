@@ -13,7 +13,8 @@ module NavigationHelpers
       
     when /the new reply page for "([^\"]*)"/
       event = find_event($1)
-      new_event_reply_path(event)
+      public_new_reply_path(event.owner.name, event.slug)
+      #new_event_reply_path(event)
     
     when /the event page for "([^\"]*)"/
       event = find_event($1)

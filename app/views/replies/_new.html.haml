@@ -17,7 +17,7 @@
       
 -# TODO refactor this
 - if admin_view? || (!@event.deadline.past? && !@event.full?)
-  = simple_form_for([@event, @reply], :id => "new_reply") do |f|
+  = simple_form_for([@event, @reply], :id => "new_reply", :url => public_event_path(@event.owner.name, @event.slug)) do |f|
     - if admin_view?
       %h3= t('.admin_functions')
       

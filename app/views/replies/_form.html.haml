@@ -2,6 +2,9 @@
   = f.hidden_field :ticket_type_id, :value => @event.ticket_types.first.id
 - else
   %h3= t('replies.form.ticket_type')
+  - if @reply.errors[:ticket_type].present?
+    %div.error
+      Biljettyp måste anges!
   %ol
     - @event.ticket_types.each do |ticket_type|
       %li

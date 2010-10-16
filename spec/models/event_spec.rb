@@ -9,7 +9,8 @@ describe Event do
       :template => 'default',
       :date => 20.days.from_now,
       :deadline => 10.days.from_now,
-      :owner => Factory(:my_user)
+      :owner => Factory(:my_user),
+      :slug => 'hamster'
     }
     @event = Event.new(@valid_params)
     
@@ -171,4 +172,17 @@ describe Event do
     @event.should have(1).errors_on(:bounce_address)
   end
   
+  %w(abc abc-def abc-123-foo).each do |valid_slug|
+    it "accepts #{valid_slug} as slug" do
+      @event.slug = valid_slug
+      @event.should be_valid
+    end
+  end
+  
+  ["fooååå", "foo bar", "flum_hamster"].each do |invalid_slug|
+    it "does not accept #{invalid_slug} as slug" do
+      @event.slug = invalid_slug
+      @event.should_not be_valid
+    end
+  end
 end
