@@ -82,9 +82,12 @@ describe Reply do
       @reply.event.stub!(:send_mail_for?).with(:signup_confirmation).and_return(true)
       
       # Delayed job
-      #EventMailer.should_receive(:send_later).with(:deliver_signup_confirmation, @reply)
       
-      #@reply.save!
+      mail_mock = mock("signup confirmation mail")
+      mail_mock.should_receive(:delay).and_return(mock(:deliver => true))
+      EventMailer.stub(:signup_confirmation).with(@reply).and_return(mail_mock)
+      
+      @reply.save!
     end
 
     it "should not send confirmation mail if there aren't any confirmation mail template" do
@@ -100,25 +103,18 @@ describe Reply do
       @event.stub!(:send_mail_for?).with(:payment_registered).and_return(true)
     
       @reply.save!
-    
-      #EventMailer.should_receive(:send_later).with(:deliver_payment_registered, @reply)
+      
+      EventMailer.should send_mail_through_delayed_job(:payment_registered, @reply)
     
       Reply.pay([@reply.id])
     end
     
-    # For use in REST-API
-    it "should not send signup confirmation mail if send_signup_confirmation is false" do
-      EventMailer.should_not_receive(:deliver_signup_confirmation)
-      
-      @reply = @event.replies.new(
-        :ticket_type => @ticket_type,
-        :name => 'Kalle',
-        :email => 'kalle@example.org',
-        :send_signup_confirmation => "false"
-      )
-      @reply.event.stub!(:send_mail_for?).with(:signup_confirmation).and_return(true)
-      
-      @reply.save!
+    RSpec::Matchers.define :send_mail_through_delayed_job do |mail_name, reply|
+      match do |mailer|
+        mock_mail = mock("payment registred mock")
+        mock_mail.should_receive(:delay).and_return(mock(:deliver => true))
+        mailer.should_receive(mail_name).with(reply).and_return(mock_mail)
+      end
     end
     
     [true, "true", "1"].each do |trueish|

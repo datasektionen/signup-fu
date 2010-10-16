@@ -13,7 +13,7 @@ gem 'compass'
 gem 'meta_where'
 gem 'devise'
 gem 'cancan'
-gem 'delayed_job'
+gem 'delayed_job', '>=2.1.0.pre2'
 gem 'exceptional'
 gem 'jquery-rails'
 
