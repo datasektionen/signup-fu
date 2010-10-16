@@ -1,15 +1,6 @@
 class RepliesController < ApplicationController
   before_filter :load_parents, :only => [:names, :set_attending, :new, :index, :create, :economy, :permit]
-  
-  #filter_resource_access :additional_collection => {
-  #  :names => :manage,
-  #  :permit => :manage,
-  #  :economy => :manage,
-  #  :set_attending => :manage
-  #}, :nested_in => :events, :shallow => true
   skip_before_filter :authenticate_user!, :only => [:new, :create, :show, :index]
-  
-  
   around_filter :set_locale, :only => [:new, :create, :show, :edit]
   
   def new
