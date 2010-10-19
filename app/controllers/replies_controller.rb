@@ -4,6 +4,9 @@ class RepliesController < ApplicationController
   around_filter :set_locale, :only => [:new, :create, :show, :edit]
   
   def new
+    if request.url =~ /events\/\d+\/replies/ && current_user.nil?
+      raise CanCan::AccessDenied
+    end
     @reply = @event.replies.build
     if admin_view?
       render
