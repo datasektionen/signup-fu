@@ -34,7 +34,6 @@ class RepliesController < ApplicationController
   def edit
     @reply = Reply.find(params[:id])
     @event = @reply.event
-    require_event_session_or_user
   end
   
   def update
@@ -43,7 +42,7 @@ class RepliesController < ApplicationController
     
     if @reply.update_attributes(params[:reply])
       flash[:notice] = "Updated event reply"
-      redirect_to(event_replies_path(@reply.event))
+      redirect_to(event_path(@reply.event))
     else
       render :action => 'edit'
     end

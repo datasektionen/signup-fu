@@ -21,6 +21,7 @@ Scenario: Creating a new event without max number of guests
   And I go to the new event page
   And I fill in "Arrangemangets namn" with "My event"
   And I select "Default" from "Mall"
+  And I fill in "Slug" with "my-event"
   And I fill in "Datum" with "2009-09-09 09:09"
   And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
   And I fill in "Max antal gäster" with "0"
@@ -41,6 +42,7 @@ Scenario: Creating a new event with prices
   And I fill in "Arrangemangets namn" with "My event"
   
   And I select "Default" from "Mall"
+  And I fill in "Slug" with "my-event"
   And I fill in "Datum" with "2009-09-09 09:09"
   And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
   And I fill in "Max antal gäster" with "0"
@@ -69,6 +71,7 @@ Scenario: Creating a new event without mails
   And I fill in "Arrangemangets namn" with "My event"
   
   And I select "Default" from "Mall"
+  And I fill in "Slug" with "my-event"
   And I fill in "Datum" with "2009-09-09 09:09"
   And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
   And I fill in "Max antal gäster" with "0"
@@ -90,7 +93,7 @@ Scenario: Creating a new event with confirmation mail
   
   When I go to the new event page
   And I fill in "Arrangemangets namn" with "My event"
-  
+  And I fill in "Slug" with "my-event"
   And I select "Default" from "Mall"
   And I fill in "Datum" with "2009-09-09 09:09"
   And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
@@ -153,6 +156,7 @@ Scenario: Creating a new event with payment mail
   When I go to the new event page
   And I fill in "Arrangemangets namn" with "My event"
   And I select "Default" from "Mall"
+  And I fill in "Slug" with "my-event"
   
   And I fill in "Datum" with "2009-09-09 09:09"
   And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
@@ -217,6 +221,7 @@ Scenario: Creating an event with a pay before date
   And I fill in "Arrangemangets namn" with "My event"
   
   And I select "Default" from "Mall"
+  And I fill in "Slug" with "my-event"
   And I fill in "Datum" with "2009-09-09 09:09"
   And I fill in "Sista anmälningsdatum" with "2009-08-08 08:08"
   And I fill in "Betalningstid" with "14"
@@ -446,4 +451,15 @@ Scenario: Viewing guest list to a non-food event
   Then I should not see "Matpreferenser"
   And I should not see "Andra matpreferenser"
 
-
+Scenario: Editing a reply
+  Given an event "Plums"
+  And a guest to "Plums" called "Kalle Person"
+    ||
+  
+  When I go to the event page for "Plums"
+  And I follow "Redigera" within "table#guest_list_table"
+  And I fill in "Namn" with "Karl Person"
+  And I press "Boka"
+  
+  Then I should be on the event page for "Plums"
+  And I should see "Karl Person"

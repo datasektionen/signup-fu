@@ -1,6 +1,8 @@
-%h2= t('.title')
+%h2.foo= t('.title')
 
-- signup_fu_form_for(@reply) do |f|
-  = render :partial => 'form', :locals => {:f => f}
+%section
+  - simple_form_for(@reply) do |f|
+    = render :partial => 'form', :locals => {:f => f}
+    
+    = f.submit t('replies.form.submit')
   
-  = f.submit t('replies.form.submit')
