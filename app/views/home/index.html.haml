@@ -6,7 +6,6 @@
       SignupFu är ett system för att ta emot anmälnignar till fester och arrangemang.
   %img.headerimg{:alt => "header image", :height => "218", :src => "images/umbrella.gif", :width => "255"}/
   
-  
 %section#introcol
   .leftcol
     %h3 Bekräftelser
@@ -25,17 +24,23 @@
       Vill du använda din egna design? Inga problem! Bara att ladda upp CSS
       och HTML och säga var på sidan formuläret ska vara!
   .clear
-  
+
 %section#contact.post
+  %a{:name => 'kontakt'}
   %h2 Kontakt
   %p
-    Vill du komma i kontakt, använd nedanstående formulär som inte finns än
+    Vill du komma i kontakt, använd nedanstående formulär som inte finns än. Så länge kan du använda
+    e-post, på adressen <addr>patrik <i>punkt</i> stenmark <i>at</i> gmail <i>punkt</i> com </addr>
 
 %section#signup.post
-  %h2 Sign up
+  %a{:name => 'registrera'}
+  %h2 Skapa användare
   %p
-    Lite text om anmälnignar, och ett enkelt formulär med epost och lösenord.
-    
+    Registrering av nya användare är för tillfället inte öppet för allmänheten. Har du 
+    hört talas om signup-fu och vill använda det, 
+    %a{:href => "#kontakt"} hör av dig
+    så kan vi nog lösa det.
+  
   -#= simple_form_for(User.new, :url => user_registration_path) do |f|
   -#  = f.input :email
   -#  = f.input :password
