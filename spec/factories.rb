@@ -3,6 +3,7 @@ Factory.define(:event) do |e|
   e.deadline DateTime.new(2011, 8, 8, 8, 8)
   e.template 'default'
   e.name "MY FUCKING EVENT OF DEATH"
+  e.slug "death"
 end
 
 Factory.define(:my_event, :parent => :event) do |f|
