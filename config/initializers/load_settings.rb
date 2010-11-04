@@ -1,4 +1,4 @@
-config_file = "#{RAILS_ROOT}/config/settings.yml"
+config_file = "#{Rails.root}/config/settings.yml"
  
 begin
   APP_CONFIG = HashWithIndifferentAccess.new(YAML.load_file(config_file)[RAILS_ENV])
