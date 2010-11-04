@@ -1,7 +1,7 @@
 %h2.foo= t('.title')
 
 %section
-  - simple_form_for(@reply) do |f|
+  = simple_form_for(@reply) do |f|
     = render :partial => 'form', :locals => {:f => f}
     
     = f.submit t('replies.form.submit')
