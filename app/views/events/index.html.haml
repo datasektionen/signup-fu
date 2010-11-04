@@ -5,6 +5,8 @@
     %tr
       %th
         Name
+      - if current_user.admin?
+        %th Ägare
       %th
         Date
       %th
@@ -12,6 +14,8 @@
       %tr
         %td
           = link_to event.name, event
+        - if current_user.admin?
+          %td= event.owner.name
         %td
           = event.date.strftime("%Y-%m-%d %H:%M")
         %td
