@@ -13,7 +13,7 @@
   %fieldset
     %legend= t('.general_settings')
     = f.input :name
-    = f.input :slug, :hint => "URLen för anmälan kommer vara http://signup-fu.com/e/<slug>/new. Endast a-z, 0-9 och bindestreck tack"
+    = f.input :slug, :hint => "URLen för anmälan kommer vara http://signup-fu.com/e/#{current_user.name}/<slug>/new. Endast a-z, 0-9 och bindestreck tack"
     = render :partial => 'common_fields', :locals => {:f => f}
   
   %fieldset
