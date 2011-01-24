@@ -97,7 +97,7 @@
       = check_box_tag "use_terms", "1", false, :id => 'use_terms'
       %label{:for => 'use_terms'}= t(".terms_of_booking")
     
-      #terms_settings{:style => 'display:none'}
+      #terms_settings
         = f.input :terms
   
   = f.submit
