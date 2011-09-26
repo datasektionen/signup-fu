@@ -1,6 +1,6 @@
 Factory.define(:event) do |e|
-  e.date DateTime.new(2011, 9, 9, 9, 9)
-  e.deadline DateTime.new(2011, 8, 8, 8, 8)
+  e.date DateTime.new(2012, 9, 9, 9, 9)
+  e.deadline DateTime.new(2012, 8, 8, 8, 8)
   e.template 'default'
   e.name "MY FUCKING EVENT OF DEATH"
   e.slug "death"
