@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Reply < ActiveRecord::Base
   
   attr_accessor :send_signup_confirmation

@@ -1,3 +1,4 @@
+# encoding: utf-8
 module EventsHelper
   
   def mail_template_checkbox(mail_template)

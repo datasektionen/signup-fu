@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails', '~> 3.0.0'
 gem 'mysql'
 gem 'pg'
 
@@ -13,7 +13,7 @@ gem 'compass'
 gem 'meta_where'
 gem 'devise'
 gem 'cancan'
-gem 'delayed_job', :git => 'http://github.com/collectiveidea/delayed_job.git'
+gem 'delayed_job'#, :git => 'http://github.com/collectiveidea/delayed_job.git'
 gem 'exceptional'
 gem 'jquery-rails'
 
@@ -21,8 +21,8 @@ group :development, :test do
   gem 'autotest'
   gem 'autotest-fsevent'
   gem 'autotest-growl'
-  gem 'ruby-debug'
-  gem 'rspec-rails',">= 2.0.0.beta.19"
+  gem 'ruby-debug19'
+  gem 'rspec-rails',"~> 2.6"
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails'
