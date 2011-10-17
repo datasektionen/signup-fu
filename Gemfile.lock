@@ -33,8 +33,6 @@ GEM
     arel (1.0.1)
       activesupport (~> 3.0.0)
     autotest (4.3.2)
-    autotest-fsevent (0.2.3)
-      sys-uname
     autotest-growl (0.2.5)
     bcrypt-ruby (2.1.2)
     builder (2.1.2)
@@ -160,7 +158,6 @@ GEM
     simple_form (1.2.2)
     spork (0.8.4)
     state_machine (0.9.4)
-    sys-uname (0.8.4)
     term-ansicolor (1.0.6)
     thor (0.14.6)
     timecop (0.3.5)
@@ -177,7 +174,6 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   autotest
-  autotest-fsevent
   autotest-growl
   cancan
   capybara
