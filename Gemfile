@@ -19,7 +19,6 @@ gem 'jquery-rails'
 
 group :development, :test do
   gem 'autotest'
-  gem 'autotest-fsevent'
   gem 'autotest-growl'
   gem 'ruby-debug19'
   gem 'rspec-rails',"~> 2.6"
