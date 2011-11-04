@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 3.0.0'
-gem 'mysql'
+gem 'mysql2', '~> 0.2.11'
 gem 'pg'
 
 gem "liquid"
