@@ -37,3 +37,7 @@ group :deploy do
   gem 'capistrano-ext'
   gem 'capistrano_colors'
 end
+
+group :production do
+  gem 'unicorn'
+end
