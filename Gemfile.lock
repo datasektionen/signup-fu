@@ -112,6 +112,7 @@ GEM
     launchy (0.3.7)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
+    libnotify (0.5.9)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     liquid (2.2.2)
@@ -228,6 +229,7 @@ DEPENDENCIES
   haml
   jquery-rails
   launchy
+  libnotify
   liquid
   meta_where
   mysql2 (~> 0.2.11)
