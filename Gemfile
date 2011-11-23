@@ -17,8 +17,6 @@ gem 'exceptional'
 gem 'jquery-rails'
 
 group :development, :test do
-  gem 'autotest'
-  gem 'autotest-growl'
   gem 'ruby-debug19'
   gem 'rspec-rails',"~> 2.6"
   gem 'capybara'
@@ -30,6 +28,11 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'email_spec'
   gem 'timecop'
+  gem 'guard'
+  gem 'guard-bundler'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+  gem 'guard-spork'
 end
 
 group :deploy do
