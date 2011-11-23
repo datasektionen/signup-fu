@@ -26,6 +26,14 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   
   config.include Devise::TestHelpers, :type => :controller
+
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+
+  config.fail_fast = true
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+  end
 end
 
 class Hash

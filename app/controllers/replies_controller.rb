@@ -70,7 +70,6 @@ class RepliesController < ApplicationController
           render :xml => @reply, :status => :created, :location => @reply
         end
       else
-        puts @reply.errors.inspect
         format.html do
           render_templated_action(@event.template, 'new')
         end
