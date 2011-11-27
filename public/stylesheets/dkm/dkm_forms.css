@@ -1,0 +1,21 @@
+form ul {
+  
+}
+
+form li {
+  list-style-type: none; 
+  margin-bottom: 5px;
+}
+
+form div.input label {
+  display: block;
+}
+
+form input[type=submit] {
+  margin: 10px;
+  margin-left: 20px;
+}
+
+form input[type=radio], form input[type=checkbox] {
+  float: left;
+}
