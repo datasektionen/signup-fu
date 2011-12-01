@@ -215,7 +215,7 @@ DEPENDENCIES
   compass
   cucumber
   cucumber-rails
-  database_cleaner
+  database_cleaner (~> 0.7.0)
   delayed_job
   devise
   email_spec

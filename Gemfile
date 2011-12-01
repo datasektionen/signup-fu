@@ -20,7 +20,7 @@ group :development, :test do
   gem 'ruby-debug19'
   gem 'rspec-rails',"~> 2.6"
   gem 'capybara'
-  gem 'database_cleaner'
+  gem 'database_cleaner', '~> 0.7.0'
   gem 'cucumber-rails'
   gem 'cucumber'
   gem 'spork'
