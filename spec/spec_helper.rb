@@ -29,8 +29,6 @@ RSpec.configure do |config|
 
   config.treat_symbols_as_metadata_keys_with_true_values = true
 
-  config.fail_fast = true
-
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
   end
