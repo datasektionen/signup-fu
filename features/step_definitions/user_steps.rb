@@ -1,6 +1,8 @@
 Given /^I am logged in as an admin$/ do
   visit new_user_session_path
-  Factory(:admin)
+  if User.find_by_email("admin@example.org").nil?
+    Factory(:admin)
+  end
   fill_in "Email", :with => 'admin@example.org'
   fill_in 'Password', :with => 'kakakaka'
   click_button "Sign in"

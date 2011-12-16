@@ -79,11 +79,11 @@ class Event < ActiveRecord::Base
   private
   def check_correct_mail_templates
     if mail_templates.map(&:name).include?("ticket_expired") && !mail_templates.map(&:name).include?("ticket_expire_reminder")
-      errors.add_to_base("You can't have ticket_expiry without ticket_expire_reminder")
+      errors.add(:base, "You can't have ticket_expiry without ticket_expire_reminder")
     end
     
     if !mail_templates.map(&:name).include?("ticket_expired") && mail_templates.map(&:name).include?("ticket_expire_reminder")
-      errors.add_to_base("You can't have ticket_expire_reminder without ticket_expiry")
+      errors.add(:base, "You can't have ticket_expire_reminder without ticket_expiry")
     end
   end
   
@@ -102,7 +102,7 @@ class Event < ActiveRecord::Base
   def validate_event_date_and_deadline
     return if deadline.nil? || date.nil?
     if deadline > date
-      errors.add_to_base("Can't have deadline after event date")
+      errors.add(:base, "Can't have deadline after event date")
     end
   end
   
