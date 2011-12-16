@@ -23,8 +23,8 @@ describe MailTemplate do
     @template.body = "Payment ref is {{PAYMENT_REFERENCE}}."
     
     @template.should_not be_valid
-    @template.should have(1).errors_on(:body)
-    @template.errors.on(:body).should == "can't have a PAYMENT_REFERENCE without a prefix on the event"
+    @template.should have(1).error_on(:body)
+    @template.errors[:body].should include("can't have a PAYMENT_REFERENCE without a prefix on the event")
   end
   
   describe "parsing" do
@@ -56,7 +56,5 @@ describe MailTemplate do
         end
       end
     end
-    
-    
   end
 end
