@@ -12,7 +12,7 @@ class Event < ActiveRecord::Base
   
   validate :validate_event_date_and_deadline
   validate :presence_of_bounce_address_when_sending_mails
-  validates_format_of :slug, :without => /[^a-z0-9\-].*/
+  validates_format_of :slug, :with => /^[a-z][a-z\d\-]*$/
   
   has_many :replies
   has_many :custom_fields
