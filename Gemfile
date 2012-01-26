@@ -12,7 +12,7 @@ gem 'compass'
 gem 'meta_where'
 gem 'devise'
 gem 'cancan'
-gem 'delayed_job'#, :git => 'http://github.com/collectiveidea/delayed_job.git'
+gem 'delayed_job'
 gem 'exceptional'
 gem 'jquery-rails'
 
