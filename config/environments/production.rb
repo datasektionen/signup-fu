@@ -46,6 +46,7 @@ SignupFu::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
-  ActionMailer::Base.smtp_settings[:enable_starttls_auto] = false
+
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.sendmail_settings = { :arguments => '-i' }
 end

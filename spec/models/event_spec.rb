@@ -31,7 +31,7 @@ describe Event do
     event.mail_templates << MailTemplate.new(:name => 'ticket_expired')
     
     event.should_not be_valid
-    event.errors.on_base.should include("You can't have ticket_expiry without ticket_expire_reminder")
+    event.errors[:base].should include("You can't have ticket_expiry without ticket_expire_reminder")
     
   end
   
@@ -40,7 +40,7 @@ describe Event do
     event.mail_templates << MailTemplate.new(:name => 'ticket_expire_reminder')
     
     event.should_not be_valid
-    event.errors.on_base.should include("You can't have ticket_expire_reminder without ticket_expiry")
+    event.errors[:base].should include("You can't have ticket_expire_reminder without ticket_expiry")
   end
   
   it "should require payment time if ticket_expiry" do

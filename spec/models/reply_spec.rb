@@ -401,7 +401,7 @@ describe Reply do
       
       @reply.should_not be_valid
       @reply.should have(1).error_on(:pid)
-      @reply.errors.on(:pid).should eql("måste anges på korrekt form (YYMMDD-XXXX)")
+      @reply.errors[:pid].should include("måste anges på korrekt form (YYMMDD-XXXX)")
     end
     
     it "should accept yyyymmdd-xxxx format and convert to yymmdd-xxxx" do
@@ -436,7 +436,7 @@ describe Reply do
       it "should not accept #{unaccepted_pid} as pid" do
         @reply.pid = unaccepted_pid
         @reply.should_not be_valid
-        @reply.should have(1).errors_on(:pid)
+        @reply.should have(1).error_on(:pid)
       end
     end
     
