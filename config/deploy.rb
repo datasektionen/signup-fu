@@ -145,7 +145,7 @@ end
 namespace :delayed_job do
   desc "Start delayed_job process"
   task :start, :roles => :app do
-    run "export RAILS_ENV=production; cd #{current_path}; /usr/local/bin/1.9.2_bundle exec ./script/delayed_job start"
+    #run "export RAILS_ENV=production; cd #{current_path}; /usr/local/bin/1.9.2_bundle exec ./script/delayed_job start"
   end
  
   desc "Stop delayed_job process"
@@ -155,7 +155,7 @@ namespace :delayed_job do
  
   desc "Restart delayed_job process"
   task :restart, :roles => :app do
-    run "export RAILS_ENV=production; cd #{current_path}; /usr/local/bin/1.9.2_bundle exec ./script/delayed_job restart"
+    #run "export RAILS_ENV=production; cd #{current_path}; /usr/local/bin/1.9.2_bundle exec ./script/delayed_job restart"
   end
 end
 
