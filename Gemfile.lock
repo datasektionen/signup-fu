@@ -29,6 +29,9 @@ GEM
       activemodel (= 3.0.1)
       activesupport (= 3.0.1)
     activesupport (3.0.1)
+    airbrake (3.0.9)
+      activesupport
+      builder
     archive-tar-minitar (0.5.2)
     arel (1.0.1)
       activesupport (~> 3.0.0)
@@ -78,7 +81,6 @@ GEM
     email_spec (1.0.0)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    exceptional (2.0.19)
     factory_girl (2.1.2)
       activesupport
     factory_girl_rails (1.2.0)
@@ -207,6 +209,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
+  airbrake
   cancan
   capistrano
   capistrano-ext
@@ -219,7 +222,6 @@ DEPENDENCIES
   delayed_job
   devise
   email_spec
-  exceptional
   factory_girl_rails
   guard
   guard-bundler
