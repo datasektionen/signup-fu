@@ -7,8 +7,8 @@ Scenario: Creating an event with custom fields
   And I fill in "Arrangemangets namn" with "My event"
   And I select "Default" from "Mall"
   And I fill in "Slug" with "apa"
-  And I fill in "Datum" with "2012-09-09 09:09"
-  And I fill in "Sista anmälningsdatum" with "2012-08-08 08:08"
+  And I fill in "Datum" with "2016-09-09 09:09"
+  And I fill in "Sista anmälningsdatum" with "2016-08-08 08:08"
   And I fill in "Max antal gäster" with "0"
   And I fill in "Meddelande" with "Foobar!"
   
