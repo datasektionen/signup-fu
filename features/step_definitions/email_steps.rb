@@ -86,7 +86,7 @@ end
 #
 
 Then /^(?:I|they) should see "([^"]*?)" in the email subject$/ do |text|
-  current_email.should have_subject(text)
+  current_email.subject.should eq(text)
 end
 
 Then /^(?:I|they) should see \/([^"]*?)\/ in the email subject$/ do |text|
@@ -94,11 +94,11 @@ Then /^(?:I|they) should see \/([^"]*?)\/ in the email subject$/ do |text|
 end
 
 Then /^(?:I|they) should see "([^"]*?)" in the email body$/ do |text|
-  current_email.default_part_body.to_s.should include(text)
+  current_email.body.should include(text)
 end
 
 Then /^(?:I|they) should see \/([^"]*?)\/ in the email body$/ do |text|
-  current_email.default_part_body.to_s.should =~ Regexp.new(text)
+  current_email.body.should =~ Regexp.new(text)
 end
 
 Then /^(?:I|they) should see the email delivered from "([^"]*?)"$/ do |text|
