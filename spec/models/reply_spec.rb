@@ -7,8 +7,8 @@ describe Reply do
   before(:each) do
     @event = mock_model(Event)
     @event.stub(:send_mail_for?).with(:signup_confirmation).and_return(false)
-    @event.stub!(:send_mail_for?).with(:payment_registered).and_return(false)
-    @event.stub!(:require_pid?).and_return(false)
+    @event.stub(:send_mail_for?).with(:payment_registered).and_return(false)
+    @event.stub(:require_pid?).and_return(false)
     
     @ticket_type = mock_model(TicketType)
     @valid_attributes = {
@@ -46,12 +46,12 @@ describe Reply do
   
   it "should batch save paid" do
     now = Time.now
-    Time.stub!(:now).and_return(now)
+    Time.stub(:now).and_return(now)
     
     reply1 = mock_model(Reply)
     reply1.should_receive(:pay!)
     
-    Reply.stub!(:find).and_return([reply1])
+    Reply.stub(:find).and_return([reply1])
     
     Reply.pay([1])
   end
@@ -62,7 +62,7 @@ describe Reply do
   
   it "should set payment date on pay!" do
     now = Time.now
-    Time.stub!(:now).and_return(now)
+    Time.stub(:now).and_return(now)
     
     reply = Reply.create!(@valid_attributes)
     reply.pay!
@@ -80,9 +80,9 @@ describe Reply do
     
     it "should send confirmation mail if there are a mail template with name confirmation" do
       stub_event_mailer_methods
-      @reply.event.stub!(:send_mail_for?).with(:signup_confirmation).and_return(true)
+      @reply.event.stub(:send_mail_for?).with(:signup_confirmation).and_return(true)
       
-      mock = mock("thingie")
+      mock = double("thingie")
       mock.should_receive(:signup_confirmation)
       EventMailer.should_receive(:delay).and_return(mock)
       
@@ -99,11 +99,11 @@ describe Reply do
     it "should send payment registration mail when there is a payment_registered mail template" do
       @reply = @event.replies.create!(:ticket_type => @ticket_type, :name => 'Kalle', :email => 'kalle@example.org')
     
-      @event.stub!(:send_mail_for?).with(:payment_registered).and_return(true)
+      @event.stub(:send_mail_for?).with(:payment_registered).and_return(true)
     
       @reply.save!
       
-      mock = mock("thingie")
+      mock = double("thingie")
       mock.should_receive(:payment_registered)
       EventMailer.should_receive(:delay).and_return(mock)
       
@@ -140,12 +140,12 @@ describe Reply do
   
   describe "expiry run with 14 days payment time" do
     before do
-      @event.stub!(:send_mail_for?).with(:ticket_expired).and_return(true)
-      @event.stub!(:send_mail_for?).with(:ticket_expire_reminder).and_return(true)
-      @event.stub!(:expire_unpaid?).and_return(true)
+      @event.stub(:send_mail_for?).with(:ticket_expired).and_return(true)
+      @event.stub(:send_mail_for?).with(:ticket_expire_reminder).and_return(true)
+      @event.stub(:expire_unpaid?).and_return(true)
 
-      @event.stub!(:payment_time).and_return(14)
-      @event.stub!(:reminder_time).and_return(7)
+      @event.stub(:payment_time).and_return(14)
+      @event.stub(:reminder_time).and_return(7)
       
       @knatte = Reply.new(
         @valid_attributes.with(
@@ -153,7 +153,7 @@ describe Reply do
           :email => 'knatte@example.org'
         )
       )
-      @knatte.stub!(:should_be_expired?).and_return(false)
+      @knatte.stub(:should_be_expired?).and_return(false)
       
       @fnatte = Reply.new(
         @valid_attributes.with(
@@ -161,8 +161,8 @@ describe Reply do
           :email => 'fnatte@example.org'
         )
       )
-      @fnatte.stub!(:should_be_expired?).and_return(true)
-      @fnatte.stub!(:created_at).and_return(21.days.ago)
+      @fnatte.stub(:should_be_expired?).and_return(true)
+      @fnatte.stub(:created_at).and_return(21.days.ago)
       
       #@tjatte = Reply.new(
       #  @valid_attributes.with(
@@ -170,10 +170,10 @@ describe Reply do
       #    :email => 'tjatte@example.org'
       #  )
       #)
-      #@tjatte.stub!(:created_at).and_return(7.days.ago)
+      #@tjatte.stub(:created_at).and_return(7.days.ago)
       
       @replies = [@knatte,@fnatte]
-      Reply.stub!(:find).and_return(@replies)
+      Reply.stub(:find).and_return(@replies)
       
       stub_event_mailer_methods
     end
@@ -193,7 +193,7 @@ describe Reply do
     end
     
     it "should not expire unreminded replies" do
-      @reply.stub!(:payment_state_name).and_return(:new)
+      @reply.stub(:payment_state_name).and_return(:new)
       lambda {
         @reply.expire!
       }.should raise_error(StateMachine::InvalidTransition)
@@ -211,8 +211,8 @@ describe Reply do
       
       @reply.save!
       
-      @event.stub!(:payment_time).and_return(14)
-      @event.stub!(:expire_time_from_reminder).and_return(7)
+      @event.stub(:payment_time).and_return(14)
+      @event.stub(:expire_time_from_reminder).and_return(7)
       stub_event_mailer_methods
     end
     
@@ -223,49 +223,49 @@ describe Reply do
     end
     
     it "should not be expired if cancelled" do
-      @reply.stub!(:payment_state).and_return('cancelled')
+      @reply.stub(:payment_state).and_return('cancelled')
       @reply.should_not be_marked_for_expire
     end
     
     it "should not be expired if reminded, paid and after pay date" do
-      @reply.stub!(:created_at).and_return(21.days.ago)
+      @reply.stub(:created_at).and_return(21.days.ago)
       @reply.pay!
       
       @reply.should_not be_marked_for_expire
     end
     
     it "should not be expired if before pay date" do
-      @reply.stub!(:created_at).and_return(5.days.ago)
+      @reply.stub(:created_at).and_return(5.days.ago)
 
       @reply.should_not be_marked_for_expire
     end
     
     it "should not be expired if not reminded, after pay date and unpaid" do
-      @reply.stub!(:created_at).and_return(21.days.ago)
+      @reply.stub(:created_at).and_return(21.days.ago)
       
       @reply.should_not be_marked_for_expire
     end
     
     it "should not be expired if reminded, unpaid and passed pay date, if there havent't gone enough time since reminder" do
-      @reply.stub!(:created_at).and_return(21.days.ago)
+      @reply.stub(:created_at).and_return(21.days.ago)
       
       @reply.remind!
-      @reply.stub!(:reminded_at).and_return(5.days.ago)
+      @reply.stub(:reminded_at).and_return(5.days.ago)
       
       @reply.should_not be_marked_for_expire
     end
     
     it "should be expired if reminded, unpaid, passed pay date and enough days passed since reminder" do
-      @reply.stub!(:created_at).and_return(21.days.ago)
+      @reply.stub(:created_at).and_return(21.days.ago)
       
       @reply.remind!
-      @reply.stub!(:reminded_at).and_return(10.days.ago)
+      @reply.stub(:reminded_at).and_return(10.days.ago)
       
       @reply.should be_marked_for_expire
     end
     
     it "should not be expired if cancelled" do
-      @reply.stub!(:created_at).and_return(30.days.ago)
+      @reply.stub(:created_at).and_return(30.days.ago)
       Timecop.freeze(10.days.ago) do
         @reply.remind!
       end
@@ -298,21 +298,21 @@ describe Reply do
       
       @reply.save!
       
-      @event.stub!(:payment_time).and_return(14)
-      @reply.stub!(:created_at).and_return(21.days.ago)
-      @event.stub!(:expire_time_from_reminder).and_return(5)
+      @event.stub(:payment_time).and_return(14)
+      @reply.stub(:created_at).and_return(21.days.ago)
+      @event.stub(:expire_time_from_reminder).and_return(5)
       
       stub_event_mailer_methods
     end
 
     
     it "should not be reminded if cancelled" do
-      @reply.stub!(:guest_state).and_return('cancelled')
+      @reply.stub(:guest_state).and_return('cancelled')
       @reply.should_not be_marked_for_reminding
     end
     
     it "should not be reminded if expired" do
-      @event.stub!(:send_mail_for?).with(:ticket_expired).and_return(true)
+      @event.stub(:send_mail_for?).with(:ticket_expired).and_return(true)
 
       Timecop.freeze(8.days.ago) do
         @reply.remind!
@@ -342,7 +342,7 @@ describe Reply do
   it "should set reminded at date" do
     stub_event_mailer_methods
     now = Time.now
-    Time.stub!(:now).and_return(now)
+    Time.stub(:now).and_return(now)
     
     @reply.remind!
     @reply.reminded_at.should_not be_nil
@@ -358,9 +358,9 @@ describe Reply do
   
   it "should save the record even if a mail error occurs (Net::SMTPFatalError)" do
     @event.stub(:send_mail_for?).with(:signup_confirmation).and_return(true)
-    mock_mail = mock("Mail")
+    mock_mail = double("Mail")
     mock_mail.stub(:deliver).and_raise(Net::SMTPFatalError)
-    EventMailer.stub!(:signup_confirmation).and_return(mock_mail)
+    EventMailer.stub(:signup_confirmation).and_return(mock_mail)
     
     reply = Reply.new(@valid_attributes)
     
@@ -369,9 +369,9 @@ describe Reply do
   end
   
   it "should save the record even if a mail error occurs (Net::SMTPAuthenticationError" do
-    mock_mail = mock("Mail")
+    mock_mail = double("Mail")
     mock_mail.stub(:deliver).and_raise(Net::SMTPAuthenticationError)
-    EventMailer.stub!(:signup_confirmation).and_return(mock_mail)
+    EventMailer.stub(:signup_confirmation).and_return(mock_mail)
     
     reply = Reply.new(@valid_attributes)
     
@@ -387,14 +387,14 @@ describe Reply do
   #end
   
   it "should generate payment reference" do
-    @event.stub!(:has_payment_reference?).and_return(true)
-    @event.stub!(:ref_prefix).and_return("MyE")
+    @event.stub(:has_payment_reference?).and_return(true)
+    @event.stub(:ref_prefix).and_return("MyE")
     @reply.payment_reference.should eql("MyE-#{@reply.id}")
   end
   
   describe "with pid requirements" do
     before do
-      @event.stub!(:require_pid?).and_return(true)
+      @event.stub(:require_pid?).and_return(true)
     end
     it "should validate presence of pid" do
       @reply.pid = nil
@@ -444,9 +444,9 @@ describe Reply do
   
     
   def stub_event_mailer_methods
-    mail_mock = mock("Mailer", :deliver => true)
-    EventMailer.stub!(:ticket_expire_reminder).and_return(mail_mock)
-    EventMailer.stub!(:payment_registered).and_return(mail_mock)
-    EventMailer.stub!(:reply_expired_notification).and_return(mail_mock)
+    mail_mock = double("Mailer", :deliver => true)
+    EventMailer.stub(:ticket_expire_reminder).and_return(mail_mock)
+    EventMailer.stub(:payment_registered).and_return(mail_mock)
+    EventMailer.stub(:reply_expired_notification).and_return(mail_mock)
   end
 end

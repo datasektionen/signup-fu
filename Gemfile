@@ -16,7 +16,7 @@ gem 'jquery-rails'
 gem 'airbrake'
 
 group :development, :test do
-  gem 'rspec-rails',"~> 2.6"
+  gem 'rspec-rails',"~> 2.14.0"
   gem 'capybara'
   gem 'database_cleaner', '~> 0.7.0'
   gem 'cucumber-rails'

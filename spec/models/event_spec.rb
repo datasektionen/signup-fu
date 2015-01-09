@@ -125,25 +125,25 @@ describe Event do
   end
   
   it "should have a has_terms?" do
-    @event.stub!(:terms).and_return(nil)
+    @event.stub(:terms).and_return(nil)
     @event.has_terms?.should eql(false)
     
-    @event.stub!(:terms).and_return("here be legal stuff")
+    @event.stub(:terms).and_return("here be legal stuff")
     @event.has_terms?.should eql(true)
   end
   
   it "should remind replies that should be remindeded...." do
     
-    Event.stub!(:find).with(@event.id).and_return(@event)
+    Event.stub(:find).with(@event.id).and_return(@event)
     
-    @event.stub!(:expire_unpaid?).and_return(true)
+    @event.stub(:expire_unpaid?).and_return(true)
     
     unpaid_old_reply = mock_model(Reply, :event => @event)
-    unpaid_old_reply.stub!(:should_be_reminded?).and_return(true)
+    unpaid_old_reply.stub(:should_be_reminded?).and_return(true)
     reply2 = mock_model(Reply, :event => @event)
-    reply2.stub!(:should_be_reminded?).and_return(false)
+    reply2.stub(:should_be_reminded?).and_return(false)
     
-    @event.stub!(:replies).and_return([unpaid_old_reply, reply2])
+    @event.stub(:replies).and_return([unpaid_old_reply, reply2])
     
     unpaid_old_reply.should_receive(:remind!)
     
@@ -152,12 +152,12 @@ describe Event do
   
   describe "the expiration process" do
     it "should not expire tickets that should not be expired" do
-      Event.stub!(:find).with(@event.id).and_return(@event)
-      @event.stub!(:expire_unpaid?).and_return(true)
+      Event.stub(:find).with(@event.id).and_return(@event)
+      @event.stub(:expire_unpaid?).and_return(true)
       
       reply_that_shall_not_expire = mock_model(Reply, :event => @event, :should_be_expired? => false)
       reply_that_shall_expire = mock_model(Reply, :event => @event, :should_be_expired? => true)
-      @event.stub!(:replies).and_return([reply_that_shall_expire, reply_that_shall_not_expire])
+      @event.stub(:replies).and_return([reply_that_shall_expire, reply_that_shall_not_expire])
       
       reply_that_shall_not_expire.should_not_receive(:expire)
       reply_that_shall_expire.should_receive(:expire)
