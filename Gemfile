@@ -9,7 +9,6 @@ gem "state_machine"
 gem 'RedCloth'
 gem 'simple_form'
 gem 'compass'
-gem 'meta_where'
 gem 'devise'
 gem 'cancan'
 gem 'delayed_job'
@@ -17,7 +16,6 @@ gem 'jquery-rails'
 gem 'airbrake'
 
 group :development, :test do
-  gem 'ruby-debug19'
   gem 'rspec-rails',"~> 2.6"
   gem 'capybara'
   gem 'database_cleaner', '~> 0.7.0'
@@ -26,7 +24,6 @@ group :development, :test do
   gem 'spork'
   gem 'launchy'
   gem 'factory_girl_rails'
-  gem 'email_spec'
   gem 'timecop'
   gem 'guard'
   gem 'guard-bundler'
@@ -34,6 +31,7 @@ group :development, :test do
   gem 'guard-cucumber'
   gem 'guard-spork'
   gem 'libnotify'
+  gem 'pry-rails'
 end
 
 group :deploy do

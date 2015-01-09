@@ -55,9 +55,9 @@ class Reply < ActiveRecord::Base
   
   before_validation :format_pid
   
-  scope :ascend_by_name, order(:name.asc)
-  scope :not_cancelled, where(:guest_state.ne => 'cancelled', :payment_state.ne => 'expired')
-  scope :not_attending, where(:guest_state.ne => 'cancelled', :guest_state.ne => 'attending')
+  scope :ascend_by_name, order(:name)
+  scope :not_cancelled, where("guest_state != 'cancelled'", "payment_state != 'expired'")
+  scope :not_attending, where("guest_state != 'cancelled'", "guest_state != 'attending'")
   scope :paid, where(:payment_state => 'paid')
   scope :unpaid, where(:payment_state => 'new')
   scope :reminded, where(:payment_state => 'reminded')
