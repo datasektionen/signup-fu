@@ -20,5 +20,8 @@ module SignupFu
     config.i18n.default_locale = :'sv-SE'
     
     config.action_view.javascript_expansions[:defaults] = %w(jquery jquery-ui rails application)
+
+    config.assets.enabled = true
+    config.assets.version = '1.0'
   end
 end
