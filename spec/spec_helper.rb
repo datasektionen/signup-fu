@@ -27,8 +27,6 @@ RSpec.configure do |config|
   
   config.include Devise::TestHelpers, :type => :controller
 
-  config.treat_symbols_as_metadata_keys_with_true_values = true
-
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
   end
