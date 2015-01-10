@@ -21,7 +21,6 @@ group :development, :test do
   gem 'database_cleaner', '~> 0.7.0'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'spork'
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'timecop'
@@ -29,7 +28,6 @@ group :development, :test do
   gem 'guard-bundler'
   gem 'guard-rspec'
   gem 'guard-cucumber'
-  gem 'guard-spork'
   gem 'libnotify'
   gem 'pry-rails'
 end
