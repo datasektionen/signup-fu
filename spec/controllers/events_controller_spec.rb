@@ -11,14 +11,14 @@ describe EventsController do
     it "successfully creates event" do
       sign_in(@user)
       post :create, @valid_params
-      response.should be_redirect
+      expect(response).to be_redirect
     end
     
     it "sets user to logged in user" do
       sign_in(@user)
       post :create, @valid_params
   
-      Event.last.owner.should == @user
+      expect(Event.last.owner).to eq(@user)
     end
   end
 end

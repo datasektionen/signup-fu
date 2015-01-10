@@ -22,15 +22,15 @@ describe MailTemplate do
     
     @template.body = "Payment ref is {{PAYMENT_REFERENCE}}."
     
-    @template.should_not be_valid
-    @template.should have(1).error_on(:body)
-    @template.errors[:body].should include("can't have a PAYMENT_REFERENCE without a prefix on the event")
+    expect(@template).not_to be_valid
+    expect(@template).to have(1).error_on(:body)
+    expect(@template.errors[:body]).to include("can't have a PAYMENT_REFERENCE without a prefix on the event")
   end
   
   describe "parsing" do
     before do
       time = Time.local(2009, 1, 1)
-      Time.stub(:now).and_return(time)
+      allow(Time).to receive(:now).and_return(time)
       @event = mock_model(Event, :name => 'My event', :payment_time => 14)
       @reply = mock_model(Reply,
         :id => 1,
@@ -52,7 +52,7 @@ describe MailTemplate do
       ].each do |variable, result|
         it "should parse {{#{variable}}} for #{what}" do
           @template.send("#{what}=", "{{#{variable}}}")
-          @template.send("render_#{what}", @reply).should eql(result)
+          expect(@template.send("render_#{what}", @reply)).to eql(result)
         end
       end
     end
