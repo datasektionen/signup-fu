@@ -224,6 +224,7 @@ DEPENDENCIES
   pry-rails
   rails (~> 3.0.0)
   rspec-activemodel-mocks
+  rspec-collection_matchers
   rspec-rails (~> 2.14)
   simple_form
   state_machine

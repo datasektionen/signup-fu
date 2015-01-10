@@ -18,6 +18,7 @@ gem 'airbrake'
 group :development, :test do
   gem 'rspec-rails',"~> 2.14"
   gem 'rspec-activemodel-mocks'
+  gem 'rspec-collection_matchers'
   gem 'capybara'
   gem 'database_cleaner', '~> 0.7.0'
   gem 'launchy'
