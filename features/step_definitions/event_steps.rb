@@ -126,13 +126,13 @@ end
 
 
 When /^the ticket expire process is run for "([^\"]*)"$/ do |event_name|
-  When %{I go to the economy page for "#{event_name}"}
-  When %{I follow "Expiry-körning"}
+  step %{I go to the economy page for "#{event_name}"}
+  step %{I follow "Expiry-körning"}
 end
 
 When /^the reminder process is run for "([^\"]*)"$/ do |event_name|
-  When %{I go to the economy page for "#{event_name}"}
-  When %{I follow "Påminnelsekörning"}
+  step %{I go to the economy page for "#{event_name}"}
+  step %{I follow "Påminnelsekörning"}
 end
 
 
