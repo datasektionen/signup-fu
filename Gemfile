@@ -19,8 +19,6 @@ group :development, :test do
   gem 'rspec-rails',"~> 2.14.0"
   gem 'capybara'
   gem 'database_cleaner', '~> 0.7.0'
-  gem 'cucumber-rails'
-  gem 'cucumber'
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'timecop'
@@ -30,6 +28,10 @@ group :development, :test do
   gem 'guard-cucumber'
   gem 'libnotify'
   gem 'pry-rails'
+end
+
+group :test do
+  gem 'cucumber-rails', require: false
 end
 
 group :deploy do
