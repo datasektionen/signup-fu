@@ -9,6 +9,7 @@ gem "state_machine"
 gem 'RedCloth'
 gem 'simple_form'
 gem 'compass'
+gem 'compass-rails'
 gem 'devise'
 gem 'cancan'
 gem 'delayed_job'
