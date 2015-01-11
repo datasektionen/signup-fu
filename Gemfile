@@ -22,6 +22,7 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'email_spec', path: "vendor/gems/email-spec"
   gem 'rspec-rails',"~> 3.0"
   gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
