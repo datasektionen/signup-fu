@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 3.1.0'
-gem 'mysql2', '~> 0.3.0'
+gem 'pg'
 
 gem "liquid"
 gem "haml"
