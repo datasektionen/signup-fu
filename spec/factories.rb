@@ -4,6 +4,7 @@ Factory.define(:event) do |e|
   e.template 'default'
   e.name "MY FUCKING EVENT OF DEATH"
   e.slug "death"
+  e.bounce_address "kaka@example.com"
 end
 
 Factory.define(:my_event, :parent => :event) do |f|
