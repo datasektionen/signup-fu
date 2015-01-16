@@ -15,7 +15,8 @@ describe Reply do
       :event => @event,
       :name => 'Kalle Anka',
       :email => 'kalle@example.org',
-      :ticket_type => @ticket_type
+      :ticket_type => @ticket_type,
+      guest_state: "unknown",
     }
     
     @reply = Reply.new(@valid_attributes)
@@ -97,7 +98,7 @@ describe Reply do
     end
     
     it "should send payment registration mail when there is a payment_registered mail template" do
-      @reply = @event.replies.create!(:ticket_type => @ticket_type, :name => 'Kalle', :email => 'kalle@example.org')
+      @reply = @event.replies.create!(guest_state: "unknown", :ticket_type => @ticket_type, :name => 'Kalle', :email => 'kalle@example.org')
     
       allow(@event).to receive(:send_mail_for?).with(:payment_registered).and_return(true)
     
