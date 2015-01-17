@@ -26,7 +26,13 @@ class Reply < ActiveRecord::Base
       transition :reminded => :expired
     end
   end
-  
+
+  after_initialize :set_default_guest_state
+
+  def set_default_guest_state
+    self.guest_state ||= 'unknown'
+  end
+
   def cancel!
     self.update_attributes!(guest_state: "cancelled")
   end

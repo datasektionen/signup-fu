@@ -30,7 +30,6 @@ end
 Factory.define(:reply) do |r|
   r.email "foo@example.org"
   r.name "Kalle Testson"
-  r.guest_state "unknown"
 end
 
 Factory.define(:mail_template) do |t|

@@ -71,14 +71,14 @@ describe Event do
   
   it "should be full if it has more than max_guest guests" do
     event = Event.create!(@valid_params.with(:max_guests => 1))
-    event.replies.create!(guest_state: "unknown", :name => 'Kalle', :email => 'kalle@example.org', :ticket_type => mock_model(TicketType))
+    event.replies.create!(:name => 'Kalle', :email => 'kalle@example.org', :ticket_type => mock_model(TicketType))
     
     expect(event).to be_full
   end
   
   it "should not be full with max_guests = 1 and one cancelled reply" do
     event = Event.create!(@valid_params.with(:max_guests => 1))
-    reply = event.replies.create!(guest_state: "unknown", :name => 'Kalle', :email => 'kalle@example.org', :ticket_type => mock_model(TicketType))
+    reply = event.replies.create!(:name => 'Kalle', :email => 'kalle@example.org', :ticket_type => mock_model(TicketType))
     reply.cancel!
     
     expect(event).not_to be_full

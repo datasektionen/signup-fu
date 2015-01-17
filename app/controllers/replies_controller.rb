@@ -59,7 +59,7 @@ class RepliesController < ApplicationController
     if request.format == :xml
       params[:reply][:send_signup_confirmation] = false if params[:reply][:send_signup_confirmation].nil?
     end
-    reply_params = params[:reply].merge(guest_state: "unknown")
+    reply_params = params[:reply]
     @reply = @event.replies.new(reply_params)
     
     respond_to do |format|
