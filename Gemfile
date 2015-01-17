@@ -10,10 +10,11 @@ gem 'RedCloth'
 gem 'simple_form'
 gem 'compass'
 gem 'compass-rails'
-gem 'devise'
+gem 'devise', "~> 3.2.0"
 gem 'cancan'
 gem 'delayed_job'
 gem 'jquery-rails'
+gem 'dotenv-rails'
 
 group :assets do
   gem 'sass-rails',   "~> 3.2.3"
