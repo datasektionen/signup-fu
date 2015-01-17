@@ -14,6 +14,7 @@ gem 'devise'
 gem 'cancan'
 gem 'delayed_job'
 gem 'jquery-rails'
+gem 'dotenv-rails'
 
 group :assets do
   gem 'sass-rails',   "~> 3.2.3"

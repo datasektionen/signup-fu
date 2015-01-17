@@ -102,6 +102,9 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.2.5)
+    dotenv (1.0.2)
+    dotenv-rails (1.0.2)
+      dotenv (= 1.0.2)
     erubis (2.7.0)
     execjs (2.2.2)
     factory_girl (2.1.2)
@@ -262,7 +265,8 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner (~> 0.7.0)
   delayed_job
-  devise
+  devise (~> 3.2.0)
+  dotenv-rails
   email_spec!
   factory_girl_rails
   guard
