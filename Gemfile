@@ -10,7 +10,7 @@ gem 'RedCloth'
 gem 'simple_form'
 gem 'compass'
 gem 'compass-rails'
-gem 'devise'
+gem 'devise', "~> 3.2.0"
 gem 'cancan'
 gem 'delayed_job'
 gem 'jquery-rails'
