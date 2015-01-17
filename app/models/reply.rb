@@ -26,19 +26,31 @@ class Reply < ActiveRecord::Base
       transition :reminded => :expired
     end
   end
-  
-  state_machine(:guest_state, :initial => :unknown) do
-    state :unknown
-    state :attending
-    state :cancelled
-    
-    event :cancel do
-      transition :unknown => :cancelled
-    end
-    
-    event :attending do
-      transition :unknown => :attending
-    end
+
+  after_initialize :set_default_guest_state
+
+  def set_default_guest_state
+    self.guest_state ||= 'unknown'
+  end
+
+  def cancel!
+    self.update_attributes!(guest_state: "cancelled")
+  end
+
+  def attending
+    self.update_attributes!(guest_state: "attending")
+  end
+
+  def unknown?
+    self.guest_state == "unknown"
+  end
+
+  def cancelled?
+    self.guest_state == "cancelled"
+  end
+
+  def attending?
+    self.guest_state == "attending"
   end
   
   belongs_to :event

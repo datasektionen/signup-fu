@@ -31,12 +31,12 @@ module EventsHelper
   end
   
   def guest_state(reply)
-    case reply.guest_state_name
-    when :unknown
+    case reply.guest_state
+    when "unknown"
       t('replies.states.guest.new')
-    when :cancelled
+    when "cancelled"
       t('replies.states.guest.cancelled')
-    when :attending
+    when "attending"
       "Attending"
     else
       "Unknown (#{reply.guest_state_name})"

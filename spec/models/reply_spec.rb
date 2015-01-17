@@ -15,7 +15,7 @@ describe Reply do
       :event => @event,
       :name => 'Kalle Anka',
       :email => 'kalle@example.org',
-      :ticket_type => @ticket_type
+      :ticket_type => @ticket_type,
     }
     
     @reply = Reply.new(@valid_attributes)
