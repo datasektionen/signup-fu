@@ -2,13 +2,8 @@ module EmailSpec
   module BackgroundProcesses
     module DelayedJob
       def work_off
-        if Delayed::Job.respond_to?(:work_off)
-          Delayed::Job.work_off
-        else
-          worker = Delayed::Worker.new(:quiet => true)
-          worker.send(:work_off)
-        end
-        
+        worker = Delayed::Worker.new(:quiet => true)
+        worker.send(:work_off)
       end
       def all_emails
         work_off

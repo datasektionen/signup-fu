@@ -26,19 +26,31 @@ class Reply < ActiveRecord::Base
       transition :reminded => :expired
     end
   end
-  
-  state_machine(:guest_state, :initial => :unknown) do
-    state :unknown
-    state :attending
-    state :cancelled
-    
-    event :cancel do
-      transition :unknown => :cancelled
-    end
-    
-    event :attending do
-      transition :unknown => :attending
-    end
+
+  after_initialize :set_default_guest_state
+
+  def set_default_guest_state
+    self.guest_state ||= 'unknown'
+  end
+
+  def cancel!
+    self.update_attributes!(guest_state: "cancelled")
+  end
+
+  def attending
+    self.update_attributes!(guest_state: "attending")
+  end
+
+  def unknown?
+    self.guest_state == "unknown"
+  end
+
+  def cancelled?
+    self.guest_state == "cancelled"
+  end
+
+  def attending?
+    self.guest_state == "attending"
   end
   
   belongs_to :event
@@ -55,9 +67,9 @@ class Reply < ActiveRecord::Base
   
   before_validation :format_pid
   
-  scope :ascend_by_name, order(:name.asc)
-  scope :not_cancelled, where(:guest_state.ne => 'cancelled', :payment_state.ne => 'expired')
-  scope :not_attending, where(:guest_state.ne => 'cancelled', :guest_state.ne => 'attending')
+  scope :ascend_by_name, order(:name)
+  scope :not_cancelled, where("guest_state != 'cancelled'", "payment_state != 'expired'")
+  scope :not_attending, where("guest_state != 'cancelled'", "guest_state != 'attending'")
   scope :paid, where(:payment_state => 'paid')
   scope :unpaid, where(:payment_state => 'new')
   scope :reminded, where(:payment_state => 'reminded')

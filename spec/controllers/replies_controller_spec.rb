@@ -9,9 +9,9 @@ describe RepliesController do
   #  
   #  before do
   #    @event = mock_model(Event)
-  #    @event.stub!(:template).and_return("default")
-  #    @event.stub!(:replies).and_return(mock("proxy thing", :new => Reply.new))
-  #    Event.stub!(:find).with("1").and_return(@event)
+  #    @event.stub(:template).and_return("default")
+  #    @event.stub(:replies).and_return(double("proxy thing", :new => Reply.new))
+  #    Event.stub(:find).with("1").and_return(@event)
   #  end
   #  def do_get(options = {})
   #    get :new, {:event_id => 1}.merge(options)
@@ -56,23 +56,23 @@ describe RepliesController do
         :ticket_type_id => 1
       }
       @reply = mock_model(Reply, :save => true)
-      Reply.stub!(:new).and_return(@reply)
+      allow(Reply).to receive(:new).and_return(@reply)
       
       @event = mock_model(Event)
       mock_association(@event, :replies, :new_object => @reply)
-      Event.stub!(:find).and_return(@event)
+      allow(Event).to receive(:find).and_return(@event)
     end
     
     def mock_association(model, association, options = {})
       if options[:new_object].nil?
         new_object = mock_model(model.class.reflect_on_association(association).class_name.constantize)
-        new_object.stub!(:save).and_return(true)
+        allow(new_object).to receive(:save).and_return(true)
         options[:new_object] = new_object
       end
       
       association_proxy = []
-      association_proxy.stub!(:new).and_return(options[:new_object])
-      model.stub!(association).and_return(association_proxy)
+      allow(association_proxy).to receive(:new).and_return(options[:new_object])
+      allow(model).to receive(association).and_return(association_proxy)
     end
     
     def do_post(reply_params = {}, params = {})
@@ -82,23 +82,23 @@ describe RepliesController do
     end
     
     it "should create a reply" do
-      @event.replies.should_receive(:new).and_return(@reply)
+      expect(@event.replies).to receive(:new).and_return(@reply)
       do_post
     end
     
     it "should render the xml for the created reply" do
-      @reply.stub!(:to_xml).and_return("<xml><for>reply</for></xml>")
+      allow(@reply).to receive(:to_xml).and_return("<xml><for>reply</for></xml>")
       do_post
-      response.body.should eql("<xml><for>reply</for></xml>")
+      expect(response.body).to eql("<xml><for>reply</for></xml>")
     end
     
     it "should default to NOT sending a confirmation mail" do
-      @event.replies.should_receive(:new).with(hash_including(:send_signup_confirmation => false))
+      expect(@event.replies).to receive(:new).with(hash_including(:send_signup_confirmation => false))
       do_post
     end
     
     it "should be possible to sending a confirmation mail" do
-      @event.replies.should_receive(:new).with(hash_including(:send_signup_confirmation => 'true'))
+      expect(@event.replies).to receive(:new).with(hash_including(:send_signup_confirmation => 'true'))
       do_post(:send_signup_confirmation => 'true')
     end
     

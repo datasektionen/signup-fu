@@ -19,12 +19,12 @@ Given "I am logged in as dkm" do
 end
 
 When /^I log in as dkm$/ do
-  Given("I am logged in as dkm")
+  step("I am logged in as dkm")
 end
 
 
 When /^I log in as an admin$/ do
-  Given("I am logged in as an admin")
+  step("I am logged in as an admin")
 end
 
 When "I sign out" do

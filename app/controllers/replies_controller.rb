@@ -59,7 +59,8 @@ class RepliesController < ApplicationController
     if request.format == :xml
       params[:reply][:send_signup_confirmation] = false if params[:reply][:send_signup_confirmation].nil?
     end
-    @reply = @event.replies.new(params[:reply])
+    reply_params = params[:reply]
+    @reply = @event.replies.new(reply_params)
     
     respond_to do |format|
       if @reply.save

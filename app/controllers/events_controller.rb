@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @events = @events.order(:date.asc)
+    @events = @events.order("date asc")
   end
   
   def show

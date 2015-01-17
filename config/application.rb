@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
+I18n.enforce_available_locales = false
+
 module SignupFu
   class Application < Rails::Application
     config.encoding = "utf-8"
@@ -18,5 +20,8 @@ module SignupFu
     config.i18n.default_locale = :'sv-SE'
     
     config.action_view.javascript_expansions[:defaults] = %w(jquery jquery-ui rails application)
+
+    config.assets.enabled = true
+    config.assets.version = '1.0'
   end
 end

@@ -12,32 +12,32 @@ describe User do
     end
 
     it "allows lowercase" do
-      subject.should be_valid
+      expect(subject).to be_valid
     end
 
     it "allows hyphens" do
       subject.name += "-"
-      subject.should be_valid
+      expect(subject).to be_valid
     end
 
     it "allows numbers" do
       subject.name += "0"
-      subject.should be_valid
+      expect(subject).to be_valid
     end
 
     it "disallows capital letters" do
       subject.name += "A"
-      subject.should be_invalid
+      expect(subject).to be_invalid
     end
 
     it "disallows initial hyphen" do
       subject.name = "-" + subject.name
-      subject.should be_invalid
+      expect(subject).to be_invalid
     end
 
     it "disallows initial digit" do
       subject.name = "0" + subject.name
-      subject.should be_invalid
+      expect(subject).to be_invalid
     end
   end
 end

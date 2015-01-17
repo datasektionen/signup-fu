@@ -1,9 +1,10 @@
 Factory.define(:event) do |e|
-  e.date DateTime.new(2012, 9, 9, 9, 9)
-  e.deadline DateTime.new(2012, 8, 8, 8, 8)
+  e.date DateTime.new(2016, 9, 9, 9, 9)
+  e.deadline DateTime.new(2016, 8, 8, 8, 8)
   e.template 'default'
   e.name "MY FUCKING EVENT OF DEATH"
   e.slug "death"
+  e.bounce_address "kaka@example.com"
 end
 
 Factory.define(:my_event, :parent => :event) do |f|

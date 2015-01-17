@@ -13,3 +13,5 @@ rerun.txt
 vendor/plugins/rails_upgradedb/schema.rb
 public/stylesheets/compiled
 .rvmrc
+bin
+.env

@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.0.0'
-gem 'mysql2', '~> 0.2.11'
+gem 'rails', '~> 3.2.0'
+gem 'pg'
 
 gem "liquid"
 gem "haml"
@@ -9,31 +9,39 @@ gem "state_machine"
 gem 'RedCloth'
 gem 'simple_form'
 gem 'compass'
-gem 'meta_where'
-gem 'devise'
+gem 'compass-rails'
+gem 'devise', "~> 3.2.0"
 gem 'cancan'
 gem 'delayed_job'
 gem 'jquery-rails'
-gem 'airbrake'
+gem 'dotenv-rails'
+
+group :assets do
+  gem 'sass-rails',   "~> 3.2.3"
+  gem 'coffee-rails', "~> 3.2.1"
+  gem 'uglifier',     ">= 1.0.3"
+end
 
 group :development, :test do
-  gem 'ruby-debug19'
-  gem 'rspec-rails',"~> 2.6"
+  gem 'email_spec', path: "vendor/gems/email-spec"
+  gem 'rspec-rails',"~> 3.0"
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec-collection_matchers'
   gem 'capybara'
   gem 'database_cleaner', '~> 0.7.0'
-  gem 'cucumber-rails'
-  gem 'cucumber'
-  gem 'spork'
   gem 'launchy'
   gem 'factory_girl_rails'
-  gem 'email_spec'
   gem 'timecop'
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rspec'
   gem 'guard-cucumber'
-  gem 'guard-spork'
   gem 'libnotify'
+  gem 'pry-rails'
+end
+
+group :test do
+  gem 'cucumber-rails', require: false
 end
 
 group :deploy do

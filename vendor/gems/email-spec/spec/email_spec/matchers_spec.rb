@@ -41,7 +41,7 @@ describe EmailSpec::Matchers do
   include EmailSpec::Matchers
 
   def mock_email(stubs)
-    mock("email", stubs)
+    double("email", stubs)
   end
 
   describe "#deliver_to" do
@@ -66,7 +66,7 @@ describe EmailSpec::Matchers do
 
     it "should use the passed in objects :email method if not a string" do
       email = mock_email(:to => "jimmy_bean@yahoo.com")
-      user = mock("user", :email => "jimmy_bean@yahoo.com")
+      user = double("user", :email => "jimmy_bean@yahoo.com")
 
       deliver_to(user).should match(email)
     end
@@ -141,7 +141,7 @@ describe EmailSpec::Matchers do
 
     it "should use the passed in objects :email method if not a string" do
       email = mock_email(:bcc => "jimmy_bean@yahoo.com")
-      user = mock("user", :email => "jimmy_bean@yahoo.com")
+      user = double("user", :email => "jimmy_bean@yahoo.com")
 
       bcc_to(user).should match(email)
     end
